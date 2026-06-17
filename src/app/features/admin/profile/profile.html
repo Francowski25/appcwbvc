@@ -1,0 +1,147 @@
+<div class="p-6">
+  <div class="mb-6">
+    <h2 class="text-xl font-bold text-gray-800">Mi perfil</h2>
+    <p class="text-xs text-gray-400 mt-0.5">Información de tu cuenta</p>
+  </div>
+
+  <div class="grid grid-cols-3 gap-6">
+
+    <!-- COLUMNA IZQUIERDA -->
+    <div class="col-span-1 flex flex-col gap-4">
+
+      <!-- Card avatar -->
+      <div class="bg-white rounded-2xl border border-pink-100 shadow-sm overflow-hidden">
+        <div class="h-20 bg-gradient-to-r from-pink-400 to-pink-600"></div>
+        <div class="px-4 pb-5">
+          <div class="-mt-8 mb-4">
+            <div
+              class="w-16 h-16 rounded-2xl bg-pink-500 border-4 border-white flex items-center justify-center text-white text-xl font-bold shadow-md">
+              {{ user?.firstName?.charAt(0) }}
+            </div>
+          </div>
+          <h3 class="text-base font-bold text-gray-900">{{ user?.firstName }} {{ user?.surName }}</h3>
+          <span
+            class="inline-block mt-1 px-3 py-0.5 rounded-full text-xs font-semibold bg-pink-100 text-pink-600 capitalize">
+            {{ user?.role }}
+          </span>
+
+          <div class="mt-4 flex flex-col gap-2">
+            <div class="flex items-center gap-2 text-xs text-gray-500">
+              <i class="pi pi-envelope text-pink-400 text-xs"></i>
+              <span class="truncate">{{ user?.email }}</span>
+            </div>
+            <div class="flex items-center gap-2 text-xs" [class.text-green-600]="user?.status === 'activo'"
+              [class.text-red-500]="user?.status !== 'activo'">
+              <i class="pi pi-circle-fill text-xs"></i>
+              <span class="capitalize">{{ user?.status }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card acciones -->
+      <div class="bg-white rounded-2xl border border-pink-100 shadow-sm p-4 flex flex-col gap-2">
+        <p class="text-xs font-semibold text-pink-400 uppercase tracking-wider mb-1">Acciones</p>
+
+        <a routerLink="/admin/profile/edit-profile"
+          class="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-pink-50 transition-colors group">
+          <div
+            class="w-8 h-8 rounded-lg bg-pink-100 flex items-center justify-center group-hover:bg-pink-200 transition-colors shrink-0">
+            <i class="pi pi-pencil text-pink-500 text-xs"></i>
+          </div>
+          <div>
+            <p class="text-sm font-semibold text-gray-800 m-0">Editar perfil</p>
+            <p class="text-xs text-gray-400 m-0">Actualizar información</p>
+          </div>
+          <i class="pi pi-chevron-right text-pink-300 text-xs ml-auto"></i>
+        </a>
+
+        <a routerLink="/admin/profile/password-settings"
+          class="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-pink-50 transition-colors group">
+          <div
+            class="w-8 h-8 rounded-lg bg-pink-100 flex items-center justify-center group-hover:bg-pink-200 transition-colors shrink-0">
+            <i class="pi pi-lock text-pink-500 text-xs"></i>
+          </div>
+          <div>
+            <p class="text-sm font-semibold text-gray-800 m-0">Contraseña</p>
+            <p class="text-xs text-gray-400 m-0">Cambiar contraseña</p>
+          </div>
+          <i class="pi pi-chevron-right text-pink-300 text-xs ml-auto"></i>
+        </a>
+      </div>
+
+    </div>
+
+    <!-- COLUMNA DERECHA -->
+    <div class="col-span-2 flex flex-col gap-4">
+
+      <!-- Card información personal -->
+      <div class="bg-white rounded-2xl border border-pink-100 shadow-sm p-5">
+        <div class="flex items-center gap-2 mb-4">
+          <div class="w-7 h-7 rounded-lg bg-pink-100 flex items-center justify-center">
+            <i class="pi pi-user text-pink-500 text-xs"></i>
+          </div>
+          <p class="text-sm font-bold text-gray-800 m-0">Información personal</p>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+
+          <div class="flex flex-col gap-1 p-3 rounded-xl bg-pink-50/50 border border-pink-100">
+            <span class="text-xs font-semibold text-pink-400 uppercase tracking-wider">Nombre</span>
+            <span class="text-sm font-semibold text-gray-800">{{ user?.firstName }}</span>
+          </div>
+
+          <div class="flex flex-col gap-1 p-3 rounded-xl bg-pink-50/50 border border-pink-100">
+            <span class="text-xs font-semibold text-pink-400 uppercase tracking-wider">Apellido</span>
+            <span class="text-sm font-semibold text-gray-800">{{ user?.surName }}</span>
+          </div>
+
+          <div class="col-span-2 flex flex-col gap-1 p-3 rounded-xl bg-pink-50/50 border border-pink-100">
+            <span class="text-xs font-semibold text-pink-400 uppercase tracking-wider">Correo electrónico</span>
+            <span class="text-sm font-semibold text-gray-800">{{ user?.email }}</span>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Card cuenta -->
+      <div class="bg-white rounded-2xl border border-pink-100 shadow-sm p-5">
+        <div class="flex items-center gap-2 mb-4">
+          <div class="w-7 h-7 rounded-lg bg-pink-100 flex items-center justify-center">
+            <i class="pi pi-shield text-pink-500 text-xs"></i>
+          </div>
+          <p class="text-sm font-bold text-gray-800 m-0">Cuenta</p>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+
+          <div class="flex flex-col gap-1 p-3 rounded-xl bg-pink-50/50 border border-pink-100">
+            <span class="text-xs font-semibold text-pink-400 uppercase tracking-wider">Rol</span>
+            <span class="text-sm font-semibold text-gray-800 capitalize">{{ user?.role }}</span>
+          </div>
+
+          <div class="flex flex-col gap-1 p-3 rounded-xl bg-pink-50/50 border border-pink-100">
+            <span class="text-xs font-semibold text-pink-400 uppercase tracking-wider">Estado</span>
+            <span class="text-sm font-semibold capitalize" [class.text-green-600]="user?.status === 'activo'"
+              [class.text-red-500]="user?.status !== 'activo'">
+              {{ user?.status }}
+            </span>
+          </div>
+
+          <div class="flex flex-col gap-1 p-3 rounded-xl bg-pink-50/50 border border-pink-100">
+            <span class="text-xs font-semibold text-pink-400 uppercase tracking-wider">Creado</span>
+            <span class="text-sm font-semibold text-gray-800">{{ user?.createdAt | date:'dd/MM/yyyy' }}</span>
+          </div>
+
+          <div class="flex flex-col gap-1 p-3 rounded-xl bg-pink-50/50 border border-pink-100">
+            <span class="text-xs font-semibold text-pink-400 uppercase tracking-wider">Actualizado</span>
+            <span class="text-sm font-semibold text-gray-800">{{ user?.updatedAt | date:'dd/MM/yyyy' }}</span>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>

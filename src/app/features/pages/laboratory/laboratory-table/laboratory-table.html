@@ -1,0 +1,169 @@
+<div class="rounded-2xl overflow-hidden shadow-sm border border-gray-100 bg-white">
+
+    <div class="flex items-center justify-between px-5 py-4 border-b border-gray-50">
+        <div class="flex items-center gap-3">
+            <div class="bg-pink-100 p-2 rounded-xl">
+                <i class="pi pi-tag text-pink-500 text-base"></i>
+            </div>
+            <div>
+                <h2 class="text-base font-bold text-gray-800">Listado de Laboratorios</h2>
+                <p class="text-[11px] text-gray-400 mt-0.5">
+                    {{ total() }} {{ total() === 1 ? 'categoría encontrada' : 'categorías encontradas' }}
+                </p>
+            </div>
+        </div>
+
+        <div class="flex items-center gap-2">
+            <button type="button" (click)="onExportExcel.emit()" pTooltip="Exportar a Excel" tooltipPosition="top"
+                class="flex items-center gap-2 bg-white hover:bg-emerald-50 text-emerald-600 border border-emerald-200 hover:border-emerald-300 px-3 py-2 rounded-xl text-xs font-bold transition-all shadow-sm cursor-pointer">
+                <i class="pi pi-file-excel text-sm"></i>
+                <span>Excel</span>
+            </button>
+            <button type="button" (click)="onExportPdf.emit()" pTooltip="Exportar a PDF" tooltipPosition="top"
+                class="flex items-center gap-2 bg-white hover:bg-red-50 text-red-500 border border-red-200 hover:border-red-300 px-3 py-2 rounded-xl text-xs font-bold transition-all shadow-sm cursor-pointer">
+                <i class="pi pi-file-pdf text-sm"></i>
+                <span>PDF</span>
+            </button>
+            <button type="button" (click)="crearLaboratorio.emit()"
+                class="flex items-center gap-2 bg-pink-500 hover:bg-pink-600 text-white px-3 py-2 rounded-xl text-xs font-bold transition-all shadow-sm cursor-pointer">
+                <i class="pi pi-plus text-xs"></i>
+                <span>Agregar laboratorio</span>
+            </button>
+        </div>
+    </div>
+
+    @if(error()) {
+    <div class="mx-4 mt-4 p-3 bg-red-50 border border-red-100 rounded-xl text-red-500 text-xs flex items-center gap-2">
+        <i class="pi pi-exclamation-circle"></i>
+        {{ error() }}
+    </div>
+    }
+
+    <div class="w-full overflow-x-auto">
+        <p-table [value]="laboratorios()" [loading]="loading()" [rowHover]="true" [paginator]="true" [rows]="5"
+            [showCurrentPageReport]="true" styleClass="p-datatable-sm" [tableStyle]="{ 'min-width': '45rem' }">
+
+            <ng-template #header>
+                <tr class="bg-pink-50/70 text-left">
+
+                    <th class="text-xs font-semibold text-pink-400 uppercase tracking-wider px-4 py-3 w-24 text-center">
+                        Imagen
+                    </th>
+
+                    <th pSortableColumn="name"
+                        class="text-xs font-bold text-pink-500 uppercase tracking-wider px-4 py-3 cursor-pointer hover:bg-pink-100/40 transition-colors">
+                        <div class="flex items-center gap-1.5">
+                            <i class="pi pi-tag text-xs"></i>
+                            <span>Nombre del Laboratorio</span>
+                            <p-sortIcon field="name" />
+                        </div>
+                    </th>
+
+                    <th pSortableColumn="totalProducts"
+                        class="text-xs font-bold text-pink-500 uppercase tracking-wider px-4 py-3 cursor-pointer hover:bg-pink-100/40 transition-colors">
+                        <div class="flex items-center gap-1.5">
+                            <i class="pi pi-box text-xs"></i>
+                            <span>Total de Productos</span>
+                            <p-sortIcon field="totalProducts" />
+                        </div>
+                    </th>
+
+                    <th pSortableColumn="status"
+                        class="text-xs font-bold text-pink-500 uppercase tracking-wider px-4 py-3 w-40 cursor-pointer hover:bg-pink-100/40 transition-colors">
+                        <div class="flex items-center gap-1.5">
+                            <i class="pi pi-info-circle text-xs"></i>
+                            <span>Estado</span>
+                            <p-sortIcon field="status" />
+                        </div>
+                    </th>
+
+                    <th class="text-xs font-bold text-pink-500 uppercase tracking-wider px-4 py-3 w-44 text-center">
+                        <div class="flex items-center justify-center gap-1.5">
+                            <i class="pi pi-cog text-xs"></i>
+                            <span>Acciones</span>
+                        </div>
+                    </th>
+
+                </tr>
+            </ng-template>
+
+            <ng-template #body let-cat>
+                <tr class="hover:bg-pink-50/30 transition-colors border-b border-gray-50 last:border-0">
+
+                    <td class="px-4 py-3 text-center align-middle">
+                        @if(cat.image) {
+                        <img [src]="'/images/category/' + cat.image" [alt]="cat.name"
+                            class="w-14 h-14 mx-auto rounded-2xl object-cover border border-pink-100 shadow-sm hover:scale-105 transition-transform duration-300" />
+                        } @else {
+                        <div
+                            class="w-14 h-14 mx-auto rounded-2xl bg-gray-50 border border-dashed border-gray-200 flex flex-col items-center justify-center gap-0.5">
+                            <i class="pi pi-image text-gray-300 text-xl"></i>
+                            <span class="text-[9px] text-gray-400 font-semibold uppercase">Sin foto</span>
+                        </div>
+                        }
+                    </td>
+
+                    <td class="px-4 py-3 align-middle">
+                        <span class="font-semibold text-sm text-gray-800">{{ cat.name }}</span>
+                    </td>
+
+                    <td class="px-4 py-3 align-middle">
+                        <div class="flex items-center gap-2">
+                            <span class="font-bold text-sm text-gray-700">{{ cat.totalProducts }}</span>
+                            @if((cat.totalProducts || 0) > 0) {
+                            <span class="text-[10px] text-slate-400 font-medium">productos</span>
+                            } @else {
+                            <span class="text-[10px] text-rose-400 font-medium italic">Sin productos</span>
+                            }
+                        </div>
+                    </td>
+
+                    <td class="px-4 py-3 align-middle">
+                        <div class="flex items-center gap-1.5">
+                            <span class="w-1.5 h-1.5 rounded-full"
+                                [class]="cat.status === 'activo' ? 'bg-emerald-500' : 'bg-rose-500'"></span>
+                            <span class="text-xs font-bold"
+                                [class]="cat.status === 'activo' ? 'text-emerald-600' : 'text-rose-500'">
+                                {{ cat.status | titlecase }}
+                            </span>
+                        </div>
+                    </td>
+
+                    <td class="px-4 py-3 align-middle">
+                        <div class="flex items-center justify-center gap-1">
+                            <button type="button" (click)="onEdit.emit(cat)" pTooltip="Ver detalle"
+                                tooltipPosition="top"
+                                class="w-8 h-8 flex items-center justify-center rounded-xl text-slate-400 hover:text-blue-600 hover:bg-blue-50 transition-all cursor-pointer">
+                                <i class="pi pi-eye text-sm"></i>
+                            </button>
+                            <button type="button" (click)="onToggleStatus.emit(cat)"
+                                [pTooltip]="cat.status === 'activo' ? 'Desactivar' : 'Activar'" tooltipPosition="top"
+                                class="w-8 h-8 flex items-center justify-center rounded-xl transition-all cursor-pointer"
+                                [class]="cat.status === 'activo'
+                  ? 'text-slate-400 hover:text-red-500 hover:bg-red-50'
+                  : 'text-slate-400 hover:text-emerald-500 hover:bg-emerald-50'">
+                                <i class="text-sm"
+                                    [class]="cat.status === 'activo' ? 'pi pi-ban' : 'pi pi-check-circle'"></i>
+                            </button>
+                        </div>
+                    </td>
+
+                </tr>
+            </ng-template>
+
+            <ng-template #emptymessage>
+                <tr>
+                    <td colspan="5">
+                        <div class="flex flex-col items-center justify-center py-12 gap-2">
+                            <i class="pi pi-inbox text-4xl text-pink-200"></i>
+                            <p class="text-xs font-medium text-gray-400">No se encontraron categorías.</p>
+                            <p class="text-[11px] text-gray-400/70">Intenta ajustar los filtros de búsqueda</p>
+                        </div>
+                    </td>
+                </tr>
+            </ng-template>
+
+        </p-table>
+    </div>
+
+</div>

@@ -1,0 +1,24 @@
+@import "primeicons/primeicons.css";
+@import "tailwindcss";
+
+.errorMessage {
+    color: red;
+}
+
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #fbcfe8;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #f472b6;
+}

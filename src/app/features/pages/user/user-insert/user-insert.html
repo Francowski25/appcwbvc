@@ -1,0 +1,220 @@
+<div class="px-6 max-w-4xl mx-auto">
+
+    <div class="card bg-white rounded-2xl border border-pink-100 w-full p-6">
+        <form [formGroup]="frmInsertUser">
+
+            <!-- Sección: Datos personales -->
+            <p class="text-xs font-bold text-pink-400 uppercase tracking-widest mb-3">Datos Personales</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+
+                <div class="flex flex-col gap-1.5">
+                    <label class="text-xs font-bold text-slate-400 uppercase tracking-wider">
+                        Nombres <span class="text-pink-400">*</span>
+                    </label>
+                    <input pInputText formControlName="firstName" placeholder="Ej. Juan Carlos"
+                        class="w-full text-xs py-2.5 rounded-xl border-gray-200 focus:border-pink-300" />
+                    @if((firstNameFb.touched || firstNameFb.dirty) && firstNameFb.hasError('required')) {
+                    <small class="text-[11px] text-red-500 font-medium flex items-center gap-1">
+                        <i class="pi pi-exclamation-circle text-[10px]"></i> Campo requerido.
+                    </small>
+                    }
+                    @if((firstNameFb.touched || firstNameFb.dirty) && firstNameFb.hasError('maxlength')) {
+                    <small class="text-[11px] text-red-500 font-medium flex items-center gap-1">
+                        <i class="pi pi-exclamation-circle text-[10px]"></i> Máximo 70 caracteres.
+                    </small>
+                    }
+                </div>
+
+                <div class="flex flex-col gap-1.5">
+                    <label class="text-xs font-bold text-slate-400 uppercase tracking-wider">
+                        Apellidos <span class="text-pink-400">*</span>
+                    </label>
+                    <input pInputText formControlName="surName" placeholder="Ej. Casas Pompa"
+                        class="w-full text-xs py-2.5 rounded-xl border-gray-200 focus:border-pink-300" />
+                    @if((surNameFb.touched || surNameFb.dirty) && surNameFb.hasError('required')) {
+                    <small class="text-[11px] text-red-500 font-medium flex items-center gap-1">
+                        <i class="pi pi-exclamation-circle text-[10px]"></i> Campo requerido.
+                    </small>
+                    }
+                </div>
+
+                <div class="flex flex-col gap-1.5">
+                    <label class="text-xs font-bold text-slate-400 uppercase tracking-wider">
+                        Dni <span class="text-pink-400">*</span>
+                    </label>
+                    <input pInputText formControlName="dni" placeholder="Ej. 12345678"
+                        class="w-full text-xs py-2.5 rounded-xl border-gray-200 focus:border-pink-300" />
+                    @if((dniFb.touched || dniFb.dirty) && dniFb.hasError('required')) {
+                    <small class="text-[11px] text-red-500 font-medium flex items-center gap-1">
+                        <i class="pi pi-exclamation-circle text-[10px]"></i> Campo requerido.
+                    </small>
+                    }
+                    @if((dniFb.touched || dniFb.dirty) && dniFb.hasError('pattern')) {
+                    <small class="text-[11px] text-red-500 font-medium flex items-center gap-1">
+                        <i class="pi pi-exclamation-circle text-[10px]"></i> El DNI debe contener 8 números.
+                    </small>
+                    }
+                </div>
+
+                <div class="flex flex-col gap-1.5">
+                    <label class="text-xs font-bold text-slate-400 uppercase tracking-wider">
+                        Celular <span class="text-pink-400">*</span>
+                    </label>
+                    <input pInputText formControlName="cellPhone" placeholder="Ej. 12345678"
+                        class="w-full text-xs py-2.5 rounded-xl border-gray-200 focus:border-pink-300" />
+                    @if((cellPhoneFb.touched || cellPhoneFb.dirty) && cellPhoneFb.hasError('required')) {
+                    <small class="text-[11px] text-red-500 font-medium flex items-center gap-1">
+                        <i class="pi pi-exclamation-circle text-[10px]"></i> Campo requerido.
+                    </small>
+                    }
+                    @if((cellPhoneFb.touched || cellPhoneFb.dirty) && cellPhoneFb.hasError('pattern')) {
+                    <small class="text-[11px] text-red-500 font-medium flex items-center gap-1">
+                        <i class="pi pi-exclamation-circle text-[10px]"></i> El celular debe contener 9 números.
+                    </small>
+                    }
+                </div>
+
+            </div>
+
+            <!-- Sección: Acceso al sistema -->
+            <p class="text-xs font-bold text-pink-400 uppercase tracking-widest mb-3">Acceso al Sistema</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+
+                <div class="flex flex-col gap-1.5">
+                    <label class="text-xs font-bold text-slate-400 uppercase tracking-wider">
+                        Correo Electrónico <span class="text-pink-400">*</span>
+                    </label>
+                    <input pInputText type="email" formControlName="email" placeholder="usuario@botica.com"
+                        class="w-full text-xs py-2.5 rounded-xl border-gray-200 focus:border-pink-300" />
+                    @if((emailFb.touched || emailFb.dirty) && emailFb.hasError('required')) {
+                    <small class="text-[11px] text-red-500 font-medium flex items-center gap-1">
+                        <i class="pi pi-exclamation-circle text-[10px]"></i> Campo requerido.
+                    </small>
+                    }
+                    @if((emailFb.touched || emailFb.dirty) && emailFb.hasError('email')) {
+                    <small class="text-[11px] text-red-500 font-medium flex items-center gap-1">
+                        <i class="pi pi-exclamation-circle text-[10px]"></i> Formato de correo inválido.
+                    </small>
+                    }
+                </div>
+
+
+                <div class="flex flex-col gap-1.5">
+                    <label class="text-xs font-bold text-slate-400 uppercase tracking-wider">
+                        Rol Asignado <span class="text-pink-400">*</span>
+                    </label>
+                    <p-select [options]="listRoles" formControlName="role" optionLabel="label"
+                        placeholder="Seleccione un rol"
+                        class="w-full text-xs rounded-xl border-gray-200 focus:border-pink-300" />
+                    @if((roleFb.touched || roleFb.dirty) && roleFb.hasError('required')) {
+                    <small class="text-[11px] text-red-500 font-medium flex items-center gap-1">
+                        <i class="pi pi-exclamation-circle text-[10px]"></i> Campo requerido.
+                    </small>
+                    }
+                </div>
+
+                <div class="flex flex-col gap-1.5">
+                    <label class="text-xs font-bold text-slate-400 uppercase tracking-wider">
+                        Avatar
+                        <span class="text-gray-300 font-normal normal-case">(Opcional)</span>
+                    </label>
+
+                    <div class="flex items-center gap-3">
+                        <!-- Preview -->
+                        @if(previewUrl) {
+                        <img [src]="previewUrl" alt="Preview"
+                            class="w-10 h-10 rounded-full object-cover ring-2 ring-pink-100" />
+                        } @else {
+                        <div
+                            class="w-10 h-10 rounded-full bg-pink-50 flex items-center justify-center ring-2 ring-pink-100">
+                            <i class="pi pi-user text-pink-300"></i>
+                        </div>
+                        }
+
+                        <label for="fileAvatar"
+                            class="flex items-center gap-2 bg-white hover:bg-gray-50 text-slate-600 border border-gray-200 px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer">
+                            <i class="pi pi-upload text-sm"></i>
+                            <span>{{ selectedFileName || 'Seleccionar imagen' }}</span>
+                        </label>
+                        <input id="fileAvatar" type="file" accept="image/*" class="hidden"
+                            (change)="onFileSelected($event)" />
+                    </div>
+                </div>
+
+            </div>
+
+            <p class="text-xs font-bold text-pink-400 uppercase tracking-widest mb-3">Contraseña</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+
+                <div class="flex flex-col gap-1.5">
+                    <label class="text-xs font-bold text-slate-400 uppercase tracking-wider">
+                        Contraseña <span class="text-pink-400">*</span>
+                    </label>
+                    <input pInputText type="password" formControlName="password" placeholder="Mínimo 6 caracteres"
+                        class="w-full text-xs py-2.5 rounded-xl border-gray-200 focus:border-pink-300" />
+                    @if((passwordFb.touched || passwordFb.dirty) && passwordFb.hasError('required')) {
+                    <small class="text-[11px] text-red-500 font-medium flex items-center gap-1">
+                        <i class="pi pi-exclamation-circle text-[10px]"></i> Campo requerido.
+                    </small>
+                    }
+                    @if((passwordFb.touched || passwordFb.dirty) && passwordFb.hasError('minlength')) {
+                    <small class="text-[11px] text-red-500 font-medium flex items-center gap-1">
+                        <i class="pi pi-exclamation-circle text-[10px]"></i> Mínimo 6 caracteres.
+                    </small>
+                    }
+                </div>
+
+                <div class="flex flex-col gap-1.5">
+                    <label class="text-xs font-bold text-slate-400 uppercase tracking-wider">
+                        Confirmar Contraseña <span class="text-pink-400">*</span>
+                    </label>
+                    <input pInputText type="password" formControlName="confirmPassword"
+                        placeholder="Repite la contraseña"
+                        class="w-full text-xs py-2.5 rounded-xl border-gray-200 focus:border-pink-300" />
+                    @if((confirmPasswordFb.touched || confirmPasswordFb.dirty) &&
+                    confirmPasswordFb.hasError('required')) {
+                    <small class="text-[11px] text-red-500 font-medium flex items-center gap-1">
+                        <i class="pi pi-exclamation-circle text-[10px]"></i> Campo requerido.
+                    </small>
+                    }
+                    @if((confirmPasswordFb.touched || confirmPasswordFb.dirty) &&
+                    frmInsertUser.hasError('passwordMismatch')) {
+                    <small class="text-[11px] text-red-500 font-medium flex items-center gap-1">
+                        <i class="pi pi-exclamation-circle text-[10px]"></i> Las contraseñas no coinciden.
+                    </small>
+                    }
+                </div>
+
+            </div>
+
+            <hr class="border-pink-50 my-4">
+        </form>
+        <div class="flex justify-between items-center">
+            <small class="text-[11px] text-gray-400">
+                <span class="text-pink-400">*</span> Campos obligatorios
+            </small>
+            <div class="flex gap-3 items-center">
+                @if(isLoading) {
+                <p-progressSpinner styleClass="w-6 h-6" strokeWidth="4" />
+                }
+                <div class="flex justify-end items-center gap-3">
+                    <button type="button" (click)="closeDialog()"
+                        class="flex items-center justify-center gap-2 bg-white hover:bg-slate-50 text-slate-500 border border-slate-200 px-5 py-2.5 rounded-xl text-xs font-bold transition-all shadow-sm cursor-pointer">
+                        <i class="pi pi-arrow-left text-xs"></i>
+                        <span>Regresar</span>
+                    </button>
+
+                    <button type="button" (click)="sendInsertUser($event)"
+                        class="flex items-center justify-center gap-2 bg-pink-500 hover:bg-pink-600 text-white border border-pink-500 hover:border-pink-600 px-5 py-2.5 rounded-xl text-xs font-bold transition-all shadow-sm cursor-pointer">
+                        <i class="pi pi-plus text-xs"></i>
+                        <span>Registrar Usuario</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

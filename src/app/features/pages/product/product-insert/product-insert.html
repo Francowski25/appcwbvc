@@ -1,0 +1,210 @@
+<div class="px-6 max-w-4xl mx-auto animate-fade-in">
+    <div class="card bg-white rounded-2xl border border-pink-100 w-full p-6 shadow-sm">
+        <form [formGroup]="frmInsertProduct" (ngSubmit)="sendInsertProduct($event)" novalidate>
+
+            <div class="flex flex-col sm:flex-row items-center gap-5 mb-6 pb-6 border-b border-pink-50">
+                <div
+                    class="w-24 h-24 shrink-0 rounded-2xl overflow-hidden border border-gray-100 bg-pink-50 flex items-center justify-center ring-2 ring-pink-100 shadow-inner">
+                    @if (previewUrl()) {
+                    <img [src]="previewUrl()" alt="Preview del Producto" class="w-full h-full object-cover" />
+                    } @else {
+                    <i class="pi pi-box text-pink-300 text-3xl"></i>
+                    }
+                </div>
+                <div class="flex flex-col text-center sm:text-left flex-1 gap-2">
+                    <label class="text-xs font-bold text-slate-400 uppercase tracking-wider">
+                        Imagen del Producto <span class="text-gray-300 font-normal normal-case">(Opcional)</span>
+                    </label>
+                    <div class="flex justify-center sm:justify-start">
+                        <label for="fileProduct" [class.opacity-60]="isLoading()"
+                            [class.pointer-events-none]="isLoading()"
+                            class="flex items-center gap-2 bg-white hover:bg-gray-50 text-slate-600 border border-gray-200 px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer shadow-sm">
+                            <i class="pi pi-upload text-sm"></i>
+                            <span>{{ selectedFileName() || 'Seleccionar imagen' }}</span>
+                        </label>
+                        <input id="fileProduct" type="file" accept="image/*" class="hidden"
+                            (change)="onFileSelected($event)" [disabled]="isLoading()" />
+                    </div>
+                </div>
+            </div>
+
+            <p class="text-xs font-bold text-pink-400 uppercase tracking-widest mb-3">Información General</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+
+                <div class="flex flex-col gap-1.5">
+                    <label class="text-xs font-bold text-slate-400 uppercase tracking-wider">
+                        Nombre del Producto <span class="text-pink-400">*</span>
+                    </label>
+                    <input pInputText formControlName="name" placeholder="Ej. Paracetamol 500mg"
+                        [readonly]="isLoading()"
+                        class="w-full text-xs py-2.5 rounded-xl border-gray-200 focus:border-pink-300" />
+                    @if((nameFb.touched || nameFb.dirty) && nameFb.hasError('required')) {
+                    <small class="text-[11px] text-red-500 font-medium flex items-center gap-1 animate-slide-down">
+                        <i class="pi pi-exclamation-circle text-[10px]"></i> El nombre es requerido.
+                    </small>
+                    }
+                </div>
+
+                <div class="flex flex-col gap-1.5">
+                    <label class="text-xs font-bold text-slate-400 uppercase tracking-wider">
+                        Código de Barras <span class="text-pink-400">*</span>
+                    </label>
+                    <input pInputText formControlName="barcode" placeholder="Ej. 7501234567891" [readonly]="isLoading()"
+                        class="w-full text-xs py-2.5 rounded-xl border-gray-200 focus:border-pink-300" />
+                    @if((barcodeFb.touched || barcodeFb.dirty) && barcodeFb.hasError('required')) {
+                    <small class="text-[11px] text-red-500 font-medium flex items-center gap-1 animate-slide-down">
+                        <i class="pi pi-exclamation-circle text-[10px]"></i> El código de barras es requerido.
+                    </small>
+                    }
+                </div>
+
+                <div class="flex flex-col gap-1.5">
+                    <label class="text-xs font-bold text-slate-400 uppercase tracking-wider">
+                        Categoría <span class="text-pink-400">*</span>
+                    </label>
+                    <p-autocomplete formControlName="category" [suggestions]="categorySuggestions()"
+                        (completeMethod)="onSearchCategory($event)" optionLabel="label"
+                        placeholder="Buscar categoría..." [disabled]="isLoading()" [forceSelection]="true"
+                        styleClass="w-full"
+                        inputStyleClass="w-full text-xs py-2.5 rounded-xl border-gray-200 focus:border-pink-300" />
+                    @if((categoryFb.touched || categoryFb.dirty) && categoryFb.hasError('required')) {
+                    <small class="text-[11px] text-red-500 font-medium flex items-center gap-1 animate-slide-down">
+                        <i class="pi pi-exclamation-circle text-[10px]"></i> Debe seleccionar una categoría.
+                    </small>
+                    }
+                </div>
+
+                <div class="flex flex-col gap-1.5">
+                    <label class="text-xs font-bold text-slate-400 uppercase tracking-wider">
+                        Laboratorio <span class="text-pink-400">*</span>
+                    </label>
+                    <p-autocomplete formControlName="laboratory" [suggestions]="laboratorySuggestions()"
+                        (completeMethod)="onSearchLaboratory($event)" optionLabel="label"
+                        placeholder="Buscar laboratorio..." [disabled]="isLoading()" [forceSelection]="true"
+                        styleClass="w-full"
+                        inputStyleClass="w-full text-xs py-2.5 rounded-xl border-gray-200 focus:border-pink-300" />
+                    @if((laboratoryFb.touched || laboratoryFb.dirty) && laboratoryFb.hasError('required')) {
+                    <small class="text-[11px] text-red-500 font-medium flex items-center gap-1 animate-slide-down">
+                        <i class="pi pi-exclamation-circle text-[10px]"></i> Debe seleccionar un laboratorio.
+                    </small>
+                    }
+                </div>
+
+            </div>
+
+            <p class="text-xs font-bold text-pink-400 uppercase tracking-widest mb-3">Precios y Control de Inventario
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                <div class="flex flex-col gap-1.5">
+                    <label class="text-xs font-bold text-slate-400 uppercase tracking-wider">
+                        Precio de Venta <span class="text-pink-400">*</span>
+                    </label>
+                    <p-inputnumber formControlName="priceSale" mode="currency" currency="PEN" locale="es-PE"
+                        placeholder="S/ 0.00" [disabled]="isLoading()" styleClass="w-full"
+                        inputStyleClass="w-full text-xs py-2.5 rounded-xl border-gray-200 focus:border-pink-300" />
+                    @if((priceSaleFb.touched || priceSaleFb.dirty) && priceSaleFb.hasError('required')) {
+                    <small class="text-[11px] text-red-500 font-medium flex items-center gap-1 animate-slide-down">
+                        <i class="pi pi-exclamation-circle text-[10px]"></i> Campo requerido.
+                    </small>
+                    }
+                </div>
+
+                <div class="flex flex-col gap-1.5">
+                    <label class="text-xs font-bold text-slate-400 uppercase tracking-wider">
+                        Stock Total <span class="text-pink-400">*</span>
+                    </label>
+                    <p-inputnumber formControlName="totalStock" placeholder="Ej. 200" [min]="0" [disabled]="isLoading()"
+                        styleClass="w-full"
+                        inputStyleClass="w-full text-xs py-2.5 rounded-xl border-gray-200 focus:border-pink-300" />
+                    @if((totalStockFb.touched || totalStockFb.dirty) && totalStockFb.hasError('required')) {
+                    <small class="text-[11px] text-red-500 font-medium flex items-center gap-1 animate-slide-down">
+                        <i class="pi pi-exclamation-circle text-[10px]"></i> Campo requerido.
+                    </small>
+                    }
+                </div>
+
+                <div class="flex flex-col gap-1.5">
+                    <label class="text-xs font-bold text-slate-400 uppercase tracking-wider">
+                        Stock Mínimo <span class="text-pink-400">*</span>
+                    </label>
+                    <p-inputnumber formControlName="stockMinimum" placeholder="Ej. 10" [min]="0"
+                        [disabled]="isLoading()" styleClass="w-full"
+                        inputStyleClass="w-full text-xs py-2.5 rounded-xl border-gray-200 focus:border-pink-300" />
+                    @if((stockMinimumFb.touched || stockMinimumFb.dirty) && stockMinimumFb.hasError('required')) {
+                    <small class="text-[11px] text-red-500 font-medium flex items-center gap-1 animate-slide-down">
+                        <i class="pi pi-exclamation-circle text-[10px]"></i> Campo requerido.
+                    </small>
+                    }
+                </div>
+            </div>
+
+            <p class="text-xs font-bold text-pink-400 uppercase tracking-widest mb-3">Regulación y Vencimiento</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+
+                <div class="flex flex-col gap-1.5">
+                    <label class="text-xs font-bold text-slate-400 uppercase tracking-wider">
+                        ¿Requiere Receta Médica? <span class="text-pink-400">*</span>
+                    </label>
+                    <div class="flex items-center gap-6 h-[38px]">
+                        <div class="flex items-center gap-2">
+                            <p-radiobutton formControlName="requiresPrescription" [value]="true"
+                                inputId="prescripcionSi" [disabled]="isLoading()" />
+                            <label for="prescripcionSi" class="text-xs text-slate-600 cursor-pointer">Sí</label>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <p-radiobutton formControlName="requiresPrescription" [value]="false"
+                                inputId="prescripcionNo" [disabled]="isLoading()" />
+                            <label for="prescripcionNo" class="text-xs text-slate-600 cursor-pointer">No</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex flex-col gap-1.5">
+                    <label class="text-xs font-bold text-slate-400 uppercase tracking-wider">
+                        Próximo Vencimiento <span class="text-gray-300 font-normal normal-case">(Opcional)</span>
+                    </label>
+                    <input pInputText type="date" formControlName="nextExpiration" [readonly]="isLoading()"
+                        class="w-full text-xs py-2.5 rounded-xl border-gray-200 focus:border-pink-300" />
+                </div>
+
+            </div>
+
+            <p class="text-xs font-bold text-pink-400 uppercase tracking-widest mb-3">Descripción</p>
+            <div class="grid grid-cols-1 gap-4 mb-6">
+                <div class="flex flex-col gap-1.5">
+                    <textarea pTextarea formControlName="description" rows="3" [readonly]="isLoading()"
+                        placeholder="Añada detalles adicionales sobre el fármaco, composición, etc..."
+                        class="w-full text-xs p-3 rounded-xl border-gray-200 focus:border-pink-300 resize-none"></textarea>
+                </div>
+            </div>
+
+            <hr class="border-pink-50 my-4">
+
+            <div class="flex justify-between items-center">
+                <small class="text-[11px] text-gray-400">
+                    <span class="text-pink-400">*</span> Campos obligatorios
+                </small>
+                <div class="flex gap-3 items-center">
+                    @if(isLoading()) {
+                    <p-progressspinner styleClass="w-6 h-6" strokeWidth="4" />
+                    }
+                    <div class="flex justify-end items-center gap-3">
+                        <button type="button" (click)="closeDialog()" [disabled]="isLoading()"
+                            class="flex items-center justify-center gap-2 bg-white hover:bg-slate-50 text-slate-500 border border-slate-200 px-5 py-2.5 rounded-xl text-xs font-bold transition-all shadow-sm cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed">
+                            <i class="pi pi-arrow-left text-xs"></i>
+                            <span>Regresar</span>
+                        </button>
+                        <button type="submit" [disabled]="isLoading()"
+                            class="flex items-center justify-center gap-2 bg-pink-500 hover:bg-pink-600 text-white border border-pink-500 hover:border-pink-600 px-5 py-2.5 rounded-xl text-xs font-bold transition-all shadow-sm cursor-pointer disabled:bg-pink-300 disabled:border-pink-300 disabled:cursor-not-allowed">
+                            <i class="pi pi-plus text-xs"></i>
+                            <span>{{ isLoading() ? 'Registrando...' : 'Registrar Producto' }}</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>

@@ -1,0 +1,85 @@
+<div class="p-6 pb-0">
+  <app-product-kpi [total]="totalProductosQty()" [agotados]="productosAgotadosQty()"
+    [porVencer]="productosPorVencerQty()" [valor]="valorInventarioMonto()">
+  </app-product-kpi>
+</div>
+<div class="p-6 flex gap-6 items-start">
+
+  <app-products-table class="flex-1 min-w-0" [filtrados]="filtrados()" [loading]="loading()" [error]="error()"
+    (seleccionar)="onSeleccionar($event)" />
+
+  <app-product-sidebar class="w-80 shrink-0 sticky top-4" [categorias]="categorias()" [laboratorios]="laboratorios()"
+    [categoriaSeleccionada]="categoriaSeleccionada()" [laboratorioSeleccionado]="laboratorioSeleccionado()"
+    (categoriaChange)="onCategoriaChange($event)" (laboratorioChange)="onLaboratorioChange($event)"
+    (searchChange)="onBusqueda($event)" (crearProducto)="onCrearProducto()" (exportarCSV)="onExportarCSV()" />
+
+</div>
+
+<div class="p-6 flex gap-6 items-stretch">
+  <div class="flex-1">
+    <app-product-growth [productos]="productos()" />
+  </div>
+  <div class="flex-1">
+    <app-product-category [productos]="productos()" />
+  </div>
+</div>
+
+<p-dialog [visible]="showCreate()" (visibleChange)="showCreate.set($event)" [modal]="true" [draggable]="false"
+  [resizable]="false" [style]="{ width: '52rem' }" [breakpoints]="{ '768px': '95vw' }" [dismissableMask]="false"
+  styleClass="!rounded-2xl !p-0 overflow-hidden" (onHide)="productInsertComp.resetForm()">
+
+  <ng-template #header>
+    <div class="flex items-center gap-4 py-1">
+      <div
+        class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 border border-blue-200 shrink-0">
+        <i class="pi pi-plus-circle text-xl"></i>
+      </div>
+      <div class="text-left">
+        <h2 class="font-bold text-base md:text-lg text-slate-700 leading-tight">Registrar Nuevo Producto</h2>
+        <p class="text-xs text-slate-400 mt-0.5 leading-normal font-normal">
+          Complete la información técnica, categoría y stock inicial del medicamento o insumo.
+        </p>
+      </div>
+    </div>
+  </ng-template>
+
+  <ng-template #icons>
+    <button class="p-dialog-header-icon p-link" (click)="showCreate.set(false)">
+      <i class="pi pi-times"></i>
+    </button>
+  </ng-template>
+
+  <app-product-insert #productInsertComp (cerrarDialog)="showCreate.set(false)"
+    (productoRegistrado)="onProductoRegistrado()" />
+
+</p-dialog>
+
+<p-dialog [visible]="showDetails()" (visibleChange)="showDetails.set($event)" [modal]="true" [draggable]="false"
+  [resizable]="false" [style]="{ width: '48rem' }" [breakpoints]="{ '768px': '95vw' }" [dismissableMask]="false"
+  styleClass="!rounded-2xl !p-0 overflow-hidden">
+
+  <ng-template #header>
+    <div class="flex items-center gap-4 py-1">
+      <div
+        class="w-12 h-12 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-600 border border-emerald-200 shrink-0">
+        <i class="pi pi-info-circle text-xl"></i>
+      </div>
+      <div class="text-left">
+        <h2 class="font-bold text-base md:text-lg text-slate-700 leading-tight">Información del Producto</h2>
+        <p class="text-xs text-slate-400 mt-0.5 leading-normal font-normal">
+          Detalles de stock, lote, fechas de vencimiento y precios del elemento seleccionado.
+        </p>
+      </div>
+    </div>
+  </ng-template>
+
+  <ng-template #icons>
+    <button class="p-dialog-header-icon p-link" (click)="showDetails.set(false)">
+      <i class="pi pi-times"></i>
+    </button>
+  </ng-template>
+
+  <app-product-details [productoSeleccionado]="productoSeleccionado()" [loading]="loading()" [error]="error()"
+    (cerrarDialog)="showDetails.set(false)" (editarProducto)="onEditarProducto($event)" />
+
+</p-dialog>

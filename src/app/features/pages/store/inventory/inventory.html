@@ -1,0 +1,145 @@
+<div class="p-6">
+    <div class="mb-6">
+        <h1 class="text-3xl font-bold text-gray-800">🏪 Almacén</h1>
+        <p class="text-gray-500">
+            Gestión de inventario, movimientos y control de stock.
+        </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+
+        <!-- Entradas -->
+        <p-card>
+            <ng-template pTemplate="header">
+                <div class="p-4 text-center text-4xl">📥</div>
+            </ng-template>
+
+            <div class="text-center">
+                <h3 class="text-xl font-semibold mb-2">Entradas de Inventario</h3>
+                <p class="text-gray-500 text-sm">
+                    Registro de compras y abastecimientos.
+                </p>
+            </div>
+
+            <ng-template pTemplate="footer">
+                <p-button label="Ingresar" icon="pi pi-arrow-down" styleClass="w-full">
+                </p-button>
+            </ng-template>
+        </p-card>
+
+        <!-- Salidas -->
+        <p-card>
+            <ng-template pTemplate="header">
+                <div class="p-4 text-center text-4xl">📤</div>
+            </ng-template>
+
+            <div class="text-center">
+                <h3 class="text-xl font-semibold mb-2">Salidas de Inventario</h3>
+                <p class="text-gray-500 text-sm">
+                    Control de ventas y retiros de productos.
+                </p>
+            </div>
+
+            <ng-template pTemplate="footer">
+                <p-button label="Ver" icon="pi pi-arrow-up" styleClass="w-full">
+                </p-button>
+            </ng-template>
+        </p-card>
+
+        <!-- Ajustes -->
+        <p-card>
+            <ng-template pTemplate="header">
+                <div class="p-4 text-center text-4xl">⚖️</div>
+            </ng-template>
+
+            <div class="text-center">
+                <h3 class="text-xl font-semibold mb-2">Ajustes de Stock</h3>
+                <p class="text-gray-500 text-sm">
+                    Correcciones de inventario y regularizaciones.
+                </p>
+            </div>
+
+            <ng-template pTemplate="footer">
+                <p-button label="Gestionar" icon="pi pi-pencil" styleClass="w-full">
+                </p-button>
+            </ng-template>
+        </p-card>
+
+        <!-- Kardex -->
+        <p-card>
+            <ng-template pTemplate="header">
+                <div class="p-4 text-center text-4xl">📋</div>
+            </ng-template>
+
+            <div class="text-center">
+                <h3 class="text-xl font-semibold mb-2">Kardex</h3>
+                <p class="text-gray-500 text-sm">
+                    Historial completo de movimientos.
+                </p>
+            </div>
+
+            <ng-template pTemplate="footer">
+                <p-button label="Consultar" icon="pi pi-book" styleClass="w-full">
+                </p-button>
+            </ng-template>
+        </p-card>
+
+        <!-- Inventario -->
+        <p-card>
+            <ng-template pTemplate="header">
+                <div class="p-4 text-center text-4xl">📦</div>
+            </ng-template>
+
+            <div class="text-center">
+                <h3 class="text-xl font-semibold mb-2">Inventario Actual</h3>
+                <p class="text-gray-500 text-sm">
+                    Visualización del stock disponible.
+                </p>
+            </div>
+
+            <ng-template pTemplate="footer">
+                <p-button label="Ver Inventario" icon="pi pi-list" styleClass="w-full">
+                </p-button>
+            </ng-template>
+        </p-card>
+
+        <!-- Lotes -->
+        <p-card>
+            <ng-template pTemplate="header">
+                <div class="p-4 text-center text-4xl">🏷️</div>
+            </ng-template>
+
+            <div class="text-center">
+                <h3 class="text-xl font-semibold mb-2">Lotes</h3>
+                <p class="text-gray-500 text-sm">
+                    Administración de lotes de productos.
+                </p>
+            </div>
+
+            <ng-template pTemplate="footer">
+                <p-button label="Administrar" icon="pi pi-tags" styleClass="w-full">
+                </p-button>
+            </ng-template>
+        </p-card>
+
+        <!-- Vencimientos -->
+        <p-card>
+            <ng-template pTemplate="header">
+                <div class="p-4 text-center text-4xl">⏳</div>
+            </ng-template>
+
+            <div class="text-center">
+                <h3 class="text-xl font-semibold mb-2">Vencimientos</h3>
+                <p class="text-gray-500 text-sm">
+                    Seguimiento de productos próximos a vencer.
+                </p>
+            </div>
+
+            <ng-template pTemplate="footer">
+                <p-button label="Revisar" icon="pi pi-calendar" severity="warn" styleClass="w-full">
+                </p-button>
+            </ng-template>
+        </p-card>
+
+    </div>
+</div>

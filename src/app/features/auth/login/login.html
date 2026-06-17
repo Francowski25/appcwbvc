@@ -1,0 +1,59 @@
+<div class="flex min-h-screen items-center justify-center bg-gray-50 px-4">
+  <div class="card w-full max-w-md p-6">
+
+    <div class="flex items-center justify-center gap-4 mb-6">
+      <div class="w-20 h-20">
+        <img src="logo.png" alt="Logo Botica" class="w-full h-full object-contain" />
+      </div>
+      <div class="w-px h-14 bg-gray-300"></div>
+      <div>
+        <h1 class="text-lg font-bold leading-tight text-pink-600">Virgen de</h1>
+        <p class="text-sm font-bold leading-tight text-green-600">COCHARCAS</p>
+      </div>
+    </div>
+
+    <div class="text-center mb-6">
+      <h2 class="text-lg font-medium text-gray-700">Iniciar sesión</h2>
+      <p class="text-sm text-gray-400">Ingresa tus credenciales para continuar</p>
+    </div>
+
+    <form (ngSubmit)="onSubmit()">
+
+      <div class="flex flex-col gap-2 mb-4">
+        <label for="email" class="font-medium text-sm">Correo electrónico</label>
+        <p-iconField>
+          <p-inputIcon styleClass="pi pi-envelope" />
+          <input pInputText id="email" type="email" class="w-full" [ngModel]="email()"
+            (ngModelChange)="email.set($event)" name="email" placeholder="usuario@botica.com" autocomplete="email"
+            required />
+        </p-iconField>
+      </div>
+
+      <div class="flex flex-col gap-2 mb-4">
+        <label for="passwd" class="font-medium text-sm">Contraseña</label>
+        <p-password inputId="passwd" [ngModel]="passwd()" (ngModelChange)="passwd.set($event)" name="passwd"
+          placeholder="••••••••" [feedback]="false" [toggleMask]="true" styleClass="w-full" inputStyleClass="w-full"
+          autocomplete="current-password" required />
+      </div>
+
+      <div class="flex justify-between items-center mb-4">
+        <div class="flex items-center gap-2">
+          <p-checkbox inputId="remember" [binary]="true" />
+          <label for="remember" class="text-sm text-gray-600 cursor-pointer">Recordarme</label>
+        </div>
+        <a routerLink="/forgot-password" class="text-sm text-primary-600 hover:underline">
+          ¿Olvidaste tu contraseña?
+        </a>
+      </div>
+
+      @if (error()) {
+      <p-message severity="error" [text]="error()" styleClass="w-full mb-4" />
+      }
+
+      <p-button type="submit" label="Iniciar sesión" icon="pi pi-sign-in" styleClass="w-full" [loading]="loading()"
+        [disabled]="!email() || !passwd() || loading()" />
+
+    </form>
+
+  </div>
+</div>
