@@ -21,3 +21,7 @@ export type { LaboratoryGetall$Params as LaboratoryGetall$Params } from './fn/la
 export { laboratoryGetall as laboratoryGetall } from './fn/laboratory/laboratory-getall';
 export type { LaboratoryInsert$Params as LaboratoryInsert$Params } from './fn/laboratory/laboratory-insert';
 export { laboratoryInsert as laboratoryInsert } from './fn/laboratory/laboratory-insert';
+export type { InventoryGetall$Params as InventoryGetall$Params } from './fn/inventory/inventory-getall';
+export { inventoryGetall as inventoryGetall } from './fn/inventory/inventory-getall';
+export type { LotGetall$Params as LotGetall$Params } from './fn/lot/lot-getall';
+export { lotGetall as lotGetall } from './fn/lot/lot-getall';

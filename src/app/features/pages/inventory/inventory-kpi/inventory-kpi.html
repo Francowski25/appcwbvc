@@ -1,0 +1,63 @@
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+
+    <div class="card bg-white rounded-2xl border border-red-100 shadow-sm p-6">
+        <div class="flex items-start justify-between">
+            <div class="flex flex-col">
+                <span class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Agotados</span>
+                <span class="text-3xl font-black text-gray-800 m-0">{{ agotados() }}</span>
+                <span class="text-xs font-bold text-red-400 mt-1 flex items-center gap-1">
+                    <i class="pi pi-exclamation-triangle"></i> Stock Cero
+                </span>
+            </div>
+            <div class="w-12 h-12 rounded-2xl bg-red-50 flex items-center justify-center">
+                <i class="pi pi-ban text-red-500 text-xl"></i>
+            </div>
+        </div>
+    </div>
+
+    <div class="card bg-white rounded-2xl border border-orange-100 shadow-sm p-6">
+        <div class="flex items-start justify-between">
+            <div class="flex flex-col">
+                <span class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Críticos</span>
+                <span class="text-3xl font-black text-gray-800 m-0">{{ criticos() }}</span>
+                <span class="text-xs font-bold text-orange-400 mt-1 flex items-center gap-1">
+                    <i class="pi pi-arrow-down"></i> Bajo el mínimo
+                </span>
+            </div>
+            <div class="w-12 h-12 rounded-2xl bg-orange-50 flex items-center justify-center">
+                <i class="pi pi-exclamation-triangle text-orange-500 text-xl"></i>
+            </div>
+        </div>
+    </div>
+
+    <div class="card bg-white rounded-2xl border border-pink-100 shadow-sm p-6">
+        <div class="flex items-start justify-between">
+            <div class="flex flex-col">
+                <span class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">En Alerta</span>
+                <span class="text-3xl font-black text-gray-800 m-0">{{ enAlerta() }}</span>
+                <span class="text-xs font-bold text-pink-400 mt-1 flex items-center gap-1">
+                    <i class="pi pi-box"></i> Requieren atención
+                </span>
+            </div>
+            <div class="w-12 h-12 rounded-2xl bg-pink-50 flex items-center justify-center">
+                <i class="pi pi-box text-pink-500 text-xl"></i>
+            </div>
+        </div>
+    </div>
+
+    <div class="card bg-white rounded-2xl border border-green-100 shadow-sm p-6">
+        <div class="flex items-start justify-between">
+            <div class="flex flex-col">
+                <span class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Salud Inventario</span>
+                <span class="text-3xl font-black text-gray-800 m-0">{{ saludInventario() }}%</span>
+                <span class="text-xs font-bold text-green-400 mt-1 flex items-center gap-1">
+                    <i class="pi pi-heart"></i> Productos en óptimo estado
+                </span>
+            </div>
+            <div class="w-12 h-12 rounded-2xl bg-green-50 flex items-center justify-center">
+                <i class="pi pi-heart text-green-500 text-xl"></i>
+            </div>
+        </div>
+    </div>
+
+</div>

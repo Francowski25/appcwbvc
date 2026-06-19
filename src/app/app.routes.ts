@@ -15,6 +15,10 @@ import { LaboratoryGetall } from './features/pages/laboratory/laboratory-getall/
 import { inject } from '@angular/core';
 import { Sales } from './features/sales/sales';
 import { SalesDashboard } from './features/sales/sales-dashboard/sales-dashboard';
+import { CurrentStock } from './features/pages/inventory/current-stock/current-stock';
+import { Lots } from './features/pages/inventory/lots/lots';
+import { Income } from './features/pages/inventory/income/income';
+import { Movements } from './features/pages/inventory/movements/movements';
 
 const authGuard: CanActivateFn = () => {
   const router = inject(Router);
@@ -46,9 +50,18 @@ export const routes: Routes = [
           { path: 'roles-permisos', component: RolesPermissions },
         ]
       },
+      {
+        path: 'inventory',
+        children: [
+          { path: '', redirectTo: 'current-stock', pathMatch: 'full' },
+          { path: 'current-stock', component: CurrentStock },
+          { path: 'lots', component: Lots },
+          { path: 'income', component: Income },
+          { path: 'movements', component: Movements }
+        ]
+      },
       { path: 'categoria', component: CategoryGetall },
       { path: 'laboratorio', component: LaboratoryGetall },
-      { path: 'almacen', component: Inventory },
       { path: 'profile', component: Profile },
       { path: 'profile/edit-profile', component: EditProfile },
       { path: 'profile/password-settings', component: PasswordSettings },

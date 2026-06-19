@@ -1,0 +1,45 @@
+<div class="p-4 flex flex-col gap-6">
+
+    <app-inventory-kpi [agotados]="agotados().length" [criticos]="criticos().length" [enAlerta]="enAlerta().length"
+        [saludInventario]="saludInventario()" />
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+
+        <!-- Gráfica barras -->
+        <div class="lg:col-span-2 bg-white rounded-xl border border-gray-100 shadow-sm p-4">
+            <h3 class="text-sm font-semibold text-gray-600 mb-4">
+                <i class="pi pi-chart-bar text-pink-400 mr-2"></i>
+                Stock actual vs Mínimo requerido
+            </h3>
+            <p-chart type="bar" [data]="barChartData()" [options]="barChartOptions" height="250px" />
+        </div>
+
+        <!-- Top 5 críticos -->
+        <div class="bg-white rounded-xl border border-gray-100 shadow-sm p-4">
+            <h3 class="text-sm font-semibold text-gray-600 mb-4">
+                <i class="pi pi-list text-pink-400 mr-2"></i>
+                Top 5 más críticos
+            </h3>
+            <div class="flex flex-col gap-4">
+                @for (p of top5Criticos(); track p.idProduct) {
+                <div>
+                    <div class="flex justify-between items-center mb-1">
+                        <span class="text-xs font-medium text-gray-700 truncate max-w-[140px]">{{ p.name }}</span>
+                        <span class="text-xs font-bold"
+                            [class]="Number(p.totalStock) === 0 ? 'text-red-500' : 'text-orange-500'">
+                            {{ p.totalStock }} / {{ p.stockMinimum }}
+                        </span>
+                    </div>
+                    <p-progressbar [value]="p.porcentaje" [showValue]="false" styleClass="h-2"
+                        [style]="{ height: '6px' }" [color]="Number(p.totalStock) === 0 ? '#ef4444' : '#f97316'" />
+                </div>
+                }
+            </div>
+        </div>
+    </div>
+
+
+    <app-inventory-table [productos]="filtradosAlerta()" [loading]="loading()" (busqueda)="busquedaTabla.set($event)"
+        (verLotes)="onVerLotes($event)" (registrarIngreso)="onRegistrarIngreso($event)" />
+
+</div>

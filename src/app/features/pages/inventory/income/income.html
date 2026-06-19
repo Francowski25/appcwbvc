@@ -1,0 +1,267 @@
+<div class="p-4 flex flex-col gap-6">
+
+    <!-- KPIs -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+
+        <div class="bg-white rounded-2xl border border-pink-100 shadow-sm p-6">
+            <div class="flex items-start justify-between">
+                <div class="flex flex-col">
+                    <span class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Total Ingresos</span>
+                    <span class="text-3xl font-black text-gray-800 m-0">{{ totalIngresos() }}</span>
+                    <span class="text-xs font-bold text-pink-400 mt-1 flex items-center gap-1">
+                        <i class="pi pi-list"></i> Movimientos registrados
+                    </span>
+                </div>
+                <div class="w-12 h-12 rounded-2xl bg-pink-50 flex items-center justify-center">
+                    <i class="pi pi-arrow-circle-down text-pink-500 text-xl"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-2xl border border-blue-100 shadow-sm p-6">
+            <div class="flex items-start justify-between">
+                <div class="flex flex-col">
+                    <span class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Unidades
+                        Ingresadas</span>
+                    <span class="text-3xl font-black text-gray-800 m-0">{{ totalUnidades() }}</span>
+                    <span class="text-xs font-bold text-blue-400 mt-1 flex items-center gap-1">
+                        <i class="pi pi-box"></i> Total unidades
+                    </span>
+                </div>
+                <div class="w-12 h-12 rounded-2xl bg-blue-50 flex items-center justify-center">
+                    <i class="pi pi-box text-blue-500 text-xl"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-2xl border border-green-100 shadow-sm p-6">
+            <div class="flex items-start justify-between">
+                <div class="flex flex-col">
+                    <span class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Costo Total</span>
+                    <span class="text-3xl font-black text-gray-800 m-0">S/ {{ costoTotal() }}</span>
+                    <span class="text-xs font-bold text-green-400 mt-1 flex items-center gap-1">
+                        <i class="pi pi-dollar"></i> Inversión total
+                    </span>
+                </div>
+                <div class="w-12 h-12 rounded-2xl bg-green-50 flex items-center justify-center">
+                    <i class="pi pi-dollar text-green-500 text-xl"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-2xl border border-orange-100 shadow-sm p-6">
+            <div class="flex items-start justify-between">
+                <div class="flex flex-col">
+                    <span class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Último Ingreso</span>
+                    <span class="text-lg font-black text-gray-800 m-0">{{ ultimoIngreso() }}</span>
+                    <span class="text-xs font-bold text-orange-400 mt-1 flex items-center gap-1">
+                        <i class="pi pi-clock"></i> Fecha más reciente
+                    </span>
+                </div>
+                <div class="w-12 h-12 rounded-2xl bg-orange-50 flex items-center justify-center">
+                    <i class="pi pi-clock text-orange-500 text-xl"></i>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- TABLA -->
+    <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 flex flex-col gap-6">
+
+        <div class="flex items-center justify-between">
+            <h2 class="text-xl font-extrabold text-gray-900 tracking-tight flex items-center gap-3">
+                <span class="p-2 bg-pink-50 text-pink-600 rounded-xl inline-flex items-center justify-center">
+                    <i class="pi pi-arrow-circle-down text-lg"></i>
+                </span>
+                Registro de Ingresos
+            </h2>
+            <p-button label="Registrar Ingreso" icon="pi pi-plus" severity="secondary" [rounded]="true" size="small"
+                [disabled]="true" />
+        </div>
+
+        <div class="overflow-x-auto rounded-xl border border-gray-100">
+            <p-table [value]="movimientos()" [loading]="loading()" [rowHover]="true" [paginator]="true" [rows]="10"
+                [tableStyle]="{ 'min-width': '55rem' }">
+
+                <ng-template #header>
+                    <tr class="bg-pink-50/70 text-left">
+                        <th class="text-xs font-bold text-pink-500 uppercase tracking-wider px-4 py-3">
+                            <div class="flex items-center gap-1.5">
+                                <i class="pi pi-hashtag text-xs"></i> # Movimiento
+                            </div>
+                        </th>
+                        <th pSortableColumn="movementDate"
+                            class="text-xs font-bold text-pink-500 uppercase tracking-wider px-4 py-3 cursor-pointer hover:bg-pink-100/40 transition-colors">
+                            <div class="flex items-center gap-1.5">
+                                <i class="pi pi-calendar text-xs"></i> Fecha
+                                <p-sortIcon field="movementDate" />
+                            </div>
+                        </th>
+                        <th class="text-xs font-bold text-pink-500 uppercase tracking-wider px-4 py-3">
+                            <div class="flex items-center gap-1.5">
+                                <i class="pi pi-user text-xs"></i> Registrado por
+                            </div>
+                        </th>
+                        <th class="text-xs font-bold text-pink-500 uppercase tracking-wider px-4 py-3">
+                            <div class="flex items-center gap-1.5">
+                                <i class="pi pi-box text-xs"></i> Productos
+                            </div>
+                        </th>
+                        <th class="text-xs font-bold text-pink-500 uppercase tracking-wider px-4 py-3">
+                            <div class="flex items-center gap-1.5">
+                                <i class="pi pi-dollar text-xs"></i> Costo total
+                            </div>
+                        </th>
+                        <th class="text-xs font-bold text-pink-500 uppercase tracking-wider px-4 py-3">
+                            <div class="flex items-center gap-1.5">
+                                <i class="pi pi-comment text-xs"></i> Observación
+                            </div>
+                        </th>
+                        <th class="text-xs font-bold text-pink-500 uppercase tracking-wider px-4 py-3 text-right pr-10">
+                            <div class="flex items-center justify-end gap-1.5">
+                                <i class="pi pi-cog text-xs"></i> Acciones
+                            </div>
+                        </th>
+                    </tr>
+                </ng-template>
+
+                <ng-template #body let-m>
+                    <tr class="hover:bg-pink-50/30 transition-colors">
+
+                        <td class="px-4 py-3">
+                            <span class="text-xs font-mono font-bold text-gray-500 bg-gray-100 px-2 py-1 rounded">
+                                #{{ getIdCorto(m.idMovement) }}
+                            </span>
+                        </td>
+
+                        <td class="px-4 py-3">
+                            <span class="text-sm text-gray-700 font-medium">{{ m.movementDate }}</span>
+                        </td>
+
+                        <td class="px-4 py-3">
+                            <div class="flex items-center gap-2">
+                                <div class="w-7 h-7 rounded-full bg-pink-100 flex items-center justify-center">
+                                    <span class="text-xs font-bold text-pink-600">
+                                        {{ m.userName?.charAt(0)?.toUpperCase() ?? '?' }}
+                                    </span>
+                                </div>
+                                <span class="text-sm text-gray-700">{{ m.userName ?? '—' }}</span>
+                            </div>
+                        </td>
+
+                        <td class="px-4 py-3">
+                            <span
+                                class="inline-flex items-center gap-1.5 px-2 py-1 rounded-full text-xs font-bold bg-blue-50 text-blue-600 border border-blue-200">
+                                <i class="pi pi-box text-xs"></i>
+                                {{ getTotalUnidadesMovimiento(m) }} u. / {{ (m.detalles ?? []).length }} items
+                            </span>
+                        </td>
+
+                        <td class="px-4 py-3">
+                            <span class="text-sm font-bold text-gray-700">
+                                S/ {{ getCostoMovimiento(m) }}
+                            </span>
+                        </td>
+
+                        <td class="px-4 py-3">
+                            <span class="text-xs text-gray-400 italic">
+                                {{ m.observation || '—' }}
+                            </span>
+                        </td>
+
+                        <td class="px-4 py-3">
+                            <div class="flex items-center justify-center gap-1">
+                                <p-button icon="pi pi-eye" severity="secondary" [rounded]="true" [text]="true"
+                                    size="small" pTooltip="Ver detalle" tooltipPosition="top"
+                                    (onClick)="onVerDetalle(m)" />
+                            </div>
+                        </td>
+
+                    </tr>
+                </ng-template>
+
+                <ng-template #emptymessage>
+                    <tr>
+                        <td colspan="7">
+                            <div class="flex flex-col items-center justify-center py-12">
+                                <i class="pi pi-inbox text-4xl mb-2 text-gray-200"></i>
+                                <p class="text-xs font-medium text-gray-400">No hay ingresos registrados.</p>
+                            </div>
+                        </td>
+                    </tr>
+                </ng-template>
+
+            </p-table>
+        </div>
+    </div>
+
+    <!-- MODAL DETALLE -->
+    <p-dialog [visible]="showDetalle()" (visibleChange)="showDetalle.set($event)" [modal]="true" [draggable]="false"
+        [resizable]="false" [style]="{ width: '600px' }" header="Detalle del Ingreso">
+
+        @if (movimientoSeleccionado(); as m) {
+        <div class="flex flex-col gap-4">
+
+            <div class="grid grid-cols-2 gap-3">
+                <div class="bg-gray-50 rounded-xl p-3">
+                    <p class="text-xs text-gray-400 mb-1">Movimiento</p>
+                    <p class="text-sm font-bold font-mono text-gray-700">#{{ getIdCorto(m.idMovement) }}</p>
+                </div>
+                <div class="bg-gray-50 rounded-xl p-3">
+                    <p class="text-xs text-gray-400 mb-1">Fecha</p>
+                    <p class="text-sm font-bold text-gray-700">{{ m.movementDate }}</p>
+                </div>
+                <div class="bg-gray-50 rounded-xl p-3">
+                    <p class="text-xs text-gray-400 mb-1">Registrado por</p>
+                    <p class="text-sm font-bold text-gray-700">{{ m.userName ?? '—' }}</p>
+                </div>
+                <div class="bg-gray-50 rounded-xl p-3">
+                    <p class="text-xs text-gray-400 mb-1">Observación</p>
+                    <p class="text-sm font-bold text-gray-700">{{ m.observation || '—' }}</p>
+                </div>
+            </div>
+
+            <div class="overflow-x-auto rounded-xl border border-gray-100">
+                <table class="w-full text-sm">
+                    <thead class="bg-pink-50/70">
+                        <tr>
+                            <th class="text-xs font-bold text-pink-500 uppercase px-4 py-2 text-left">Producto</th>
+                            <th class="text-xs font-bold text-pink-500 uppercase px-4 py-2 text-left">Lote</th>
+                            <th class="text-xs font-bold text-pink-500 uppercase px-4 py-2 text-right">Cantidad</th>
+                            <th class="text-xs font-bold text-pink-500 uppercase px-4 py-2 text-right">Costo u.</th>
+                            <th class="text-xs font-bold text-pink-500 uppercase px-4 py-2 text-right">Subtotal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (d of m.detalles ?? []; track d.idDetail) {
+                        <tr class="border-t border-gray-100 hover:bg-pink-50/20">
+                            <td class="px-4 py-2 font-medium text-gray-700">{{ d.productName ?? '—' }}</td>
+                            <td class="px-4 py-2 text-gray-500 font-mono text-xs">{{ d.lotCode ?? '—' }}</td>
+                            <td class="px-4 py-2 text-right font-bold text-gray-700">{{ d.quantity }} u.</td>
+                            <td class="px-4 py-2 text-right text-gray-500">S/ {{ Number(d.unitCost) }}
+                            </td>
+                            <td class="px-4 py-2 text-right font-bold text-pink-600">
+                                S/ {{ (Number(d.quantity) * Number(d.unitCost)) }}
+                            </td>
+                        </tr>
+                        }
+                    </tbody>
+                    <tfoot class="bg-gray-50">
+                        <tr>
+                            <td colspan="4" class="px-4 py-2 text-right text-xs font-bold text-gray-500 uppercase">Total
+                            </td>
+                            <td class="px-4 py-2 text-right font-black text-pink-600">
+                                S/ {{ getCostoMovimiento(m) }}
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+
+        </div>
+        }
+
+    </p-dialog>
+
+</div>

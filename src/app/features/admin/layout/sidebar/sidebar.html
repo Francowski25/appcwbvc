@@ -1,7 +1,6 @@
 <aside class="flex flex-col bg-white border-r border-gray-200 transition-all duration-300 h-screen"
   [class.w-64]="!collapsed()" [class.w-16]="collapsed()">
 
-  <!-- LOGO & TOGGLE BUTTON -->
   <div class="flex flex-col px-3 py-4 border-b border-gray-100 flex-shrink-0">
     <div class="flex items-center justify-between">
       <div class="flex items-center gap-2.5">
@@ -30,10 +29,8 @@
     }
   </div>
 
-  <!-- NAVIGATION CONTENT -->
   <div class="flex-1 overflow-y-auto pr-2 py-3">
 
-    <!-- DASHBOARD -->
     <nav class="px-2 flex flex-col gap-0.5 mb-2">
       <a routerLink="/admin/dashboard" routerLinkActive="bg-pink-50 text-pink-700 font-medium"
         class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-600 hover:bg-gray-100 transition-colors text-sm"
@@ -43,14 +40,12 @@
       </a>
     </nav>
 
-    <!-- SECCIÓN: GESTIÓN -->
     @if (!collapsed()) {
     <p class="px-4 py-1 text-xs font-semibold text-gray-400 uppercase tracking-wider mt-2">Gestión</p>
     }
 
     <nav class="px-2 flex flex-col gap-0.5 mb-2">
 
-      <!-- Productos -->
       <button (click)="toggleSection('productos')"
         class="flex items-center gap-3 px-3 py-2.5 w-full rounded-lg text-gray-600 hover:bg-gray-100 transition-colors text-sm"
         [class.justify-center]="collapsed()" [class.bg-pink-50]="isSectionOpen('productos')"
@@ -83,7 +78,6 @@
       </div>
       }
 
-      <!-- Inventario -->
       <button (click)="toggleSection('inventario')"
         class="flex items-center gap-3 px-3 py-2.5 w-full rounded-lg text-gray-600 hover:bg-gray-100 transition-colors text-sm"
         [class.justify-center]="collapsed()" [class.bg-pink-50]="isSectionOpen('inventario')"
@@ -97,26 +91,25 @@
       </button>
       @if (isSectionOpen('inventario') && !collapsed()) {
       <div class="ml-4 flex flex-col gap-0.5 border-l border-gray-200 pl-3 mt-0.5">
-        <a routerLink="/admin/inventario/stock" routerLinkActive="text-pink-700 font-medium"
+        <a routerLink="/admin/inventory/current-stock" routerLinkActive="text-pink-700 font-medium"
           class="py-2 px-2 text-sm text-gray-500 hover:text-gray-800 transition-colors rounded">
           Stock actual
         </a>
-        <a routerLink="/admin/inventario/lotes" routerLinkActive="text-pink-700 font-medium"
+        <a routerLink="/admin/inventory/lots" routerLinkActive="text-pink-700 font-medium"
           class="py-2 px-2 text-sm text-gray-500 hover:text-gray-800 transition-colors rounded">
           Lotes
         </a>
-        <a routerLink="/admin/inventario/ingresos" routerLinkActive="text-pink-700 font-medium"
+        <a routerLink="/admin/inventory/income" routerLinkActive="text-pink-700 font-medium"
           class="py-2 px-2 text-sm text-gray-500 hover:text-gray-800 transition-colors rounded">
           Ingresos
         </a>
-        <a routerLink="/admin/inventario/movimientos" routerLinkActive="text-pink-700 font-medium"
+        <a routerLink="/admin/inventory/movements" routerLinkActive="text-pink-700 font-medium"
           class="py-2 px-2 text-sm text-gray-500 hover:text-gray-800 transition-colors rounded">
           Movimientos
         </a>
       </div>
       }
 
-      <!-- Compras -->
       <button (click)="toggleSection('compras')"
         class="flex items-center gap-3 px-3 py-2.5 w-full rounded-lg text-gray-600 hover:bg-gray-100 transition-colors text-sm"
         [class.justify-center]="collapsed()" [class.bg-pink-50]="isSectionOpen('compras')"
@@ -145,7 +138,6 @@
       </div>
       }
 
-      <!-- Ventas -->
       <button (click)="toggleSection('ventas')"
         class="flex items-center gap-3 px-3 py-2.5 w-full rounded-lg text-gray-600 hover:bg-gray-100 transition-colors text-sm"
         [class.justify-center]="collapsed()" [class.bg-pink-50]="isSectionOpen('ventas')"
@@ -172,14 +164,12 @@
 
     </nav>
 
-    <!-- SECCIÓN: ADMINISTRACIÓN -->
     @if (!collapsed()) {
     <p class="px-4 py-1 text-xs font-semibold text-gray-400 uppercase tracking-wider mt-2">Administración</p>
     }
 
     <nav class="px-2 flex flex-col gap-0.5 mb-2">
 
-      <!-- Usuarios -->
       <button (click)="toggleSection('usuarios')"
         class="flex items-center gap-3 px-3 py-2.5 w-full rounded-lg text-gray-600 hover:bg-gray-100 transition-colors text-sm"
         [class.justify-center]="collapsed()" [class.bg-pink-50]="isSectionOpen('usuarios')"
@@ -204,7 +194,6 @@
       </div>
       }
 
-      <!-- Clientes -->
       <button (click)="toggleSection('clientes')"
         class="flex items-center gap-3 px-3 py-2.5 w-full rounded-lg text-gray-600 hover:bg-gray-100 transition-colors text-sm"
         [class.justify-center]="collapsed()" [class.bg-pink-50]="isSectionOpen('clientes')"
@@ -230,7 +219,6 @@
       }
     </nav>
 
-    <!-- SECCIÓN: REPORTES -->
     @if (!collapsed()) {
     <p class="px-4 py-1 text-xs font-semibold text-gray-400 uppercase tracking-wider mt-2">Reportes</p>
     }
@@ -279,7 +267,6 @@
 
     </nav>
 
-    <!-- SECCIÓN: OPERACIONES -->
     @if (!collapsed()) {
     <p class="px-4 py-1 text-xs font-semibold text-gray-400 uppercase tracking-wider mt-2">Operaciones</p>
     }
@@ -301,7 +288,6 @@
 
   </div>
 
-  <!-- FOOTER: USER & UTILITIES -->
   <div class="border-t border-gray-100 p-3 flex-shrink-0">
 
     <a routerLink="/admin/almacen"

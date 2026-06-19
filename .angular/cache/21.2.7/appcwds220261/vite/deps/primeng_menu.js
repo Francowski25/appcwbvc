@@ -3,16 +3,16 @@ import {
   TooltipModule
 } from "./chunk-UXBPDGHI.js";
 import {
+  Badge,
+  BadgeModule
+} from "./chunk-QOUU33N2.js";
+import {
   zindexutils
 } from "./chunk-3WXT4SWY.js";
 import {
   MotionDirective,
   MotionModule
 } from "./chunk-OF4E3UBT.js";
-import {
-  Badge,
-  BadgeModule
-} from "./chunk-QOUU33N2.js";
 import {
   Ripple
 } from "./chunk-27KQCVNL.js";

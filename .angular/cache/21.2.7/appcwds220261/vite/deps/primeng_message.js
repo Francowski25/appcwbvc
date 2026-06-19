@@ -1,13 +1,13 @@
 import {
+  TimesIcon
+} from "./chunk-VQIUBIM6.js";
+import {
   MotionModule
 } from "./chunk-OF4E3UBT.js";
 import {
-  TimesIcon
-} from "./chunk-VQIUBIM6.js";
-import "./chunk-IBFT57VJ.js";
-import {
   Ripple
 } from "./chunk-27KQCVNL.js";
+import "./chunk-IBFT57VJ.js";
 import {
   BaseComponent,
   PARENT_INSTANCE

@@ -23,7 +23,6 @@ export class ProductsTable {
   @Input() categoriaSeleccionada: string = '';
   @Input() laboratorioSeleccionado: string = '';
 
-  // 1. Agregamos el Output para el ojo de detalles de producto
   @Output() seleccionar = new EventEmitter<any>();
   @Output() crearProducto = new EventEmitter<void>();
   @Output() exportarCSV = new EventEmitter<void>();
