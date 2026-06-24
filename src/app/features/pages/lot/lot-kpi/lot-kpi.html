@@ -1,0 +1,63 @@
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+
+    <div class="bg-white rounded-2xl border border-pink-100 shadow-sm p-6">
+        <div class="flex items-start justify-between">
+            <div class="flex flex-col">
+                <span class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Total Lotes</span>
+                <span class="text-3xl font-black text-gray-800 m-0">{{ totalLotes() }}</span>
+                <span class="text-xs font-bold text-pink-400 mt-1 flex items-center gap-1">
+                    <i class="pi pi-box"></i> Registros activos
+                </span>
+            </div>
+            <div class="w-12 h-12 rounded-2xl bg-pink-50 flex items-center justify-center">
+                <i class="pi pi-th-large text-pink-500 text-xl"></i>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-white rounded-2xl border border-orange-100 shadow-sm p-6">
+        <div class="flex items-start justify-between">
+            <div class="flex flex-col">
+                <span class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Por Vencer</span>
+                <span class="text-3xl font-black text-gray-800 m-0">{{ porVencer() }}</span>
+                <span class="text-xs font-bold text-orange-400 mt-1 flex items-center gap-1">
+                    <i class="pi pi-clock"></i> Próximos 30 días
+                </span>
+            </div>
+            <div class="w-12 h-12 rounded-2xl bg-orange-50 flex items-center justify-center">
+                <i class="pi pi-calendar-times text-orange-500 text-xl"></i>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-white rounded-2xl border border-red-100 shadow-sm p-6">
+        <div class="flex items-start justify-between">
+            <div class="flex flex-col">
+                <span class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Lotes Agotados</span>
+                <span class="text-3xl font-black text-gray-800 m-0">{{ agotados() }}</span>
+                <span class="text-xs font-bold text-red-400 mt-1 flex items-center gap-1">
+                    <i class="pi pi-ban"></i> Stock cero
+                </span>
+            </div>
+            <div class="w-12 h-12 rounded-2xl bg-red-50 flex items-center justify-center">
+                <i class="pi pi-ban text-red-500 text-xl"></i>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-white rounded-2xl border border-green-100 shadow-sm p-6">
+        <div class="flex items-start justify-between">
+            <div class="flex flex-col">
+                <span class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Valor en Almacén</span>
+                <span class="text-2xl font-black text-gray-800 m-0">S/ {{ valorAlmacen() }}</span>
+                <span class="text-xs font-bold text-green-400 mt-1 flex items-center gap-1">
+                    <i class="pi pi-dollar"></i> Inversión total
+                </span>
+            </div>
+            <div class="w-12 h-12 rounded-2xl bg-green-50 flex items-center justify-center">
+                <i class="pi pi-dollar text-green-500 text-xl"></i>
+            </div>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,142 @@
+<div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 flex flex-col gap-4">
+
+    <h2 class="text-xl font-extrabold text-gray-900 tracking-tight flex items-center gap-3">
+        <span class="p-2 bg-pink-50 text-pink-600 rounded-xl inline-flex items-center justify-center">
+            <i class="pi pi-th-large text-lg"></i>
+        </span>
+        Catálogo de Lotes
+    </h2>
+
+    @if (error()) {
+    <div class="p-4 bg-red-50 border border-red-100 rounded-xl text-red-600 text-sm flex items-start gap-3">
+        <i class="pi pi-exclamation-circle text-base mt-0.5"></i>
+        <p>{{ error() }}</p>
+    </div>
+    }
+
+    <div class="overflow-x-auto rounded-xl border border-gray-100">
+        <p-table [value]="lotes()" [loading]="loading()" [rowHover]="true" [paginator]="true" [rows]="5"
+            [tableStyle]="{ 'min-width': '55rem' }">
+
+            <ng-template #header>
+                <tr class="bg-pink-50/70 text-left">
+                    <th pSortableColumn="code"
+                        class="text-xs font-bold text-pink-500 uppercase tracking-wider px-4 py-3 cursor-pointer hover:bg-pink-100/40">
+                        <div class="flex items-center gap-1.5">
+                            <i class="pi pi-tag text-xs"></i> Código
+                            <p-sortIcon field="code" />
+                        </div>
+                    </th>
+                    <th pSortableColumn="productName"
+                        class="text-xs font-bold text-pink-500 uppercase tracking-wider px-4 py-3 cursor-pointer hover:bg-pink-100/40">
+                        <div class="flex items-center gap-1.5">
+                            <i class="pi pi-box text-xs"></i> Producto
+                            <p-sortIcon field="productName" />
+                        </div>
+                    </th>
+                    <th class="text-xs font-bold text-pink-500 uppercase tracking-wider px-4 py-3">
+                        <div class="flex items-center gap-1.5">
+                            <i class="pi pi-truck text-xs"></i> Proveedor
+                        </div>
+                    </th>
+                    <th pSortableColumn="currentStock"
+                        class="text-xs font-bold text-pink-500 uppercase tracking-wider px-4 py-3 cursor-pointer hover:bg-pink-100/40">
+                        <div class="flex items-center gap-1.5">
+                            <i class="pi pi-chart-bar text-xs"></i> Stock
+                            <p-sortIcon field="currentStock" />
+                        </div>
+                    </th>
+                    <th pSortableColumn="purchasePrice"
+                        class="text-xs font-bold text-pink-500 uppercase tracking-wider px-4 py-3 cursor-pointer hover:bg-pink-100/40">
+                        <div class="flex items-center gap-1.5">
+                            <i class="pi pi-dollar text-xs"></i> Precio
+                            <p-sortIcon field="purchasePrice" />
+                        </div>
+                    </th>
+                    <th pSortableColumn="expirationDate"
+                        class="text-xs font-bold text-pink-500 uppercase tracking-wider px-4 py-3 cursor-pointer hover:bg-pink-100/40">
+                        <div class="flex items-center gap-1.5">
+                            <i class="pi pi-calendar text-xs"></i> Vencimiento
+                            <p-sortIcon field="expirationDate" />
+                        </div>
+                    </th>
+                    <th class="text-xs font-bold text-pink-500 uppercase tracking-wider px-4 py-3">
+                        <div class="flex items-center gap-1.5">
+                            <i class="pi pi-info-circle text-xs"></i> Estado
+                        </div>
+                    </th>
+                </tr>
+            </ng-template>
+
+            <ng-template #body let-l>
+                <tr class="hover:bg-pink-50/30 transition-colors">
+
+                    <td class="px-4 py-3">
+                        <span class="text-xs font-mono font-bold text-gray-600 bg-gray-100 px-2.5 py-1 rounded-lg">
+                            {{ l.code }}
+                        </span>
+                    </td>
+
+                    <td class="px-4 py-3">
+                        <p class="text-sm font-semibold text-gray-800 m-0">{{ l.productName }}</p>
+                    </td>
+
+                    <td class="px-4 py-3">
+                        @if (l.supplierName && l.supplierName !== '—') {
+                        <p-tag severity="info" styleClass="text-[11px] font-semibold py-1 gap-1.5 rounded-lg">
+                            {{ l.supplierName }}
+                        </p-tag>
+                        } @else {
+                        <span class="text-xs text-gray-300 italic">Sin proveedor</span>
+                        }
+                    </td>
+
+                    <td class="px-4 py-3">
+                        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold" [class]="Number(l.currentStock) === 0
+                ? 'bg-red-50 text-red-600 border border-red-200'
+                : 'bg-green-50 text-green-600 border border-green-200'">
+                            <span class="w-1.5 h-1.5 rounded-full"
+                                [class]="Number(l.currentStock) === 0 ? 'bg-red-500' : 'bg-green-500'"></span>
+                            {{ l.currentStock }} u.
+                        </span>
+                    </td>
+
+                    <td class="px-4 py-3">
+                        <span class="text-sm font-bold text-gray-700">
+                            S/ {{ Number(l.purchasePrice) }}
+                        </span>
+                    </td>
+
+                    <td class="px-4 py-3">
+                        <span class="text-xs font-medium text-gray-500 flex items-center gap-1.5">
+                            <i class="pi pi-calendar text-gray-300 text-xs"></i>
+                            {{ l.expirationDate }}
+                        </span>
+                    </td>
+
+                    <td class="px-4 py-3">
+                        <div class="flex items-center gap-2 text-xs font-bold tracking-wide"
+                            [class]="getBadgeEstado(l.expirationStatus).text">
+                            <span class="w-1.5 h-1.5 rounded-full"
+                                [class]="getBadgeEstado(l.expirationStatus).dot"></span>
+                            {{ l.expirationStatus }}
+                        </div>
+                    </td>
+
+                </tr>
+            </ng-template>
+
+            <ng-template #emptymessage>
+                <tr>
+                    <td colspan="7">
+                        <div class="flex flex-col items-center justify-center py-12">
+                            <i class="pi pi-inbox text-4xl mb-2 text-pink-200"></i>
+                            <p class="text-xs font-medium text-gray-400">No se encontraron lotes.</p>
+                        </div>
+                    </td>
+                </tr>
+            </ng-template>
+
+        </p-table>
+    </div>
+</div>

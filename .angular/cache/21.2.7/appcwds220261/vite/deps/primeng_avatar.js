@@ -1,23 +1,24 @@
 import {
   BaseComponent,
   PARENT_INSTANCE
-} from "./chunk-75N3ZVFQ.js";
+} from "./chunk-G2TM4PBO.js";
 import {
   Bind
 } from "./chunk-6Q3AVAN7.js";
 import {
   BaseStyle
-} from "./chunk-AQEADPQZ.js";
+} from "./chunk-5CXVMJO5.js";
 import {
   SharedModule
-} from "./chunk-OH3YP2VR.js";
+} from "./chunk-A6I727UH.js";
 import "./chunk-6VCYEF6R.js";
+import "./chunk-Z4TEE3MD.js";
 import {
   CommonModule,
   NgClass,
   NgIf
-} from "./chunk-ZMJWYCXH.js";
-import "./chunk-JTRKPN3D.js";
+} from "./chunk-DP2MNWDH.js";
+import "./chunk-HWXVP55U.js";
 import {
   ChangeDetectionStrategy,
   Component,
@@ -59,10 +60,9 @@ import {
   ɵɵtext,
   ɵɵtextInterpolate
 } from "./chunk-7YB6YR3W.js";
-import "./chunk-HWYXSU2G.js";
 import "./chunk-JRFR6BLO.js";
+import "./chunk-HWYXSU2G.js";
 import "./chunk-MARUHEWW.js";
-import "./chunk-Z4TEE3MD.js";
 import "./chunk-GOMI4DH3.js";
 
 // node_modules/@primeuix/styles/dist/avatar/index.mjs

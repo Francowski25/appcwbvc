@@ -22,7 +22,7 @@ export class UsersTable {
 
   editarUser = output<any>();
   cambiarPassword = output<any>();
-  cambiarEstado = output<any>(); // Emitirá el objeto listo al componente padre
+  cambiarEstado = output<any>();
   crearUsuario = output<void>();
   exportarCSV = output<void>();
 
@@ -40,7 +40,6 @@ export class UsersTable {
     const accion = esActivo ? 'bloquear' : 'activar';
     const icono = esActivo ? 'pi pi-lock' : 'pi pi-unlock';
 
-    // 👇 Corrección: Llamamos al diálogo de confirmación de PrimeNG nativo
     this.confirmationService.confirm({
       target: event.target as EventTarget,
       message: `¿Deseas ${accion} a ${user.firstName} ${user.surName}?`,
@@ -51,7 +50,6 @@ export class UsersTable {
         severity: esActivo ? 'danger' : 'success'
       },
       accept: () => {
-        // Emitimos el usuario hacia el componente padre para que haga la petición API
         this.cambiarEstado.emit(user);
       },
       reject: () => { }

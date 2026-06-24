@@ -7,7 +7,6 @@ import { DialogModule } from 'primeng/dialog';
 import { UserKpi } from '../user-kpi/user-kpi';
 import { UsersInsert } from '../user-insert/user-insert';
 import { MessageService } from 'primeng/api';
-import { UserGraphic } from '../ui/user-graphic/user-graphic';
 
 @Component({
   selector: 'app-users-list',
@@ -18,7 +17,6 @@ import { UserGraphic } from '../ui/user-graphic/user-graphic';
     UserKpi,
     UsersInsert,
     DialogModule,
-    UserGraphic
   ],
   templateUrl: './users-getall.html',
   styleUrl: './users-getall.css',

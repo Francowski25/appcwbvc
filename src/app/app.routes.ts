@@ -9,16 +9,15 @@ import { PasswordSettings } from './features/admin/profile/password-settings/pas
 import { UsersList } from './features/pages/user/user-getall/users-getall';
 import { RolesPermissions } from './features/pages/user/roles-permissions/roles-permissions';
 import { ProductGetall } from './features/pages/product/product-getall/product-getall';
-import { Inventory } from './features/pages/store/inventory/inventory';
 import { CategoryGetall } from './features/pages/category/category-getall/category-getall';
 import { LaboratoryGetall } from './features/pages/laboratory/laboratory-getall/laboratory-getall';
 import { inject } from '@angular/core';
 import { Sales } from './features/sales/sales';
 import { SalesDashboard } from './features/sales/sales-dashboard/sales-dashboard';
 import { CurrentStock } from './features/pages/inventory/current-stock/current-stock';
-import { Lots } from './features/pages/inventory/lots/lots';
 import { Income } from './features/pages/inventory/income/income';
 import { Movements } from './features/pages/inventory/movements/movements';
+import { LotGetall } from './features/pages/lot/lot-getall/lot-getall';
 
 const authGuard: CanActivateFn = () => {
   const router = inject(Router);
@@ -55,7 +54,7 @@ export const routes: Routes = [
         children: [
           { path: '', redirectTo: 'current-stock', pathMatch: 'full' },
           { path: 'current-stock', component: CurrentStock },
-          { path: 'lots', component: Lots },
+          { path: 'lots', component: LotGetall },
           { path: 'income', component: Income },
           { path: 'movements', component: Movements }
         ]

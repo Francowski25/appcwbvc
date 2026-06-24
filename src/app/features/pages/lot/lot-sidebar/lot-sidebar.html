@@ -1,0 +1,125 @@
+<aside
+    class="w-full bg-white p-5 rounded-2xl border border-gray-100 shadow-sm flex flex-col gap-5 sticky top-4 overflow-y-auto h-[calc(100vh-3rem)]">
+
+    <div>
+        <h3 class="text-sm font-bold text-gray-700 mb-1">Filtros de Búsqueda</h3>
+        <p class="text-[11px] text-gray-400">Refina el listado de lotes en tiempo real.</p>
+    </div>
+
+    <hr class="border-gray-100 my-0">
+
+    <div class="flex flex-col gap-2">
+        <label class="text-xs font-bold text-slate-400 uppercase tracking-wider">Buscar lote</label>
+        <p-iconfield class="w-full">
+            <p-inputicon styleClass="pi pi-search text-gray-400 text-sm" />
+            <input pInputText type="text" placeholder="Código o producto..."
+                class="w-full text-xs py-2.5 rounded-xl border-gray-200 focus:border-pink-300" [value]="busqueda()"
+                (input)="onBusquedaInput($event)" />
+        </p-iconfield>
+    </div>
+
+    <div class="flex flex-col gap-4">
+
+        <!-- Estado vencimiento -->
+        <div class="bg-white border border-pink-100 rounded-2xl p-4 shadow-sm flex flex-col gap-3">
+            <p class="text-xs font-semibold text-pink-400 uppercase tracking-wider mb-1 flex items-center gap-1.5">
+                <i class="pi pi-flag text-xs"></i> Estado vencimiento
+            </p>
+
+            @if (estadoSeleccionado()) {
+            <div
+                class="flex items-center justify-between bg-pink-500 text-white px-3 py-1.5 rounded-xl text-xs font-bold shadow-sm animate-fade-in">
+                <div class="flex items-center gap-2 min-w-0">
+                    <span class="w-1.5 h-1.5 rounded-full bg-white shrink-0"></span>
+                    <span class="truncate">{{ estadoSeleccionado() }}</span>
+                </div>
+                <button (click)="onEstadoClick(estadoSeleccionado())"
+                    class="text-white hover:text-pink-100 bg-transparent border-none p-0 cursor-pointer flex items-center">
+                    <i class="pi pi-times text-[10px] font-bold"></i>
+                </button>
+            </div>
+            }
+
+            @if (estados().length > 0) {
+            <div
+                class="flex flex-col gap-1 max-h-44 overflow-y-auto pr-1 border border-gray-50 rounded-xl p-1 bg-gray-50/50">
+                @for (e of estados(); track e.name) {
+                <button
+                    class="flex items-center justify-between px-3 py-2 rounded-xl text-xs transition-all w-full text-left cursor-pointer animate-fade-in"
+                    [ngClass]="estadoSeleccionado() === e.name
+                ? 'bg-pink-600 text-white font-bold'
+                : 'text-gray-500 hover:bg-pink-50 hover:text-pink-500 font-medium'" (click)="onEstadoClick(e.name)">
+                    <div class="flex items-center gap-2 min-w-0">
+                        <span class="w-1.5 h-1.5 rounded-full shrink-0"
+                            [class]="estadoSeleccionado() === e.name ? 'bg-white' : getBadgeDot(e.name)"></span>
+                        <span class="truncate">{{ e.name }}</span>
+                    </div>
+                    <span class="text-[10px] px-2 py-0.5 rounded-full shrink-0"
+                        [ngClass]="estadoSeleccionado() === e.name ? 'bg-white/20 text-white' : 'bg-pink-50 text-pink-400'">
+                        {{ e.count }}
+                    </span>
+                </button>
+                }
+            </div>
+            }
+        </div>
+
+        <!-- Proveedores -->
+        <div class="bg-white border border-pink-100 rounded-2xl p-4 shadow-sm flex flex-col gap-3">
+            <p class="text-xs font-semibold text-pink-400 uppercase tracking-wider mb-1 flex items-center gap-1.5">
+                <i class="pi pi-truck text-xs"></i> Proveedores
+            </p>
+
+            @if (proveedorSeleccionado()) {
+            <div
+                class="flex items-center justify-between bg-pink-500 text-white px-3 py-1.5 rounded-xl text-xs font-bold shadow-sm animate-fade-in">
+                <div class="flex items-center gap-2 min-w-0">
+                    <i class="pi pi-truck text-xs shrink-0"></i>
+                    <span class="truncate">{{ proveedorSeleccionado() }}</span>
+                </div>
+                <button (click)="onProveedorClick(proveedorSeleccionado())"
+                    class="text-white hover:text-pink-100 bg-transparent border-none p-0 cursor-pointer flex items-center">
+                    <i class="pi pi-times text-[10px] font-bold"></i>
+                </button>
+            </div>
+            }
+
+            @if (proveedores().length > 0) {
+            <div
+                class="flex flex-col gap-1 max-h-44 overflow-y-auto pr-1 border border-gray-50 rounded-xl p-1 bg-gray-50/50">
+                @for (p of proveedores(); track p.name) {
+                <button
+                    class="flex items-center justify-between px-3 py-2 rounded-xl text-xs transition-all w-full text-left cursor-pointer animate-fade-in"
+                    [ngClass]="proveedorSeleccionado() === p.name
+                ? 'bg-pink-600 text-white font-bold'
+                : 'text-gray-500 hover:bg-pink-50 hover:text-pink-500 font-medium'" (click)="onProveedorClick(p.name)">
+                    <div class="flex items-center gap-2 min-w-0">
+                        <i class="pi pi-building text-xs shrink-0"></i>
+                        <span class="truncate">{{ p.name }}</span>
+                    </div>
+                    <span class="text-[10px] px-2 py-0.5 rounded-full shrink-0"
+                        [ngClass]="proveedorSeleccionado() === p.name ? 'bg-white/20 text-white' : 'bg-pink-50 text-pink-400'">
+                        {{ p.count }}
+                    </span>
+                </button>
+                }
+            </div>
+            }
+        </div>
+
+        <!-- Acciones -->
+        @if (hayFiltrosActivos()) {
+        <div class="bg-white border border-pink-100 rounded-2xl p-4 shadow-sm flex flex-col gap-2">
+            <p class="text-xs font-semibold text-pink-400 uppercase tracking-wider flex items-center gap-1.5 mb-1">
+                <i class="pi pi-bolt text-xs"></i> Acciones
+            </p>
+            <button type="button" (click)="limpiarFiltros.emit()"
+                class="flex items-center justify-center gap-2 w-full bg-white hover:bg-gray-50 text-slate-700 border border-gray-200 px-4 py-2.5 rounded-xl text-xs font-bold transition-all shadow-sm cursor-pointer">
+                <i class="pi pi-filter-slash text-xs text-slate-500"></i>
+                <span>Limpiar filtros</span>
+            </button>
+        </div>
+        }
+
+    </div>
+</aside>

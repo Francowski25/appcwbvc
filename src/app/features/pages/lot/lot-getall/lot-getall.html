@@ -1,0 +1,27 @@
+<div class="p-4 flex flex-col gap-6">
+
+    <app-lot-kpi [totalLotes]="totalLotes()" [porVencer]="porVencer()" [agotados]="agotados()"
+        [valorAlmacen]="valorAlmacen()" />
+
+    <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+
+        <div class="lg:col-span-3 flex flex-col gap-6">
+
+            <div class="flex gap-4 items-stretch">
+                <div class="flex-1">
+                    <app-lot-stock [lotes]="lotes()" />
+                </div>
+                <div class="flex-1">
+                    <app-lot-status [lotes]="lotes()" [porVencer]="porVencer()" />
+                </div>
+            </div>
+            <app-lot-table [lotes]="filtrados()" [loading]="loading()" [error]="error()" />
+
+        </div>
+        <app-lot-sidebar [lotes]="lotes()" [busqueda]="busqueda()" [estadoSeleccionado]="estadoSeleccionado()"
+            [proveedorSeleccionado]="proveedorSeleccionado()" (busquedaChange)="onBusqueda($event)"
+            (estadoChange)="onEstadoChange($event)" (proveedorChange)="onProveedorChange($event)"
+            (limpiarFiltros)="onLimpiarFiltros()" />
+
+    </div>
+</div>
