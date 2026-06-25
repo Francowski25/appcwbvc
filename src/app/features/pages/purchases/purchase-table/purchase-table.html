@@ -27,50 +27,50 @@
 
             <ng-template #header>
                 <tr class="bg-pink-50/70 text-left">
-                    <th class="text-xs font-bold text-pink-500 uppercase tracking-wider px-4 py-3">
+                    <th class="text-xs font-bold text-pink-500 uppercase tracking-wider px-4 py-4">
                         <div class="flex items-center gap-1.5">
-                            <i class="pi pi-hashtag text-xs"></i> # Compra
+                            <i class="pi pi-hashtag text-xs"></i> Compra
                         </div>
                     </th>
                     <th pSortableColumn="movementDate"
-                        class="text-xs font-bold text-pink-500 uppercase tracking-wider px-4 py-3 cursor-pointer hover:bg-pink-100/40">
+                        class="text-xs font-bold text-pink-500 uppercase tracking-wider px-4 py-4 cursor-pointer hover:bg-pink-100/40">
                         <div class="flex items-center gap-1.5">
                             <i class="pi pi-calendar text-xs"></i> Fecha
                             <p-sortIcon field="movementDate" />
                         </div>
                     </th>
                     <th pSortableColumn="supplierName"
-                        class="text-xs font-bold text-pink-500 uppercase tracking-wider px-4 py-3 cursor-pointer hover:bg-pink-100/40">
+                        class="text-xs font-bold text-pink-500 uppercase tracking-wider px-4 py-4 cursor-pointer hover:bg-pink-100/40">
                         <div class="flex items-center gap-1.5">
                             <i class="pi pi-truck text-xs"></i> Proveedor
                             <p-sortIcon field="supplierName" />
                         </div>
                     </th>
-                    <th class="text-xs font-bold text-pink-500 uppercase tracking-wider px-4 py-3">
+                    <th class="text-xs font-bold text-pink-500 uppercase tracking-wider px-4 py-4">
                         <div class="flex items-center gap-1.5">
                             <i class="pi pi-user text-xs"></i> Registrado por
                         </div>
                     </th>
                     <th pSortableColumn="totalUnidades"
-                        class="text-xs font-bold text-pink-500 uppercase tracking-wider px-4 py-3 cursor-pointer hover:bg-pink-100/40">
+                        class="text-xs font-bold text-pink-500 uppercase tracking-wider px-4 py-4 cursor-pointer hover:bg-pink-100/40">
                         <div class="flex items-center gap-1.5">
                             <i class="pi pi-box text-xs"></i> Unidades
                             <p-sortIcon field="totalUnidades" />
                         </div>
                     </th>
                     <th pSortableColumn="costoTotal"
-                        class="text-xs font-bold text-pink-500 uppercase tracking-wider px-4 py-3 cursor-pointer hover:bg-pink-100/40">
+                        class="text-xs font-bold text-pink-500 uppercase tracking-wider px-4 py-4 cursor-pointer hover:bg-pink-100/40">
                         <div class="flex items-center gap-1.5">
                             <i class="pi pi-dollar text-xs"></i> Costo total
                             <p-sortIcon field="costoTotal" />
                         </div>
                     </th>
-                    <th class="text-xs font-bold text-pink-500 uppercase tracking-wider px-4 py-3">
+                    <th class="text-xs font-bold text-pink-500 uppercase tracking-wider px-4 py-4">
                         <div class="flex items-center gap-1.5">
                             <i class="pi pi-comment text-xs"></i> Observación
                         </div>
                     </th>
-                    <th class="text-xs font-bold text-pink-500 uppercase tracking-wider px-4 py-3 text-right pr-6">
+                    <th class="text-xs font-bold text-pink-500 uppercase tracking-wider px-4 py-4 text-right pr-6">
                         <div class="flex items-center justify-end gap-1.5">
                             <i class="pi pi-cog text-xs"></i> Acciones
                         </div>
@@ -81,17 +81,17 @@
             <ng-template #body let-c>
                 <tr class="hover:bg-pink-50/30 transition-colors">
 
-                    <td class="px-4 py-3">
-                        <span class="text-xs font-mono font-bold text-gray-600 bg-gray-100 px-2.5 py-1 rounded-lg">
+                    <td class="px-4 py-4">
+                        <span class="text-xs font-mono font-bold text-gray-600 bg-gray-100 px-4.5 py-1 rounded-lg">
                             #{{ getIdCorto(c.idMovement) }}
                         </span>
                     </td>
 
-                    <td class="px-4 py-3">
+                    <td class="px-4 py-4">
                         <span class="text-sm text-gray-700 font-medium">{{ c.movementDate }}</span>
                     </td>
 
-                    <td class="px-4 py-3">
+                    <td class="px-4 py-4">
                         @if (c.supplierName && c.supplierName !== '—') {
                         <p-tag severity="info" styleClass="text-[11px] font-semibold py-1 rounded-lg">
                             {{ c.supplierName }}
@@ -101,7 +101,7 @@
                         }
                     </td>
 
-                    <td class="px-4 py-3">
+                    <td class="px-4 py-4">
                         <div class="flex items-center gap-2">
                             <div class="w-7 h-7 rounded-full bg-pink-100 flex items-center justify-center shrink-0">
                                 <span class="text-xs font-bold text-pink-600">
@@ -112,7 +112,7 @@
                         </div>
                     </td>
 
-                    <td class="px-4 py-3">
+                    <td class="px-4 py-4">
                         <span
                             class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-blue-50 text-blue-600 border border-blue-200">
                             <i class="pi pi-box text-xs"></i>
@@ -120,20 +120,21 @@
                         </span>
                     </td>
 
-                    <td class="px-4 py-3">
+                    <td class="px-4 py-4">
                         <span class="text-sm font-bold text-gray-700">
                             S/ {{ Number(c.costoTotal) || 0 }}
                         </span>
                     </td>
 
-                    <td class="px-4 py-3">
+                    <td class="px-4 py-4">
                         <span class="text-xs text-gray-400 italic">{{ c.observation || '—' }}</span>
                     </td>
 
-                    <td class="px-4 py-3">
+                    <td class="px-4 py-4">
                         <div class="flex items-center justify-center">
-                            <p-button icon="pi pi-eye" severity="secondary" [rounded]="true" [text]="true" size="small"
-                                pTooltip="Ver detalle" tooltipPosition="top" (onClick)="verDetalle.emit(c)" />
+                            <p-button icon="pi pi-eye bg-blue-50" severity="secondary" rounded text size="small"
+                                pTooltip="Ver detalle" tooltipPosition="top" styleClass="bg-blue-50 text-blue-600 p-2"
+                                (onClick)="verDetalle.emit(c)" />
                         </div>
                     </td>
 
