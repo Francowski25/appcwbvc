@@ -9,51 +9,141 @@
         </div>
         }
 
-        <!-- CABECERA -->
         <div class="grid grid-cols-3 gap-4">
 
-            <!-- Cliente -->
-            <div class="col-span-2 flex flex-col gap-1.5 relative">
-                <label class="text-xs font-bold text-slate-500 uppercase tracking-wider">
-                    Cliente <span class="text-red-400">*</span>
-                </label>
+            <div class="col-span-2 flex flex-col gap-3">
+                <label class="text-xs font-bold text-slate-500 uppercase tracking-wider">Cliente</label>
 
-                @if (clienteSeleccionado()) {
-                <div class="flex items-center justify-between border border-pink-300 rounded-xl px-3 py-2.5 bg-pink-50">
-                    <div class="flex items-center gap-2">
-                        <div class="w-7 h-7 rounded-full bg-pink-200 flex items-center justify-center">
-                            <span class="text-xs font-bold text-pink-700">
-                                {{ clienteSeleccionado().name?.charAt(0)?.toUpperCase() }}
-                            </span>
-                        </div>
-                        <div>
-                            <p class="text-xs font-bold text-gray-800 m-0">{{ clienteSeleccionado().name }}</p>
-                            <p class="text-[10px] text-gray-400 m-0">{{ clienteSeleccionado().documentNumber }}</p>
-                        </div>
-                    </div>
-                    <button (click)="clienteSeleccionado.set(null)"
-                        class="text-pink-400 hover:text-pink-600 cursor-pointer bg-transparent border-none">
-                        <i class="pi pi-times text-xs"></i>
+                <div class="flex items-center gap-2">
+                    <button
+                        (click)="tieneCliente.set(false); clienteSeleccionado.set(null); showNuevoCliente.set(false)"
+                        class="flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold border transition-all cursor-pointer"
+                        [class]="!tieneCliente()
+                            ? 'bg-gray-700 text-white border-gray-700'
+                            : 'bg-white text-gray-400 border-gray-200 hover:border-gray-300'">
+                        <i class="pi pi-user-minus text-xs"></i>
+                        Venta rápida
+                    </button>
+                    <button (click)="tieneCliente.set(true)"
+                        class="flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold border transition-all cursor-pointer"
+                        [class]="tieneCliente()
+                            ? 'bg-pink-500 text-white border-pink-500'
+                            : 'bg-white text-gray-400 border-gray-200 hover:border-pink-300'">
+                        <i class="pi pi-user text-xs"></i>
+                        Con cliente
                     </button>
                 </div>
-                } @else {
-                <div class="flex flex-col gap-1">
+
+                @if (tieneCliente()) {
+                <div class="flex flex-col gap-2">
+
+                    <div class="flex items-center gap-1 bg-gray-100 rounded-xl p-1">
+                        <button (click)="showNuevoCliente.set(false)"
+                            class="flex-1 text-xs font-bold py-1.5 rounded-lg transition-all cursor-pointer" [class]="!showNuevoCliente()
+                                ? 'bg-white text-gray-700 shadow-sm'
+                                : 'text-gray-400 hover:text-gray-600'">
+                            <i class="pi pi-search text-xs mr-1"></i> Buscar
+                        </button>
+                        <button (click)="showNuevoCliente.set(true); clienteSeleccionado.set(null)"
+                            class="flex-1 text-xs font-bold py-1.5 rounded-lg transition-all cursor-pointer" [class]="showNuevoCliente()
+                                ? 'bg-white text-gray-700 shadow-sm'
+                                : 'text-gray-400 hover:text-gray-600'">
+                            <i class="pi pi-plus text-xs mr-1"></i> Nuevo
+                        </button>
+                    </div>
+
+                    @if (!showNuevoCliente()) {
+                    @if (clienteSeleccionado()) {
+                    <div
+                        class="flex items-center justify-between border border-pink-300 rounded-xl px-3 py-2.5 bg-pink-50">
+                        <div class="flex items-center gap-2">
+                            <div class="w-7 h-7 rounded-full bg-pink-200 flex items-center justify-center">
+                                <span class="text-xs font-bold text-pink-700">
+                                    {{ clienteSeleccionado().name?.charAt(0)?.toUpperCase() }}
+                                </span>
+                            </div>
+                            <div>
+                                <p class="text-xs font-bold text-gray-800 m-0">{{ clienteSeleccionado().name }}</p>
+                                <p class="text-[10px] text-gray-400 m-0">
+                                    {{ clienteSeleccionado().documentType }} — {{ clienteSeleccionado().documentNumber
+                                    }}
+                                </p>
+                            </div>
+                        </div>
+                        <button (click)="clienteSeleccionado.set(null)"
+                            class="text-pink-400 hover:text-pink-600 cursor-pointer bg-transparent border-none">
+                            <i class="pi pi-times text-xs"></i>
+                        </button>
+                    </div>
+                    } @else {
                     <div class="flex items-center gap-2 border border-gray-200 rounded-xl px-3 py-2.5 bg-gray-50">
                         <i class="pi pi-search text-gray-400 text-sm"></i>
                         <select
                             class="w-full text-sm bg-transparent border-none outline-none text-gray-600 cursor-pointer"
-                            (change)="clienteSeleccionado.set(clientes()[$any($event.target).selectedIndex - 1])">
+                            (change)="onSeleccionarCliente($any($event.target).value)">
                             <option value="">Seleccionar cliente...</option>
                             @for (c of clientes(); track c.idCustomer) {
                             <option [value]="c.idCustomer">{{ c.name }} — {{ c.documentNumber }}</option>
                             }
                         </select>
                     </div>
+                    }
+                    }
+
+                    @if (showNuevoCliente()) {
+                    <div class="bg-blue-50 border border-blue-100 rounded-xl p-4 flex flex-col gap-3">
+                        <p class="text-xs font-bold text-blue-600 flex items-center gap-1.5 m-0">
+                            <i class="pi pi-user-plus text-xs"></i> Registrar nuevo cliente
+                        </p>
+                        <div class="grid grid-cols-2 gap-3">
+                            <div class="flex flex-col gap-1">
+                                <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Tipo
+                                    doc.</label>
+                                <select
+                                    class="text-xs border border-gray-200 rounded-lg px-2 py-2 outline-none focus:border-blue-300 bg-white cursor-pointer"
+                                    (change)="nuevoCliente.update(c => ({ ...c, documentType: $any($event.target).value }))">
+                                    <option value="DNI">DNI</option>
+                                    <option value="RUC">RUC</option>
+                                    <option value="CE">CE</option>
+                                </select>
+                            </div>
+                            <div class="flex flex-col gap-1">
+                                <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">
+                                    N° Documento <span class="text-red-400">*</span>
+                                </label>
+                                <input type="text" placeholder="12345678"
+                                    class="text-xs border border-gray-200 rounded-lg px-2 py-2 outline-none focus:border-blue-300"
+                                    [value]="nuevoCliente().documentNumber"
+                                    (input)="nuevoCliente.update(c => ({ ...c, documentNumber: $any($event.target).value }))" />
+                            </div>
+                        </div>
+                        <div class="flex flex-col gap-1">
+                            <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">
+                                Nombre completo <span class="text-red-400">*</span>
+                            </label>
+                            <input type="text" placeholder="Nombre del cliente"
+                                class="text-xs border border-gray-200 rounded-lg px-2 py-2 outline-none focus:border-blue-300"
+                                [value]="nuevoCliente().name"
+                                (input)="nuevoCliente.update(c => ({ ...c, name: $any($event.target).value }))" />
+                        </div>
+                        <button (click)="onGuardarNuevoCliente()" [disabled]="loadingCliente()"
+                            class="flex items-center justify-center gap-2 w-full bg-blue-500 hover:bg-blue-600 text-white px-3 py-2 rounded-lg text-xs font-bold transition-all cursor-pointer disabled:opacity-50">
+                            <i [class]="loadingCliente() ? 'pi pi-spin pi-spinner' : 'pi pi-check'" class="text-xs"></i>
+                            {{ loadingCliente() ? 'Guardando...' : 'Guardar y seleccionar' }}
+                        </button>
+                    </div>
+                    }
+
+                </div>
+                } @else {
+                <div
+                    class="flex items-center gap-2 px-3 py-2.5 bg-gray-50 rounded-xl border border-dashed border-gray-200">
+                    <i class="pi pi-bolt text-gray-300 text-sm"></i>
+                    <span class="text-xs text-gray-400 italic">Se registrará sin datos de cliente</span>
                 </div>
                 }
             </div>
 
-            <!-- Método de pago -->
             <div class="flex flex-col gap-1.5">
                 <label class="text-xs font-bold text-slate-500 uppercase tracking-wider">
                     Método de pago <span class="text-red-400">*</span>
@@ -62,8 +152,8 @@
                     @for (metodo of metodos; track metodo) {
                     <button (click)="metodoPago.set(metodo)"
                         class="px-3 py-2 rounded-xl text-xs font-bold border transition-all cursor-pointer" [class]="metodoPago() === metodo
-                ? 'bg-pink-500 text-white border-pink-500'
-                : 'bg-white text-gray-500 border-gray-200 hover:border-pink-300'">
+                            ? 'bg-pink-500 text-white border-pink-500'
+                            : 'bg-white text-gray-500 border-gray-200 hover:border-pink-300'">
                         {{ metodo }}
                     </button>
                     }
@@ -74,10 +164,8 @@
 
         <hr class="border-gray-100">
 
-        <!-- CONTENIDO -->
         <div class="grid grid-cols-3 gap-4">
 
-            <!-- PRODUCTOS -->
             <div class="col-span-2 flex flex-col gap-3">
 
                 <div class="flex items-center justify-between">
@@ -93,7 +181,6 @@
                                 [value]="busquedaProducto()" (input)="onBusquedaProducto($event)"
                                 (focus)="showProductSearch.set(true)" />
                         </div>
-
                         @if (showProductSearch() && productosFiltrados().length > 0) {
                         <div
                             class="absolute top-full left-0 right-0 mt-1 bg-white rounded-xl border border-gray-100 shadow-lg z-50 max-h-48 overflow-y-auto">
@@ -141,16 +228,14 @@
                                         (change)="onCambiarLote(i, $any($event.target).value)">
                                         @for (l of item.lotes; track l.idLot) {
                                         @if (Number(l.currentStock) > 0) {
-                                        <option [value]="l.idLot" [selected]="l.idLot === item.idLot">
-                                            {{ l.code }}
+                                        <option [value]="l.idLot" [selected]="l.idLot === item.idLot">{{ l.code }}
                                         </option>
                                         }
                                         }
                                     </select>
                                     } @else {
-                                    <span class="text-xs font-mono text-gray-500 bg-gray-100 px-2 py-0.5 rounded">
-                                        {{ item.lotCode }}
-                                    </span>
+                                    <span class="text-xs font-mono text-gray-500 bg-gray-100 px-2 py-0.5 rounded">{{
+                                        item.lotCode }}</span>
                                     }
                                 </td>
                                 <td class="px-3 py-2.5 text-center">
@@ -180,7 +265,6 @@
                                 </td>
                             </tr>
                             }
-
                             <tr class="border-t border-gray-100">
                                 <td colspan="7">
                                     <div class="flex items-center gap-2 px-3 py-3 text-gray-300">
@@ -194,7 +278,6 @@
                 </div>
             </div>
 
-            <!-- RESUMEN -->
             <div class="flex flex-col gap-3">
                 <p class="text-sm font-bold text-gray-700 flex items-center gap-2 m-0">
                     <i class="pi pi-receipt text-pink-400"></i> Resumen
@@ -202,13 +285,13 @@
 
                 <div class="bg-gray-50 rounded-2xl border border-gray-100 p-4 flex flex-col gap-3">
 
-                    <div class="bg-white rounded-xl border border-pink-100 p-3">
+                    <div class="bg-white rounded-xl border border-gray-100 p-3">
                         <p class="text-[10px] text-gray-400 uppercase font-bold mb-1">Cliente</p>
                         @if (clienteSeleccionado()) {
                         <p class="text-xs font-bold text-gray-700 m-0">{{ clienteSeleccionado().name }}</p>
                         <p class="text-[10px] text-gray-400 m-0">{{ clienteSeleccionado().documentNumber }}</p>
                         } @else {
-                        <p class="text-xs font-bold text-gray-400 m-0 italic">Sin seleccionar</p>
+                        <p class="text-xs text-gray-300 italic m-0">Venta sin cliente</p>
                         }
                     </div>
 

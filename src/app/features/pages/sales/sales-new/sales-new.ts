@@ -2,7 +2,7 @@ import { Component, input, output, signal, computed, inject, effect } from '@ang
 import { DialogModule } from 'primeng/dialog';
 import { DecimalPipe } from '@angular/common';
 import { Api } from '../../../../api/api';
-import { saleInsert } from '../../../../api/functions';
+import { customerGetall, customerInsert, lotByproduct, saleInsert } from '../../../../api/functions';
 
 interface ItemVenta {
   idProduct: string;
@@ -33,9 +33,14 @@ export class SalesNew {
   guardado = output<void>();
 
   loading = signal<boolean>(false);
+  loadingCliente = signal<boolean>(false);
   error = signal<string>('');
 
+  tieneCliente = signal<boolean>(false);
   clienteSeleccionado = signal<any>(null);
+  showNuevoCliente = signal<boolean>(false);
+  nuevoCliente = signal({ documentType: 'DNI', documentNumber: '', name: '' });
+
   metodoPago = signal<string>('Efectivo');
   items = signal<ItemVenta[]>([]);
   descuento = signal<number>(0);
@@ -44,11 +49,7 @@ export class SalesNew {
 
   metodos = ['Efectivo', 'Tarjeta', 'Yape', 'Plin'];
 
-  // --- Cálculos ---
-  subtotal = computed(() =>
-    this.items().reduce((acc, i) => acc + i.subtotal, 0)
-  );
-
+  subtotal = computed(() => this.items().reduce((acc, i) => acc + i.subtotal, 0));
   base = computed(() => this.subtotal() - this.descuento());
   igv = computed(() => Math.round(this.base() * 0.18 * 100) / 100);
   total = computed(() => Math.round((this.base() + this.igv()) * 100) / 100);
@@ -63,14 +64,15 @@ export class SalesNew {
 
   constructor() {
     effect(() => {
-      if (!this.visible()) {
-        this.resetForm();
-      }
+      if (!this.visible()) this.resetForm();
     });
   }
 
   resetForm(): void {
+    this.tieneCliente.set(false);
     this.clienteSeleccionado.set(null);
+    this.showNuevoCliente.set(false);
+    this.nuevoCliente.set({ documentType: 'DNI', documentNumber: '', name: '' });
     this.metodoPago.set('Efectivo');
     this.items.set([]);
     this.descuento.set(0);
@@ -79,27 +81,26 @@ export class SalesNew {
     this.error.set('');
   }
 
+  onSeleccionarCliente(idCustomer: string): void {
+    const cliente = this.clientes().find(c => c.idCustomer === idCustomer);
+    if (cliente) this.clienteSeleccionado.set(cliente);
+  }
+
   async onAgregarProducto(producto: any): Promise<void> {
-    // Verificar si ya está agregado
-    const existe = this.items().find(i => i.idProduct === producto.idProduct);
-    if (existe) {
+    if (this.items().find(i => i.idProduct === producto.idProduct)) {
       this.error.set('El producto ya está en la lista.');
       return;
     }
-
-    // Cargar lotes del producto
     try {
-      const raw: any = await this.api.invoke$Response(lotByProduct, { idProduct: producto.idProduct });
+      const raw: any = await this.api.invoke$Response(lotByproduct, { idProduct: producto.idProduct });
       const data = typeof raw.body === 'string' ? JSON.parse(raw.body) : raw.body;
       const lotes = data.type === 'success' ? (data.listLots ?? []) : [];
-
       const primerLote = lotes.find((l: any) => Number(l.currentStock) > 0);
       if (!primerLote) {
         this.error.set(`Sin stock disponible para ${producto.name}.`);
         return;
       }
-
-      const nuevoItem: ItemVenta = {
+      this.items.update(list => [...list, {
         idProduct: producto.idProduct,
         productName: producto.name,
         barcode: producto.barcode ?? '',
@@ -110,13 +111,10 @@ export class SalesNew {
         unitPrice: Number(producto.priceSale),
         subtotal: Number(producto.priceSale),
         lotes,
-      };
-
-      this.items.update(list => [...list, nuevoItem]);
+      }]);
       this.busquedaProducto.set('');
       this.showProductSearch.set(false);
       this.error.set('');
-
     } catch {
       this.error.set('Error al cargar lotes del producto.');
     }
@@ -164,27 +162,54 @@ export class SalesNew {
     this.showProductSearch.set(true);
   }
 
-  async onGuardar(): Promise<void> {
-    this.error.set('');
-
-    if (!this.clienteSeleccionado()) {
-      this.error.set('Selecciona un cliente.');
+  async onGuardarNuevoCliente(): Promise<void> {
+    if (!this.nuevoCliente().documentNumber.trim() || !this.nuevoCliente().name.trim()) {
+      this.error.set('Documento y nombre son obligatorios.');
       return;
     }
+    this.loadingCliente.set(true);
+    this.error.set('');
+    try {
+      const raw: any = await this.api.invoke$Response(customerInsert, { body: { ...this.nuevoCliente() } });
+      const data = typeof raw.body === 'string' ? JSON.parse(raw.body) : raw.body;
+      if (data.type !== 'success') {
+        this.error.set(data.listMessage[0] ?? 'Error al guardar cliente.');
+        return;
+      }
+      const rawClientes: any = await this.api.invoke$Response(customerGetall);
+      const dataClientes = typeof rawClientes.body === 'string' ? JSON.parse(rawClientes.body) : rawClientes.body;
+      if (dataClientes.type === 'success') {
+        const nuevo = (dataClientes.listCustomers ?? []).find((c: any) =>
+          c.documentNumber === this.nuevoCliente().documentNumber
+        );
+        if (nuevo) this.clienteSeleccionado.set(nuevo);
+      }
+      this.showNuevoCliente.set(false);
+      this.nuevoCliente.set({ documentType: 'DNI', documentNumber: '', name: '' });
+    } catch {
+      this.error.set('Error al guardar cliente.');
+    } finally {
+      this.loadingCliente.set(false);
+    }
+  }
 
+  async onGuardar(): Promise<void> {
+    this.error.set('');
     if (this.items().length === 0) {
       this.error.set('Agrega al menos un producto.');
       return;
     }
-
+    if (this.tieneCliente() && !this.clienteSeleccionado()) {
+      this.error.set('Selecciona o registra un cliente.');
+      return;
+    }
     const user = (() => {
       const raw = localStorage.getItem('current_user');
       return raw ? JSON.parse(raw) : null;
     })();
-
     const payload = {
       body: {
-        idCustomer: this.clienteSeleccionado().idCustomer,
+        idCustomer: this.clienteSeleccionado()?.idCustomer ?? null,
         idUser: user?.idUser ?? '',
         paymentMethod: this.metodoPago(),
         discount: this.descuento(),
@@ -196,7 +221,6 @@ export class SalesNew {
         }))
       }
     };
-
     this.loading.set(true);
     try {
       const raw: any = await this.api.invoke$Response(saleInsert, payload);
