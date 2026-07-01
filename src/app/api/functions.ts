@@ -27,6 +27,8 @@ export type { InventoryGetall$Params as InventoryGetall$Params } from './fn/inve
 export { inventoryGetall as inventoryGetall } from './fn/inventory/inventory-getall';
 export type { LotGetall$Params as LotGetall$Params } from './fn/lot/lot-getall';
 export { lotGetall as lotGetall } from './fn/lot/lot-getall';
+export type { LotByproduct$Params as LotByproduct$Params } from './fn/lot/lot-byproduct';
+export { lotByproduct as lotByproduct } from './fn/lot/lot-byproduct';
 export type { PurchaseGetall$Params as PurchaseGetall$Params } from './fn/purchase/purchase-getall';
 export { purchaseGetall as purchaseGetall } from './fn/purchase/purchase-getall';
 export type { PurchaseRecent$Params as PurchaseRecent$Params } from './fn/purchase/purchase-recent';
@@ -51,3 +53,7 @@ export type { SaleGetall$Params as SaleGetall$Params } from './fn/sale/sale-geta
 export { saleGetall as saleGetall } from './fn/sale/sale-getall';
 export type { SaleInsert$Params as SaleInsert$Params } from './fn/sale/sale-insert';
 export { saleInsert as saleInsert } from './fn/sale/sale-insert';
+export type { CustomerGetall$Params as CustomerGetall$Params } from './fn/customer/customer-getall';
+export { customerGetall as customerGetall } from './fn/customer/customer-getall';
+export type { CustomerInsert$Params as CustomerInsert$Params } from './fn/customer/customer-insert';
+export { customerInsert as customerInsert } from './fn/customer/customer-insert';
