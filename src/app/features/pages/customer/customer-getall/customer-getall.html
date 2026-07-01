@@ -1,0 +1,18 @@
+<div class="p-4 flex flex-col gap-6">
+
+    <app-customer-kpi [totalClientes]="totalClientes()" [clientesHoy]="clientesHoy()" [conDni]="conDni()"
+        [conRuc]="conRuc()" />
+
+    <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+
+        <div class="lg:col-span-3">
+            <app-customer-table [clientes]="filtrados()" [loading]="loading()" [error]="error()" />
+        </div>
+        <app-customer-sidebar [busqueda]="busqueda()" [tipoDocSeleccionado]="tipoDocSeleccionado()"
+            [tiposDoc]="tiposDoc()" (busquedaChange)="onBusqueda($event)" (tipoDocChange)="onTipoDocChange($event)"
+            (limpiarFiltros)="onLimpiarFiltros()" />
+
+
+    </div>
+
+</div>

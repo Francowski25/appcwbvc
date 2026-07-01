@@ -1,0 +1,63 @@
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+
+    <div class="bg-white rounded-2xl border border-pink-100 shadow-sm p-6">
+        <div class="flex items-start justify-between">
+            <div class="flex flex-col">
+                <span class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Total Clientes</span>
+                <span class="text-3xl font-black text-gray-800 m-0">{{ totalClientes() }}</span>
+                <span class="text-xs font-bold text-pink-400 mt-1 flex items-center gap-1">
+                    <i class="pi pi-users"></i> Registrados
+                </span>
+            </div>
+            <div class="w-12 h-12 rounded-2xl bg-pink-50 flex items-center justify-center">
+                <i class="pi pi-users text-pink-500 text-xl"></i>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-white rounded-2xl border border-green-100 shadow-sm p-6">
+        <div class="flex items-start justify-between">
+            <div class="flex flex-col">
+                <span class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Registrados Hoy</span>
+                <span class="text-3xl font-black text-gray-800 m-0">{{ clientesHoy() }}</span>
+                <span class="text-xs font-bold text-green-400 mt-1 flex items-center gap-1">
+                    <i class="pi pi-calendar"></i> Del día
+                </span>
+            </div>
+            <div class="w-12 h-12 rounded-2xl bg-green-50 flex items-center justify-center">
+                <i class="pi pi-calendar text-green-500 text-xl"></i>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-white rounded-2xl border border-blue-100 shadow-sm p-6">
+        <div class="flex items-start justify-between">
+            <div class="flex flex-col">
+                <span class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Con DNI</span>
+                <span class="text-3xl font-black text-gray-800 m-0">{{ conDni() }}</span>
+                <span class="text-xs font-bold text-blue-400 mt-1 flex items-center gap-1">
+                    <i class="pi pi-id-card"></i> Personas naturales
+                </span>
+            </div>
+            <div class="w-12 h-12 rounded-2xl bg-blue-50 flex items-center justify-center">
+                <i class="pi pi-id-card text-blue-500 text-xl"></i>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-white rounded-2xl border border-orange-100 shadow-sm p-6">
+        <div class="flex items-start justify-between">
+            <div class="flex flex-col">
+                <span class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Con RUC</span>
+                <span class="text-3xl font-black text-gray-800 m-0">{{ conRuc() }}</span>
+                <span class="text-xs font-bold text-orange-400 mt-1 flex items-center gap-1">
+                    <i class="pi pi-building"></i> Empresas
+                </span>
+            </div>
+            <div class="w-12 h-12 rounded-2xl bg-orange-50 flex items-center justify-center">
+                <i class="pi pi-building text-orange-500 text-xl"></i>
+            </div>
+        </div>
+    </div>
+
+</div>
