@@ -1,0 +1,26 @@
+<div class="p-4 flex flex-col gap-6">
+
+    <app-sales-kpi [totalVentas]="totalVentas()" [montoTotal]="montoTotal()" [ventasHoy]="ventasHoy()"
+        [ticketPromedio]="ticketPromedio()" />
+
+    <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+
+        <app-sales-sidebar [busqueda]="busqueda()" [metodoPagoSeleccionado]="metodoPagoSeleccionado()"
+            [estadoSeleccionado]="estadoSeleccionado()" [metodosPago]="metodosPago()"
+            (busquedaChange)="onBusqueda($event)" (metodoPagoChange)="onMetodoPagoChange($event)"
+            (estadoChange)="onEstadoChange($event)" (limpiarFiltros)="onLimpiarFiltros()"
+            (nuevaVenta)="onNuevaVenta()" />
+
+        <div class="lg:col-span-3">
+            <app-sales-table [ventas]="filtrados()" [loading]="loading()" [error]="error()"
+                (verDetalle)="onVerDetalle($event)" (nuevaVenta)="onNuevaVenta()" />
+        </div>
+
+    </div>
+
+    <app-sales-new [visible]="showNew()" [clientes]="clientes()" [productos]="productos()"
+        (visibleChange)="showNew.set($event)" (guardado)="onVentaGuardada()" />
+
+    <app-sales-detail [visible]="showDetail()" [venta]="ventaSeleccionada()" (visibleChange)="showDetail.set($event)" />
+
+</div>

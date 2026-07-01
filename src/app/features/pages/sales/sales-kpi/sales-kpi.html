@@ -1,0 +1,63 @@
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+
+    <div class="bg-white rounded-2xl border border-pink-100 shadow-sm p-6">
+        <div class="flex items-start justify-between">
+            <div class="flex flex-col">
+                <span class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Total Ventas</span>
+                <span class="text-3xl font-black text-gray-800 m-0">{{ totalVentas() }}</span>
+                <span class="text-xs font-bold text-pink-400 mt-1 flex items-center gap-1">
+                    <i class="pi pi-list"></i> Registradas
+                </span>
+            </div>
+            <div class="w-12 h-12 rounded-2xl bg-pink-50 flex items-center justify-center">
+                <i class="pi pi-shopping-cart text-pink-500 text-xl"></i>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-white rounded-2xl border border-green-100 shadow-sm p-6">
+        <div class="flex items-start justify-between">
+            <div class="flex flex-col">
+                <span class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Monto Total</span>
+                <span class="text-2xl font-black text-gray-800 m-0">S/ {{ montoTotal() | number:'1.2-2' }}</span>
+                <span class="text-xs font-bold text-green-400 mt-1 flex items-center gap-1">
+                    <i class="pi pi-dollar"></i> Ingresos totales
+                </span>
+            </div>
+            <div class="w-12 h-12 rounded-2xl bg-green-50 flex items-center justify-center">
+                <i class="pi pi-dollar text-green-500 text-xl"></i>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-white rounded-2xl border border-blue-100 shadow-sm p-6">
+        <div class="flex items-start justify-between">
+            <div class="flex flex-col">
+                <span class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Ventas Hoy</span>
+                <span class="text-3xl font-black text-gray-800 m-0">{{ ventasHoy() }}</span>
+                <span class="text-xs font-bold text-blue-400 mt-1 flex items-center gap-1">
+                    <i class="pi pi-calendar"></i> Del día
+                </span>
+            </div>
+            <div class="w-12 h-12 rounded-2xl bg-blue-50 flex items-center justify-center">
+                <i class="pi pi-calendar text-blue-500 text-xl"></i>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-white rounded-2xl border border-orange-100 shadow-sm p-6">
+        <div class="flex items-start justify-between">
+            <div class="flex flex-col">
+                <span class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Ticket Promedio</span>
+                <span class="text-2xl font-black text-gray-800 m-0">S/ {{ ticketPromedio() | number:'1.2-2' }}</span>
+                <span class="text-xs font-bold text-orange-400 mt-1 flex items-center gap-1">
+                    <i class="pi pi-calculator"></i> Por venta
+                </span>
+            </div>
+            <div class="w-12 h-12 rounded-2xl bg-orange-50 flex items-center justify-center">
+                <i class="pi pi-calculator text-orange-500 text-xl"></i>
+            </div>
+        </div>
+    </div>
+
+</div>

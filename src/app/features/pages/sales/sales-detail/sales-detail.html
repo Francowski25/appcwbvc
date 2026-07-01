@@ -1,0 +1,92 @@
+<p-dialog [visible]="visible()" (visibleChange)="visibleChange.emit($event)" [modal]="true" [draggable]="false"
+    [resizable]="false" [style]="{ width: '650px' }" header="Detalle de Venta">
+
+    @if (venta(); as v) {
+    <div class="flex flex-col gap-4">
+
+        <div class="grid grid-cols-2 gap-3">
+            <div class="bg-gray-50 rounded-xl p-3">
+                <p class="text-xs text-gray-400 mb-1">N° Venta</p>
+                <p class="text-sm font-bold font-mono text-gray-700">{{ v.saleNumber }}</p>
+            </div>
+            <div class="bg-gray-50 rounded-xl p-3">
+                <p class="text-xs text-gray-400 mb-1">Fecha</p>
+                <p class="text-sm font-bold text-gray-700">{{ v.saleDate }}</p>
+            </div>
+            <div class="bg-gray-50 rounded-xl p-3">
+                <p class="text-xs text-gray-400 mb-1">Cliente</p>
+                <p class="text-sm font-bold text-gray-700">{{ v.customerName ?? '—' }}</p>
+                <p class="text-xs text-gray-400">{{ v.customerDocument ?? '—' }}</p>
+            </div>
+            <div class="bg-gray-50 rounded-xl p-3">
+                <p class="text-xs text-gray-400 mb-1">Vendedor</p>
+                <p class="text-sm font-bold text-gray-700">{{ v.userName ?? '—' }}</p>
+            </div>
+            <div class="bg-gray-50 rounded-xl p-3">
+                <p class="text-xs text-gray-400 mb-1">Método de pago</p>
+                <p class="text-sm font-bold text-gray-700">{{ v.paymentMethod }}</p>
+            </div>
+            <div class="bg-gray-50 rounded-xl p-3">
+                <p class="text-xs text-gray-400 mb-1">Estado</p>
+                <div class="flex items-center gap-2 text-xs font-bold"
+                    [class]="v.status === 'Completada' ? 'text-emerald-600' : 'text-red-500'">
+                    <span class="w-1.5 h-1.5 rounded-full"
+                        [class]="v.status === 'Completada' ? 'bg-emerald-500' : 'bg-red-400'"></span>
+                    {{ v.status }}
+                </div>
+            </div>
+        </div>
+
+        <div class="overflow-x-auto rounded-xl border border-gray-100">
+            <table class="w-full text-sm">
+                <thead class="bg-pink-50/70">
+                    <tr>
+                        <th class="text-xs font-bold text-pink-500 uppercase px-4 py-2 text-left">Producto</th>
+                        <th class="text-xs font-bold text-pink-500 uppercase px-4 py-2 text-left">Lote</th>
+                        <th class="text-xs font-bold text-pink-500 uppercase px-4 py-2 text-right">Cant.</th>
+                        <th class="text-xs font-bold text-pink-500 uppercase px-4 py-2 text-right">Precio u.</th>
+                        <th class="text-xs font-bold text-pink-500 uppercase px-4 py-2 text-right">Subtotal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (d of v.detalles ?? []; track d.idSaleDetail) {
+                    <tr class="border-t border-gray-100 hover:bg-pink-50/20">
+                        <td class="px-4 py-2 font-medium text-gray-700">{{ d.productName ?? '—' }}</td>
+                        <td class="px-4 py-2 text-gray-500 font-mono text-xs">{{ d.lotCode ?? '—' }}</td>
+                        <td class="px-4 py-2 text-right font-bold text-gray-700">{{ d.quantity }} u.</td>
+                        <td class="px-4 py-2 text-right text-gray-500">S/ {{ Number(d.unitPrice) | number:'1.2-2' }}
+                        </td>
+                        <td class="px-4 py-2 text-right font-bold text-pink-600">S/ {{ Number(d.subtotal) |
+                            number:'1.2-2' }}</td>
+                    </tr>
+                    }
+                </tbody>
+                <tfoot class="bg-gray-50">
+                    <tr>
+                        <td colspan="2" class="px-4 py-2 text-xs text-gray-500">Subtotal</td>
+                        <td colspan="3" class="px-4 py-2 text-right font-bold text-gray-700">S/ {{ Number(v.subtotal) |
+                            number:'1.2-2' }}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="px-4 py-2 text-xs text-gray-500">Descuento</td>
+                        <td colspan="3" class="px-4 py-2 text-right font-bold text-gray-700">S/ {{ Number(v.discount) |
+                            number:'1.2-2' }}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="px-4 py-2 text-xs text-gray-500">IGV (18%)</td>
+                        <td colspan="3" class="px-4 py-2 text-right font-bold text-gray-700">S/ {{ Number(v.igv) |
+                            number:'1.2-2' }}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="px-4 py-2 text-sm font-black text-gray-800">TOTAL</td>
+                        <td colspan="3" class="px-4 py-2 text-right font-black text-pink-600 text-lg">S/ {{
+                            Number(v.total) | number:'1.2-2' }}</td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+
+    </div>
+    }
+
+</p-dialog>

@@ -1,0 +1,105 @@
+<aside
+    class="w-full bg-white p-5 rounded-2xl border border-gray-100 shadow-sm flex flex-col gap-5 sticky top-4 overflow-y-auto h-[calc(100vh-3rem)]">
+
+    <div>
+        <h3 class="text-sm font-bold text-gray-700 mb-1">Filtros de Búsqueda</h3>
+        <p class="text-[11px] text-gray-400">Refina el historial de ventas.</p>
+    </div>
+
+    <hr class="border-gray-100 my-0">
+
+    <div class="flex flex-col gap-2">
+        <label class="text-xs font-bold text-slate-400 uppercase tracking-wider">Buscar</label>
+        <p-iconfield class="w-full">
+            <p-inputicon styleClass="pi pi-search text-gray-400 text-sm" />
+            <input pInputText type="text" placeholder="Cliente, N° venta..."
+                class="w-full text-xs py-2.5 rounded-xl border-gray-200" [value]="busqueda()"
+                (input)="onBusquedaInput($event)" />
+        </p-iconfield>
+    </div>
+
+    <div class="flex flex-col gap-4">
+
+        <!-- Método de pago -->
+        <div class="bg-white border border-pink-100 rounded-2xl p-4 shadow-sm flex flex-col gap-3">
+            <p class="text-xs font-semibold text-pink-400 uppercase tracking-wider mb-1 flex items-center gap-1.5">
+                <i class="pi pi-wallet text-xs"></i> Método de pago
+            </p>
+
+            @if (metodoPagoSeleccionado()) {
+            <div
+                class="flex items-center justify-between bg-pink-500 text-white px-3 py-1.5 rounded-xl text-xs font-bold shadow-sm">
+                <div class="flex items-center gap-2 min-w-0">
+                    <i class="pi text-xs shrink-0" [class]="'pi-' + metodosIcono[metodoPagoSeleccionado()]"></i>
+                    <span class="truncate">{{ metodoPagoSeleccionado() }}</span>
+                </div>
+                <button (click)="onMetodoClick(metodoPagoSeleccionado())"
+                    class="text-white hover:text-pink-100 bg-transparent border-none p-0 cursor-pointer">
+                    <i class="pi pi-times text-[10px] font-bold"></i>
+                </button>
+            </div>
+            }
+
+            <div class="flex flex-col gap-1 border border-gray-50 rounded-xl p-1 bg-gray-50/50">
+                @for (m of metodosPago(); track m.name) {
+                <button
+                    class="flex items-center justify-between px-3 py-2 rounded-xl text-xs transition-all w-full text-left cursor-pointer"
+                    [ngClass]="metodoPagoSeleccionado() === m.name
+              ? 'bg-pink-600 text-white font-bold'
+              : 'text-gray-500 hover:bg-pink-50 hover:text-pink-500 font-medium'" (click)="onMetodoClick(m.name)">
+                    <div class="flex items-center gap-2">
+                        <i class="pi text-xs shrink-0" [class]="metodosIcono[m.name]"></i>
+                        <span>{{ m.name }}</span>
+                    </div>
+                    <span class="text-[10px] px-2 py-0.5 rounded-full shrink-0"
+                        [ngClass]="metodoPagoSeleccionado() === m.name ? 'bg-white/20 text-white' : 'bg-pink-50 text-pink-400'">
+                        {{ m.count }}
+                    </span>
+                </button>
+                }
+            </div>
+        </div>
+
+        <!-- Estado -->
+        <div class="bg-white border border-pink-100 rounded-2xl p-4 shadow-sm flex flex-col gap-3">
+            <p class="text-xs font-semibold text-pink-400 uppercase tracking-wider mb-1 flex items-center gap-1.5">
+                <i class="pi pi-info-circle text-xs"></i> Estado
+            </p>
+            <div class="flex flex-col gap-1 border border-gray-50 rounded-xl p-1 bg-gray-50/50">
+                @for (e of estados; track e.name) {
+                <button
+                    class="flex items-center justify-between px-3 py-2 rounded-xl text-xs transition-all w-full text-left cursor-pointer"
+                    [ngClass]="estadoSeleccionado() === e.name
+              ? 'bg-pink-600 text-white font-bold'
+              : 'text-gray-500 hover:bg-pink-50 hover:text-pink-500 font-medium'" (click)="onEstadoClick(e.name)">
+                    <div class="flex items-center gap-2">
+                        <span class="w-1.5 h-1.5 rounded-full shrink-0"
+                            [class]="estadoSeleccionado() === e.name ? 'bg-white' : e.dot"></span>
+                        {{ e.name }}
+                    </div>
+                </button>
+                }
+            </div>
+        </div>
+
+        <!-- Acciones -->
+        <div class="bg-white border border-pink-100 rounded-2xl p-4 shadow-sm flex flex-col gap-2">
+            <p class="text-xs font-semibold text-pink-400 uppercase tracking-wider flex items-center gap-1.5 mb-1">
+                <i class="pi pi-bolt text-xs"></i> Acciones
+            </p>
+            <button type="button" (click)="nuevaVenta.emit()"
+                class="flex items-center justify-center gap-2 w-full bg-pink-500 hover:bg-pink-600 text-white px-4 py-2.5 rounded-xl text-xs font-bold transition-all shadow-sm cursor-pointer">
+                <i class="pi pi-plus text-xs"></i>
+                Nueva Venta
+            </button>
+            @if (hayFiltros()) {
+            <button type="button" (click)="limpiarFiltros.emit()"
+                class="flex items-center justify-center gap-2 w-full bg-white hover:bg-gray-50 text-slate-700 border border-gray-200 px-4 py-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer">
+                <i class="pi pi-filter-slash text-xs text-slate-500"></i>
+                Limpiar filtros
+            </button>
+            }
+        </div>
+
+    </div>
+</aside>
