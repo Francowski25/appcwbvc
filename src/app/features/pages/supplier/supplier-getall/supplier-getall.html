@@ -5,14 +5,15 @@
 
     <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
 
-        <app-supplier-sidebar [busqueda]="busqueda()" [estadoSeleccionado]="estadoSeleccionado()"
-            (busquedaChange)="onBusqueda($event)" (estadoChange)="onEstadoChange($event)"
-            (limpiarFiltros)="onLimpiarFiltros()" (nuevo)="onNuevo()" />
-
         <div class="lg:col-span-3">
             <app-supplier-table [proveedores]="filtrados()" [loading]="loading()" [error]="error()"
                 (editar)="onEditar($event)" (toggleStatus)="onToggleStatus($event)" (nuevo)="onNuevo()" />
         </div>
+
+        <app-supplier-sidebar [busqueda]="busqueda()" [estadoSeleccionado]="estadoSeleccionado()"
+            (busquedaChange)="onBusqueda($event)" (estadoChange)="onEstadoChange($event)"
+            (limpiarFiltros)="onLimpiarFiltros()" (nuevo)="onNuevo()" />
+
 
     </div>
 
