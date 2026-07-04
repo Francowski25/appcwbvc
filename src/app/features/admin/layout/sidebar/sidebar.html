@@ -226,25 +226,25 @@
       </button>
       @if (isSectionOpen('reportes') && !collapsed()) {
       <div class="ml-4 flex flex-col gap-0.5 border-l border-gray-200 pl-3 mt-0.5">
-        <a routerLink="/admin/reportes/ventas" routerLinkActive="text-pink-700 font-medium"
+        <a routerLink="/admin/reports/sales" routerLinkActive="text-pink-700 font-medium"
           class="py-2 px-2 text-sm text-gray-500 hover:text-gray-800 transition-colors rounded">
-          Ventas por fecha
+          Ventas
         </a>
-        <a routerLink="/admin/reportes/productos" routerLinkActive="text-pink-700 font-medium"
+        <a routerLink="/admin/reports/inventory" routerLinkActive="text-pink-700 font-medium"
           class="py-2 px-2 text-sm text-gray-500 hover:text-gray-800 transition-colors rounded">
-          Productos más vendidos
+          Inventario
+        </a>
+        <a routerLink="/admin/reports/purchases" routerLinkActive="text-pink-700 font-medium"
+          class="py-2 px-2 text-sm text-gray-500 hover:text-gray-800 transition-colors rounded">
+          Compras
+        </a>
+        <a routerLink="/admin/reports/customers" routerLinkActive="text-pink-700 font-medium"
+          class="py-2 px-2 text-sm text-gray-500 hover:text-gray-800 transition-colors rounded">
+          Clientes
         </a>
         <a routerLink="/admin/reportes/ingresos" routerLinkActive="text-pink-700 font-medium"
           class="py-2 px-2 text-sm text-gray-500 hover:text-gray-800 transition-colors rounded">
           Ingresos
-        </a>
-        <a routerLink="/admin/reportes/inventario" routerLinkActive="text-pink-700 font-medium"
-          class="py-2 px-2 text-sm text-gray-500 hover:text-gray-800 transition-colors rounded">
-          Inventario
-        </a>
-        <a routerLink="/admin/reportes/compras" routerLinkActive="text-pink-700 font-medium"
-          class="py-2 px-2 text-sm text-gray-500 hover:text-gray-800 transition-colors rounded">
-          Compras
         </a>
         <a routerLink="/admin/reportes/movimientos" routerLinkActive="text-pink-700 font-medium"
           class="py-2 px-2 text-sm text-gray-500 hover:text-gray-800 transition-colors rounded">

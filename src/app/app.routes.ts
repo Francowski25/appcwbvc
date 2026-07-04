@@ -23,6 +23,10 @@ import { SellerDashboard } from './features/seller/seller-dashboard/seller-dashb
 import { SalesGetall } from './features/pages/sales/sales-getall/sales-getall';
 import { SalesNew } from './features/pages/sales/sales-new/sales-new';
 import { CustomerGetall } from './features/pages/customer/customer-getall/customer-getall';
+import { ReportPurchases } from './features/pages/reports/report-purchases/report-purchases';
+import { ReportSales } from './features/pages/reports/report-sales/report-sales';
+import { ReportInventory } from './features/pages/reports/report-inventory/report-inventory';
+import { ReportCustomers } from './features/pages/reports/report-customers/report-customers';
 
 const authGuard: CanActivateFn = () => {
   const router = inject(Router);
@@ -85,6 +89,16 @@ export const routes: Routes = [
         children: [
           { path: '', redirectTo: '', pathMatch: 'full' },
           { path: '', component: CustomerGetall },
+        ]
+      },
+      {
+        path: 'reports',
+        children: [
+          { path: '', redirectTo: 'sales', pathMatch: 'full' },
+          { path: 'sales', component: ReportSales },
+          { path: 'inventory', component: ReportInventory },
+          { path: 'purchases', component: ReportPurchases },
+          { path: 'customers', component: ReportCustomers },
         ]
       },
       { path: 'categoria', component: CategoryGetall },
