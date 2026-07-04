@@ -1,1 +1,354 @@
-<p>report-sales works!</p>
+<div class="p-6 flex flex-col gap-6">
+
+    <!-- HEADER -->
+    <div
+        class="bg-white rounded-2xl border border-pink-100 shadow-sm p-6 flex items-center justify-between flex-wrap gap-4">
+        <div>
+            <h1 class="text-xl font-extrabold text-gray-900 flex items-center gap-3 m-0">
+                <span class="p-2 bg-pink-50 text-pink-600 rounded-xl">
+                    <i class="pi pi-chart-line text-lg"></i>
+                </span>
+                Reporte de Ventas
+            </h1>
+            <p class="text-xs text-gray-400 mt-1 m-0">Análisis de ventas por período</p>
+        </div>
+
+        <div class="flex items-center gap-3 flex-wrap">
+            <div class="flex items-center gap-2">
+                <div class="flex flex-col gap-1">
+                    <label class="text-[10px] font-bold text-slate-400 uppercase">Desde</label>
+                    <input type="date" [value]="from()" (change)="from.set($any($event.target).value)"
+                        class="text-xs border border-gray-200 rounded-xl px-3 py-2 outline-none focus:border-pink-300 cursor-pointer" />
+                </div>
+                <div class="flex flex-col gap-1">
+                    <label class="text-[10px] font-bold text-slate-400 uppercase">Hasta</label>
+                    <input type="date" [value]="to()" (change)="to.set($any($event.target).value)"
+                        class="text-xs border border-gray-200 rounded-xl px-3 py-2 outline-none focus:border-pink-300 cursor-pointer" />
+                </div>
+            </div>
+
+            <div class="flex items-center gap-2 mt-4">
+                <button (click)="onGenerar()" [disabled]="loading()"
+                    class="flex items-center gap-2 bg-pink-500 hover:bg-pink-600 text-white px-4 py-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer disabled:opacity-50">
+                    <i [class]="loading() ? 'pi pi-spin pi-spinner' : 'pi pi-refresh'" class="text-xs"></i>
+                    {{ loading() ? 'Generando...' : 'Generar' }}
+                </button>
+                <button (click)="onLimpiar()"
+                    class="flex items-center gap-2 bg-white border border-gray-200 text-gray-600 hover:bg-gray-50 px-4 py-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer">
+                    <i class="pi pi-times text-xs"></i> Limpiar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    @if (error()) {
+    <div class="p-3 bg-red-50 border border-red-100 rounded-xl text-red-600 text-xs flex items-center gap-2">
+        <i class="pi pi-exclamation-circle"></i> {{ error() }}
+    </div>
+    }
+
+    @if (generated()) {
+
+    <!-- KPIs -->
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+        <div class="bg-white rounded-2xl border border-pink-100 shadow-sm p-5">
+            <div class="flex items-start justify-between">
+                <div class="flex flex-col">
+                    <span class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Total Ventas</span>
+                    <span class="text-3xl font-black text-gray-800 m-0">{{ resumen()?.totalVentas ?? 0 }}</span>
+                    <span class="text-xs font-bold text-pink-400 mt-1 flex items-center gap-1">
+                        <i class="pi pi-shopping-cart"></i> Transacciones
+                    </span>
+                </div>
+                <div class="w-12 h-12 rounded-2xl bg-pink-50 flex items-center justify-center">
+                    <i class="pi pi-shopping-cart text-pink-500 text-xl"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-2xl border border-green-100 shadow-sm p-5">
+            <div class="flex items-start justify-between">
+                <div class="flex flex-col">
+                    <span class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Monto Total</span>
+                    <span class="text-2xl font-black text-gray-800 m-0">S/ {{ resumen()?.totalMonto | number:'1.2-2'
+                        }}</span>
+                    <span class="text-xs font-bold text-green-400 mt-1 flex items-center gap-1">
+                        <i class="pi pi-dollar"></i> Ingresos
+                    </span>
+                </div>
+                <div class="w-12 h-12 rounded-2xl bg-green-50 flex items-center justify-center">
+                    <i class="pi pi-dollar text-green-500 text-xl"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-2xl border border-blue-100 shadow-sm p-5">
+            <div class="flex items-start justify-between">
+                <div class="flex flex-col">
+                    <span class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Ticket Promedio</span>
+                    <span class="text-2xl font-black text-gray-800 m-0">S/ {{ resumen()?.ticketPromedio | number:'1.2-2'
+                        }}</span>
+                    <span class="text-xs font-bold text-blue-400 mt-1 flex items-center gap-1">
+                        <i class="pi pi-calculator"></i> Por venta
+                    </span>
+                </div>
+                <div class="w-12 h-12 rounded-2xl bg-blue-50 flex items-center justify-center">
+                    <i class="pi pi-calculator text-blue-500 text-xl"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-2xl border border-orange-100 shadow-sm p-5">
+            <div class="flex items-start justify-between">
+                <div class="flex flex-col">
+                    <span class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Descuentos</span>
+                    <span class="text-2xl font-black text-gray-800 m-0">S/ {{ resumen()?.totalDescuento | number:'1.2-2'
+                        }}</span>
+                    <span class="text-xs font-bold text-orange-400 mt-1 flex items-center gap-1">
+                        <i class="pi pi-tag"></i> Total aplicado
+                    </span>
+                </div>
+                <div class="w-12 h-12 rounded-2xl bg-orange-50 flex items-center justify-center">
+                    <i class="pi pi-tag text-orange-500 text-xl"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- GRÁFICAS FILA 1 -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+
+        <div class="lg:col-span-2 bg-white rounded-2xl border border-gray-100 shadow-sm p-5">
+            <div class="flex items-center justify-between mb-4">
+                <div>
+                    <p class="text-sm font-bold text-slate-700 m-0">Ventas por día</p>
+                    <p class="text-xs text-slate-400 mt-0.5 m-0">Evolución del período seleccionado</p>
+                </div>
+                <div class="w-9 h-9 rounded-xl bg-pink-50 border border-pink-100 flex items-center justify-center">
+                    <i class="pi pi-chart-line text-pink-400 text-sm"></i>
+                </div>
+            </div>
+            <div style="height: 220px">
+                <p-chart type="line" [data]="lineChartData()" [options]="lineChartOptions" height="220px" />
+            </div>
+        </div>
+
+        <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-5">
+            <div class="flex items-center justify-between mb-4">
+                <div>
+                    <p class="text-sm font-bold text-slate-700 m-0">Métodos de pago</p>
+                    <p class="text-xs text-slate-400 mt-0.5 m-0">Distribución por tipo</p>
+                </div>
+                <div class="w-9 h-9 rounded-xl bg-pink-50 border border-pink-100 flex items-center justify-center">
+                    <i class="pi pi-wallet text-pink-400 text-sm"></i>
+                </div>
+            </div>
+            <div style="height: 220px">
+                <p-chart type="doughnut" [data]="donaMetodosData()" [options]="donaOptions" height="220px" />
+            </div>
+        </div>
+
+    </div>
+
+    <!-- GRÁFICAS FILA 2 -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+
+        <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-5">
+            <div class="flex items-center justify-between mb-4">
+                <div>
+                    <p class="text-sm font-bold text-slate-700 m-0">Rendimiento por vendedor</p>
+                    <p class="text-xs text-slate-400 mt-0.5 m-0">Monto vendido en el período</p>
+                </div>
+                <div class="w-9 h-9 rounded-xl bg-pink-50 border border-pink-100 flex items-center justify-center">
+                    <i class="pi pi-users text-pink-400 text-sm"></i>
+                </div>
+            </div>
+            <div style="height: 220px">
+                <p-chart type="bar" [data]="barVendedoresData()" [options]="barOptions" height="220px" />
+            </div>
+        </div>
+
+        <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-5">
+            <div class="flex items-center justify-between mb-4">
+                <div>
+                    <p class="text-sm font-bold text-slate-700 m-0">Top productos vendidos</p>
+                    <p class="text-xs text-slate-400 mt-0.5 m-0">Por unidades en el período</p>
+                </div>
+                <div class="w-9 h-9 rounded-xl bg-pink-50 border border-pink-100 flex items-center justify-center">
+                    <i class="pi pi-box text-pink-400 text-sm"></i>
+                </div>
+            </div>
+            <div class="flex flex-col gap-3">
+                @for (p of topProductos(); track p.idProduct) {
+                <div>
+                    <div class="flex justify-between items-center mb-1">
+                        <span class="text-xs font-medium text-gray-700 truncate max-w-[200px]">{{ p.productName
+                            }}</span>
+                        <div class="flex items-center gap-2 shrink-0">
+                            <span class="text-xs font-bold text-pink-500">{{ p.totalQty }} u.</span>
+                            <span class="text-xs text-gray-400">S/ {{ Number(p.totalMonto) | number:'1.2-2' }}</span>
+                        </div>
+                    </div>
+                    <div class="h-1.5 bg-gray-100 rounded-full overflow-hidden">
+                        <div class="h-full bg-pink-400 rounded-full transition-all" [style.width.%]="p.pct"></div>
+                    </div>
+                </div>
+                }
+            </div>
+        </div>
+
+    </div>
+
+    <!-- TABLA DETALLE -->
+    <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 flex flex-col gap-4">
+        <div class="flex items-center justify-between">
+            <h3 class="text-sm font-bold text-slate-700 flex items-center gap-2 m-0">
+                <i class="pi pi-table text-pink-400"></i> Detalle de ventas
+            </h3>
+            <span class="text-xs text-gray-400">{{ detalle().length }} registros</span>
+        </div>
+
+        <div class="overflow-x-auto rounded-xl border border-gray-100">
+            <p-table [value]="detalle()" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[5, 10, 20]"
+                [rowHover]="true" styleClass="p-datatable-sm p-datatable-striped"
+                [tableStyle]="{ 'min-width': '50rem' }">
+
+                <ng-template #header>
+                    <tr class="bg-pink-50/70">
+                        <th pSortableColumn="saleNumber"
+                            class="text-xs font-bold text-pink-500 uppercase px-4 py-3 cursor-pointer hover:bg-pink-100/40">
+                            <div class="flex items-center gap-1.5"><i class="pi pi-hashtag text-xs"></i> N° Venta
+                                <p-sortIcon field="saleNumber" /></div>
+                        </th>
+                        <th pSortableColumn="saleDate"
+                            class="text-xs font-bold text-pink-500 uppercase px-4 py-3 cursor-pointer hover:bg-pink-100/40">
+                            <div class="flex items-center gap-1.5"><i class="pi pi-calendar text-xs"></i> Fecha
+                                <p-sortIcon field="saleDate" /></div>
+                        </th>
+                        <th class="text-xs font-bold text-pink-500 uppercase px-4 py-3">
+                            <div class="flex items-center gap-1.5"><i class="pi pi-user text-xs"></i> Cliente</div>
+                        </th>
+                        <th class="text-xs font-bold text-pink-500 uppercase px-4 py-3">
+                            <div class="flex items-center gap-1.5"><i class="pi pi-user text-xs"></i> Vendedor</div>
+                        </th>
+                        <th class="text-xs font-bold text-pink-500 uppercase px-4 py-3">
+                            <div class="flex items-center gap-1.5"><i class="pi pi-wallet text-xs"></i> Método</div>
+                        </th>
+                        <th pSortableColumn="subtotal"
+                            class="text-xs font-bold text-pink-500 uppercase px-4 py-3 cursor-pointer hover:bg-pink-100/40">
+                            <div class="flex items-center gap-1.5"><i class="pi pi-minus text-xs"></i> Subtotal
+                                <p-sortIcon field="subtotal" /></div>
+                        </th>
+                        <th class="text-xs font-bold text-pink-500 uppercase px-4 py-3">
+                            <div class="flex items-center gap-1.5"><i class="pi pi-tag text-xs"></i> Descuento</div>
+                        </th>
+                        <th class="text-xs font-bold text-pink-500 uppercase px-4 py-3">
+                            <div class="flex items-center gap-1.5"><i class="pi pi-percentage text-xs"></i> IGV</div>
+                        </th>
+                        <th pSortableColumn="total"
+                            class="text-xs font-bold text-pink-500 uppercase px-4 py-3 cursor-pointer hover:bg-pink-100/40">
+                            <div class="flex items-center gap-1.5"><i class="pi pi-dollar text-xs"></i> Total
+                                <p-sortIcon field="total" /></div>
+                        </th>
+                    </tr>
+                </ng-template>
+
+                <ng-template #body let-v>
+                    <tr class="hover:bg-pink-50/30 transition-colors">
+                        <td class="px-4 py-3">
+                            <span
+                                class="text-xs font-mono font-bold text-gray-600 bg-gray-100 px-2.5 py-1 rounded-lg">{{
+                                v.saleNumber }}</span>
+                        </td>
+                        <td class="px-4 py-3"><span class="text-xs text-gray-600">{{ v.saleDate }}</span></td>
+                        <td class="px-4 py-3"><span class="text-xs text-gray-700 font-medium">{{ v.customerName
+                                }}</span></td>
+                        <td class="px-4 py-3"><span class="text-xs text-gray-600">{{ v.userName }}</span></td>
+                        <td class="px-4 py-3">
+                            <span
+                                class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-bold bg-blue-50 text-blue-600 border border-blue-200">
+                                {{ v.paymentMethod }}
+                            </span>
+                        </td>
+                        <td class="px-4 py-3"><span class="text-xs text-gray-600">S/ {{ Number(v.subtotal) |
+                                number:'1.2-2' }}</span></td>
+                        <td class="px-4 py-3"><span class="text-xs text-orange-500 font-bold">S/ {{ Number(v.discount) |
+                                number:'1.2-2' }}</span></td>
+                        <td class="px-4 py-3"><span class="text-xs text-gray-600">S/ {{ Number(v.igv) | number:'1.2-2'
+                                }}</span></td>
+                        <td class="px-4 py-3"><span class="text-sm font-black text-pink-600">S/ {{ Number(v.total) |
+                                number:'1.2-2' }}</span></td>
+                    </tr>
+                </ng-template>
+
+                <ng-template #emptymessage>
+                    <tr>
+                        <td colspan="9">
+                            <div class="flex flex-col items-center justify-center py-12">
+                                <i class="pi pi-inbox text-4xl mb-2 text-pink-200"></i>
+                                <p class="text-xs font-medium text-gray-400">No hay ventas en el período seleccionado.
+                                </p>
+                            </div>
+                        </td>
+                    </tr>
+                </ng-template>
+
+            </p-table>
+        </div>
+    </div>
+
+    <!-- TABLA VENDEDORES -->
+    <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 flex flex-col gap-4">
+        <h3 class="text-sm font-bold text-slate-700 flex items-center gap-2 m-0">
+            <i class="pi pi-users text-pink-400"></i> Rendimiento por vendedor
+        </h3>
+        <div class="overflow-x-auto rounded-xl border border-gray-100">
+            <p-table [value]="porUsuario()" [rowHover]="true" styleClass="p-datatable-sm p-datatable-striped"
+                [tableStyle]="{ 'min-width': '30rem' }">
+                <ng-template #header>
+                    <tr class="bg-pink-50/70">
+                        <th class="text-xs font-bold text-pink-500 uppercase px-4 py-3">Vendedor</th>
+                        <th class="text-xs font-bold text-pink-500 uppercase px-4 py-3">Rol</th>
+                        <th pSortableColumn="totalVentas"
+                            class="text-xs font-bold text-pink-500 uppercase px-4 py-3 cursor-pointer">
+                            <div class="flex items-center gap-1.5">N° Ventas <p-sortIcon field="totalVentas" /></div>
+                        </th>
+                        <th pSortableColumn="totalMonto"
+                            class="text-xs font-bold text-pink-500 uppercase px-4 py-3 cursor-pointer">
+                            <div class="flex items-center gap-1.5">Monto Total <p-sortIcon field="totalMonto" /></div>
+                        </th>
+                    </tr>
+                </ng-template>
+                <ng-template #body let-u>
+                    <tr class="hover:bg-pink-50/30 transition-colors">
+                        <td class="px-4 py-3">
+                            <div class="flex items-center gap-2">
+                                <div class="w-7 h-7 rounded-full bg-pink-100 flex items-center justify-center shrink-0">
+                                    <span class="text-xs font-bold text-pink-600">{{
+                                        u.userName?.charAt(0)?.toUpperCase() }}</span>
+                                </div>
+                                <span class="text-sm font-semibold text-gray-800">{{ u.userName }}</span>
+                            </div>
+                        </td>
+                        <td class="px-4 py-3"><span class="text-xs text-gray-500 capitalize">{{ u.role }}</span></td>
+                        <td class="px-4 py-3"><span class="text-sm font-bold text-gray-700">{{ u.totalVentas }}</span>
+                        </td>
+                        <td class="px-4 py-3"><span class="text-sm font-black text-pink-600">S/ {{ Number(u.totalMonto)
+                                | number:'1.2-2' }}</span></td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </div>
+
+    } @else if (!loading()) {
+    <div class="flex flex-col items-center justify-center py-20 bg-white rounded-2xl border border-gray-100 shadow-sm">
+        <div class="w-16 h-16 rounded-2xl bg-pink-50 flex items-center justify-center mb-4">
+            <i class="pi pi-chart-line text-pink-400 text-3xl"></i>
+        </div>
+        <p class="text-sm font-bold text-gray-600 m-0">Selecciona un período y genera el reporte</p>
+        <p class="text-xs text-gray-400 mt-1">Los datos se mostrarán aquí</p>
+    </div>
+    }
+
+</div>
