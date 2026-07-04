@@ -1,1 +1,278 @@
-<p>report-customers works!</p>
+<div class="p-6 flex flex-col gap-6">
+
+    <!-- HEADER -->
+    <div
+        class="bg-white rounded-2xl border border-pink-100 shadow-sm p-6 flex items-center justify-between flex-wrap gap-4">
+        <div>
+            <h1 class="text-xl font-extrabold text-gray-900 flex items-center gap-3 m-0">
+                <span class="p-2 bg-pink-50 text-pink-600 rounded-xl">
+                    <i class="pi pi-users text-lg"></i>
+                </span>
+                Reporte de Clientes
+            </h1>
+            <p class="text-xs text-gray-400 mt-1 m-0">Análisis de clientes y frecuencia de compra</p>
+        </div>
+        @if (loading()) {
+        <div class="flex items-center gap-2 text-xs text-gray-400">
+            <i class="pi pi-spin pi-spinner text-pink-400"></i> Cargando datos...
+        </div>
+        }
+    </div>
+
+    @if (error()) {
+    <div class="p-3 bg-red-50 border border-red-100 rounded-xl text-red-600 text-xs flex items-center gap-2">
+        <i class="pi pi-exclamation-circle"></i> {{ error() }}
+    </div>
+    }
+
+    <!-- KPIs -->
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+        <div class="bg-white rounded-2xl border border-pink-100 shadow-sm p-5">
+            <div class="flex items-start justify-between">
+                <div class="flex flex-col">
+                    <span class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Total Clientes</span>
+                    <span class="text-3xl font-black text-gray-800 m-0">{{ totalClientes() }}</span>
+                    <span class="text-xs font-bold text-pink-400 mt-1 flex items-center gap-1">
+                        <i class="pi pi-users"></i> Registrados
+                    </span>
+                </div>
+                <div class="w-12 h-12 rounded-2xl bg-pink-50 flex items-center justify-center">
+                    <i class="pi pi-users text-pink-500 text-xl"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-2xl border border-green-100 shadow-sm p-5">
+            <div class="flex items-start justify-between">
+                <div class="flex flex-col">
+                    <span class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Nuevos este mes</span>
+                    <span class="text-3xl font-black text-gray-800 m-0">{{ nuevosEsteMes() }}</span>
+                    <span class="text-xs font-bold text-green-400 mt-1 flex items-center gap-1">
+                        <i class="pi pi-user-plus"></i> Del mes actual
+                    </span>
+                </div>
+                <div class="w-12 h-12 rounded-2xl bg-green-50 flex items-center justify-center">
+                    <i class="pi pi-user-plus text-green-500 text-xl"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-2xl border border-blue-100 shadow-sm p-5">
+            <div class="flex items-start justify-between">
+                <div class="flex flex-col">
+                    <span class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Con DNI</span>
+                    <span class="text-3xl font-black text-gray-800 m-0">{{ conDni() }}</span>
+                    <span class="text-xs font-bold text-blue-400 mt-1 flex items-center gap-1">
+                        <i class="pi pi-id-card"></i> Personas naturales
+                    </span>
+                </div>
+                <div class="w-12 h-12 rounded-2xl bg-blue-50 flex items-center justify-center">
+                    <i class="pi pi-id-card text-blue-500 text-xl"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-2xl border border-orange-100 shadow-sm p-5">
+            <div class="flex items-start justify-between">
+                <div class="flex flex-col">
+                    <span class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Con RUC</span>
+                    <span class="text-3xl font-black text-gray-800 m-0">{{ conRuc() }}</span>
+                    <span class="text-xs font-bold text-orange-400 mt-1 flex items-center gap-1">
+                        <i class="pi pi-building"></i> Empresas
+                    </span>
+                </div>
+                <div class="w-12 h-12 rounded-2xl bg-orange-50 flex items-center justify-center">
+                    <i class="pi pi-building text-orange-500 text-xl"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- GRÁFICAS -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+
+        <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-5">
+            <div class="flex items-center justify-between mb-4">
+                <div>
+                    <p class="text-sm font-bold text-slate-700 m-0">Tipo de documento</p>
+                    <p class="text-xs text-slate-400 mt-0.5 m-0">Distribución de clientes</p>
+                </div>
+                <div class="w-9 h-9 rounded-xl bg-pink-50 border border-pink-100 flex items-center justify-center">
+                    <i class="pi pi-chart-pie text-pink-400 text-sm"></i>
+                </div>
+            </div>
+            <div style="height: 220px">
+                <p-chart type="doughnut" [data]="donaTipoDocData()" [options]="donaOptions" height="220px" />
+            </div>
+        </div>
+
+        <div class="lg:col-span-2 bg-white rounded-2xl border border-gray-100 shadow-sm p-5">
+            <div class="flex items-center justify-between mb-4">
+                <div>
+                    <p class="text-sm font-bold text-slate-700 m-0">Top clientes por gasto</p>
+                    <p class="text-xs text-slate-400 mt-0.5 m-0">Total acumulado en ventas</p>
+                </div>
+                <div class="w-9 h-9 rounded-xl bg-pink-50 border border-pink-100 flex items-center justify-center">
+                    <i class="pi pi-chart-bar text-pink-400 text-sm"></i>
+                </div>
+            </div>
+            <div style="height: 220px">
+                <p-chart type="bar" [data]="barClientesData()" [options]="barOptions" height="220px" />
+            </div>
+        </div>
+
+    </div>
+
+    <!-- TABLA CLIENTES FRECUENTES -->
+    <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 flex flex-col gap-4">
+        <div class="flex items-center justify-between">
+            <h3 class="text-sm font-bold text-slate-700 flex items-center gap-2 m-0">
+                <i class="pi pi-star text-pink-400"></i> Clientes frecuentes
+            </h3>
+            <span class="text-xs text-gray-400">Top {{ clientesFrecuentes().length }} clientes</span>
+        </div>
+
+        <div class="overflow-x-auto rounded-xl border border-gray-100">
+            <p-table [value]="clientesFrecuentes()" [rowHover]="true" [loading]="loading()"
+                styleClass="p-datatable-sm p-datatable-striped" [tableStyle]="{ 'min-width': '35rem' }">
+                <ng-template #header>
+                    <tr class="bg-pink-50/70">
+                        <th class="text-xs font-bold text-pink-500 uppercase px-4 py-3 w-10">#</th>
+                        <th class="text-xs font-bold text-pink-500 uppercase px-4 py-3">Cliente</th>
+                        <th class="text-xs font-bold text-pink-500 uppercase px-4 py-3">Documento</th>
+                        <th pSortableColumn="totalCompras"
+                            class="text-xs font-bold text-pink-500 uppercase px-4 py-3 cursor-pointer">
+                            <div class="flex items-center gap-1.5">N° Compras <p-sortIcon field="totalCompras" /></div>
+                        </th>
+                        <th pSortableColumn="totalGastado"
+                            class="text-xs font-bold text-pink-500 uppercase px-4 py-3 cursor-pointer">
+                            <div class="flex items-center gap-1.5">Total Gastado <p-sortIcon field="totalGastado" />
+                            </div>
+                        </th>
+                        <th class="text-xs font-bold text-pink-500 uppercase px-4 py-3">Ticket promedio</th>
+                    </tr>
+                </ng-template>
+                <ng-template #body let-c let-i="rowIndex">
+                    <tr class="hover:bg-pink-50/30 transition-colors">
+                        <td class="px-4 py-3">
+                            <span class="w-6 h-6 rounded-full flex items-center justify-center text-xs font-black"
+                                [class]="i === 0 ? 'bg-yellow-100 text-yellow-600' : i === 1 ? 'bg-gray-100 text-gray-500' : i === 2 ? 'bg-orange-100 text-orange-500' : 'bg-pink-50 text-pink-400'">
+                                {{ i + 1 }}
+                            </span>
+                        </td>
+                        <td class="px-4 py-3">
+                            <div class="flex items-center gap-2">
+                                <div class="w-7 h-7 rounded-full bg-pink-100 flex items-center justify-center shrink-0">
+                                    <span class="text-xs font-bold text-pink-600">{{
+                                        c.customerName?.charAt(0)?.toUpperCase() }}</span>
+                                </div>
+                                <span class="text-sm font-semibold text-gray-800">{{ c.customerName }}</span>
+                            </div>
+                        </td>
+                        <td class="px-4 py-3">
+                            <span class="text-xs font-mono text-gray-500 bg-gray-100 px-2.5 py-1 rounded-lg">{{
+                                c.customerDocument }}</span>
+                        </td>
+                        <td class="px-4 py-3">
+                            <span
+                                class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold bg-blue-50 text-blue-600 border border-blue-200">
+                                {{ c.totalCompras }} compras
+                            </span>
+                        </td>
+                        <td class="px-4 py-3">
+                            <span class="text-sm font-black text-pink-600">S/ {{ Number(c.totalGastado) | number:'1.2-2'
+                                }}</span>
+                        </td>
+                        <td class="px-4 py-3">
+                            <span class="text-xs font-bold text-gray-700">
+                                S/ {{ Number(c.totalGastado / c.totalCompras) | number:'1.2-2' }}
+                            </span>
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template #emptymessage>
+                    <tr>
+                        <td colspan="6">
+                            <div class="flex flex-col items-center justify-center py-12">
+                                <i class="pi pi-users text-4xl mb-2 text-pink-200"></i>
+                                <p class="text-xs font-medium text-gray-400">Sin datos de clientes frecuentes.</p>
+                            </div>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </div>
+
+    <!-- TABLA TODOS LOS CLIENTES -->
+    <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 flex flex-col gap-4">
+        <div class="flex items-center justify-between">
+            <h3 class="text-sm font-bold text-slate-700 flex items-center gap-2 m-0">
+                <i class="pi pi-list text-pink-400"></i> Todos los clientes
+            </h3>
+            <span class="text-xs text-gray-400">{{ clientes().length }} registros</span>
+        </div>
+        <div class="overflow-x-auto rounded-xl border border-gray-100">
+            <p-table [value]="clientes()" [paginator]="true" [rows]="10" [rowHover]="true" [loading]="loading()"
+                styleClass="p-datatable-sm p-datatable-striped" [tableStyle]="{ 'min-width': '35rem' }">
+                <ng-template #header>
+                    <tr class="bg-pink-50/70">
+                        <th pSortableColumn="name"
+                            class="text-xs font-bold text-pink-500 uppercase px-4 py-3 cursor-pointer hover:bg-pink-100/40">
+                            <div class="flex items-center gap-1.5"><i class="pi pi-user text-xs"></i> Cliente
+                                <p-sortIcon field="name" /></div>
+                        </th>
+                        <th class="text-xs font-bold text-pink-500 uppercase px-4 py-3">Tipo doc.</th>
+                        <th pSortableColumn="documentNumber"
+                            class="text-xs font-bold text-pink-500 uppercase px-4 py-3 cursor-pointer hover:bg-pink-100/40">
+                            <div class="flex items-center gap-1.5"><i class="pi pi-hashtag text-xs"></i> N° Documento
+                                <p-sortIcon field="documentNumber" /></div>
+                        </th>
+                        <th pSortableColumn="createdAt"
+                            class="text-xs font-bold text-pink-500 uppercase px-4 py-3 cursor-pointer hover:bg-pink-100/40">
+                            <div class="flex items-center gap-1.5"><i class="pi pi-calendar text-xs"></i> Registrado
+                                <p-sortIcon field="createdAt" /></div>
+                        </th>
+                    </tr>
+                </ng-template>
+                <ng-template #body let-c>
+                    <tr class="hover:bg-pink-50/30 transition-colors">
+                        <td class="px-4 py-3">
+                            <div class="flex items-center gap-2">
+                                <div class="w-7 h-7 rounded-full bg-pink-100 flex items-center justify-center shrink-0">
+                                    <span class="text-xs font-bold text-pink-600">{{ c.name?.charAt(0)?.toUpperCase()
+                                        }}</span>
+                                </div>
+                                <span class="text-sm font-semibold text-gray-800">{{ c.name }}</span>
+                            </div>
+                        </td>
+                        <td class="px-4 py-3">
+                            <span
+                                class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-bold bg-blue-50 text-blue-600 border border-blue-200">
+                                <i class="pi pi-id-card text-xs"></i> {{ c.documentType }}
+                            </span>
+                        </td>
+                        <td class="px-4 py-3">
+                            <span class="text-xs font-mono text-gray-500 bg-gray-100 px-2.5 py-1 rounded-lg">{{
+                                c.documentNumber }}</span>
+                        </td>
+                        <td class="px-4 py-3">
+                            <span class="text-xs text-gray-500">{{ c.createdAt }}</span>
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template #emptymessage>
+                    <tr>
+                        <td colspan="4">
+                            <div class="flex flex-col items-center justify-center py-12">
+                                <i class="pi pi-users text-4xl mb-2 text-pink-200"></i>
+                                <p class="text-xs font-medium text-gray-400">No se encontraron clientes.</p>
+                            </div>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </div>
+
+</div>
