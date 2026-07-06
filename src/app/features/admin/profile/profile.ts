@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
 import { DatePipe } from '@angular/common';
+import { DialogModule } from 'primeng/dialog';
+import { EditProfile } from './edit-profile/edit-profile';
+import { PasswordSettings } from './password-settings/password-settings';
 
 @Component({
   selector: 'app-profile',
-  imports: [RouterLink, DatePipe],
+  imports: [DatePipe, DialogModule, EditProfile, PasswordSettings],
   templateUrl: './profile.html',
   styleUrl: './profile.css',
 })
@@ -13,4 +15,7 @@ export class Profile {
     const raw = localStorage.getItem('current_user');
     return raw ? JSON.parse(raw) : null;
   })();
+
+  showEditProfileDialog = false;
+  showPasswordDialog = false;
 }

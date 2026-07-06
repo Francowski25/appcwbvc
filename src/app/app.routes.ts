@@ -4,8 +4,6 @@ import { Login } from './features/auth/login/login';
 import { Admin } from './features/admin/admin';
 import { Dashboard } from './features/admin/dashboard/dashboard';
 import { Profile } from './features/admin/profile/profile';
-import { EditProfile } from './features/admin/profile/edit-profile/edit-profile';
-import { PasswordSettings } from './features/admin/profile/password-settings/password-settings';
 import { UsersList } from './features/pages/user/user-getall/users-getall';
 import { RolesPermissions } from './features/pages/user/roles-permissions/roles-permissions';
 import { ProductGetall } from './features/pages/product/product-getall/product-getall';
@@ -104,9 +102,6 @@ export const routes: Routes = [
       { path: 'categoria', component: CategoryGetall },
       { path: 'laboratorio', component: LaboratoryGetall },
       { path: 'profile', component: Profile },
-      { path: 'profile/edit-profile', component: EditProfile },
-      { path: 'profile/password-settings', component: PasswordSettings },
-
     ]
   },
   {
@@ -121,6 +116,7 @@ export const routes: Routes = [
       { path: 'customers', component: CustomerGetall },
       /*{ path: 'products', component: ProductGetall },*/
       { path: 'inventory/current-stock', component: CurrentStock },
+      { path: 'profile', component: Profile },
     ]
   }
 ];
