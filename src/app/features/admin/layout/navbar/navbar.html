@@ -1,33 +1,27 @@
 <header class="flex items-center justify-between px-6 py-3 bg-white border-b border-gray-200 flex-shrink-0">
 
-  <!-- SEARCH -->
   <div class="flex items-center gap-2 bg-gray-100 rounded-lg px-3 py-2 w-72">
     <i class="pi pi-search text-gray-400 text-sm"></i>
-    <input
-      type="text"
-      [(ngModel)]="search"
-      placeholder="Buscar productos, clientes..."
-      class="bg-transparent text-sm text-gray-700 outline-none w-full placeholder-gray-400"
-    />
+    <input type="text" [(ngModel)]="search" placeholder="Buscar productos, clientes..."
+      class="bg-transparent text-sm text-gray-700 outline-none w-full placeholder-gray-400" />
   </div>
 
-  <!-- RIGHT ACTIONS -->
   <div class="flex items-center gap-2">
 
-    <!-- Mensajes -->
-    <button class="relative w-9 h-9 flex items-center justify-center rounded-lg text-gray-500 hover:bg-gray-100 transition-colors">
+    <button
+      class="relative w-9 h-9 flex items-center justify-center rounded-lg text-gray-500 hover:bg-gray-100 transition-colors">
       <i class="pi pi-envelope text-lg"></i>
       <span class="absolute top-1.5 right-1.5 w-2 h-2 bg-blue-500 rounded-full"></span>
     </button>
 
-    <!-- Notificaciones -->
-    <button class="relative w-9 h-9 flex items-center justify-center rounded-lg text-gray-500 hover:bg-gray-100 transition-colors">
+    <button
+      class="relative w-9 h-9 flex items-center justify-center rounded-lg text-gray-500 hover:bg-gray-100 transition-colors">
       <i class="pi pi-bell text-lg"></i>
       <span class="absolute top-1.5 right-1.5 w-2 h-2 bg-red-500 rounded-full"></span>
     </button>
 
-    <!-- Ajustes -->
-    <button class="w-9 h-9 flex items-center justify-center rounded-lg text-gray-500 hover:bg-gray-100 transition-colors">
+    <button
+      class="w-9 h-9 flex items-center justify-center rounded-lg text-gray-500 hover:bg-gray-100 transition-colors">
       <i class="pi pi-cog text-lg"></i>
     </button>
 
