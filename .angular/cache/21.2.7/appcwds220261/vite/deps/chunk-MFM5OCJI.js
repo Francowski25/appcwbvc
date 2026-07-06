@@ -2,7 +2,7 @@ import {
   BaseStyle,
   PrimeNG,
   base
-} from "./chunk-AQEADPQZ.js";
+} from "./chunk-WXGCYM3X.js";
 import {
   R,
   a,
@@ -15,6 +15,10 @@ import {
   s2,
   w
 } from "./chunk-6VCYEF6R.js";
+import {
+  N,
+  S
+} from "./chunk-Z4TEE3MD.js";
 import {
   isPlatformServer
 } from "./chunk-ZMJWYCXH.js";
@@ -41,10 +45,6 @@ import {
   ɵɵdefineInjectable,
   ɵɵgetInheritedFactory
 } from "./chunk-7YB6YR3W.js";
-import {
-  N,
-  S
-} from "./chunk-Z4TEE3MD.js";
 import {
   __spreadProps,
   __spreadValues
@@ -607,4 +607,4 @@ export {
   PARENT_INSTANCE,
   BaseComponent
 };
-//# sourceMappingURL=chunk-75N3ZVFQ.js.map
+//# sourceMappingURL=chunk-MFM5OCJI.js.map

@@ -1,18 +1,19 @@
 import {
   BaseComponent,
   PARENT_INSTANCE
-} from "./chunk-75N3ZVFQ.js";
-import {
-  Bind
-} from "./chunk-6Q3AVAN7.js";
+} from "./chunk-MFM5OCJI.js";
 import {
   BaseStyle
-} from "./chunk-AQEADPQZ.js";
+} from "./chunk-WXGCYM3X.js";
 import {
   PrimeTemplate,
   SharedModule
 } from "./chunk-OH3YP2VR.js";
+import {
+  Bind
+} from "./chunk-6Q3AVAN7.js";
 import "./chunk-6VCYEF6R.js";
+import "./chunk-Z4TEE3MD.js";
 import {
   CommonModule,
   NgClass,
@@ -63,7 +64,6 @@ import {
 import "./chunk-HWYXSU2G.js";
 import "./chunk-JRFR6BLO.js";
 import "./chunk-MARUHEWW.js";
-import "./chunk-Z4TEE3MD.js";
 import "./chunk-GOMI4DH3.js";
 
 // node_modules/@primeuix/styles/dist/tag/index.mjs

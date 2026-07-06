@@ -16,14 +16,14 @@
                         Imagen del Producto <span class="text-gray-300 font-normal normal-case">(Opcional)</span>
                     </label>
                     <div class="flex justify-center sm:justify-start">
-                        <label for="fileProduct" [class.opacity-60]="isLoading()"
-                            [class.pointer-events-none]="isLoading()"
+                        <label for="fileProduct" [class.opacity-60]="formDisabled()"
+                            [class.pointer-events-none]="formDisabled()"
                             class="flex items-center gap-2 bg-white hover:bg-gray-50 text-slate-600 border border-gray-200 px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer shadow-sm">
                             <i class="pi pi-upload text-sm"></i>
                             <span>{{ selectedFileName() || 'Seleccionar imagen' }}</span>
                         </label>
                         <input id="fileProduct" type="file" accept="image/*" class="hidden"
-                            (change)="onFileSelected($event)" [disabled]="isLoading()" />
+                            (change)="onFileSelected($event)" [disabled]="formDisabled()" />
                     </div>
                 </div>
             </div>
@@ -37,7 +37,7 @@
                         Nombre del Producto <span class="text-pink-400">*</span>
                     </label>
                     <input pInputText formControlName="name" placeholder="Ej. Paracetamol 500mg"
-                        [readonly]="isLoading()"
+                        [readonly]="formDisabled()"
                         class="w-full text-xs py-2.5 rounded-xl border-gray-200 focus:border-pink-300" />
                     @if((nameFb.touched || nameFb.dirty) && nameFb.hasError('required')) {
                     <small class="text-[11px] text-red-500 font-medium flex items-center gap-1 animate-slide-down">
@@ -50,7 +50,8 @@
                     <label class="text-xs font-bold text-slate-400 uppercase tracking-wider">
                         Código de Barras <span class="text-pink-400">*</span>
                     </label>
-                    <input pInputText formControlName="barcode" placeholder="Ej. 7501234567891" [readonly]="isLoading()"
+                    <input pInputText formControlName="barcode" placeholder="Ej. 7501234567891"
+                        [readonly]="formDisabled()"
                         class="w-full text-xs py-2.5 rounded-xl border-gray-200 focus:border-pink-300" />
                     @if((barcodeFb.touched || barcodeFb.dirty) && barcodeFb.hasError('required')) {
                     <small class="text-[11px] text-red-500 font-medium flex items-center gap-1 animate-slide-down">
@@ -59,15 +60,36 @@
                     }
                 </div>
 
-                <div class="flex flex-col gap-1.5">
+                <div class="flex flex-col gap-1.5 relative">
                     <label class="text-xs font-bold text-slate-400 uppercase tracking-wider">
                         Categoría <span class="text-pink-400">*</span>
                     </label>
-                    <p-autocomplete formControlName="category" [suggestions]="categorySuggestions()"
-                        (completeMethod)="onSearchCategory($event)" optionLabel="label"
-                        placeholder="Buscar categoría..." [disabled]="isLoading()" [forceSelection]="true"
-                        styleClass="w-full"
-                        inputStyleClass="w-full text-xs py-2.5 rounded-xl border-gray-200 focus:border-pink-300" />
+
+                    <div class="relative">
+                        <input pInputText type="text" [value]="categorySearchText()" (input)="onSearchCategory($event)"
+                            (focus)="onFocusCategory()" (blur)="onBlurCategory()" [disabled]="formDisabled()"
+                            placeholder="Buscar categoría..."
+                            class="w-full text-xs py-2.5 rounded-xl border-gray-200 focus:border-pink-300" />
+
+                        @if (showCategoryDropdown() && categorySuggestions().length > 0) {
+                        <ul
+                            class="absolute z-50 mt-1 w-full max-h-48 overflow-y-auto bg-white border border-gray-200 rounded-xl shadow-lg py-1">
+                            @for (item of categorySuggestions(); track item.value) {
+                            <li (mousedown)="selectCategory(item)"
+                                class="px-3 py-2 text-xs cursor-pointer hover:bg-pink-50 hover:text-pink-500">
+                                {{ item.label }}
+                            </li>
+                            }
+                        </ul>
+                        }
+
+                        @if (showCategoryDropdown() && categorySearchText() && categorySuggestions().length === 0) {
+                        <ul class="absolute z-50 mt-1 w-full bg-white border border-gray-200 rounded-xl shadow-lg py-1">
+                            <li class="px-3 py-2 text-xs text-slate-400">Sin resultados</li>
+                        </ul>
+                        }
+                    </div>
+
                     @if((categoryFb.touched || categoryFb.dirty) && categoryFb.hasError('required')) {
                     <small class="text-[11px] text-red-500 font-medium flex items-center gap-1 animate-slide-down">
                         <i class="pi pi-exclamation-circle text-[10px]"></i> Debe seleccionar una categoría.
@@ -75,15 +97,37 @@
                     }
                 </div>
 
-                <div class="flex flex-col gap-1.5">
+                <div class="flex flex-col gap-1.5 relative">
                     <label class="text-xs font-bold text-slate-400 uppercase tracking-wider">
                         Laboratorio <span class="text-pink-400">*</span>
                     </label>
-                    <p-autocomplete formControlName="laboratory" [suggestions]="laboratorySuggestions()"
-                        (completeMethod)="onSearchLaboratory($event)" optionLabel="label"
-                        placeholder="Buscar laboratorio..." [disabled]="isLoading()" [forceSelection]="true"
-                        styleClass="w-full"
-                        inputStyleClass="w-full text-xs py-2.5 rounded-xl border-gray-200 focus:border-pink-300" />
+
+                    <div class="relative">
+                        <input pInputText type="text" [value]="laboratorySearchText()"
+                            (input)="onSearchLaboratory($event)" (focus)="onFocusLaboratory()"
+                            (blur)="onBlurLaboratory()" [disabled]="formDisabled()" placeholder="Buscar laboratorio..."
+                            class="w-full text-xs py-2.5 rounded-xl border-gray-200 focus:border-pink-300" />
+
+                        @if (showLaboratoryDropdown() && laboratorySuggestions().length > 0) {
+                        <ul
+                            class="absolute z-50 mt-1 w-full max-h-48 overflow-y-auto bg-white border border-gray-200 rounded-xl shadow-lg py-1">
+                            @for (item of laboratorySuggestions(); track item.value) {
+                            <li (mousedown)="selectLaboratory(item)"
+                                class="px-3 py-2 text-xs cursor-pointer hover:bg-pink-50 hover:text-pink-500">
+                                {{ item.label }}
+                            </li>
+                            }
+                        </ul>
+                        }
+
+                        @if (showLaboratoryDropdown() && laboratorySearchText() && laboratorySuggestions().length === 0)
+                        {
+                        <ul class="absolute z-50 mt-1 w-full bg-white border border-gray-200 rounded-xl shadow-lg py-1">
+                            <li class="px-3 py-2 text-xs text-slate-400">Sin resultados</li>
+                        </ul>
+                        }
+                    </div>
+
                     @if((laboratoryFb.touched || laboratoryFb.dirty) && laboratoryFb.hasError('required')) {
                     <small class="text-[11px] text-red-500 font-medium flex items-center gap-1 animate-slide-down">
                         <i class="pi pi-exclamation-circle text-[10px]"></i> Debe seleccionar un laboratorio.

@@ -2,6 +2,7 @@ import { Component, OnInit, signal, computed, inject } from '@angular/core';
 import { Api } from '../../../../api/api';
 import { customerGetall, customerInsert, lotByproduct, productGetall, saleInsert } from '../../../../api/functions';
 import { DecimalPipe } from '@angular/common';
+import { MessageService } from 'primeng/api';
 
 interface ItemVenta {
   idProduct: string;
@@ -23,6 +24,7 @@ interface ItemVenta {
 })
 export class SalesNew implements OnInit {
   private readonly api = inject(Api);
+  private readonly messageService = inject(MessageService);
 
   clientes = signal<any[]>([]);
   productos = signal<any[]>([]);
@@ -239,12 +241,31 @@ export class SalesNew implements OnInit {
       const raw: any = await this.api.invoke$Response(saleInsert, payload);
       const data = typeof raw.body === 'string' ? JSON.parse(raw.body) : raw.body;
       if (data.type !== 'success') {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: data.listMessage[0] ?? 'Error al registrar venta.',
+          life: 5000
+        });
         this.error.set(data.listMessage[0] ?? 'Error al registrar venta.');
         return;
       }
-      this.successMessage.set(data.listMessage[0] ?? 'Venta registrada correctamente.');
+      const mensaje = data.listMessage[0] ?? 'Venta registrada correctamente.';
+      this.messageService.add({
+        severity: 'success',
+        summary: 'Éxito',
+        detail: mensaje,
+        life: 4000
+      });
+      this.successMessage.set(mensaje);
       this.resetForm();
     } catch {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Sin conexión',
+        detail: 'No se pudo conectar con el servidor.',
+        life: 5000
+      });
       this.error.set('Error al registrar venta.');
     } finally {
       this.loading.set(false);

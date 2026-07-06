@@ -1,6 +1,6 @@
 import {
   BaseComponent
-} from "./chunk-75N3ZVFQ.js";
+} from "./chunk-MFM5OCJI.js";
 import {
   s
 } from "./chunk-6VCYEF6R.js";
@@ -54,4 +54,4 @@ var BaseModelHolder = class _BaseModelHolder extends BaseComponent {
 export {
   BaseModelHolder
 };
-//# sourceMappingURL=chunk-XHWOIRKB.js.map
+//# sourceMappingURL=chunk-BI66KKVW.js.map

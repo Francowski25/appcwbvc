@@ -1,6 +1,6 @@
 import { Component, OnInit, signal, computed, inject, ViewChild } from '@angular/core';
 import { Api } from '../../../../api/api';
-import { productGetall } from '../../../../api/functions';
+import { productGetall, categoryGetall, laboratoryGetall } from '../../../../api/functions';
 import { ProductsTable } from '../products-table/products-table';
 import { ProductSidebar } from '../product-sidebar/product-sidebar';
 import { ProductDetails } from '../product-details/product-details';
@@ -13,6 +13,11 @@ import { ProductCategory } from '../ui/product-category/product-category';
 interface FiltroContador {
   name: string;
   count: number;
+}
+
+interface CatalogoItem {
+  label: string;
+  value: string;
 }
 
 @Component({

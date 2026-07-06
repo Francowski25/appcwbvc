@@ -1,9 +1,8 @@
-import { Component, inject, output, signal, OnInit } from '@angular/core';
+import { Component, OnInit, output, signal, computed, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputNumberModule } from 'primeng/inputnumber';
-import { AutoCompleteModule } from 'primeng/autocomplete';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { TextareaModule } from 'primeng/textarea';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
@@ -24,13 +23,11 @@ interface CatalogoItem {
     ReactiveFormsModule,
     InputTextModule,
     InputNumberModule,
-    AutoCompleteModule,
     RadioButtonModule,
     TextareaModule,
     ProgressSpinnerModule
   ],
   templateUrl: './product-insert.html',
-  styleUrl: './product-insert.css'
 })
 export class ProductInsert implements OnInit {
   private readonly confirmationService = inject(ConfirmationService);
@@ -43,16 +40,24 @@ export class ProductInsert implements OnInit {
 
   frmInsertProduct: FormGroup;
   isLoading = signal<boolean>(false);
+  isLoadingCatalogos = signal<boolean>(true);
+
+  catalogoCategorias = signal<CatalogoItem[]>([]);
+  catalogoLaboratorios = signal<CatalogoItem[]>([]);
 
   selectedFile: File | null = null;
   selectedFileName = signal<string>('');
   previewUrl = signal<string | null>(null);
 
-  allCategories = signal<CatalogoItem[]>([]);
-  allLaboratories = signal<CatalogoItem[]>([]);
-
+  categorySearchText = signal<string>('');
+  showCategoryDropdown = signal<boolean>(false);
   categorySuggestions = signal<CatalogoItem[]>([]);
+
+  laboratorySearchText = signal<string>('');
+  showLaboratoryDropdown = signal<boolean>(false);
   laboratorySuggestions = signal<CatalogoItem[]>([]);
+
+  formDisabled = computed(() => this.isLoading() || this.isLoadingCatalogos());
 
   get nameFb() { return this.frmInsertProduct.controls['name']; }
   get barcodeFb() { return this.frmInsertProduct.controls['barcode']; }
@@ -81,29 +86,27 @@ export class ProductInsert implements OnInit {
   }
 
   ngOnInit(): void {
-    this.cargarCatalogosMaestros();
+    this.cargarCatalogos();
   }
 
-  private cargarCatalogosMaestros(): void {
+  private cargarCatalogos(): void {
+    this.isLoadingCatalogos.set(true);
     Promise.all([
       this.api.invoke$Response(categoryGetall),
       this.api.invoke$Response(laboratoryGetall)
     ]).then(([resCat, resLab]: any[]) => {
-
       const dataCat = typeof resCat.body === 'string' ? JSON.parse(resCat.body) : resCat.body;
       if (dataCat.type === 'success' && dataCat.listCategories) {
-        this.allCategories.set(
+        this.catalogoCategorias.set(
           dataCat.listCategories.map((c: any) => ({ label: c.name, value: c.idCategory }))
         );
       }
-
       const dataLab = typeof resLab.body === 'string' ? JSON.parse(resLab.body) : resLab.body;
       if (dataLab.type === 'success' && dataLab.listLaboratories) {
-        this.allLaboratories.set(
+        this.catalogoLaboratorios.set(
           dataLab.listLaboratories.map((l: any) => ({ label: l.name, value: l.idLaboratory }))
         );
       }
-
     }).catch(() => {
       this.messageService.add({
         severity: 'error',
@@ -111,21 +114,73 @@ export class ProductInsert implements OnInit {
         detail: 'No se pudieron cargar los catálogos.',
         life: 4000
       });
+    }).finally(() => {
+      this.isLoadingCatalogos.set(false);
     });
   }
 
-  onSearchCategory(event: { query: string }): void {
-    const q = event.query.toLowerCase();
-    this.categorySuggestions.set(
-      this.allCategories().filter(c => c.label.toLowerCase().includes(q))
-    );
+  onFocusCategory(): void {
+    this.showCategoryDropdown.set(true);
+    this.categorySuggestions.set(this.catalogoCategorias());
   }
 
-  onSearchLaboratory(event: { query: string }): void {
-    const q = event.query.toLowerCase();
-    this.laboratorySuggestions.set(
-      this.allLaboratories().filter(l => l.label.toLowerCase().includes(q))
+  onSearchCategory(event: Event): void {
+    const q = (event.target as HTMLInputElement).value;
+    this.categorySearchText.set(q);
+    this.showCategoryDropdown.set(true);
+    const qLower = q.toLowerCase();
+    this.categorySuggestions.set(
+      this.catalogoCategorias().filter(c => c.label.toLowerCase().includes(qLower))
     );
+    if (this.categoryFb.value?.label !== q) {
+      this.categoryFb.setValue(null);
+    }
+  }
+
+  selectCategory(item: CatalogoItem): void {
+    this.categoryFb.setValue(item);
+    this.categorySearchText.set(item.label);
+    this.showCategoryDropdown.set(false);
+  }
+
+  onBlurCategory(): void {
+    setTimeout(() => this.showCategoryDropdown.set(false), 150);
+    if (!this.categoryFb.value) {
+      this.categorySearchText.set('');
+    }
+    this.categoryFb.markAsTouched();
+  }
+
+  onFocusLaboratory(): void {
+    this.showLaboratoryDropdown.set(true);
+    this.laboratorySuggestions.set(this.catalogoLaboratorios());
+  }
+
+  onSearchLaboratory(event: Event): void {
+    const q = (event.target as HTMLInputElement).value;
+    this.laboratorySearchText.set(q);
+    this.showLaboratoryDropdown.set(true);
+    const qLower = q.toLowerCase();
+    this.laboratorySuggestions.set(
+      this.catalogoLaboratorios().filter(l => l.label.toLowerCase().includes(qLower))
+    );
+    if (this.laboratoryFb.value?.label !== q) {
+      this.laboratoryFb.setValue(null);
+    }
+  }
+
+  selectLaboratory(item: CatalogoItem): void {
+    this.laboratoryFb.setValue(item);
+    this.laboratorySearchText.set(item.label);
+    this.showLaboratoryDropdown.set(false);
+  }
+
+  onBlurLaboratory(): void {
+    setTimeout(() => this.showLaboratoryDropdown.set(false), 150);
+    if (!this.laboratoryFb.value) {
+      this.laboratorySearchText.set('');
+    }
+    this.laboratoryFb.markAsTouched();
   }
 
   onFileSelected(event: Event): void {
@@ -167,14 +222,16 @@ export class ProductInsert implements OnInit {
             barcode: this.barcodeFb.value,
             idCategory: this.categoryFb.value?.value,
             idLaboratory: this.laboratoryFb.value?.value,
-            priceSale: String(this.priceSaleFb.value),
-            totalStock: String(this.totalStockFb.value),
-            stockMinimum: String(this.stockMinimumFb.value),
+            priceSale: this.priceSaleFb.value,
+            totalStock: this.totalStockFb.value,
+            stockMinimum: this.stockMinimumFb.value,
             nextExpiration: this.nextExpirationFb.value || undefined,
             requiresPrescription: this.requiresPrescriptionFb.value,
             description: this.descriptionFb.value || undefined
           }
         };
+
+        console.log('PAYLOAD:', bodyParams.body);
 
         this.api.invoke$Response(productInsert, bodyParams).then((raw: any) => {
           const res = typeof raw.body === 'string' ? JSON.parse(raw.body) : raw.body;
@@ -208,6 +265,10 @@ export class ProductInsert implements OnInit {
       document.activeElement.blur();
     }
     this.frmInsertProduct.reset({ requiresPrescription: false });
+    this.categorySearchText.set('');
+    this.laboratorySearchText.set('');
+    this.showCategoryDropdown.set(false);
+    this.showLaboratoryDropdown.set(false);
     this.selectedFile = null;
     this.selectedFileName.set('');
     this.previewUrl.set(null);

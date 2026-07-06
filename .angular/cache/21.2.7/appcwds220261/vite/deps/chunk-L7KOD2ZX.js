@@ -7,13 +7,13 @@ import {
 import {
   BaseComponent,
   PARENT_INSTANCE
-} from "./chunk-75N3ZVFQ.js";
+} from "./chunk-MFM5OCJI.js";
+import {
+  BaseStyle
+} from "./chunk-WXGCYM3X.js";
 import {
   BindModule
 } from "./chunk-6Q3AVAN7.js";
-import {
-  BaseStyle
-} from "./chunk-AQEADPQZ.js";
 import {
   $,
   C,
@@ -1068,4 +1068,4 @@ export {
   Tooltip,
   TooltipModule
 };
-//# sourceMappingURL=chunk-UXBPDGHI.js.map
+//# sourceMappingURL=chunk-L7KOD2ZX.js.map

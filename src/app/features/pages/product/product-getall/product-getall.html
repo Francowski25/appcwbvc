@@ -49,8 +49,7 @@
     </button>
   </ng-template>
 
-  <app-product-insert #productInsertComp (cerrarDialog)="showCreate.set(false)"
-    (productoRegistrado)="onProductoRegistrado()" />
+  <app-product-insert (cerrarDialog)="showCreate.set(false)" (productoRegistrado)="onProductoRegistrado()" />
 
 </p-dialog>
 
