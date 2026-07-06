@@ -9,6 +9,8 @@ export type { UserInsert$Params as UserInsert$Params } from './fn/user/user-inse
 export { userInsert as userInsert } from './fn/user/user-insert';
 export type { UserStatus$Params as UserStatus$Params } from './fn/user/user-status';
 export { userStatus as userStatus } from './fn/user/user-status';
+export type { UserDashboardKpi$Params as UserDashboardKpi$Params } from './fn/user/user-dashboard-kpi';
+export { userDashboardKpi as userDashboardKpi } from './fn/user/user-dashboard-kpi';
 export type { ProductGetall$Params as ProductGetall$Params } from './fn/product/product-getall';
 export { productGetall as productGetall } from './fn/product/product-getall';
 export type { ProductInsert$Params as ProductInsert$Params } from './fn/product/product-insert';
@@ -69,6 +71,10 @@ export type { SaleReportByuser$Params as SaleReportByuser$Params } from './fn/sa
 export { saleReportByuser as saleReportByuser } from './fn/sale/sale-report-byuser';
 export type { SaleReportByproduct$Params as SaleReportByproduct$Params } from './fn/sale/sale-report-byproduct';
 export { saleReportByproduct as saleReportByproduct } from './fn/sale/sale-report-byproduct';
+export type { SaleUserKpi$Params as SaleUserKpi$Params } from './fn/sale/sale-user-kpi';
+export { saleUserKpi as saleUserKpi } from './fn/sale/sale-user-kpi';
+export type { SaleUserRecent$Params as SaleUserRecent$Params } from './fn/sale/sale-user-recent';
+export { saleUserRecent as saleUserRecent } from './fn/sale/sale-user-recent';
 export type { CustomerGetall$Params as CustomerGetall$Params } from './fn/customer/customer-getall';
 export { customerGetall as customerGetall } from './fn/customer/customer-getall';
 export type { CustomerInsert$Params as CustomerInsert$Params } from './fn/customer/customer-insert';

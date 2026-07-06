@@ -119,6 +119,8 @@ export const routes: Routes = [
       { path: 'sales/new', component: SalesNew },
       { path: 'sales/history', component: SalesGetall },
       { path: 'customers', component: CustomerGetall },
+      /*{ path: 'products', component: ProductGetall },*/
+      { path: 'inventory/current-stock', component: CurrentStock },
     ]
   }
 ];
