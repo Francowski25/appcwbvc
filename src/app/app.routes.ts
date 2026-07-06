@@ -116,6 +116,9 @@ export const routes: Routes = [
     children: [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
       { path: 'dashboard', component: SellerDashboard },
+      { path: 'sales/new', component: SalesNew },
+      { path: 'sales/history', component: SalesGetall },
+      { path: 'customers', component: CustomerGetall },
     ]
   }
 ];

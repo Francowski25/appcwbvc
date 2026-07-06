@@ -30,7 +30,7 @@
     <div class="flex-1 overflow-y-auto pr-2 py-3">
 
         <nav class="px-2 flex flex-col gap-0.5 mb-2">
-            <a routerLink="/vendedor/dashboard" routerLinkActive="bg-pink-50 text-pink-700 font-medium"
+            <a routerLink="/seller/dashboard" routerLinkActive="bg-pink-50 text-pink-700 font-medium"
                 class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-600 hover:bg-gray-100 transition-colors text-sm"
                 [class.justify-center]="collapsed()">
                 <i class="pi pi-home text-base flex-shrink-0"></i>
@@ -44,21 +44,21 @@
 
         <nav class="px-2 flex flex-col gap-0.5 mb-2">
 
-            <a routerLink="/vendedor/sales/new" routerLinkActive="bg-pink-50 text-pink-700 font-medium"
+            <a routerLink="/seller/sales/new" routerLinkActive="bg-pink-50 text-pink-700 font-medium"
                 class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-600 hover:bg-gray-100 transition-colors text-sm"
                 [class.justify-center]="collapsed()">
                 <i class="pi pi-plus-circle text-base flex-shrink-0"></i>
                 @if (!collapsed()) { <span>Nueva Venta</span> }
             </a>
 
-            <a routerLink="/vendedor/sales/history" routerLinkActive="bg-pink-50 text-pink-700 font-medium"
+            <a routerLink="/seller/sales/history" routerLinkActive="bg-pink-50 text-pink-700 font-medium"
                 class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-600 hover:bg-gray-100 transition-colors text-sm"
                 [class.justify-center]="collapsed()">
                 <i class="pi pi-list text-base flex-shrink-0"></i>
                 @if (!collapsed()) { <span>Historial de ventas</span> }
             </a>
 
-            <a routerLink="/vendedor/customers" routerLinkActive="bg-pink-50 text-pink-700 font-medium"
+            <a routerLink="/seller/customers" routerLinkActive="bg-pink-50 text-pink-700 font-medium"
                 class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-600 hover:bg-gray-100 transition-colors text-sm"
                 [class.justify-center]="collapsed()">
                 <i class="pi pi-users text-base flex-shrink-0"></i>
@@ -73,14 +73,14 @@
 
         <nav class="px-2 flex flex-col gap-0.5 mb-2">
 
-            <a routerLink="/vendedor/products" routerLinkActive="bg-pink-50 text-pink-700 font-medium"
+            <a routerLink="/seller/products" routerLinkActive="bg-pink-50 text-pink-700 font-medium"
                 class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-600 hover:bg-gray-100 transition-colors text-sm"
                 [class.justify-center]="collapsed()">
                 <i class="pi pi-box text-base flex-shrink-0"></i>
                 @if (!collapsed()) { <span>Catálogo de productos</span> }
             </a>
 
-            <a routerLink="/vendedor/inventory/current-stock" routerLinkActive="bg-pink-50 text-pink-700 font-medium"
+            <a routerLink="/seller/inventory/current-stock" routerLinkActive="bg-pink-50 text-pink-700 font-medium"
                 class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-600 hover:bg-gray-100 transition-colors text-sm"
                 [class.justify-center]="collapsed()">
                 <i class="pi pi-exclamation-triangle text-base flex-shrink-0"></i>
@@ -125,12 +125,12 @@
                     <p class="text-xs text-gray-400 truncate">{{ user?.email }}</p>
                 </div>
                 <div class="py-1">
-                    <a routerLink="/vendedor/profile" (click)="userMenuOpen.set(false)"
+                    <a routerLink="/seller/profile" (click)="userMenuOpen.set(false)"
                         class="flex items-center gap-3 px-4 py-2.5 text-sm font-semibold text-gray-600 hover:bg-gray-50 transition-colors">
                         <i class="pi pi-user text-base"></i>
                         <span>Ver perfil</span>
                     </a>
-                    <a routerLink="/vendedor/profile/edit-profile" (click)="userMenuOpen.set(false)"
+                    <a routerLink="/seller/profile/edit-profile" (click)="userMenuOpen.set(false)"
                         class="flex items-center gap-3 px-4 py-2.5 text-sm font-semibold text-gray-600 hover:bg-gray-50 transition-colors">
                         <i class="pi pi-pencil text-base"></i>
                         <span>Editar perfil</span>
