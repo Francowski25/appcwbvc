@@ -1,1 +1,285 @@
-<p>seller-dashboard works!</p>
+<div class="p-6 flex flex-col gap-6">
+
+    <div
+        class="bg-white rounded-2xl border border-pink-100 shadow-sm p-6 flex items-center justify-between flex-wrap gap-4">
+        <div>
+            <h1 class="text-2xl font-black text-gray-800 m-0">
+                ¡Hola, {{ user?.firstName }}!
+            </h1>
+            <p class="text-sm text-gray-400 mt-1 m-0">Aquí tienes el resumen de tu día de ventas.</p>
+        </div>
+        <div class="flex items-center gap-3">
+            <div class="text-right">
+                <p class="text-xs text-gray-400 m-0">Hoy</p>
+                <p class="text-sm font-bold text-gray-700 m-0 capitalize">
+                    {{ today | date: "EEEE, d MMM y" : "UTC-5" : "es" }}
+                </p>
+            </div>
+            <div class="w-12 h-12 rounded-2xl bg-pink-50 flex items-center justify-center">
+                <i class="pi pi-calendar text-pink-500 text-xl"></i>
+            </div>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+
+        <div class="bg-white rounded-2xl border border-pink-100 shadow-sm p-5">
+            <div class="flex items-start justify-between">
+                <div class="flex flex-col">
+                    <span class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Mis ventas hoy</span>
+                    <span class="text-3xl font-black text-gray-800 m-0">{{ misVentasHoyCount() }}</span>
+                    <span class="text-xs font-bold text-pink-400 mt-1 flex items-center gap-1">
+                        <i class="pi pi-shopping-cart"></i> Transacciones
+                    </span>
+                </div>
+                <div class="w-12 h-12 rounded-2xl bg-pink-50 flex items-center justify-center">
+                    <i class="pi pi-shopping-cart text-pink-500 text-xl"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-2xl border border-green-100 shadow-sm p-5">
+            <div class="flex items-start justify-between">
+                <div class="flex flex-col">
+                    <span class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Monto hoy</span>
+                    <span class="text-2xl font-black text-gray-800 m-0">S/ {{ montoHoy() | number:'1.2-2' }}</span>
+                    <span class="text-xs font-bold text-green-400 mt-1 flex items-center gap-1">
+                        <i class="pi pi-dollar"></i> Ingresos del día
+                    </span>
+                </div>
+                <div class="w-12 h-12 rounded-2xl bg-green-50 flex items-center justify-center">
+                    <i class="pi pi-dollar text-green-500 text-xl"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-2xl border border-blue-100 shadow-sm p-5">
+            <div class="flex items-start justify-between">
+                <div class="flex flex-col">
+                    <span class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Ticket promedio</span>
+                    <span class="text-2xl font-black text-gray-800 m-0">S/ {{ ticketPromedio() | number:'1.2-2'
+                        }}</span>
+                    <span class="text-xs font-bold text-blue-400 mt-1 flex items-center gap-1">
+                        <i class="pi pi-calculator"></i> Por venta
+                    </span>
+                </div>
+                <div class="w-12 h-12 rounded-2xl bg-blue-50 flex items-center justify-center">
+                    <i class="pi pi-calculator text-blue-500 text-xl"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-2xl border border-red-100 shadow-sm p-5">
+            <div class="flex items-start justify-between">
+                <div class="flex flex-col">
+                    <span class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Stock crítico</span>
+                    <span class="text-3xl font-black text-gray-800 m-0">{{ stockCritico() }}</span>
+                    <span class="text-xs font-bold text-red-400 mt-1 flex items-center gap-1">
+                        <i class="pi pi-exclamation-triangle"></i> Requieren atención
+                    </span>
+                </div>
+                <div class="w-12 h-12 rounded-2xl bg-red-50 flex items-center justify-center">
+                    <i class="pi pi-exclamation-triangle text-red-500 text-xl"></i>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+
+        <div class="lg:col-span-2 bg-white rounded-2xl border border-gray-100 shadow-sm p-5">
+            <div class="flex items-center justify-between mb-4">
+                <div>
+                    <p class="text-sm font-bold text-slate-700 m-0">Mis ventas esta semana</p>
+                    <p class="text-xs text-slate-400 mt-0.5 m-0">Últimos 7 días</p>
+                </div>
+                <div class="flex items-center gap-2">
+                    <span class="text-2xl font-black text-slate-700">S/ {{ totalSemana() | number:'1.2-2' }}</span>
+                    <div class="w-9 h-9 rounded-xl bg-pink-50 border border-pink-100 flex items-center justify-center">
+                        <i class="pi pi-chart-line text-pink-400 text-sm"></i>
+                    </div>
+                </div>
+            </div>
+            @if (misVentas().length > 0) {
+            <div class="h-[200px]">
+                <p-chart type="line" [data]="lineChartData()" [options]="lineChartOptions" height="200px" />
+            </div>
+            } @else {
+            <div
+                class="h-[200px] bg-gradient-to-b from-pink-50/50 to-white rounded-xl border border-dashed border-pink-100 flex items-center justify-center">
+                <div class="flex flex-col items-center gap-2 text-pink-200">
+                    <i class="pi pi-chart-line text-4xl"></i>
+                    <p class="text-xs">Sin ventas esta semana</p>
+                </div>
+            </div>
+            }
+        </div>
+
+        <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 flex flex-col gap-4">
+            <p class="text-sm font-bold text-slate-700 m-0 flex items-center gap-2">
+                <i class="pi pi-bolt text-pink-400"></i> Accesos Rápidos
+            </p>
+            <div class="flex flex-col gap-2">
+                <button (click)="irANuevaVenta()"
+                    class="flex items-center gap-3 p-3 bg-pink-500 hover:bg-pink-600 rounded-xl transition-colors cursor-pointer border-none text-left">
+                    <div class="w-9 h-9 rounded-xl bg-white/20 flex items-center justify-center shrink-0">
+                        <i class="pi pi-plus-circle text-white text-lg"></i>
+                    </div>
+                    <div>
+                        <p class="text-sm font-bold text-white m-0">Nueva Venta</p>
+                        <p class="text-[10px] text-pink-200 m-0">Registrar una venta</p>
+                    </div>
+                </button>
+
+                <button (click)="irAHistorial()"
+                    class="flex items-center gap-3 p-3 bg-gray-50 hover:bg-gray-100 rounded-xl transition-colors cursor-pointer border border-gray-100 text-left">
+                    <div class="w-9 h-9 rounded-xl bg-pink-50 flex items-center justify-center shrink-0">
+                        <i class="pi pi-list text-pink-400 text-lg"></i>
+                    </div>
+                    <div>
+                        <p class="text-sm font-bold text-gray-700 m-0">Historial</p>
+                        <p class="text-[10px] text-gray-400 m-0">Ver mis ventas</p>
+                    </div>
+                </button>
+
+                <button (click)="irAClientes()"
+                    class="flex items-center gap-3 p-3 bg-gray-50 hover:bg-gray-100 rounded-xl transition-colors cursor-pointer border border-gray-100 text-left">
+                    <div class="w-9 h-9 rounded-xl bg-blue-50 flex items-center justify-center shrink-0">
+                        <i class="pi pi-users text-blue-400 text-lg"></i>
+                    </div>
+                    <div>
+                        <p class="text-sm font-bold text-gray-700 m-0">Clientes</p>
+                        <p class="text-[10px] text-gray-400 m-0">Lista de clientes</p>
+                    </div>
+                </button>
+
+                <button (click)="irACatalogo()"
+                    class="flex items-center gap-3 p-3 bg-gray-50 hover:bg-gray-100 rounded-xl transition-colors cursor-pointer border border-gray-100 text-left">
+                    <div class="w-9 h-9 rounded-xl bg-green-50 flex items-center justify-center shrink-0">
+                        <i class="pi pi-box text-green-400 text-lg"></i>
+                    </div>
+                    <div>
+                        <p class="text-sm font-bold text-gray-700 m-0">Catálogo</p>
+                        <p class="text-[10px] text-gray-400 m-0">Ver productos</p>
+                    </div>
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+
+        <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 flex flex-col gap-3">
+            <div class="flex items-center justify-between">
+                <p class="text-sm font-bold text-slate-700 m-0 flex items-center gap-2">
+                    <i class="pi pi-shopping-cart text-pink-400"></i> Mis últimas ventas
+                </p>
+                <button (click)="irAHistorial()"
+                    class="text-[10px] text-pink-500 font-bold cursor-pointer hover:underline bg-transparent border-none">
+                    Ver todas →
+                </button>
+            </div>
+
+            @if (loading()) {
+            <div class="flex items-center justify-center py-8">
+                <i class="pi pi-spin pi-spinner text-pink-400 text-2xl"></i>
+            </div>
+            } @else if (misUltimasVentas().length > 0) {
+            <div class="flex flex-col gap-2">
+                @for (v of misUltimasVentas(); track v.saleNumber) {
+                <div class="flex items-center justify-between p-2.5 rounded-xl hover:bg-pink-50/30 transition-colors">
+                    <div class="flex items-center gap-2">
+                        <div class="w-8 h-8 rounded-full flex items-center justify-center shrink-0"
+                            [class]="v.status === 'Completada' ? 'bg-green-100' : 'bg-red-100'">
+                            <i class="text-xs"
+                                [class]="v.status === 'Completada' ? 'pi pi-check text-green-500' : 'pi pi-times text-red-500'"></i>
+                        </div>
+                        <div>
+                            <p class="text-xs font-semibold text-gray-800 m-0">
+                                {{ v.customerName ?? 'Sin cliente' }}
+                            </p>
+                            <p class="text-[10px] text-gray-400 m-0">
+                                {{ v.saleNumber }} · {{ getHora(v.saleDate) }} · {{ v.paymentMethod }}
+                            </p>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <p class="text-xs font-black text-pink-600 m-0">S/ {{ Number(v.total) | number:'1.2-2' }}</p>
+                        <p class="text-[10px] m-0"
+                            [class]="v.status === 'Completada' ? 'text-green-500' : 'text-red-400'">
+                            {{ v.status }}
+                        </p>
+                    </div>
+                </div>
+                }
+            </div>
+            } @else {
+            <div class="flex flex-col items-center justify-center py-8 text-gray-200">
+                <i class="pi pi-shopping-cart text-3xl mb-2"></i>
+                <p class="text-xs text-gray-400">Sin ventas registradas hoy</p>
+                <button (click)="irANuevaVenta()"
+                    class="mt-3 flex items-center gap-1.5 bg-pink-500 hover:bg-pink-600 text-white px-4 py-2 rounded-xl text-xs font-bold cursor-pointer border-none transition-all">
+                    <i class="pi pi-plus text-xs"></i> Registrar venta
+                </button>
+            </div>
+            }
+        </div>
+
+        <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 flex flex-col gap-3">
+            <div class="flex items-center justify-between">
+                <p class="text-sm font-bold text-slate-700 m-0 flex items-center gap-2">
+                    <i class="pi pi-bell text-pink-400"></i> Alertas de stock
+                </p>
+                @if (stockCritico() > 0) {
+                <span class="text-[10px] px-2 py-0.5 rounded-full bg-red-50 text-red-500 font-bold">
+                    {{ stockCritico() }} productos
+                </span>
+                }
+            </div>
+
+            @if (alertasStock().length > 0) {
+            <div class="flex flex-col gap-2">
+                @for (p of alertasStock(); track p.idProduct) {
+                @if (Number(p.totalStock) === 0) {
+                <div class="flex items-start gap-3 p-3 bg-red-50 rounded-xl border border-red-100">
+                    <div class="w-7 h-7 rounded-full bg-red-100 flex items-center justify-center shrink-0 mt-0.5">
+                        <i class="pi pi-ban text-red-500 text-xs"></i>
+                    </div>
+                    <div>
+                        <p class="text-xs font-bold text-red-700 m-0">{{ p.name }}</p>
+                        <p class="text-[10px] text-red-500 m-0">Agotado — 0 unidades</p>
+                    </div>
+                </div>
+                } @else {
+                <div class="flex items-start gap-3 p-3 bg-orange-50 rounded-xl border border-orange-100">
+                    <div class="w-7 h-7 rounded-full bg-orange-100 flex items-center justify-center shrink-0 mt-0.5">
+                        <i class="pi pi-exclamation-triangle text-orange-500 text-xs"></i>
+                    </div>
+                    <div>
+                        <p class="text-xs font-bold text-orange-700 m-0">{{ p.name }}</p>
+                        <p class="text-[10px] text-orange-500 m-0">
+                            Stock crítico — {{ p.totalStock }} / {{ p.stockMinimum }} u.
+                        </p>
+                    </div>
+                </div>
+                }
+                }
+                @if (stockCritico() > 4) {
+                <p class="text-xs text-gray-400 text-center mt-1">
+                    +{{ stockCritico() - 4 }} productos más con stock bajo
+                </p>
+                }
+            </div>
+            } @else {
+            <div class="flex flex-col items-center justify-center py-8 text-gray-200">
+                <i class="pi pi-check-circle text-3xl mb-2 text-green-300"></i>
+                <p class="text-xs text-gray-400">¡Inventario saludable!</p>
+            </div>
+            }
+        </div>
+
+    </div>
+
+</div>

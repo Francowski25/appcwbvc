@@ -102,6 +102,7 @@ export const routes: Routes = [
       { path: 'categoria', component: CategoryGetall },
       { path: 'laboratorio', component: LaboratoryGetall },
       { path: 'profile', component: Profile },
+      { path: 'alertas', component: CurrentStock }
     ]
   },
   {
