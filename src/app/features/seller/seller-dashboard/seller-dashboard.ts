@@ -155,10 +155,10 @@ export class SellerDashboard implements OnInit {
     return new Date(dateStr).toLocaleTimeString('es-PE', { hour: '2-digit', minute: '2-digit' });
   }
 
-  irANuevaVenta(): void { this.router.navigate(['/vendedor/sales/new']); }
-  irAClientes(): void { this.router.navigate(['/vendedor/customers']); }
-  irACatalogo(): void { this.router.navigate(['/vendedor/products']); }
-  irAHistorial(): void { this.router.navigate(['/vendedor/sales/history']); }
+  irANuevaVenta(): void { this.router.navigate(['seller/sales/new']); }
+  irAClientes(): void { this.router.navigate(['seller/customers']); }
+  irACatalogo(): void { this.router.navigate(['seller/sales/catalogo']); }
+  irAHistorial(): void { this.router.navigate(['seller/sales/history']); }
 
   protected readonly Number = Number;
 }

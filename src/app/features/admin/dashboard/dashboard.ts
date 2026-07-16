@@ -22,7 +22,6 @@ export class Dashboard implements OnInit {
     return raw ? JSON.parse(raw) : null;
   })();
 
-  // --- Signals ---
   kpi = signal<any>(null);
   salesWeek = signal<any[]>([]);
   topProducts = signal<any[]>([]);
@@ -33,7 +32,6 @@ export class Dashboard implements OnInit {
 
   loading = signal<boolean>(true);
 
-  // --- KPIs computados ---
   pctVentas = computed(() => {
     const kpi = this.kpi();
     if (!kpi || !kpi.ventasAyer || kpi.ventasAyer === 0) return null;
@@ -41,7 +39,6 @@ export class Dashboard implements OnInit {
     return Math.round(pct);
   });
 
-  // --- Inventario resumen (calculado de productos) ---
   productosOk = computed(() =>
     this.productos().filter(p => Number(p.totalStock) > Number(p.stockMinimum)).length
   );
@@ -61,7 +58,6 @@ export class Dashboard implements OnInit {
       acc + (Number(p.totalStock) * Number(p.priceSale)), 0)
   );
 
-  // --- Alertas (stock bajo + por vencer) ---
   alertasStock = computed(() =>
     this.productos()
       .filter(p => Number(p.totalStock) <= Number(p.stockMinimum))
@@ -85,17 +81,16 @@ export class Dashboard implements OnInit {
     this.alertasStock().length + this.alertasVencimiento().length
   );
 
-  // --- Gráfica ventas semana ---
   lineChartData = computed(() => ({
     labels: this.salesWeek().map(s => s.dia),
     datasets: [{
       label: 'Ventas (S/)',
       data: this.salesWeek().map(s => s.total),
-      borderColor: '#ec4899',
-      backgroundColor: 'rgba(236, 72, 153, 0.08)',
+      borderColor: '#d946ef',
+      backgroundColor: 'rgba(217, 70, 239, 0.08)',
       tension: 0.4,
       fill: true,
-      pointBackgroundColor: '#ec4899',
+      pointBackgroundColor: '#d946ef',
       pointRadius: 4,
     }]
   }));
@@ -113,7 +108,6 @@ export class Dashboard implements OnInit {
     this.salesWeek().reduce((acc, s) => acc + Number(s.total), 0)
   );
 
-  // --- Top productos (barra de progreso) ---
   topProductosConPct = computed(() => {
     const lista = this.topProducts();
     if (lista.length === 0) return [];
@@ -124,7 +118,6 @@ export class Dashboard implements OnInit {
     }));
   });
 
-  // --- Usuarios top 5 ---
   top5Usuarios = computed(() => this.usuarios().slice(0, 5));
 
   ngOnInit(): void {
