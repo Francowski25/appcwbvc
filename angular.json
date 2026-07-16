@@ -7,7 +7,7 @@
   },
   "newProjectRoot": "projects",
   "projects": {
-    "appcwds220261": {
+    "appcwbvc": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -17,6 +17,7 @@
         "build": {
           "builder": "@angular/build:application",
           "options": {
+            "outputPath": "dist/appcwbvc",
             "browser": "src/main.ts",
             "tsConfig": "tsconfig.app.json",
             "assets": [
@@ -57,10 +58,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "appcwds220261:build:production"
+              "buildTarget": "appcwbvc:build:production"
             },
             "development": {
-              "buildTarget": "appcwds220261:build:development"
+              "buildTarget": "appcwbvc:build:development"
             }
           },
           "defaultConfiguration": "development"
