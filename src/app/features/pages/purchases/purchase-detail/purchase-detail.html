@@ -1,5 +1,5 @@
 <p-dialog [visible]="visible()" (visibleChange)="visibleChange.emit($event)" [modal]="true" [draggable]="false"
-    [resizable]="false" [style]="{ width: '650px' }" header="Detalle de Compra">
+    [resizable]="false" [style]="{ width: '650px' }" [breakpoints]="{ '768px': '95vw' }" header="Detalle de Compra">
 
     @if (compra(); as c) {
     <div class="flex flex-col gap-4">

@@ -23,7 +23,7 @@
 
     <div class="overflow-x-auto rounded-xl border border-gray-100">
         <p-table [value]="proveedores()" [loading]="loading()" [rowHover]="true" [paginator]="true" [rows]="5"
-            styleClass="p-datatable-sm p-datatable-striped">
+            [tableStyle]="{ 'min-width': '50rem' }" styleClass="p-datatable-sm p-datatable-striped">
 
             <ng-template #header>
                 <tr class="bg-pink-50/70 text-left">

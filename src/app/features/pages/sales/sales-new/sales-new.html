@@ -1,6 +1,8 @@
-<div class="p-6 grid grid-cols-3 gap-6 h-full">
+<p-toast />
 
-    <div class="col-span-2 flex flex-col gap-5">
+<div class="p-6 grid grid-cols-1 lg:grid-cols-3 gap-6 h-full">
+
+    <div class="lg:col-span-2 flex flex-col gap-5">
 
         <div class="flex items-center justify-between">
             <h2 class="text-xl font-extrabold text-gray-900 tracking-tight flex items-center gap-3">
@@ -9,19 +11,7 @@
                 </span>
                 Nueva Venta
             </h2>
-            @if (successMessage()) {
-            <div
-                class="flex items-center gap-2 px-4 py-2 bg-green-50 border border-green-200 rounded-xl text-green-600 text-xs font-bold">
-                <i class="pi pi-check-circle"></i> {{ successMessage() }}
-            </div>
-            }
         </div>
-
-        @if (error()) {
-        <div class="p-3 bg-red-50 border border-red-100 rounded-xl text-red-600 text-xs flex items-center gap-2">
-            <i class="pi pi-exclamation-circle"></i> {{ error() }}
-        </div>
-        }
 
         <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 flex flex-col gap-4">
             <div class="grid grid-cols-2 gap-4">
@@ -162,22 +152,25 @@
         </div>
 
         <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 flex flex-col gap-4">
-            <div class="flex items-center justify-between">
+
+            <div class="flex flex-col gap-3 w-full">
                 <p class="text-sm font-bold text-gray-700 flex items-center gap-2 m-0">
                     <i class="pi pi-box text-pink-400"></i> Productos
                 </p>
-                <div class="relative">
+
+                <div class="relative w-full">
                     <div
-                        class="flex items-center gap-2 border border-gray-200 rounded-xl px-3 py-2 bg-gray-50 hover:border-pink-300 transition-colors w-72">
-                        <i class="pi pi-search text-gray-400 text-xs"></i>
+                        class="flex items-center gap-2 border border-gray-200 rounded-xl px-3 py-2 bg-gray-50 hover:border-pink-300 transition-colors w-full">
+                        <i class="pi text-gray-400 text-xs"></i>
                         <input type="text" placeholder="Buscar producto por nombre o SKU..."
                             class="text-xs bg-transparent border-none outline-none w-full text-gray-600"
                             [value]="busquedaProducto()" (input)="onBusquedaProducto($event)"
                             (focus)="showProductSearch.set(true)" />
                     </div>
+
                     @if (showProductSearch() && productosFiltrados().length > 0) {
                     <div
-                        class="absolute top-full right-0 mt-1 bg-white rounded-xl border border-gray-100 shadow-lg z-50 max-h-56 overflow-y-auto w-72">
+                        class="absolute top-full left-0 right-0 mt-1 bg-white rounded-xl border border-gray-100 shadow-lg z-50 max-h-56 overflow-y-auto w-full">
                         @for (p of productosFiltrados(); track p.idProduct) {
                         <button (click)="onAgregarProducto(p)"
                             class="flex items-center justify-between w-full px-3 py-2.5 hover:bg-pink-50 transition-colors text-left border-b border-gray-50 last:border-0 cursor-pointer">
@@ -193,9 +186,8 @@
                 </div>
             </div>
 
-            <!-- Tabla productos -->
-            <div class="rounded-xl border border-gray-100 overflow-hidden">
-                <table class="w-full text-sm">
+            <div class="rounded-xl border border-gray-100 overflow-x-auto">
+                <table class="w-full text-sm min-w-[640px]">
                     <thead class="bg-pink-50/70">
                         <tr>
                             <th class="text-xs font-bold text-pink-500 uppercase px-3 py-3 text-left">Producto</th>

@@ -1,5 +1,11 @@
-<aside class="flex flex-col bg-white border-r border-gray-200 transition-all duration-300 h-screen"
-    [class.w-64]="!collapsed()" [class.w-16]="collapsed()">
+<!-- Mobile/tablet backdrop: only rendered while the off-canvas sidebar is open, hidden from lg up -->
+@if (layout.sidebarOpen()) {
+<div class="fixed inset-0 z-30 bg-black/40 lg:hidden" (click)="layout.close()"></div>
+}
+
+<aside
+    class="flex flex-col bg-white border-r border-gray-200 transition-transform duration-300 h-screen fixed inset-y-0 left-0 z-40 -translate-x-full lg:static lg:z-auto lg:translate-x-0 lg:transition-[width]"
+    [class.translate-x-0]="layout.sidebarOpen()" [class.w-64]="!collapsed()" [class.w-16]="collapsed()">
 
     <div class="flex flex-col px-3 py-4 border-b border-gray-100 flex-shrink-0">
         <div class="flex items-center justify-between">
@@ -14,14 +20,18 @@
             </div>
             @if (!collapsed()) {
             <button (click)="toggle()"
-                class="w-7 h-7 flex items-center justify-center rounded-md text-gray-400 hover:bg-gray-100 transition-colors border border-gray-200">
+                class="hidden lg:flex w-7 h-7 items-center justify-center rounded-md text-gray-400 hover:bg-gray-100 transition-colors border border-gray-200">
                 <i class="pi pi-angle-left"></i>
             </button>
             }
+            <button (click)="layout.close()"
+                class="lg:hidden w-7 h-7 flex items-center justify-center rounded-md text-gray-400 hover:bg-gray-100 transition-colors border border-gray-200">
+                <i class="pi pi-times"></i>
+            </button>
         </div>
         @if (collapsed()) {
         <button (click)="toggle()"
-            class="mt-3 flex items-center justify-center rounded-md text-gray-400 hover:bg-gray-100 transition-colors border border-gray-200 py-1">
+            class="hidden lg:flex mt-3 items-center justify-center rounded-md text-gray-400 hover:bg-gray-100 transition-colors border border-gray-200 py-1">
             <i class="pi pi-angle-right"></i>
         </button>
         }

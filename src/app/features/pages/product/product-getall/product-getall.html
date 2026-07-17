@@ -3,12 +3,12 @@
     [porVencer]="productosPorVencerQty()" [valor]="valorInventarioMonto()">
   </app-product-kpi>
 </div>
-<div class="p-6 flex gap-6 items-start">
+<div class="p-6 flex flex-col lg:flex-row gap-6 items-start">
 
-  <app-products-table class="flex-1 min-w-0" [filtrados]="filtrados()" [loading]="loading()" [error]="error()"
+  <app-products-table class="flex-1 min-w-0 w-full" [filtrados]="filtrados()" [loading]="loading()" [error]="error()"
     (seleccionar)="onSeleccionar($event)" />
 
-  <app-product-sidebar class="w-80 shrink-0 sticky top-4" [categorias]="categorias()" [laboratorios]="laboratorios()"
+  <app-product-sidebar class="w-full lg:w-80 shrink-0 lg:sticky lg:top-4" [categorias]="categorias()" [laboratorios]="laboratorios()"
     [categoriaSeleccionada]="categoriaSeleccionada()" [laboratorioSeleccionado]="laboratorioSeleccionado()"
     (categoriaChange)="onCategoriaChange($event)" (laboratorioChange)="onLaboratorioChange($event)"
     (searchChange)="onBusqueda($event)" (crearProducto)="onCrearProducto()" (exportarCSV)="onExportarCSV()" />

@@ -21,6 +21,8 @@
     "@primeuix/themes": "^2.0.3",
     "@tailwindcss/postcss": "^4.3.0",
     "chart.js": "^4.5.1",
+    "jspdf": "^4.2.1",
+    "jspdf-autotable": "^5.0.8",
     "postcss": "^8.5.14",
     "primeicons": "^7.0.0",
     "primeng": "^21.1.9",

@@ -23,7 +23,7 @@
 
     <div class="overflow-x-auto rounded-xl border border-gray-100">
         <p-table [value]="ventas()" [loading]="loading()" [rowHover]="true" [paginator]="true" [rows]="8"
-            styleClass="p-datatable-sm p-datatable-striped">
+            [tableStyle]="{ 'min-width': '55rem' }" styleClass="p-datatable-sm p-datatable-striped">
 
             <ng-template #header>
                 <tr class="bg-pink-50/70 text-left">

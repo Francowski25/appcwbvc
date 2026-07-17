@@ -1,6 +1,8 @@
 import { Component, signal, HostListener } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
+import { filter } from 'rxjs/operators';
+import { LayoutService } from '../layout.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -18,7 +20,12 @@ export class Sidebar {
     return raw ? JSON.parse(raw) : null;
   })();
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, public layout: LayoutService) {
+    // Auto-close the off-canvas sidebar on navigation (no-op on desktop, where it stays docked).
+    this.router.events
+      .pipe(filter((e) => e instanceof NavigationEnd))
+      .subscribe(() => this.layout.close());
+  }
 
   toggle() {
     this.collapsed.set(!this.collapsed());

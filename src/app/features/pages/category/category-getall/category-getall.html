@@ -7,13 +7,13 @@
 
     <div class="grid grid-cols-1 lg:grid-cols-10 gap-6 items-stretch">
 
-        <div class="col-span-6">
+        <div class="lg:col-span-6">
             <app-category-table class="w-full" [categorias]="filtrados()" [total]="totalCategorias()"
                 [loading]="loading()" [error]="error()" (crearCategoria)="onCrearCategoria()"
                 (onEdit)="onEditar($event)" (onToggleStatus)="onToggleStatus($event)" (onDelete)="onEliminar($event)" />
         </div>
 
-        <div class="col-span-4 flex">
+        <div class="lg:col-span-4 flex">
             <app-category-graphic class="flex-1" [categorias]="categorias()"
                 [productos]="productos()"></app-category-graphic>
         </div>

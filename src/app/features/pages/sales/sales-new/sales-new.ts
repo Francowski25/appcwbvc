@@ -3,6 +3,8 @@ import { Api } from '../../../../api/api';
 import { customerGetall, customerInsert, lotByproduct, productGetall, saleInsert } from '../../../../api/functions';
 import { DecimalPipe } from '@angular/common';
 import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
+import { ExportPDFData, ExportService } from '../../../../services/export.service';
 
 interface ItemVenta {
   idProduct: string;
@@ -19,20 +21,20 @@ interface ItemVenta {
 
 @Component({
   selector: 'app-sales-new',
-  imports: [DecimalPipe],
+  standalone: true,
+  imports: [DecimalPipe, ToastModule],
   templateUrl: './sales-new.html',
 })
 export class SalesNew implements OnInit {
   private readonly api = inject(Api);
   private readonly messageService = inject(MessageService);
+  private readonly exportService = inject(ExportService); // Inyectamos el servicio de exportación
 
   clientes = signal<any[]>([]);
   productos = signal<any[]>([]);
   loading = signal<boolean>(false);
   loadingCliente = signal<boolean>(false);
   loadingData = signal<boolean>(true);
-  error = signal<string>('');
-  successMessage = signal<string>('');
 
   tieneCliente = signal<boolean>(false);
   clienteSeleccionado = signal<any>(null);
@@ -74,16 +76,34 @@ export class SalesNew implements OnInit {
     try {
       const raw: any = await this.api.invoke$Response(customerGetall);
       const data = typeof raw.body === 'string' ? JSON.parse(raw.body) : raw.body;
-      if (data.type === 'success') this.clientes.set(data.listCustomers ?? []);
-    } catch { }
+      if (data.type === 'success') {
+        this.clientes.set(data.listCustomers ?? []);
+      }
+    } catch {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'No se pudieron cargar los clientes.',
+        life: 4000
+      });
+    }
   }
 
   private async loadProductos(): Promise<void> {
     try {
       const raw: any = await this.api.invoke$Response(productGetall);
       const data = typeof raw.body === 'string' ? JSON.parse(raw.body) : raw.body;
-      if (data.type === 'success') this.productos.set(data.listProducts ?? []);
-    } catch { }
+      if (data.type === 'success') {
+        this.productos.set(data.listProducts ?? []);
+      }
+    } catch {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'No se pudieron cargar los productos.',
+        life: 4000
+      });
+    }
   }
 
   resetForm(): void {
@@ -96,8 +116,6 @@ export class SalesNew implements OnInit {
     this.descuento.set(0);
     this.busquedaProducto.set('');
     this.showProductSearch.set(false);
-    this.error.set('');
-    this.successMessage.set('');
   }
 
   onSeleccionarCliente(idCustomer: string): void {
@@ -107,7 +125,12 @@ export class SalesNew implements OnInit {
 
   async onAgregarProducto(producto: any): Promise<void> {
     if (this.items().find(i => i.idProduct === producto.idProduct)) {
-      this.error.set('El producto ya está en la lista.');
+      this.messageService.add({
+        severity: 'warn',
+        summary: 'Producto duplicado',
+        detail: 'El producto ya ha sido agregado a la lista.',
+        life: 4000
+      });
       return;
     }
     try {
@@ -115,10 +138,17 @@ export class SalesNew implements OnInit {
       const data = typeof raw.body === 'string' ? JSON.parse(raw.body) : raw.body;
       const lotes = data.type === 'success' ? (data.listLots ?? []) : [];
       const primerLote = lotes.find((l: any) => Number(l.currentStock) > 0);
+
       if (!primerLote) {
-        this.error.set(`Sin stock disponible para ${producto.name}.`);
+        this.messageService.add({
+          severity: 'warn',
+          summary: 'Sin stock',
+          detail: `No hay unidades disponibles para ${producto.name}.`,
+          life: 4000
+        });
         return;
       }
+
       this.items.update(list => [...list, {
         idProduct: producto.idProduct,
         productName: producto.name,
@@ -133,9 +163,13 @@ export class SalesNew implements OnInit {
       }]);
       this.busquedaProducto.set('');
       this.showProductSearch.set(false);
-      this.error.set('');
     } catch {
-      this.error.set('Error al cargar lotes del producto.');
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Fallo al cargar los lotes del producto.',
+        life: 4000
+      });
     }
   }
 
@@ -183,16 +217,25 @@ export class SalesNew implements OnInit {
 
   async onGuardarNuevoCliente(): Promise<void> {
     if (!this.nuevoCliente().documentNumber.trim() || !this.nuevoCliente().name.trim()) {
-      this.error.set('Documento y nombre son obligatorios.');
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Campos incompletos',
+        detail: 'El documento y el nombre son obligatorios.',
+        life: 4000
+      });
       return;
     }
     this.loadingCliente.set(true);
-    this.error.set('');
     try {
       const raw: any = await this.api.invoke$Response(customerInsert, { body: { ...this.nuevoCliente() } });
       const data = typeof raw.body === 'string' ? JSON.parse(raw.body) : raw.body;
       if (data.type !== 'success') {
-        this.error.set(data.listMessage[0] ?? 'Error al guardar cliente.');
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error al registrar',
+          detail: data.listMessage[0] ?? 'Error al guardar cliente.',
+          life: 5000
+        });
         return;
       }
       await this.loadClientes();
@@ -200,28 +243,73 @@ export class SalesNew implements OnInit {
       if (nuevo) this.clienteSeleccionado.set(nuevo);
       this.showNuevoCliente.set(false);
       this.nuevoCliente.set({ documentType: 'DNI', documentNumber: '', name: '' });
+      this.messageService.add({
+        severity: 'success',
+        summary: 'Éxito',
+        detail: 'Cliente registrado correctamente.',
+        life: 4000
+      });
     } catch {
-      this.error.set('Error al guardar cliente.');
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error de red',
+        detail: 'No se pudo guardar el cliente en el servidor.',
+        life: 4000
+      });
     } finally {
       this.loadingCliente.set(false);
     }
   }
 
   async onGuardar(): Promise<void> {
-    this.error.set('');
-    this.successMessage.set('');
     if (this.items().length === 0) {
-      this.error.set('Agrega al menos un producto.');
+      this.messageService.add({
+        severity: 'warn',
+        summary: 'Faltan productos',
+        detail: 'Agrega al menos un producto a la lista de ventas.',
+        life: 4000
+      });
       return;
     }
     if (this.tieneCliente() && !this.clienteSeleccionado()) {
-      this.error.set('Selecciona o registra un cliente.');
+      this.messageService.add({
+        severity: 'warn',
+        summary: 'Falta cliente',
+        detail: 'Selecciona o registra un cliente para continuar.',
+        life: 4000
+      });
       return;
     }
+
+    // ABRIMOS LA PESTAÑA INMEDIATAMENTE (Evita el bloqueo del navegador)
+    const nuevaPestana = window.open('', '_blank');
+    if (nuevaPestana) {
+      nuevaPestana.document.write(`
+        <html>
+          <head>
+            <title>Generando Boleta...</title>
+            <style>
+              body { display: flex; justify-content: center; align-items: center; height: 100vh; font-family: sans-serif; color: #374151; background: #f9fafb; margin: 0; }
+              .loader { border: 4px solid #f3f3f3; border-top: 4px solid #db2777; border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; margin-bottom: 20px; }
+              @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+              .container { text-align: center; }
+            </style>
+          </head>
+          <body>
+            <div class="container">
+              <div class="loader" style="margin: 0 auto 15px auto;"></div>
+              <p>Generando su boleta electrónica de venta, por favor espere...</p>
+            </div>
+          </body>
+        </html>
+      `);
+    }
+
     const user = (() => {
       const raw = localStorage.getItem('current_user');
       return raw ? JSON.parse(raw) : null;
     })();
+
     const payload = {
       body: {
         idCustomer: this.clienteSeleccionado()?.idCustomer ?? null,
@@ -236,40 +324,81 @@ export class SalesNew implements OnInit {
         }))
       }
     };
+
     this.loading.set(true);
+    let data: any = null;
+
     try {
       const raw: any = await this.api.invoke$Response(saleInsert, payload);
-      const data = typeof raw.body === 'string' ? JSON.parse(raw.body) : raw.body;
-      if (data.type !== 'success') {
-        this.messageService.add({
-          severity: 'error',
-          summary: 'Error',
-          detail: data.listMessage[0] ?? 'Error al registrar venta.',
-          life: 5000
-        });
-        this.error.set(data.listMessage[0] ?? 'Error al registrar venta.');
-        return;
-      }
-      const mensaje = data.listMessage[0] ?? 'Venta registrada correctamente.';
-      this.messageService.add({
-        severity: 'success',
-        summary: 'Éxito',
-        detail: mensaje,
-        life: 4000
-      });
-      this.successMessage.set(mensaje);
-      this.resetForm();
-    } catch {
+      data = typeof raw.body === 'string' ? JSON.parse(raw.body) : raw.body;
+    } catch (httpError) {
+      console.error('Error de red:', httpError);
+      if (nuevaPestana) nuevaPestana.close();
       this.messageService.add({
         severity: 'error',
         summary: 'Sin conexión',
-        detail: 'No se pudo conectar con el servidor.',
+        detail: 'No se pudo establecer conexión con el servidor.',
         life: 5000
       });
-      this.error.set('Error al registrar venta.');
-    } finally {
       this.loading.set(false);
+      return;
     }
+
+    if (data && data.type !== 'success') {
+      if (nuevaPestana) nuevaPestana.close();
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error en registro',
+        detail: data.listMessage?.[0] ?? 'Ocurrió un problema al registrar la venta.',
+        life: 5000
+      });
+      this.loading.set(false);
+      return;
+    }
+
+    this.messageService.add({
+      severity: 'success',
+      summary: 'Venta exitosa',
+      detail: 'Venta registrada. Abriendo boleta...',
+      life: 4000
+    });
+
+    const idNuevaVenta = data?.idSale || 'VENTA_TEMP';
+
+    const exportData: ExportPDFData = {
+      idSale: idNuevaVenta,
+      cliente: this.clienteSeleccionado() ? {
+        name: this.clienteSeleccionado().name,
+        documentType: this.clienteSeleccionado().documentType,
+        documentNumber: this.clienteSeleccionado().documentNumber
+      } : null,
+      metodoPago: this.metodoPago(),
+      items: this.items().map(i => ({
+        productName: i.productName,
+        lotCode: i.lotCode,
+        quantity: i.quantity,
+        unitPrice: i.unitPrice,
+        subtotal: i.subtotal
+      })),
+      subtotal: this.subtotal(),
+      descuento: this.descuento(),
+      igv: this.igv(),
+      total: this.total()
+    };
+
+    try {
+      this.exportService.generarPDFConPestana(exportData, nuevaPestana);
+    } catch (pdfError) {
+      this.messageService.add({
+        severity: 'warn',
+        summary: 'Error de Impresión',
+        detail: 'La venta se guardó pero no se pudo abrir la boleta automáticamente.',
+        life: 6000
+      });
+    }
+
+    this.resetForm();
+    this.loading.set(false);
   }
 
   protected readonly Number = Number;

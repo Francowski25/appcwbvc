@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { LayoutService } from '../layout.service';
 
 @Component({
   selector: 'app-navbar',
@@ -9,4 +10,6 @@ import { FormsModule } from '@angular/forms';
 })
 export class Navbar {
   search = '';
+
+  constructor(public layout: LayoutService) {}
 }

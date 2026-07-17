@@ -41,7 +41,7 @@
 
     <div class="w-full overflow-x-auto">
         <p-table [value]="categorias()" [loading]="loading()" [rowHover]="true" [paginator]="true" [rows]="5"
-            styleClass="p-datatable-sm">
+            [tableStyle]="{ 'min-width': '40rem' }" styleClass="p-datatable-sm">
 
             <ng-template #header>
                 <tr class="bg-pink-50/70 text-left">
