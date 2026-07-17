@@ -1,0 +1,204 @@
+<div class="p-6 bg-slate-50 min-h-screen font-sans">
+
+    <div class="flex flex-col md:flex-row md:justify-between md:items-center gap-4 mb-6">
+        <div>
+            <h1 class="text-2xl font-bold text-slate-900 tracking-tight">Control de Almacén e Inventario</h1>
+            <p class="text-sm text-slate-500">Gestión de stock físico, trazabilidad de lotes y alertas de caducidad para
+                la botica Virgen de Cocharcas.</p>
+        </div>
+        <div class="flex items-center gap-3">
+            <button pButton label="Registrar Ingreso de Stock" icon="pi pi-cart-plus" class="p-button-success"
+                (click)="abrirModalIngreso()"></button>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
+
+        <button (click)="filtroEstado = 'TODOS'"
+            class="bg-white rounded-2xl border text-left transition shadow-sm p-6 w-full focus:outline-none"
+            [class.border-pink-500]="filtroEstado === 'TODOS'" [class.ring-1]="filtroEstado === 'TODOS'"
+            [class.ring-pink-500]="filtroEstado === 'TODOS'" [class.border-pink-100]="filtroEstado !== 'TODOS'">
+            <div class="flex items-start justify-between">
+                <div class="flex flex-col">
+                    <span class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Todos los Ítems</span>
+                    <span class="text-3xl font-black text-gray-800 m-0">{{ inventario.length }}</span>
+                    <span class="text-xs font-bold text-pink-400 mt-1 flex items-center gap-1">
+                        <i class="pi pi-list"></i> Inventario total
+                    </span>
+                </div>
+                <div class="w-12 h-12 rounded-2xl bg-pink-50 flex items-center justify-center shrink-0">
+                    <i class="pi pi-shopping-cart text-pink-500 text-xl"></i>
+                </div>
+            </div>
+        </button>
+
+        <button (click)="filtroEstado = 'Normal'"
+            class="bg-white rounded-2xl border text-left transition shadow-sm p-6 w-full focus:outline-none"
+            [class.border-green-500]="filtroEstado === 'Normal'" [class.ring-1]="filtroEstado === 'Normal'"
+            [class.ring-green-500]="filtroEstado === 'Normal'" [class.border-green-100]="filtroEstado !== 'Normal'">
+            <div class="flex items-start justify-between">
+                <div class="flex flex-col">
+                    <span class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Stock Óptimo</span>
+                    <span class="text-3xl font-black text-gray-800 m-0">{{ getTotalNormal() }}</span>
+                    <span class="text-xs font-bold text-green-400 mt-1 flex items-center gap-1">
+                        <i class="pi pi-check-circle"></i> Estado normal
+                    </span>
+                </div>
+                <div class="w-12 h-12 rounded-2xl bg-green-50 flex items-center justify-center shrink-0">
+                    <i class="pi pi-check text-green-500 text-xl"></i>
+                </div>
+            </div>
+        </button>
+
+        <button (click)="filtroEstado = 'Por Vencer'"
+            class="bg-white rounded-2xl border text-left transition shadow-sm p-6 w-full focus:outline-none"
+            [class.border-blue-500]="filtroEstado === 'Por Vencer'" [class.ring-1]="filtroEstado === 'Por Vencer'"
+            [class.ring-blue-500]="filtroEstado === 'Por Vencer'"
+            [class.border-blue-100]="filtroEstado !== 'Por Vencer'">
+            <div class="flex items-start justify-between">
+                <div class="flex flex-col">
+                    <span class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Próximos a
+                        Vencer</span>
+                    <span class="text-3xl font-black text-gray-800 m-0">{{ getTotalPorVencer() }}</span>
+                    <span class="text-xs font-bold text-blue-400 mt-1 flex items-center gap-1">
+                        <i class="pi pi-calendar"></i> Alerta de caducidad
+                    </span>
+                </div>
+                <div class="w-12 h-12 rounded-2xl bg-blue-50 flex items-center justify-center shrink-0">
+                    <i class="pi pi-clock text-blue-500 text-xl"></i>
+                </div>
+            </div>
+        </button>
+
+        <button (click)="filtroEstado = 'Quiebre de Stock'"
+            class="bg-white rounded-2xl border text-left transition shadow-sm p-6 w-full focus:outline-none"
+            [class.border-orange-500]="filtroEstado === 'Quiebre de Stock'"
+            [class.ring-1]="filtroEstado === 'Quiebre de Stock'"
+            [class.ring-orange-500]="filtroEstado === 'Quiebre de Stock'"
+            [class.border-orange-100]="filtroEstado !== 'Quiebre de Stock'">
+            <div class="flex items-start justify-between">
+                <div class="flex flex-col">
+                    <span class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Reposición
+                        Urgente</span>
+                    <span class="text-3xl font-black text-gray-800 m-0">{{ getTotalQuiebre() }}</span>
+                    <span class="text-xs font-bold text-orange-400 mt-1 flex items-center gap-1">
+                        <i class="pi pi-exclamation-triangle"></i> Quiebre de stock
+                    </span>
+                </div>
+                <div class="w-12 h-12 rounded-2xl bg-orange-50 flex items-center justify-center shrink-0">
+                    <i class="pi pi-exclamation-circle text-orange-500 text-xl"></i>
+                </div>
+            </div>
+        </button>
+
+    </div>
+
+    <div class="bg-white p-4 rounded-t-xl border-t border-x border-slate-200 flex items-center">
+        <span class="p-input-icon-left w-full md:w-80 relative flex items-center">
+            <i class="pi pi-search text-slate-400 absolute left-3 z-10"></i>
+            <input type="text" pInputText [(ngModel)]="searchTerm" placeholder="Buscar por fármaco, lote o código..."
+                class="w-full pl-9 pr-3 py-2 text-sm bg-white border border-slate-300 rounded-lg focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none" />
+        </span>
+    </div>
+
+    <div class="bg-white rounded-b-xl shadow-sm border border-slate-200 overflow-hidden">
+        <p-table [value]="getFilteredInventario()" class="w-full">
+            <ng-template pTemplate="header">
+                <tr
+                    class="bg-slate-50 border-b border-slate-200 text-slate-700 text-xs font-semibold uppercase tracking-wider">
+                    <th class="p-4 text-left">Código</th>
+                    <th class="p-4 text-left">Descripción del Producto</th>
+                    <th class="p-4 text-left">Laboratorio</th>
+                    <th class="p-4 class text-center">N° Lote</th>
+                    <th class="p-4 text-center">Stock Actual</th>
+                    <th class="p-4 text-center">F. Vencimiento</th>
+                    <th class="p-4 text-center">Estado Alerta</th>
+                    <th class="p-4 text-center">Acciones</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-item>
+                <tr class="border-b border-slate-100 hover:bg-slate-50/80 transition">
+                    <td class="p-4 text-xs font-mono text-slate-500">{{ item.codigo }}</td>
+                    <td class="p-4 font-bold text-slate-900">{{ item.nombre }}</td>
+                    <td class="p-4 text-sm text-slate-600">{{ item.laboratorio }}</td>
+                    <td class="p-4 text-center"><span
+                            class="bg-slate-100 text-slate-700 px-2 py-0.5 rounded font-mono text-xs font-semibold">{{
+                            item.lote }}</span></td>
+                    <td class="p-4 text-center">
+                        <span class="text-sm font-bold" [class.text-rose-600]="item.stockActual <= item.stockMinimo"
+                            [class.text-slate-900]="item.stockActual > item.stockMinimo">
+                            {{ item.stockActual }} uds.
+                        </span>
+                        <div class="text-[10px] text-slate-400">Min: {{ item.stockMinimo }}</div>
+                    </td>
+                    <td class="p-4 text-center text-sm font-medium text-slate-700">{{ item.vencimiento }}</td>
+                    <td class="p-4 text-center">
+                        <p-tag [value]="item.estado" [severity]="getSeverity(item.estado)"></p-tag>
+                    </td>
+                    <td class="p-4 text-center">
+                        <button pButton icon="pi pi-refresh" class="p-button-text p-button-success p-1 mr-1"
+                            title="Ajustar Stock Físico"></button>
+                        <button pButton icon="pi pi-history" class="p-button-text p-button-secondary p-1"
+                            title="Ver Kárdex / Movimientos"></button>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+</div>
+
+<p-dialog header="Registrar Ingreso de Mercadería (Kárdex Entrada)" [(visible)]="displayModalIngreso" [modal]="true"
+    [breakpoints]="{ '960px': '80vw', '641px': '95vw' }" [style]="{ width: '500px' }" [draggable]="false"
+    [resizable]="false">
+
+    <div class="grid grid-cols-2 gap-4 pt-2 font-sans">
+        <div class="flex flex-col gap-1.5 col-span-2">
+            <label class="text-xs font-bold text-slate-600 uppercase">Nombre / Descripción del Fármaco *</label>
+            <input type="text" pInputText [(ngModel)]="nuevoIngreso.nombre" placeholder="Ej: Paracetamol 500mg tableta"
+                class="w-full px-3 py-2 text-sm bg-white border border-slate-300 rounded-lg focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500" />
+        </div>
+
+        <div class="flex flex-col gap-1.5">
+            <label class="text-xs font-bold text-slate-600 uppercase">Código Interno / Barra</label>
+            <input type="text" pInputText [(ngModel)]="nuevoIngreso.codigo" placeholder="Opcional"
+                class="w-full px-3 py-2 text-sm bg-white border border-slate-300 rounded-lg focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500" />
+        </div>
+
+        <div class="flex flex-col gap-1.5">
+            <label class="text-xs font-bold text-slate-600 uppercase">Laboratorio Fabricante *</label>
+            <select [(ngModel)]="nuevoIngreso.laboratorio"
+                class="w-full px-3 py-2 text-sm bg-white border border-slate-300 rounded-lg focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 h-[38px]">
+                <option value="" disabled selected>Seleccionar</option>
+                @for (lab of laboratorios; track lab.value) {
+                <option [value]="lab.value">{{ lab.label }}</option>
+                }
+            </select>
+        </div>
+
+        <div class="flex flex-col gap-1.5">
+            <label class="text-xs font-bold text-slate-600 uppercase">Número de Lote *</label>
+            <input type="text" pInputText [(ngModel)]="nuevoIngreso.lote" placeholder="Ej: L-10294"
+                class="w-full px-3 py-2 text-sm bg-white border border-slate-300 rounded-lg focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500" />
+        </div>
+
+        <div class="flex flex-col gap-1.5">
+            <label class="text-xs font-bold text-slate-600 uppercase">Cantidad Ingresada *</label>
+            <input type="number" pInputText [(ngModel)]="nuevoIngreso.cantidad"
+                class="w-full px-3 py-2 text-sm bg-white border border-slate-300 rounded-lg focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500" />
+        </div>
+
+        <div class="flex flex-col gap-1.5 col-span-2">
+            <label class="text-xs font-bold text-slate-600 uppercase">Fecha de Vencimiento *</label>
+            <input type="date" pInputText [(ngModel)]="nuevoIngreso.vencimiento"
+                class="w-full px-3 py-2 text-sm bg-white border border-slate-300 rounded-lg focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500" />
+        </div>
+    </div>
+
+    <ng-template pTemplate="footer">
+        <button pButton label="Cancelar" icon="pi pi-times" class="p-button-text p-button-secondary"
+            (click)="displayModalIngreso = false"></button>
+        <button pButton label="Ingresar a Almacén" icon="pi pi-save" class="p-button-success px-4 py-2 rounded-lg"
+            [disabled]="!nuevoIngreso.nombre || !nuevoIngreso.lote || !nuevoIngreso.vencimiento"
+            (click)="registrarIngreso()"></button>
+    </ng-template>
+</p-dialog>
