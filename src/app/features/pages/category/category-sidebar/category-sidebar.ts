@@ -1,8 +1,6 @@
 import { Component, input, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
-import { RadioButtonModule } from 'primeng/radiobutton';
 import { IconField } from "primeng/iconfield";
 import { InputIcon } from "primeng/inputicon";
 
@@ -11,9 +9,7 @@ import { InputIcon } from "primeng/inputicon";
   standalone: true,
   imports: [
     CommonModule,
-    FormsModule,
     InputTextModule,
-    RadioButtonModule,
     IconField,
     InputIcon
   ],

@@ -1,8 +1,7 @@
-import { Component, input, output, signal } from '@angular/core';
+import { Component, input, output, signal, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
-import { inject } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { Api } from '../../../../api/api';
 import { categoryInsert } from '../../../../api/functions';
@@ -10,6 +9,7 @@ import { DialogModule } from 'primeng/dialog';
 
 @Component({
   selector: 'app-category-insert',
+  standalone: true,
   imports: [FormsModule, InputTextModule, ProgressSpinnerModule, DialogModule],
   templateUrl: './category-insert.html',
   styleUrl: './category-insert.css',
@@ -28,7 +28,6 @@ export class CategoryInsert {
   loading = signal(false);
   error = signal('');
 
-  selectedFile: File | null = null;
   selectedFileName = signal('');
   previewUrl = signal<string | null>(null);
 
@@ -36,7 +35,6 @@ export class CategoryInsert {
     const input = event.target as HTMLInputElement;
     if (!input.files?.length) return;
     const file = input.files[0];
-    this.selectedFile = file;
     this.selectedFileName.set(file.name);
     const reader = new FileReader();
     reader.onload = () => this.previewUrl.set(reader.result as string);
@@ -53,7 +51,6 @@ export class CategoryInsert {
     this.nameError.set('');
     this.error.set('');
     this.loading.set(false);
-    this.selectedFile = null;
     this.selectedFileName.set('');
     this.previewUrl.set(null);
   }

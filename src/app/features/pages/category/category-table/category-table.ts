@@ -2,7 +2,6 @@ import { Component, input, output } from '@angular/core';
 import { TitleCasePipe } from '@angular/common';
 import { TableModule } from 'primeng/table';
 import { TooltipModule } from 'primeng/tooltip';
-import { TagModule } from 'primeng/tag';
 
 @Component({
   selector: 'app-category-table',
@@ -10,8 +9,7 @@ import { TagModule } from 'primeng/tag';
   imports: [
     TitleCasePipe,
     TableModule,
-    TooltipModule,
-    TagModule
+    TooltipModule
   ],
   templateUrl: './category-table.html',
   styleUrl: './category-table.css',

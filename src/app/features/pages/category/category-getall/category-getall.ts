@@ -1,11 +1,6 @@
 import { Component, inject, OnInit, signal, computed } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { Api } from '../../../../api/api';
 import { categoryGetall, productGetall } from '../../../../api/functions';
-import { DialogModule } from 'primeng/dialog';
-import { TagModule } from 'primeng/tag';
-import { TooltipModule } from 'primeng/tooltip';
-import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { CategorySidebar } from '../category-sidebar/category-sidebar';
 import { CategoryTable } from '../category-table/category-table';
 import { MessageService } from 'primeng/api';
@@ -14,12 +9,8 @@ import { CategoryInsert } from '../category-insert/category-insert';
 
 @Component({
   selector: 'app-category-getall',
+  standalone: true,
   imports: [
-    CommonModule,
-    DialogModule,
-    TagModule,
-    TooltipModule,
-    ProgressSpinnerModule,
     CategorySidebar,
     CategoryTable,
     CategoryGraphic,
@@ -86,10 +77,6 @@ export class CategoryGetall implements OnInit {
       .finally(() => {
         this.loading.set(false);
       });
-  }
-
-  getSeverity(status: string): 'success' | 'danger' {
-    return status?.toLowerCase() === 'activo' ? 'success' : 'danger';
   }
 
   onBusquedaChange(valor: string): void { this.busqueda.set(valor); }
