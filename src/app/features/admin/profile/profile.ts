@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { DialogModule } from 'primeng/dialog';
 import { EditProfile } from './edit-profile/edit-profile';
@@ -16,6 +16,6 @@ export class Profile {
     return raw ? JSON.parse(raw) : null;
   })();
 
-  showEditProfileDialog = false;
-  showPasswordDialog = false;
+  showEditProfileDialog = signal(false);
+  showPasswordDialog = signal(false);
 }
