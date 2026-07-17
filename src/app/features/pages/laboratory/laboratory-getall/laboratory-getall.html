@@ -1,19 +1,19 @@
-<div class="p-6 flex flex-col gap-6">
+<div class="p-3 sm:p-4 lg:p-6 flex flex-col gap-4 sm:gap-6">
 
     <app-laboratory-sidebar [busquedaValue]="busqueda()" [estadoValue]="estadoFiltro()"
         [totalLaboratories]="totalLaboratories()" [totalActivas]="totalActivas()" [totalInactivas]="totalInactivas()"
         (busquedaChange)="onBusquedaChange($event)" (estadoChange)="onEstadoChange($event)"
         (crearLaboratorio)="onCrearLaboratorio()" />
 
-    <div class="grid grid-cols-1 lg:grid-cols-10 gap-6 items-stretch">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-10 gap-4 sm:gap-6 items-stretch">
 
-        <div class="lg:col-span-6">
+        <div class="md:col-span-1 lg:col-span-6">
             <app-laboratory-table class="w-full" [laboratorios]="filtrados()" [total]="totalLaboratories()"
                 [loading]="loading()" [error]="error()" (crearLaboratorio)="onCrearLaboratorio()"
                 (onEdit)="onEditar($event)" (onToggleStatus)="onToggleStatus($event)" (onDelete)="onEliminar($event)" />
         </div>
 
-        <div class="lg:col-span-4">
+        <div class="md:col-span-1 lg:col-span-4">
             <app-laboratory-graphic class="flex-1" [laboratories]="laboratories()"
                 [products]="products()"></app-laboratory-graphic>
         </div>

@@ -9,6 +9,7 @@ import { DialogModule } from 'primeng/dialog';
 
 @Component({
   selector: 'app-laboratory-insert',
+  standalone: true,
   imports: [FormsModule, InputTextModule, ProgressSpinnerModule, DialogModule],
   templateUrl: './laboratory-insert.html',
   styleUrl: './laboratory-insert.css',
@@ -27,7 +28,6 @@ export class LaboratoryInsert {
   loading = signal(false);
   error = signal('');
 
-  selectedFile: File | null = null;
   selectedFileName = signal('');
   previewUrl = signal<string | null>(null);
 
@@ -35,7 +35,6 @@ export class LaboratoryInsert {
     const input = event.target as HTMLInputElement;
     if (!input.files?.length) return;
     const file = input.files[0];
-    this.selectedFile = file;
     this.selectedFileName.set(file.name);
     const reader = new FileReader();
     reader.onload = () => this.previewUrl.set(reader.result as string);
@@ -52,7 +51,6 @@ export class LaboratoryInsert {
     this.nameError.set('');
     this.error.set('');
     this.loading.set(false);
-    this.selectedFile = null;
     this.selectedFileName.set('');
     this.previewUrl.set(null);
   }

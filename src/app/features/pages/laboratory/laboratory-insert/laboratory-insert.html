@@ -34,13 +34,13 @@
                         Imagen <span class="text-gray-300 font-normal normal-case">(Opcional)</span>
                     </label>
                     <div class="flex justify-center sm:justify-start">
-                        <label for="fileCategoryInput" [class.opacity-60]="loading()"
+                        <label for="fileLaboratoryInput" [class.opacity-60]="loading()"
                             [class.pointer-events-none]="loading()"
                             class="flex items-center gap-2 bg-white hover:bg-gray-50 text-slate-600 border border-gray-200 px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer shadow-sm">
                             <i class="pi pi-upload text-sm"></i>
                             <span>{{ selectedFileName() || 'Seleccionar imagen' }}</span>
                         </label>
-                        <input id="fileCategoryInput" type="file" accept="image/*" class="hidden"
+                        <input id="fileLaboratoryInput" type="file" accept="image/*" class="hidden"
                             (change)="onFileSelected($event)" [disabled]="loading()" />
                     </div>
                 </div>
@@ -89,7 +89,7 @@
                         <button type="button" (click)="onSubmit()" [disabled]="loading()"
                             class="flex items-center justify-center gap-2 bg-pink-500 hover:bg-pink-600 text-white border border-pink-500 hover:border-pink-600 px-5 py-2.5 rounded-xl text-xs font-bold transition-all shadow-sm cursor-pointer disabled:bg-pink-300 disabled:border-pink-300 disabled:cursor-not-allowed">
                             <i class="pi pi-plus text-xs"></i>
-                            <span>{{ loading() ? 'Registrando...' : 'Registrar Categoría' }}</span>
+                            <span>{{ loading() ? 'Registrando...' : 'Registrar Laboratorio' }}</span>
                         </button>
                     </div>
                 </div>

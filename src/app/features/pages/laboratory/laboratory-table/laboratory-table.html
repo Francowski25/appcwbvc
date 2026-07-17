@@ -1,6 +1,6 @@
 <div class="rounded-2xl overflow-hidden shadow-sm border border-gray-100 bg-white">
 
-    <div class="flex items-center justify-between px-5 py-4 border-b border-gray-50">
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 px-4 sm:px-5 py-4 border-b border-gray-50">
         <div class="flex items-center gap-3">
             <div class="bg-pink-100 p-2 rounded-xl">
                 <i class="pi pi-tag text-pink-500 text-base"></i>
@@ -8,12 +8,12 @@
             <div>
                 <h2 class="text-base font-bold text-gray-800">Listado de Laboratorios</h2>
                 <p class="text-[11px] text-gray-400 mt-0.5">
-                    {{ total() }} {{ total() === 1 ? 'categoría encontrada' : 'categorías encontradas' }}
+                    {{ total() }} {{ total() === 1 ? 'laboratorio encontrado' : 'laboratorios encontrados' }}
                 </p>
             </div>
         </div>
 
-        <div class="flex items-center gap-2">
+        <div class="flex flex-wrap items-center gap-2">
             <button type="button" (click)="onExportExcel.emit()" pTooltip="Exportar a Excel" tooltipPosition="top"
                 class="flex items-center gap-2 bg-white hover:bg-emerald-50 text-emerald-600 border border-emerald-200 hover:border-emerald-300 px-3 py-2 rounded-xl text-xs font-bold transition-all shadow-sm cursor-pointer">
                 <i class="pi pi-file-excel text-sm"></i>
@@ -92,7 +92,7 @@
 
                     <td class="px-4 py-3 text-center align-middle">
                         @if(cat.image) {
-                        <img [src]="'/images/category/' + cat.image" [alt]="cat.name"
+                        <img [src]="'/images/laboratory/' + cat.image" [alt]="cat.name"
                             class="w-14 h-14 mx-auto rounded-2xl object-cover border border-pink-100 shadow-sm hover:scale-105 transition-transform duration-300" />
                         } @else {
                         <div
@@ -145,6 +145,11 @@
                                 <i class="text-sm"
                                     [class]="cat.status === 'activo' ? 'pi pi-ban' : 'pi pi-check-circle'"></i>
                             </button>
+                            <button type="button" (click)="onDelete.emit(cat)" pTooltip="Eliminar"
+                                tooltipPosition="top"
+                                class="w-8 h-8 flex items-center justify-center rounded-xl text-slate-400 hover:text-red-600 hover:bg-red-50 transition-all cursor-pointer">
+                                <i class="pi pi-trash text-sm"></i>
+                            </button>
                         </div>
                     </td>
 
@@ -156,7 +161,7 @@
                     <td colspan="5">
                         <div class="flex flex-col items-center justify-center py-12 gap-2">
                             <i class="pi pi-inbox text-4xl text-pink-200"></i>
-                            <p class="text-xs font-medium text-gray-400">No se encontraron categorías.</p>
+                            <p class="text-xs font-medium text-gray-400">No se encontraron laboratorios.</p>
                             <p class="text-[11px] text-gray-400/70">Intenta ajustar los filtros de búsqueda</p>
                         </div>
                     </td>

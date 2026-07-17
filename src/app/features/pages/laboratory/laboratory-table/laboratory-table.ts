@@ -1,7 +1,6 @@
 import { TitleCasePipe } from '@angular/common';
 import { Component, input, output } from '@angular/core';
 import { TableModule } from 'primeng/table';
-import { TagModule } from 'primeng/tag';
 import { TooltipModule } from 'primeng/tooltip';
 
 @Component({
@@ -9,8 +8,7 @@ import { TooltipModule } from 'primeng/tooltip';
   imports: [
     TitleCasePipe,
     TableModule,
-    TooltipModule,
-    TagModule
+    TooltipModule
   ],
   standalone: true,
   templateUrl: './laboratory-table.html',

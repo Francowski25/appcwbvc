@@ -4,6 +4,7 @@ import { ChartData, ChartOptions } from 'chart.js';
 
 @Component({
   selector: 'app-laboratory-graphic',
+  standalone: true,
   imports: [ChartModule],
   templateUrl: './laboratory-graphic.html',
   styleUrl: './laboratory-graphic.scss',

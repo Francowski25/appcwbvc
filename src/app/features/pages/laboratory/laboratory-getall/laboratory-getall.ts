@@ -1,11 +1,6 @@
 import { Component, inject, OnInit, signal, computed } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { Api } from '../../../../api/api';
 import { laboratoryGetall, productGetall } from '../../../../api/functions';
-import { DialogModule } from 'primeng/dialog';
-import { TagModule } from 'primeng/tag';
-import { TooltipModule } from 'primeng/tooltip';
-import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { MessageService } from 'primeng/api';
 import { LaboratorySidebar } from '../laboratory-sidebar/laboratory-sidebar';
 import { LaboratoryTable } from '../laboratory-table/laboratory-table';
@@ -16,11 +11,6 @@ import { LaboratoryInsert } from '../laboratory-insert/laboratory-insert';
   selector: 'app-laboratory-getall',
   standalone: true,
   imports: [
-    CommonModule,
-    DialogModule,
-    TagModule,
-    TooltipModule,
-    ProgressSpinnerModule,
     LaboratorySidebar,
     LaboratoryTable,
     LaboratoryGraphic,
@@ -88,10 +78,6 @@ export class LaboratoryGetall implements OnInit {
     });
   }
 
-
-  getSeverity(status: string): 'success' | 'danger' {
-    return status?.toLowerCase() === 'activo' ? 'success' : 'danger';
-  }
 
   onBusquedaChange(valor: string): void { this.busqueda.set(valor); }
   onEstadoChange(valor: string): void { this.estadoFiltro.set(valor); }
