@@ -1,1 +1,129 @@
-<p>roles-permissions works!</p>
+<div class="p-6 bg-slate-50 min-h-screen font-sans">
+
+    <div class="flex flex-col md:flex-row md:justify-between md:items-center gap-4 mb-6">
+        <div>
+            <h1 class="text-2xl font-bold text-slate-900 tracking-tight">Roles y Permisos</h1>
+            <p class="text-sm text-slate-500">Configura los módulos a los que tienen acceso los trabajadores de la
+                botica Virgen de Cocharcas.</p>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+        <div
+            class="lg:col-span-2 bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden flex flex-col justify-between">
+            <p-table [value]="roles" selectionMode="single" [(selection)]="selectedRol"
+                (onRowSelect)="onRolSelect($event)" class="w-full">
+                <ng-template pTemplate="header">
+                    <tr
+                        class="bg-slate-50 border-b border-slate-200 text-slate-700 text-xs font-semibold uppercase tracking-wider">
+                        <th class="p-4 text-left">Rol / Cargo</th>
+                        <th class="p-4 text-left hidden sm:table-cell">Descripción de Funciones</th>
+                        <th class="p-4 text-center">Usuarios</th>
+                        <th class="p-4 text-center">Estado</th>
+                        <th class="p-4 text-center">Acciones</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-rol>
+                    <tr [pSelectableRow]="rol"
+                        class="border-b border-slate-100 hover:bg-slate-50 transition cursor-pointer"
+                        [class.bg-blue-50]="selectedRol?.id === rol.id">
+                        <td class="p-4 font-semibold text-slate-900">
+                            <div class="flex items-center gap-2">
+                                <i class="pi pi-shield text-blue-600 text-base"></i>
+                                {{ rol.nombre }}
+                            </div>
+                        </td>
+                        <td class="p-4 text-slate-500 text-sm hidden sm:table-cell max-w-xs truncate">{{ rol.descripcion
+                            }}</td>
+                        <td class="p-4 text-center">
+                            <span class="px-2.5 py-1 text-xs font-medium bg-slate-100 text-slate-700 rounded-md">
+                                {{ rol.usuariosCount }} u.
+                            </span>
+                        </td>
+                        <td class="p-4 text-center">
+                            <p-tag [value]="rol.estado" [severity]="getSeverity(rol.estado)"></p-tag>
+                        </td>
+                        <td class="p-4 text-center" (click)="$event.stopPropagation()">
+                            <button pButton icon="pi pi-pencil" class="p-button-text p-button-secondary p-1 mr-1"
+                                title="Editar"></button>
+                            <button pButton icon="pi pi-trash" class="p-button-text p-button-danger p-1"
+                                title="Eliminar"></button>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+
+            <div
+                class="p-4 bg-slate-50 border-t border-slate-100 text-xs text-slate-500 flex justify-between items-center">
+                <span>{{ roles.length }} cargos comerciales parametrizados</span>
+                <span class="font-medium text-slate-700 flex items-center gap-1">
+                    <i class="pi pi-info-circle text-blue-500"></i> Selecciona un rol para auditar sus accesos
+                </span>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 flex flex-col h-fit sticky top-6">
+            @if (selectedRol) {
+            <div class="flex flex-col h-full">
+
+                <div class="mb-5 pb-4 border-b border-slate-100">
+                    <div class="flex items-center gap-2 mb-1">
+                        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                        <h2 class="text-lg font-bold text-slate-900">Módulos Asignados</h2>
+                    </div>
+                    <p class="text-sm text-slate-600 font-medium">Modificando: <span class="text-blue-600 font-bold">{{
+                            selectedRol.nombre }}</span></p>
+                </div>
+
+                <div class="space-y-4 max-h-[480px] overflow-y-auto pr-1">
+                    @for (modulo of permisosPorModulo; track modulo.nombre) {
+                    <div class="bg-slate-50 p-4 rounded-lg border border-slate-200/60">
+                        <h3
+                            class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3 flex justify-between items-center">
+                            {{ modulo.nombre }}
+                            <span class="text-[10px] bg-slate-200 text-slate-600 px-1.5 py-0.5 rounded font-mono">{{
+                                modulo.permisos.length }}</span>
+                        </h3>
+
+                        <div class="space-y-3">
+                            @for (permiso of modulo.permisos; track permiso.id) {
+                            <div class="flex items-start gap-3 p-1.5 hover:bg-white rounded-md transition duration-150">
+                                <p-checkbox [binary]="true" [(ngModel)]="permiso.activo"
+                                    (onChange)="guardarPermiso(selectedRol.id, permiso.id, $event.checked)"
+                                    styleClass="mt-0.5">
+                                </p-checkbox>
+                                <div class="flex flex-col">
+                                    <label class="text-sm font-medium text-slate-700 cursor-pointer select-none">
+                                        {{ permiso.descripcion }}
+                                    </label>
+                                    <span class="text-[10px] text-slate-400 font-mono uppercase">ID: {{ permiso.id
+                                        }}</span>
+                                </div>
+                            </div>
+                            }
+                        </div>
+                    </div>
+                    }
+                </div>
+
+                <div class="mt-5 pt-4 border-t border-slate-100">
+                    <button pButton label="Guardar Cambios del Rol" icon="pi pi-check"
+                        class="p-button-sm p-button-success w-full py-2.5 rounded-lg font-semibold"></button>
+                </div>
+            </div>
+            } @else {
+            <div class="flex flex-col items-center justify-center py-20 px-4 text-center text-slate-400">
+                <div
+                    class="w-14 h-14 rounded-full bg-slate-50 flex items-center justify-center mb-3 border border-slate-100">
+                    <i class="pi pi-lock text-xl text-slate-400"></i>
+                </div>
+                <h3 class="text-sm font-bold text-slate-700 mb-1">Ningún rol seleccionado</h3>
+                <p class="text-xs text-slate-400 max-w-[240px]">Selecciona un cargo de la tabla para administrar sus
+                    accesos operacionales.</p>
+            </div>
+            }
+        </div>
+
+    </div>
+</div>
