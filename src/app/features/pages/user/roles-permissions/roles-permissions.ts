@@ -9,6 +9,7 @@ import { TagModule } from 'primeng/tag';
 
 @Component({
   selector: 'app-roles-permisos',
+  standalone: true,
   imports: [
     FormsModule,
     TableModule,
@@ -96,7 +97,6 @@ export class RolesPermissions {
   }
 
   guardarPermiso(rolId: number, permisoId: string, value: boolean) {
-    console.log(`Permiso ${permisoId} cambiado a ${value} para el Rol ${rolId}`);
   }
 
   getSeverity(estado: string): 'success' | 'danger' {

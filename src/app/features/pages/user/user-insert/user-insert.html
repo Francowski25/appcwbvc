@@ -103,7 +103,7 @@
                     <label class="text-xs font-bold text-slate-400 uppercase tracking-wider">
                         Rol Asignado <span class="text-pink-400">*</span>
                     </label>
-                    <p-select [options]="listRoles" formControlName="role" optionLabel="label"
+                    <p-select [options]="listRoles" formControlName="role" optionLabel="label" optionValue="value"
                         placeholder="Seleccione un rol"
                         class="w-full text-xs rounded-xl border-gray-200 focus:border-pink-300" />
                     @if((roleFb.touched || roleFb.dirty) && roleFb.hasError('required')) {
@@ -121,8 +121,8 @@
 
                     <div class="flex items-center gap-3">
                         <!-- Preview -->
-                        @if(previewUrl) {
-                        <img [src]="previewUrl" alt="Preview"
+                        @if(previewUrl()) {
+                        <img [src]="previewUrl()" alt="Preview"
                             class="w-10 h-10 rounded-full object-cover ring-2 ring-pink-100" />
                         } @else {
                         <div
@@ -134,7 +134,7 @@
                         <label for="fileAvatar"
                             class="flex items-center gap-2 bg-white hover:bg-gray-50 text-slate-600 border border-gray-200 px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer">
                             <i class="pi pi-upload text-sm"></i>
-                            <span>{{ selectedFileName || 'Seleccionar imagen' }}</span>
+                            <span>{{ selectedFileName() || 'Seleccionar imagen' }}</span>
                         </label>
                         <input id="fileAvatar" type="file" accept="image/*" class="hidden"
                             (change)="onFileSelected($event)" />
@@ -195,7 +195,7 @@
                 <span class="text-pink-400">*</span> Campos obligatorios
             </small>
             <div class="flex gap-3 items-center">
-                @if(isLoading) {
+                @if(isLoading()) {
                 <p-progressSpinner styleClass="w-6 h-6" strokeWidth="4" />
                 }
                 <div class="flex justify-end items-center gap-3">

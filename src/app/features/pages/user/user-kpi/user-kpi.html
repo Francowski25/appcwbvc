@@ -4,7 +4,7 @@
         <div class="flex items-start justify-between">
             <div class="flex flex-col">
                 <span class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Total Usuarios</span>
-                <span class="text-3xl font-black text-gray-800 m-0">{{ total }}</span>
+                <span class="text-3xl font-black text-gray-800 m-0">{{ total() }}</span>
                 <span class="text-xs font-bold text-pink-400 mt-1 flex items-center gap-1">
                     <i class="pi pi-users"></i> General
                 </span>
@@ -19,7 +19,7 @@
         <div class="flex items-start justify-between">
             <div class="flex flex-col">
                 <span class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Personal Activo</span>
-                <span class="text-3xl font-black text-gray-800 m-0">{{ activos }}</span>
+                <span class="text-3xl font-black text-gray-800 m-0">{{ activos() }}</span>
                 <span class="text-xs font-bold text-pink-400 mt-1 flex items-center gap-1">
                     <span class="w-1.5 h-1.5 rounded-full bg-pink-400 animate-pulse"></span> Operando
                 </span>
@@ -34,7 +34,7 @@
         <div class="flex items-start justify-between">
             <div class="flex flex-col">
                 <span class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Restringidos</span>
-                <span class="text-3xl font-black text-gray-800 m-0">{{ inactivos }}</span>
+                <span class="text-3xl font-black text-gray-800 m-0">{{ inactivos() }}</span>
                 <span class="text-xs font-bold text-pink-400 mt-1 flex items-center gap-1">
                     <i class="pi pi-user-minus"></i> Inactivos
                 </span>

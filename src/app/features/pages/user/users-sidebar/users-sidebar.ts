@@ -7,6 +7,7 @@ import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
   selector: 'app-users-sidebar',
+  standalone: true,
   imports: [
     FormsModule,
     IconFieldModule,

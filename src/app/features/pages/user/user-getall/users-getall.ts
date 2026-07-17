@@ -4,6 +4,7 @@ import { userGetall, userStatus } from '../../../../api/functions';
 import { UsersSidebar } from '../users-sidebar/users-sidebar';
 import { UsersTable } from '../users-table/users-table';
 import { DialogModule } from 'primeng/dialog';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { UserKpi } from '../user-kpi/user-kpi';
 import { UsersInsert } from '../user-insert/user-insert';
 import { MessageService } from 'primeng/api';
@@ -17,6 +18,7 @@ import { MessageService } from 'primeng/api';
     UserKpi,
     UsersInsert,
     DialogModule,
+    ConfirmDialogModule,
   ],
   templateUrl: './users-getall.html',
   styleUrl: './users-getall.css',
@@ -34,8 +36,12 @@ export class UsersList implements OnInit {
   showInsertDialog = signal<boolean>(false);
 
   private readonly currentUser: { email: string } | null = (() => {
-    const raw = localStorage.getItem('current_user');
-    return raw ? JSON.parse(raw) : null;
+    try {
+      const raw = localStorage.getItem('current_user');
+      return raw ? JSON.parse(raw) : null;
+    } catch {
+      return null;
+    }
   })();
 
   totalUsuarios = computed(() => this.usuarios().length);

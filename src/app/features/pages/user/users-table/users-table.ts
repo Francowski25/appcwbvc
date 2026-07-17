@@ -1,4 +1,4 @@
-import { Component, inject, Input, input, output } from '@angular/core';
+import { Component, inject, input, output } from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { TooltipModule } from 'primeng/tooltip';
 import { ConfirmationService } from 'primeng/api';
@@ -16,7 +16,6 @@ import { ConfirmationService } from 'primeng/api';
 export class UsersTable {
   private readonly confirmationService = inject(ConfirmationService);
 
-  @Input() filtrados: any[] = [];
   usuariosData = input<any[]>([]);
   loadingState = input<boolean>(false);
 

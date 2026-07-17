@@ -1,4 +1,4 @@
-import { Component, inject, output } from '@angular/core';
+import { Component, inject, output, signal } from '@angular/core';
 import {
   AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule,
   ValidationErrors, ValidatorFn, Validators
@@ -38,11 +38,10 @@ export class UsersInsert {
   cerrarDialog = output<void>();
 
   frmInsertUser: FormGroup;
-  isLoading = false;
+  isLoading = signal(false);
 
-  selectedFile: File | null = null;
-  selectedFileName = '';
-  previewUrl: string | null = null;
+  selectedFileName = signal('');
+  previewUrl = signal<string | null>(null);
 
   listRoles = [
     { label: 'Químico', value: 'Quimico' },
@@ -78,9 +77,8 @@ export class UsersInsert {
       document.activeElement.blur();
     }
     this.frmInsertUser.reset();
-    this.selectedFile = null;
-    this.selectedFileName = '';
-    this.previewUrl = null;
+    this.selectedFileName.set('');
+    this.previewUrl.set(null);
   }
 
   closeDialog(): void {
@@ -92,11 +90,10 @@ export class UsersInsert {
     const input = event.target as HTMLInputElement;
     if (!input.files?.length) return;
     const file = input.files[0];
-    this.selectedFile = file;
-    this.selectedFileName = file.name;
+    this.selectedFileName.set(file.name);
     this.imageFb.setValue(file.name);
     const reader = new FileReader();
-    reader.onload = () => this.previewUrl = reader.result as string;
+    reader.onload = () => this.previewUrl.set(reader.result as string);
     reader.readAsDataURL(file);
   }
 
@@ -120,7 +117,7 @@ export class UsersInsert {
       rejectButtonProps: { label: 'Cancelar', severity: 'secondary', outlined: true },
       acceptButtonProps: { label: 'Registrar', severity: 'primary' },
       accept: () => {
-        this.isLoading = true;
+        this.isLoading.set(true);
 
         const bodyParams: UserInsert$Params = {
           body: {
@@ -155,7 +152,7 @@ export class UsersInsert {
         }).catch(() => {
           this.messageService.add({ severity: 'error', summary: 'Sin conexión', detail: 'No se pudo conectar con el servidor.', life: 5000 });
         }).finally(() => {
-          this.isLoading = false;
+          this.isLoading.set(false);
         });
       },
       reject: () => { }

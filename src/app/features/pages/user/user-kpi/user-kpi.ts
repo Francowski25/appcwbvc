@@ -1,13 +1,14 @@
-import { Component, Input } from '@angular/core';
+import { Component, input } from '@angular/core';
 
 @Component({
   selector: 'app-user-kpi',
+  standalone: true,
   imports: [],
   templateUrl: './user-kpi.html',
   styleUrl: './user-kpi.css',
 })
 export class UserKpi {
-  @Input() total: number = 0;
-  @Input() activos: number = 0;
-  @Input() inactivos: number = 0;
+  total = input<number>(0);
+  activos = input<number>(0);
+  inactivos = input<number>(0);
 }

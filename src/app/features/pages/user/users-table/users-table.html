@@ -97,8 +97,15 @@
         <td class="px-6 py-4 text-left">
           <div class="flex items-center gap-4">
             <div class="relative flex-shrink-0">
-              <img [src]="'images/user/' + user.image" alt="Avatar"
+              @if (user.image) {
+              <img [src]="'/images/user/' + user.image" alt="Avatar"
                 class="w-12 h-12 rounded-full object-cover ring-4 ring-slate-50 group-hover:ring-pink-50 transition-all duration-200 shadow-sm" />
+              } @else {
+              <div
+                class="w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center ring-4 ring-slate-50 group-hover:ring-pink-50 transition-all duration-200 shadow-sm">
+                <i class="pi pi-user text-slate-300 text-lg"></i>
+              </div>
+              }
               <span [class.bg-emerald-500]="user.status === 'activo'" [class.bg-rose-400]="user.status !== 'activo'"
                 class="absolute bottom-0 right-0 block h-3 w-3 rounded-full ring-2 ring-white">
               </span>
