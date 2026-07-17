@@ -1,4 +1,4 @@
-import { Component, HostListener, signal } from '@angular/core';
+import { Component, HostListener, signal, inject } from '@angular/core';
 import { NavigationEnd, Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { LayoutService } from '../layout.service';
@@ -20,7 +20,10 @@ export class Sidebar {
     return raw ? JSON.parse(raw) : null;
   })();
 
-  constructor(private router: Router, public layout: LayoutService) {
+  private router = inject(Router);
+  layout = inject(LayoutService);
+
+  constructor() {
     // Auto-close the off-canvas sidebar on navigation (no-op on desktop, where it stays docked).
     this.router.events
       .pipe(filter((e) => e instanceof NavigationEnd))

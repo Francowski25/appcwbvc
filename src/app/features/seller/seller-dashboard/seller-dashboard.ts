@@ -12,6 +12,7 @@ registerLocaleData(localeEs, 'es');
   selector: 'app-seller-dashboard',
   imports: [DatePipe, DecimalPipe, ChartModule],
   templateUrl: './seller-dashboard.html',
+  styleUrl: './seller-dashboard.css',
 })
 export class SellerDashboard implements OnInit {
   private readonly api = inject(Api);

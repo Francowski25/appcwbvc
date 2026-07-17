@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { LayoutService } from '../layout.service';
 
@@ -9,7 +9,7 @@ import { LayoutService } from '../layout.service';
   styleUrl: './navbar.css',
 })
 export class Navbar {
-  search = '';
+  layout = inject(LayoutService);
 
-  constructor(public layout: LayoutService) {}
+  search = '';
 }
