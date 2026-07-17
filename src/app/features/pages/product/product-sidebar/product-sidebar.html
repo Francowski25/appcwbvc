@@ -32,12 +32,12 @@
         </p-iconfield>
       </div>
 
-      @if(categoriaSeleccionada) {
+      @if(categoriaSeleccionada()) {
       <div
         class="flex items-center justify-between bg-pink-500 text-white px-3 py-1.5 rounded-xl text-xs font-bold shadow-sm animate-fade-in mt-1">
         <div class="flex items-center gap-2 min-w-0">
           <i class="pi pi-tag text-xs shrink-0"></i>
-          <span class="truncate">{{ categoriaSeleccionada }}</span>
+          <span class="truncate">{{ categoriaSeleccionada() }}</span>
         </div>
         <button (click)="seleccionarCategoria('')"
           class="text-white hover:text-pink-100 bg-transparent border-none p-0 cursor-pointer flex items-center">
@@ -51,14 +51,14 @@
         @for(cat of categoriasFiltradas(); track cat.name) {
         <button
           class="flex items-center justify-between px-3 py-2 rounded-xl text-xs transition-all w-full text-left cursor-pointer animate-fade-in"
-          [ngClass]="categoriaSeleccionada === cat.name ? 'bg-pink-600 text-white font-bold' : 'text-gray-500 hover:bg-pink-50 hover:text-pink-500 font-medium'"
+          [ngClass]="categoriaSeleccionada() === cat.name ? 'bg-pink-600 text-white font-bold' : 'text-gray-500 hover:bg-pink-50 hover:text-pink-500 font-medium'"
           (click)="seleccionarCategoria(cat.name)">
           <div class="flex items-center gap-2 min-w-0">
             <i class="pi pi-tag text-xs shrink-0"></i>
             <span class="truncate">{{ cat.name }}</span>
           </div>
           <span class="text-[10px] px-2 py-0.5 rounded-full shrink-0"
-            [ngClass]="categoriaSeleccionada === cat.name ? 'bg-white/20 text-white' : 'bg-pink-50 text-pink-400'">
+            [ngClass]="categoriaSeleccionada() === cat.name ? 'bg-white/20 text-white' : 'bg-pink-50 text-pink-400'">
             {{ cat.count }}
           </span>
         </button>
@@ -82,12 +82,12 @@
         </p-iconfield>
       </div>
 
-      @if(laboratorioSeleccionado) {
+      @if(laboratorioSeleccionado()) {
       <div
         class="flex items-center justify-between bg-pink-500 text-white px-3 py-1.5 rounded-xl text-xs font-bold shadow-sm animate-fade-in mt-1">
         <div class="flex items-center gap-2 min-w-0">
           <i class="pi pi-building text-xs shrink-0"></i>
-          <span class="truncate">{{ laboratorioSeleccionado }}</span>
+          <span class="truncate">{{ laboratorioSeleccionado() }}</span>
         </div>
         <button (click)="seleccionarLaboratorio('')"
           class="text-white hover:text-pink-100 bg-transparent border-none p-0 cursor-pointer flex items-center">
@@ -101,14 +101,14 @@
         @for(lab of laboratoriosFiltrados(); track lab.name) {
         <button
           class="flex items-center justify-between px-3 py-2 rounded-xl text-xs transition-all w-full text-left cursor-pointer animate-fade-in"
-          [ngClass]="laboratorioSeleccionado === lab.name ? 'bg-pink-600 text-white font-bold' : 'text-gray-500 hover:bg-pink-50 hover:text-pink-500 font-medium'"
+          [ngClass]="laboratorioSeleccionado() === lab.name ? 'bg-pink-600 text-white font-bold' : 'text-gray-500 hover:bg-pink-50 hover:text-pink-500 font-medium'"
           (click)="seleccionarLaboratorio(lab.name)">
           <div class="flex items-center gap-2 min-w-0">
             <i class="pi pi-filter-menu text-xs shrink-0"></i>
             <span class="truncate">{{ lab.name }}</span>
           </div>
           <span class="text-[10px] px-2 py-0.5 rounded-full shrink-0"
-            [ngClass]="laboratorioSeleccionado === lab.name ? 'bg-white/20 text-white' : 'bg-pink-50 text-pink-400'">
+            [ngClass]="laboratorioSeleccionado() === lab.name ? 'bg-white/20 text-white' : 'bg-pink-50 text-pink-400'">
             {{ lab.count }}
           </span>
         </button>

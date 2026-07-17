@@ -1,6 +1,6 @@
-import { Component, OnInit, signal, computed, inject, ViewChild } from '@angular/core';
+import { Component, OnInit, signal, computed, inject, viewChild } from '@angular/core';
 import { Api } from '../../../../api/api';
-import { productGetall, categoryGetall, laboratoryGetall } from '../../../../api/functions';
+import { productGetall } from '../../../../api/functions';
 import { ProductsTable } from '../products-table/products-table';
 import { ProductSidebar } from '../product-sidebar/product-sidebar';
 import { ProductDetails } from '../product-details/product-details';
@@ -13,11 +13,6 @@ import { ProductCategory } from '../ui/product-category/product-category';
 interface FiltroContador {
   name: string;
   count: number;
-}
-
-interface CatalogoItem {
-  label: string;
-  value: string;
 }
 
 @Component({
@@ -39,7 +34,7 @@ interface CatalogoItem {
 export class ProductGetall implements OnInit {
   private readonly api = inject(Api);
 
-  @ViewChild('productInsertComp') productInsertComp!: ProductInsert;
+  productInsertComp = viewChild<ProductInsert>('productInsertComp');
 
   productos = signal<any[]>([]);
   categorias = signal<FiltroContador[]>([]);
@@ -165,11 +160,7 @@ export class ProductGetall implements OnInit {
 
   onEditarProducto(product: any): void { }
 
-  onToggleStatusProducto(product: any): void {
-    const nuevoEstado = product.status?.toLowerCase() === 'activo' ? 'inactivo' : 'activo';
-    product.status = nuevoEstado;
-    this.productos.set([...this.productos()]);
-  }
-
   onExportarCSV(): void { }
+
+  onExportarPDF(): void { }
 }

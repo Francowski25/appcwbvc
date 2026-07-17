@@ -1,9 +1,9 @@
-<div class="p-6 pb-0">
+<div class="p-3 sm:p-4 lg:p-6 pb-0">
   <app-product-kpi [total]="totalProductosQty()" [agotados]="productosAgotadosQty()"
     [porVencer]="productosPorVencerQty()" [valor]="valorInventarioMonto()">
   </app-product-kpi>
 </div>
-<div class="p-6 flex flex-col lg:flex-row gap-6 items-start">
+<div class="p-3 sm:p-4 lg:p-6 flex flex-col lg:flex-row gap-6 items-start">
 
   <app-products-table class="flex-1 min-w-0 w-full" [filtrados]="filtrados()" [loading]="loading()" [error]="error()"
     (seleccionar)="onSeleccionar($event)" />
@@ -11,11 +11,12 @@
   <app-product-sidebar class="w-full lg:w-80 shrink-0 lg:sticky lg:top-4" [categorias]="categorias()" [laboratorios]="laboratorios()"
     [categoriaSeleccionada]="categoriaSeleccionada()" [laboratorioSeleccionado]="laboratorioSeleccionado()"
     (categoriaChange)="onCategoriaChange($event)" (laboratorioChange)="onLaboratorioChange($event)"
-    (searchChange)="onBusqueda($event)" (crearProducto)="onCrearProducto()" (exportarCSV)="onExportarCSV()" />
+    (searchChange)="onBusqueda($event)" (crearProducto)="onCrearProducto()" (exportarCSV)="onExportarCSV()"
+    (exportarPDF)="onExportarPDF()" />
 
 </div>
 
-<div class="p-6 flex gap-6 items-stretch">
+<div class="p-3 sm:p-4 lg:p-6 flex flex-col lg:flex-row gap-6 items-stretch">
   <div class="flex-1">
     <app-product-growth [productos]="productos()" />
   </div>
@@ -26,7 +27,7 @@
 
 <p-dialog [visible]="showCreate()" (visibleChange)="showCreate.set($event)" [modal]="true" [draggable]="false"
   [resizable]="false" [style]="{ width: '52rem' }" [breakpoints]="{ '768px': '95vw' }" [dismissableMask]="false"
-  styleClass="!rounded-2xl !p-0 overflow-hidden" (onHide)="productInsertComp.resetForm()">
+  styleClass="!rounded-2xl !p-0 overflow-hidden" (onHide)="productInsertComp()?.resetForm()">
 
   <ng-template #header>
     <div class="flex items-center gap-4 py-1">

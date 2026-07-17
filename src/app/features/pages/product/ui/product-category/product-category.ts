@@ -4,6 +4,7 @@ import { ChartData, ChartOptions } from 'chart.js';
 
 @Component({
   selector: 'app-product-category',
+  standalone: true,
   imports: [ChartModule],
   templateUrl: './product-category.html',
   styleUrl: './product-category.scss',

@@ -1,6 +1,5 @@
 import { Component, OnInit, output, signal, computed, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { RadioButtonModule } from 'primeng/radiobutton';
@@ -19,7 +18,6 @@ interface CatalogoItem {
   selector: 'app-product-insert',
   standalone: true,
   imports: [
-    CommonModule,
     ReactiveFormsModule,
     InputTextModule,
     InputNumberModule,
@@ -28,6 +26,7 @@ interface CatalogoItem {
     ProgressSpinnerModule
   ],
   templateUrl: './product-insert.html',
+  styleUrl: './product-insert.css',
 })
 export class ProductInsert implements OnInit {
   private readonly confirmationService = inject(ConfirmationService);
@@ -230,8 +229,6 @@ export class ProductInsert implements OnInit {
             description: this.descriptionFb.value || undefined
           }
         };
-
-        console.log('PAYLOAD:', bodyParams.body);
 
         this.api.invoke$Response(productInsert, bodyParams).then((raw: any) => {
           const res = typeof raw.body === 'string' ? JSON.parse(raw.body) : raw.body;
