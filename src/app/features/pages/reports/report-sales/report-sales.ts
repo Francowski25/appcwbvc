@@ -85,7 +85,7 @@ export class ReportSales {
       labels: top.map(u => u.userName),
       datasets: [{
         label: 'Monto (S/)',
-        data: top.map(u => u.totalMonto),
+        data: top.map(u => Number(u.totalMonto)),
         backgroundColor: '#ec4899',
         borderRadius: 6,
       }]
