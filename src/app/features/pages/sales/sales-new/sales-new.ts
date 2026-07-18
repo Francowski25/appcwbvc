@@ -21,7 +21,6 @@ interface ItemVenta {
 
 @Component({
   selector: 'app-sales-new',
-  standalone: true,
   imports: [DecimalPipe, ToastModule],
   templateUrl: './sales-new.html',
 })

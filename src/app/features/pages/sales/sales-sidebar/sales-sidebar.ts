@@ -1,4 +1,4 @@
-import { Component, input, output } from '@angular/core';
+import { Component, input, output, computed } from '@angular/core';
 import { InputTextModule } from 'primeng/inputtext';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
@@ -19,7 +19,6 @@ export class SalesSidebar {
   metodoPagoChange = output<string>();
   estadoChange = output<string>();
   limpiarFiltros = output<void>();
-  nuevaVenta = output<void>();
 
   estados = [
     { name: 'Completada', dot: 'bg-green-500' },
@@ -33,7 +32,7 @@ export class SalesSidebar {
     'Plin': 'pi-mobile',
   };
 
-  hayFiltros = () => !!(this.busqueda() || this.metodoPagoSeleccionado() || this.estadoSeleccionado());
+  hayFiltros = computed(() => !!(this.busqueda() || this.metodoPagoSeleccionado() || this.estadoSeleccionado()));
 
   onBusquedaInput(event: Event): void {
     this.busquedaChange.emit((event.target as HTMLInputElement).value);

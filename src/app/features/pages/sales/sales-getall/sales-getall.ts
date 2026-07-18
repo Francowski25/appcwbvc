@@ -1,4 +1,5 @@
 import { Component, OnInit, signal, computed, inject } from '@angular/core';
+import { Router } from '@angular/router';
 import { Api } from '../../../../api/api';
 import { saleGetall } from '../../../../api/functions';
 import { SalesKpi } from '../sales-kpi/sales-kpi';
@@ -13,6 +14,7 @@ import { SalesDetail } from '../sales-detail/sales-detail';
 })
 export class SalesGetall implements OnInit {
   private readonly api = inject(Api);
+  private readonly router = inject(Router);
 
   ventas = signal<any[]>([]);
   loading = signal<boolean>(true);
@@ -101,6 +103,10 @@ export class SalesGetall implements OnInit {
   onVerDetalle(venta: any): void {
     this.ventaSeleccionada.set(venta);
     this.showDetail.set(true);
+  }
+
+  onNuevaVenta(): void {
+    this.router.navigate(['/admin/ventas/nueva']);
   }
 
   protected readonly Number = Number;
