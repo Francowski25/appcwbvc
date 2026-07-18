@@ -7,8 +7,10 @@ import { CustomerTable } from '../customer-table/customer-table';
 
 @Component({
   selector: 'app-customer-getall',
+  standalone: true,
   imports: [CustomerKpi, CustomerSidebar, CustomerTable],
   templateUrl: './customer-getall.html',
+  styleUrl: './customer-getall.css',
 })
 export class CustomerGetall implements OnInit {
   private readonly api = inject(Api);

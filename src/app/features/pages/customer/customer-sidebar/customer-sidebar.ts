@@ -6,8 +6,10 @@ import { NgClass } from '@angular/common';
 
 @Component({
   selector: 'app-customer-sidebar',
+  standalone: true,
   imports: [InputTextModule, IconFieldModule, InputIconModule, NgClass],
   templateUrl: './customer-sidebar.html',
+  styleUrl: './customer-sidebar.css',
 })
 export class CustomerSidebar {
   busqueda = input<string>('');
