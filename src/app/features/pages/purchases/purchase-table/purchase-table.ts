@@ -3,10 +3,11 @@ import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
 import { TooltipModule } from 'primeng/tooltip';
 import { TagModule } from 'primeng/tag';
+import { DecimalPipe } from '@angular/common';
 
 @Component({
   selector: 'app-purchase-table',
-  imports: [TableModule, ButtonModule, TooltipModule, TagModule],
+  imports: [TableModule, ButtonModule, TooltipModule, TagModule, DecimalPipe],
   templateUrl: './purchase-table.html',
 })
 export class PurchaseTable {

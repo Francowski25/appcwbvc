@@ -4,7 +4,7 @@
     @if (compra(); as c) {
     <div class="flex flex-col gap-4">
 
-        <div class="grid grid-cols-2 gap-3">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div class="bg-gray-50 rounded-xl p-3">
                 <p class="text-xs text-gray-400 mb-1">N° Compra</p>
                 <p class="text-sm font-bold font-mono text-gray-700">#{{ getIdCorto(c.idMovement) }}</p>
@@ -48,9 +48,9 @@
                         <td class="px-4 py-2 text-gray-500 font-mono text-xs">{{ d.lotCode ?? '—' }}</td>
                         <td class="px-4 py-2 text-xs text-gray-500">{{ d.expirationDate ?? '—' }}</td>
                         <td class="px-4 py-2 text-right font-bold text-gray-700">{{ d.quantity }} u.</td>
-                        <td class="px-4 py-2 text-right text-gray-500">S/ {{ Number(d.unitCost) || 0 }}</td>
+                        <td class="px-4 py-2 text-right text-gray-500">S/ {{ (Number(d.unitCost) || 0) | number:'1.2-2' }}</td>
                         <td class="px-4 py-2 text-right font-bold text-pink-600">
-                            S/ {{ Number(d.subtotal) || 0 }}
+                            S/ {{ (Number(d.subtotal) || 0) | number:'1.2-2' }}
                         </td>
                     </tr>
                     }
@@ -60,7 +60,7 @@
                         <td colspan="5" class="px-4 py-2 text-right text-xs font-bold text-gray-500 uppercase">Total
                         </td>
                         <td class="px-4 py-2 text-right font-black text-pink-600">
-                            S/ {{ Number(c.costoTotal) || 0 }}
+                            S/ {{ (Number(c.costoTotal) || 0) | number:'1.2-2' }}
                         </td>
                     </tr>
                 </tfoot>

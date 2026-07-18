@@ -1,4 +1,5 @@
 import { Component, OnInit, signal, computed, inject } from '@angular/core';
+import { Router } from '@angular/router';
 import { Api } from '../../../../api/api';
 import { purchaseGetall } from '../../../../api/functions';
 import { PurchaseKpi } from '../purchase-kpi/purchase-kpi';
@@ -14,6 +15,7 @@ import { PurchaseDetail } from '../purchase-detail/purchase-detail';
 })
 export class PurchaseGetall implements OnInit {
   private readonly api = inject(Api);
+  private readonly router = inject(Router);
 
   compras = signal<any[]>([]);
   loading = signal<boolean>(true);
@@ -94,7 +96,7 @@ export class PurchaseGetall implements OnInit {
     this.showDetalle.set(true);
   }
 
-  getIdCorto(id: string): string {
-    return id?.substring(0, 8).toUpperCase() ?? '—';
+  onNuevaCompra(): void {
+    this.router.navigate(['/admin/compras/nueva']);
   }
 }

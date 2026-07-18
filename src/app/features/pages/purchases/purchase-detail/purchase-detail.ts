@@ -1,9 +1,10 @@
 import { Component, input, output } from '@angular/core';
 import { DialogModule } from 'primeng/dialog';
+import { DecimalPipe } from '@angular/common';
 
 @Component({
   selector: 'app-purchase-detail',
-  imports: [DialogModule],
+  imports: [DialogModule, DecimalPipe],
   templateUrl: './purchase-detail.html',
 })
 export class PurchaseDetail {
@@ -15,10 +16,5 @@ export class PurchaseDetail {
 
   getIdCorto(id: string): string {
     return id?.substring(0, 8).toUpperCase() ?? '—';
-  }
-
-  getCostoTotal(compra: any): number {
-    return (compra?.detalles ?? []).reduce((acc: number, d: any) =>
-      acc + (Number(d.quantity) * Number(d.unitCost)), 0);
   }
 }

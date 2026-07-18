@@ -1,8 +1,9 @@
 import { Component, input } from '@angular/core';
+import { DecimalPipe } from '@angular/common';
 
 @Component({
   selector: 'app-purchase-kpi',
-  imports: [],
+  imports: [DecimalPipe],
   templateUrl: './purchase-kpi.html',
 })
 export class PurchaseKpi {

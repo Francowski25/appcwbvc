@@ -1,4 +1,4 @@
-import { Component, input, output } from '@angular/core';
+import { Component, input, output, computed } from '@angular/core';
 import { InputTextModule } from 'primeng/inputtext';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
@@ -15,7 +15,6 @@ import { CommonModule } from '@angular/common';
   templateUrl: './purchase-sidebar.html',
 })
 export class PurchaseSidebar {
-  compras = input.required<any[]>();
   busqueda = input<string>('');
   proveedorSeleccionado = input<string>('');
   proveedores = input<any[]>([]);
@@ -24,7 +23,7 @@ export class PurchaseSidebar {
   proveedorChange = output<string>();
   limpiarFiltros = output<void>();
 
-  hayFiltros = () => !!(this.busqueda() || this.proveedorSeleccionado());
+  hayFiltros = computed(() => !!(this.busqueda() || this.proveedorSeleccionado()));
 
   onBusquedaInput(event: Event): void {
     this.busquedaChange.emit((event.target as HTMLInputElement).value);
