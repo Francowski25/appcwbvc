@@ -1,12 +1,12 @@
-<div class="p-4 flex flex-col gap-6">
+<div class="p-3 sm:p-4 lg:p-6 flex flex-col gap-4 sm:gap-6">
 
     <app-inventory-kpi [agotados]="agotados().length" [criticos]="criticos().length" [enAlerta]="enAlerta().length"
         [saludInventario]="saludInventario()" />
 
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
 
         <!-- Gráfica barras -->
-        <div class="lg:col-span-2 bg-white rounded-xl border border-gray-100 shadow-sm p-4">
+        <div class="md:col-span-2 bg-white rounded-xl border border-gray-100 shadow-sm p-4">
             <h3 class="text-sm font-semibold text-gray-600 mb-4">
                 <i class="pi pi-chart-bar text-pink-400 mr-2"></i>
                 Stock actual vs Mínimo requerido

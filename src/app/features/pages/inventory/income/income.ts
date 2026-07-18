@@ -3,20 +3,20 @@ import { Api } from '../../../../api/api';
 import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
 import { TooltipModule } from 'primeng/tooltip';
-import { TagModule } from 'primeng/tag';
 import { DialogModule } from 'primeng/dialog';
 import { inventoryGetall } from '../../../../api/functions';
 
 @Component({
   selector: 'app-income',
+  standalone: true,
   imports: [
     TableModule,
     ButtonModule,
     TooltipModule,
-    TagModule,
     DialogModule,
   ],
   templateUrl: './income.html',
+  styleUrl: './income.css',
 })
 export class Income implements OnInit {
   private readonly api = inject(Api);

@@ -2,26 +2,15 @@ import { Component, OnInit, signal, computed, inject } from '@angular/core';
 import { Api } from '../../../../api/api';
 import { productGetall } from '../../../../api/functions';
 import { ChartModule } from 'primeng/chart';
-import { TableModule } from 'primeng/table';
-import { ButtonModule } from 'primeng/button';
-import { InputTextModule } from 'primeng/inputtext';
-import { IconFieldModule } from 'primeng/iconfield';
-import { TooltipModule } from 'primeng/tooltip';
-import { InputIconModule } from 'primeng/inputicon';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { InventoryKpi } from '../inventory-kpi/inventory-kpi';
 import { InventoryTable } from '../inventory-table/inventory-table';
 
 @Component({
   selector: 'app-current-stock',
+  standalone: true,
   imports: [
     ChartModule,
-    TableModule,
-    ButtonModule,
-    InputTextModule,
-    IconFieldModule,
-    InputIconModule,
-    TooltipModule,
     ProgressBarModule,
     InventoryKpi,
     InventoryTable
@@ -140,13 +129,5 @@ export class CurrentStock implements OnInit {
     }).finally(() => {
       this.loading.set(false);
     });
-  }
-
-  getBadge(product: any): 'agotado' | 'critico' {
-    return Number(product.totalStock) === 0 ? 'agotado' : 'critico';
-  }
-
-  getDeficit(product: any): number {
-    return Number(product.stockMinimum) - Number(product.totalStock);
   }
 }

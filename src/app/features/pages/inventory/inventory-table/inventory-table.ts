@@ -9,6 +9,7 @@ import { TagModule } from 'primeng/tag';
 
 @Component({
   selector: 'app-inventory-table',
+  standalone: true,
   imports: [
     TableModule,
     ButtonModule,
@@ -19,6 +20,7 @@ import { TagModule } from 'primeng/tag';
     TagModule
   ],
   templateUrl: './inventory-table.html',
+  styleUrl: './inventory-table.css',
 })
 export class InventoryTable {
   productos = input.required<any[]>();

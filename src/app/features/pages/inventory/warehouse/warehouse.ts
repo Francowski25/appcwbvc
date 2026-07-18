@@ -8,6 +8,7 @@ import { TagModule } from 'primeng/tag';
 
 @Component({
   selector: 'app-warehouse',
+  standalone: true,
   imports: [
     FormsModule,
     TableModule,
