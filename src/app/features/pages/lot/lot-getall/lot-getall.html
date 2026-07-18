@@ -1,4 +1,4 @@
-<div class="p-4 flex flex-col gap-6">
+<div class="p-3 sm:p-4 lg:p-6 flex flex-col gap-6">
 
     <app-lot-kpi [totalLotes]="totalLotes()" [porVencer]="porVencer()" [agotados]="agotados()"
         [valorAlmacen]="valorAlmacen()" />
@@ -7,7 +7,7 @@
 
         <div class="lg:col-span-3 flex flex-col gap-6">
 
-            <div class="flex gap-4 items-stretch">
+            <div class="flex flex-col lg:flex-row gap-4 items-stretch">
                 <div class="flex-1">
                     <app-lot-stock [lotes]="lotes()" />
                 </div>

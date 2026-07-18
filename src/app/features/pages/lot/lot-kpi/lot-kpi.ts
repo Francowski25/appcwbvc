@@ -1,8 +1,9 @@
 import { Component, input } from '@angular/core';
+import { DecimalPipe } from '@angular/common';
 
 @Component({
   selector: 'app-lot-kpi',
-  imports: [],
+  imports: [DecimalPipe],
   templateUrl: './lot-kpi.html',
 })
 export class LotKpi {

@@ -1,10 +1,11 @@
 import { Component, input } from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { TagModule } from 'primeng/tag';
+import { DecimalPipe } from '@angular/common';
 
 @Component({
   selector: 'app-lot-table',
-  imports: [TableModule, TagModule],
+  imports: [TableModule, TagModule, DecimalPipe],
   templateUrl: './lot-table.html',
 })
 export class LotTable {
