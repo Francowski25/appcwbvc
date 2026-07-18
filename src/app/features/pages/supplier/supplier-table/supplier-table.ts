@@ -5,6 +5,7 @@ import { TooltipModule } from 'primeng/tooltip';
 
 @Component({
   selector: 'app-supplier-table',
+  standalone: true,
   imports: [TableModule, ButtonModule, TooltipModule],
   templateUrl: './supplier-table.html',
   styleUrl: './supplier-table.css',

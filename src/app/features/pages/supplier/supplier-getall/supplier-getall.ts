@@ -5,9 +5,11 @@ import { SupplierKpi } from '../supplier-kpi/supplier-kpi';
 import { SupplierSidebar } from '../supplier-sidebar/supplier-sidebar';
 import { SupplierTable } from '../supplier-table/supplier-table';
 import { SupplierNew } from '../supplier-new/supplier-new';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-supplier-getall',
+  standalone: true,
   imports: [
     SupplierKpi,
     SupplierSidebar,
@@ -15,9 +17,11 @@ import { SupplierNew } from '../supplier-new/supplier-new';
     SupplierNew
   ],
   templateUrl: './supplier-getall.html',
+  styleUrl: './supplier-getall.css',
 })
 export class SupplierGetall implements OnInit {
   private readonly api = inject(Api);
+  private readonly messageService = inject(MessageService);
 
   proveedores = signal<any[]>([]);
   loading = signal<boolean>(true);
@@ -93,10 +97,15 @@ export class SupplierGetall implements OnInit {
     };
 
     this.api.invoke$Response(supplierStatus, payload).then((raw: any) => {
+      const data = typeof raw.body === 'string' ? JSON.parse(raw.body) : raw.body;
+      if (data.type !== 'success') {
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: data.listMessage?.[0] ?? 'No se pudo cambiar el estado.' });
+        return;
+      }
       proveedor.status = nuevoEstado;
       this.proveedores.set([...this.proveedores()]);
     }).catch(() => {
-      console.error('Error al cambiar estado');
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error al cambiar estado.' });
     });
   }
 

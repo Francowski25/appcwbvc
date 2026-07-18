@@ -6,6 +6,7 @@ import { NgClass } from '@angular/common';
 
 @Component({
   selector: 'app-supplier-sidebar',
+  standalone: true,
   imports: [InputTextModule, IconFieldModule, InputIconModule, NgClass],
   templateUrl: './supplier-sidebar.html',
   styleUrl: './supplier-sidebar.css',

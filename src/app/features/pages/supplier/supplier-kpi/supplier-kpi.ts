@@ -2,6 +2,7 @@ import { Component, input } from '@angular/core';
 
 @Component({
   selector: 'app-supplier-kpi',
+  standalone: true,
   imports: [],
   templateUrl: './supplier-kpi.html',
   styleUrl: './supplier-kpi.css',

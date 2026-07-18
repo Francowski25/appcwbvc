@@ -8,6 +8,7 @@ import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-supplier-new',
+  standalone: true,
   imports: [DialogModule, InputTextModule, ButtonModule, FormsModule],
   templateUrl: './supplier-new.html',
   styleUrl: './supplier-new.css',
