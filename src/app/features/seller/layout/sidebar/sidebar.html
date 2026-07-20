@@ -103,6 +103,13 @@
 
     <div class="border-t border-gray-100 p-3 flex-shrink-0">
 
+        <a routerLink="/seller/help" routerLinkActive="bg-gray-100 text-gray-900"
+            class="flex items-center gap-3 px-2 py-2 rounded-lg text-gray-600 hover:bg-gray-100 transition-colors text-sm font-semibold"
+            [class.justify-center]="collapsed()">
+            <i class="pi pi-question-circle text-base flex-shrink-0"></i>
+            @if (!collapsed()) { <span>Ayuda</span> }
+        </a>
+
         <button (click)="logout()"
             class="flex items-center gap-3 px-2 py-2 w-full rounded-lg text-gray-600 hover:text-red-500 hover:bg-red-50 transition-colors text-sm font-semibold"
             [class.justify-center]="collapsed()">

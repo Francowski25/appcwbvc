@@ -1,0 +1,212 @@
+<div class=" mx-auto font-sans">
+    <!-- Encabezado -->
+    <div class="mb-8">
+        <h1 class="text-2xl font-bold text-gray-800">Centro de Ayuda</h1>
+        <p class="text-sm text-gray-500 mt-1">Encuentra guías rápidas sobre cómo usar el sistema de Botica Virgen de
+            Cocharcas y resuelve tus dudas más frecuentes.</p>
+    </div>
+
+    <!-- Tarjetas de Canales de Soporte -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        <!-- Tarjeta 1: Nueva venta -->
+        <div class="bg-white p-5 rounded-xl border border-gray-200 shadow-sm flex flex-col justify-between">
+            <div>
+                <div class="w-10 h-10 rounded-lg bg-pink-50 text-pink-600 flex items-center justify-center mb-4">
+                    <i class="pi pi-plus-circle text-lg"></i>
+                </div>
+                <h3 class="font-bold text-gray-800 mb-1">Registrar una venta</h3>
+                <p class="text-xs text-gray-500 mb-4">Aprende cómo generar una nueva venta paso a paso.</p>
+            </div>
+            <a routerLink="/seller/sales/new"
+                class="text-sm font-semibold text-pink-600 hover:text-pink-700 inline-flex items-center gap-1 mt-auto">
+                Ir a Nueva venta &rarr;
+            </a>
+        </div>
+
+        <!-- Tarjeta 2: Catálogo de productos -->
+        <div class="bg-white p-5 rounded-xl border border-gray-200 shadow-sm flex flex-col justify-between">
+            <div>
+                <div class="w-10 h-10 rounded-lg bg-green-50 text-green-600 flex items-center justify-center mb-4">
+                    <i class="pi pi-box text-lg"></i>
+                </div>
+                <h3 class="font-bold text-gray-800 mb-1">Consultar el catálogo</h3>
+                <p class="text-xs text-gray-500 mb-4">Revisa los productos disponibles antes de registrar una
+                    venta.</p>
+            </div>
+            <a routerLink="/seller/products"
+                class="text-sm font-semibold text-green-600 hover:text-green-700 inline-flex items-center gap-1 mt-auto">
+                Ver catálogo &rarr;
+            </a>
+        </div>
+
+        <!-- Tarjeta 3: Alertas de stock -->
+        <div class="bg-white p-5 rounded-xl border border-gray-200 shadow-sm flex flex-col justify-between">
+            <div>
+                <div class="w-10 h-10 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center mb-4">
+                    <i class="pi pi-exclamation-triangle text-lg"></i>
+                </div>
+                <h3 class="font-bold text-gray-800 mb-1">Revisar alertas de stock</h3>
+                <p class="text-xs text-gray-500 mb-4">Verifica qué productos están agotándose antes de ofrecerlos al
+                    cliente.</p>
+            </div>
+            <a routerLink="/seller/inventory/current-stock"
+                class="text-sm font-semibold text-blue-600 hover:text-blue-700 inline-flex items-center gap-1 mt-auto">
+                Ver alertas &rarr;
+            </a>
+        </div>
+    </div>
+
+    <!-- Rutas y Flujos del Sistema -->
+    <div class="bg-white rounded-xl border border-gray-200 shadow-sm p-6 mb-8">
+        <h2 class="text-lg font-bold text-gray-800 mb-2">Rutas y Flujos del Sistema</h2>
+        <p class="text-xs text-gray-400 mb-5">Sigue estos pasos en el menú lateral para realizar las acciones más
+            frecuentes.</p>
+
+        <div class="space-y-4">
+            <!-- Flujo 1: Nueva venta -->
+            <div>
+                <div
+                    class="bg-gray-50 p-3 rounded-lg border border-gray-100 flex flex-wrap items-center gap-2 text-xs md:text-sm font-medium text-gray-600">
+                    <span class="text-gray-400 font-bold">Nueva venta:</span>
+                    <span
+                        class="bg-white px-2.5 py-1 rounded border border-gray-200 shadow-sm text-gray-700">Ventas</span>
+                    <span class="text-gray-300 font-bold">&rarr;</span>
+                    <span
+                        class="bg-pink-50 text-pink-700 px-2.5 py-1 rounded border border-pink-200 shadow-sm font-bold">Nueva
+                        Venta</span>
+                </div>
+                <div class="mt-1.5 pl-1">
+                    <a routerLink="/seller/sales/new"
+                        class="text-xs font-semibold text-pink-600 hover:text-pink-700 inline-flex items-center gap-1">
+                        Ir a Nueva venta &rarr;
+                    </a>
+                </div>
+            </div>
+
+            <!-- Flujo 2: Historial de ventas -->
+            <div>
+                <div
+                    class="bg-gray-50 p-3 rounded-lg border border-gray-100 flex flex-wrap items-center gap-2 text-xs md:text-sm font-medium text-gray-600">
+                    <span class="text-gray-400 font-bold">Ver ventas realizadas:</span>
+                    <span
+                        class="bg-white px-2.5 py-1 rounded border border-gray-200 shadow-sm text-gray-700">Ventas</span>
+                    <span class="text-gray-300 font-bold">&rarr;</span>
+                    <span
+                        class="bg-pink-50 text-pink-700 px-2.5 py-1 rounded border border-pink-200 shadow-sm font-bold">Historial
+                        de ventas</span>
+                </div>
+                <div class="mt-1.5 pl-1">
+                    <a routerLink="/seller/sales/history"
+                        class="text-xs font-semibold text-pink-600 hover:text-pink-700 inline-flex items-center gap-1">
+                        Ir a Historial de ventas &rarr;
+                    </a>
+                </div>
+            </div>
+
+            <!-- Flujo 3: Clientes -->
+            <div>
+                <div
+                    class="bg-gray-50 p-3 rounded-lg border border-gray-100 flex flex-wrap items-center gap-2 text-xs md:text-sm font-medium text-gray-600">
+                    <span class="text-gray-400 font-bold">Buscar un cliente:</span>
+                    <span
+                        class="bg-white px-2.5 py-1 rounded border border-gray-200 shadow-sm text-gray-700">Ventas</span>
+                    <span class="text-gray-300 font-bold">&rarr;</span>
+                    <span
+                        class="bg-pink-50 text-pink-700 px-2.5 py-1 rounded border border-pink-200 shadow-sm font-bold">Clientes</span>
+                </div>
+                <div class="mt-1.5 pl-1">
+                    <a routerLink="/seller/customers"
+                        class="text-xs font-semibold text-pink-600 hover:text-pink-700 inline-flex items-center gap-1">
+                        Ir a Clientes &rarr;
+                    </a>
+                </div>
+            </div>
+
+            <!-- Flujo 4: Catálogo de productos -->
+            <div>
+                <div
+                    class="bg-gray-50 p-3 rounded-lg border border-gray-100 flex flex-wrap items-center gap-2 text-xs md:text-sm font-medium text-gray-600">
+                    <span class="text-gray-400 font-bold">Consultar productos:</span>
+                    <span
+                        class="bg-white px-2.5 py-1 rounded border border-gray-200 shadow-sm text-gray-700">Consultas</span>
+                    <span class="text-gray-300 font-bold">&rarr;</span>
+                    <span
+                        class="bg-pink-50 text-pink-700 px-2.5 py-1 rounded border border-pink-200 shadow-sm font-bold">Catálogo
+                        de productos</span>
+                </div>
+                <div class="mt-1.5 pl-1">
+                    <a routerLink="/seller/products"
+                        class="text-xs font-semibold text-pink-600 hover:text-pink-700 inline-flex items-center gap-1">
+                        Ir a Catálogo de productos &rarr;
+                    </a>
+                </div>
+            </div>
+
+            <!-- Flujo 5: Alertas de stock -->
+            <div>
+                <div
+                    class="bg-gray-50 p-3 rounded-lg border border-gray-100 flex flex-wrap items-center gap-2 text-xs md:text-sm font-medium text-gray-600">
+                    <span class="text-gray-400 font-bold">Ver alertas de stock:</span>
+                    <span
+                        class="bg-white px-2.5 py-1 rounded border border-gray-200 shadow-sm text-gray-700">Consultas</span>
+                    <span class="text-gray-300 font-bold">&rarr;</span>
+                    <span
+                        class="bg-pink-50 text-pink-700 px-2.5 py-1 rounded border border-pink-200 shadow-sm font-bold">Alertas
+                        de stock</span>
+                </div>
+                <div class="mt-1.5 pl-1">
+                    <a routerLink="/seller/inventory/current-stock"
+                        class="text-xs font-semibold text-pink-600 hover:text-pink-700 inline-flex items-center gap-1">
+                        Ir a Alertas de stock &rarr;
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Preguntas Frecuentes -->
+    <div id="faqs" class="bg-white rounded-xl border border-gray-200 shadow-sm p-6">
+        <h2 class="text-lg font-bold text-gray-800 mb-4">Preguntas Frecuentes</h2>
+
+        <div class="divide-y divide-gray-100">
+            <details class="group py-4">
+                <summary
+                    class="flex items-center justify-between font-semibold text-gray-700 hover:text-pink-600 cursor-pointer list-none transition-colors">
+                    <span>¿Dónde registro una nueva venta?</span>
+                    <span
+                        class="transition-transform duration-200 group-open:rotate-180 text-xs text-gray-400">&darr;</span>
+                </summary>
+                <p class="mt-2 text-sm text-gray-500 leading-relaxed pl-1">
+                    Ve a <b>Ventas &rarr; Nueva Venta</b> en el menú lateral. Ahí podrás seleccionar los productos,
+                    la cantidad y el cliente antes de confirmar la venta.
+                </p>
+            </details>
+
+            <details class="group py-4">
+                <summary
+                    class="flex items-center justify-between font-semibold text-gray-700 hover:text-pink-600 cursor-pointer list-none transition-colors">
+                    <span>¿Cómo reviso las ventas que ya realicé?</span>
+                    <span
+                        class="transition-transform duration-200 group-open:rotate-180 text-xs text-gray-400">&darr;</span>
+                </summary>
+                <p class="mt-2 text-sm text-gray-500 leading-relaxed pl-1">
+                    En <b>Ventas &rarr; Historial de ventas</b> puedes consultar todas las ventas que has
+                    registrado.
+                </p>
+            </details>
+
+            <details class="group py-4">
+                <summary
+                    class="flex items-center justify-between font-semibold text-gray-700 hover:text-pink-600 cursor-pointer list-none transition-colors">
+                    <span>¿Cómo sé si un producto tiene poco stock?</span>
+                    <span
+                        class="transition-transform duration-200 group-open:rotate-180 text-xs text-gray-400">&darr;</span>
+                </summary>
+                <p class="mt-2 text-sm text-gray-500 leading-relaxed pl-1">
+                    En <b>Consultas &rarr; Alertas de stock</b> puedes ver qué productos están por agotarse antes de
+                    ofrecerlos a un cliente.
+                </p>
+            </details>
+        </div>
+    </div>
+</div>

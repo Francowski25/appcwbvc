@@ -26,7 +26,8 @@ import { ReportSales } from './features/pages/reports/report-sales/report-sales'
 import { ReportInventory } from './features/pages/reports/report-inventory/report-inventory';
 import { ReportCustomers } from './features/pages/reports/report-customers/report-customers';
 import { Warehouse } from './features/pages/inventory/warehouse/warehouse';
-import { Help } from './features/pages/help/help';
+import { HelpAdmin } from './features/pages/help/help-admin/help-admin';
+import { HelpSeller } from './features/pages/help/help-seller/help-seller';
 
 const authGuard: CanActivateFn = () => {
   const router = inject(Router);
@@ -106,7 +107,7 @@ export const routes: Routes = [
       { path: 'profile', component: Profile },
       { path: 'almacen', component: Warehouse },
       { path: 'alertas', component: CurrentStock },
-      { path: 'ayuda', component: Help }
+      { path: 'ayuda', component: HelpAdmin }
     ]
   },
   {
@@ -120,6 +121,7 @@ export const routes: Routes = [
       { path: 'sales/history', component: SalesGetall },
       { path: 'customers', component: CustomerGetall },
       /*{ path: 'products', component: ProductGetall },*/
+      { path: 'help', component: HelpSeller },
       { path: 'inventory/current-stock', component: CurrentStock },
       { path: 'profile', component: Profile },
     ]
