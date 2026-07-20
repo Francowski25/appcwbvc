@@ -9,15 +9,17 @@
             <app-purchase-table [compras]="filtrados()" [loading]="loading()" [error]="error()"
                 (verDetalle)="onVerDetalle($event)" (nuevaCompra)="onNuevaCompra()" />
         </div>
-        <app-purchase-sidebar [busqueda]="busqueda()"
-            [proveedorSeleccionado]="proveedorSeleccionado()" [proveedores]="proveedores()"
-            (busquedaChange)="onBusqueda($event)" (proveedorChange)="onProveedorChange($event)"
-            (limpiarFiltros)="onLimpiarFiltros()" />
+        <app-purchase-sidebar [busqueda]="busqueda()" [proveedorSeleccionado]="proveedorSeleccionado()"
+            [proveedores]="proveedores()" (busquedaChange)="onBusqueda($event)"
+            (proveedorChange)="onProveedorChange($event)" (limpiarFiltros)="onLimpiarFiltros()" />
 
 
     </div>
 
     <app-purchase-detail [compra]="compraSeleccionada()" [visible]="showDetalle()"
         (visibleChange)="showDetalle.set($event)" />
+
+    <app-purchase-new [visible]="showNuevaCompra()" (visibleChange)="showNuevaCompra.set($event)"
+        (compraCreada)="onCompraCreada()" />
 
 </div>

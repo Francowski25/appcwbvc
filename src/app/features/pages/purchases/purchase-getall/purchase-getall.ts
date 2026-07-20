@@ -6,10 +6,11 @@ import { PurchaseKpi } from '../purchase-kpi/purchase-kpi';
 import { PurchaseSidebar } from '../purchase-sidebar/purchase-sidebar';
 import { PurchaseTable } from '../purchase-table/purchase-table';
 import { PurchaseDetail } from '../purchase-detail/purchase-detail';
+import { PurchaseNew } from '../purchase-new/purchase-new';
 
 @Component({
   selector: 'app-purchase-getall',
-  imports: [PurchaseKpi, PurchaseSidebar, PurchaseTable, PurchaseDetail],
+  imports: [PurchaseKpi, PurchaseSidebar, PurchaseTable, PurchaseDetail, PurchaseNew],
   templateUrl: './purchase-getall.html',
   styleUrl: './purchase-getall.css',
 })
@@ -39,6 +40,17 @@ export class PurchaseGetall implements OnInit {
     );
     return lista;
   });
+
+  showNuevaCompra = signal(false);
+
+  onCompraCreada(): void {
+    this.showNuevaCompra.set(false);
+    this.loadCompras();
+  }
+
+  onNuevaCompra(): void {
+    this.showNuevaCompra.set(true);
+  }
 
   totalCompras = computed(() => this.compras().length);
 
@@ -94,9 +106,5 @@ export class PurchaseGetall implements OnInit {
   onVerDetalle(compra: any): void {
     this.compraSeleccionada.set(compra);
     this.showDetalle.set(true);
-  }
-
-  onNuevaCompra(): void {
-    this.router.navigate(['/admin/compras/nueva']);
   }
 }
