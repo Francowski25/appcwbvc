@@ -1,167 +1,297 @@
 <div class=" mx-auto font-sans">
-    <!-- Encabezado -->
     <div class="mb-8">
-        <h1 class="text-2xl font-bold text-gray-800">Título de la Sección de Ayuda</h1>
-        <p class="text-sm text-gray-500 mt-1">Este es un texto corto de descripción general que le da la bienvenida al
-            usuario y explica el propósito de esta pantalla.</p>
+        <h1 class="text-2xl font-bold text-gray-800">Centro de Ayuda</h1>
+        <p class="text-sm text-gray-500 mt-1">Encuentra guías rápidas sobre cómo usar el sistema de Botica Virgen de
+            Cocharcas y resuelve tus dudas más frecuentes.</p>
     </div>
 
-    <!-- Tarjetas de Canales de Soporte -->
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-        <!-- Tarjeta 1 -->
         <div class="bg-white p-5 rounded-xl border border-gray-200 shadow-sm flex flex-col justify-between">
             <div>
                 <div class="w-10 h-10 rounded-lg bg-pink-50 text-pink-600 flex items-center justify-center mb-4">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
-                        stroke="currentColor" class="w-6 h-6">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z" />
-                    </svg>
+                    <i class="pi pi-shopping-cart text-lg"></i>
                 </div>
-                <h3 class="font-bold text-gray-800 mb-1">Opción de Ayuda A</h3>
-                <p class="text-xs text-gray-500 mb-4">Texto simulado para describir el beneficio de esta primera tarjeta
-                    de soporte o enlace rápido.</p>
+                <h3 class="font-bold text-gray-800 mb-1">Registrar una venta</h3>
+                <p class="text-xs text-gray-500 mb-4">Aprende cómo generar una nueva venta y consultar el historial de
+                    ventas realizadas.</p>
             </div>
-            <a href="#faqs"
+            <a routerLink="/admin/ventas/nueva"
                 class="text-sm font-semibold text-pink-600 hover:text-pink-700 inline-flex items-center gap-1 mt-auto">
-                Enlace de acción &rarr;
+                Ir a Nueva venta &rarr;
             </a>
         </div>
 
-        <!-- Tarjeta 2 -->
         <div class="bg-white p-5 rounded-xl border border-gray-200 shadow-sm flex flex-col justify-between">
             <div>
                 <div class="w-10 h-10 rounded-lg bg-green-50 text-green-600 flex items-center justify-center mb-4">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
-                        stroke="currentColor" class="w-6 h-6">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
-                    </svg>
+                    <i class="pi pi-warehouse text-lg"></i>
                 </div>
-                <h3 class="font-bold text-gray-800 mb-1">Opción de Ayuda B</h3>
-                <p class="text-xs text-gray-500 mb-4">Texto simulado para describir el beneficio de esta segunda
-                    tarjeta, ideal para descargas o archivos.</p>
+                <h3 class="font-bold text-gray-800 mb-1">Controlar tu inventario</h3>
+                <p class="text-xs text-gray-500 mb-4">Consulta el stock actual, los lotes registrados y los movimientos
+                    de inventario.</p>
             </div>
-            <a href="#"
+            <a routerLink="/admin/inventory/current-stock"
                 class="text-sm font-semibold text-green-600 hover:text-green-700 inline-flex items-center gap-1 mt-auto">
-                Enlace de acción &darr;
+                Ver stock actual &rarr;
             </a>
         </div>
 
-        <!-- Tarjeta 3 -->
         <div class="bg-white p-5 rounded-xl border border-gray-200 shadow-sm flex flex-col justify-between">
             <div>
                 <div class="w-10 h-10 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center mb-4">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
-                        stroke="currentColor" class="w-6 h-6">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M20.25 8.511c.33.018.662.037.99.057v8.486c-.33.02-.662.038-.99.057m0-8.6c-.33-.018-.662-.036-.99-.053m0 8.707c-.33-.015-.662-.032-.99-.047m.99.047a24.255 24.255 0 01-14.82 0m14.82 0v-8.707m0 0a24.254 24.254 0 00-14.82 0m0 0c-.33.017-.662.035-.99.053m0 8.6c.33.02.662.039.99.057m0 0V8.511m0 0c.33-.02.662-.039.99-.057m0 0V17.14" />
-                    </svg>
+                    <i class="pi pi-bell text-lg"></i>
                 </div>
-                <h3 class="font-bold text-gray-800 mb-1">Opción de Ayuda C</h3>
-                <p class="text-xs text-gray-500 mb-4">Texto simulado para describir el beneficio de esta tercera
-                    tarjeta, ideal para mensajería o contacto externo.</p>
+                <h3 class="font-bold text-gray-800 mb-1">Revisar alertas de stock</h3>
+                <p class="text-xs text-gray-500 mb-4">Consulta los productos con stock mínimo o próximos a vencer
+                    antes de que sea tarde.</p>
             </div>
-            <a href="#" target="_blank"
+            <a routerLink="/admin/alertas"
                 class="text-sm font-semibold text-blue-600 hover:text-blue-700 inline-flex items-center gap-1 mt-auto">
-                Enlace de acción &rarr;
+                Ver alertas &rarr;
             </a>
         </div>
     </div>
 
-    <!-- NUEVA SECCIÓN: Guías de Flujo y Rutas rápidas -->
     <div class="bg-white rounded-xl border border-gray-200 shadow-sm p-6 mb-8">
         <h2 class="text-lg font-bold text-gray-800 mb-2">Rutas y Flujos del Sistema</h2>
-        <p class="text-xs text-gray-400 mb-5">Sigue estos pasos en el menú para realizar las acciones principales.</p>
+        <p class="text-xs text-gray-400 mb-5">Sigue estos pasos en el menú lateral para realizar las acciones más
+            frecuentes.</p>
 
         <div class="space-y-4">
-            <!-- Flujo 1 -->
-            <div
-                class="bg-gray-50 p-3 rounded-lg border border-gray-100 flex flex-wrap items-center gap-2 text-xs md:text-sm font-medium text-gray-600">
-                <span class="text-gray-400 font-bold">Crear Producto:</span>
-                <span class="bg-white px-2.5 py-1 rounded border border-gray-200 shadow-sm text-gray-700">Gestión</span>
-                <span class="text-gray-300 font-bold">&rarr;</span>
-                <span
-                    class="bg-white px-2.5 py-1 rounded border border-gray-200 shadow-sm text-gray-700">Productos</span>
-                <span class="text-gray-300 font-bold">&rarr;</span>
-                <span class="bg-white px-2.5 py-1 rounded border border-gray-200 shadow-sm text-gray-700">Lista de
-                    productos</span>
-                <span class="text-gray-300 font-bold">&rarr;</span>
-                <span
-                    class="bg-pink-50 text-pink-700 px-2.5 py-1 rounded border border-pink-200 shadow-sm font-bold">Registrar</span>
+            <div>
+                <div
+                    class="bg-gray-50 p-3 rounded-lg border border-gray-100 flex flex-wrap items-center gap-2 text-xs md:text-sm font-medium text-gray-600">
+                    <span class="text-gray-400 font-bold">Ver productos:</span>
+                    <span
+                        class="bg-white px-2.5 py-1 rounded border border-gray-200 shadow-sm text-gray-700">Gestión</span>
+                    <span class="text-gray-300 font-bold">&rarr;</span>
+                    <span
+                        class="bg-white px-2.5 py-1 rounded border border-gray-200 shadow-sm text-gray-700">Productos</span>
+                    <span class="text-gray-300 font-bold">&rarr;</span>
+                    <span
+                        class="bg-pink-50 text-pink-700 px-2.5 py-1 rounded border border-pink-200 shadow-sm font-bold">Lista
+                        de productos</span>
+                </div>
+                <div class="mt-1.5 pl-1">
+                    <a routerLink="/admin/productos/lista"
+                        class="text-xs font-semibold text-pink-600 hover:text-pink-700 inline-flex items-center gap-1">
+                        Ir a Lista de productos &rarr;
+                    </a>
+                </div>
             </div>
 
-            <!-- Flujo 2 -->
-            <div
-                class="bg-gray-50 p-3 rounded-lg border border-gray-100 flex flex-wrap items-center gap-2 text-xs md:text-sm font-medium text-gray-600">
-                <span class="text-gray-400 font-bold">Nueva Venta:</span>
-                <span class="bg-white px-2.5 py-1 rounded border border-gray-200 shadow-sm text-gray-700">Gestión</span>
-                <span class="text-gray-300 font-bold">&rarr;</span>
-                <span class="bg-white px-2.5 py-1 rounded border border-gray-200 shadow-sm text-gray-700">Ventas</span>
-                <span class="text-gray-300 font-bold">&rarr;</span>
-                <span
-                    class="bg-pink-50 text-pink-700 px-2.5 py-1 rounded border border-pink-200 shadow-sm font-bold">Nueva
-                    venta</span>
+            <div>
+                <div
+                    class="bg-gray-50 p-3 rounded-lg border border-gray-100 flex flex-wrap items-center gap-2 text-xs md:text-sm font-medium text-gray-600">
+                    <span class="text-gray-400 font-bold">Administrar categorías:</span>
+                    <span
+                        class="bg-white px-2.5 py-1 rounded border border-gray-200 shadow-sm text-gray-700">Gestión</span>
+                    <span class="text-gray-300 font-bold">&rarr;</span>
+                    <span
+                        class="bg-white px-2.5 py-1 rounded border border-gray-200 shadow-sm text-gray-700">Productos</span>
+                    <span class="text-gray-300 font-bold">&rarr;</span>
+                    <span
+                        class="bg-pink-50 text-pink-700 px-2.5 py-1 rounded border border-pink-200 shadow-sm font-bold">Categorías</span>
+                </div>
+                <div class="mt-1.5 pl-1">
+                    <a routerLink="/admin/categoria"
+                        class="text-xs font-semibold text-pink-600 hover:text-pink-700 inline-flex items-center gap-1">
+                        Ir a Categorías &rarr;
+                    </a>
+                </div>
             </div>
 
-            <!-- Flujo 3 -->
-            <div
-                class="bg-gray-50 p-3 rounded-lg border border-gray-100 flex flex-wrap items-center gap-2 text-xs md:text-sm font-medium text-gray-600">
-                <span class="text-gray-400 font-bold">Ver Alertas:</span>
-                <span
-                    class="bg-white px-2.5 py-1 rounded border border-gray-200 shadow-sm text-gray-700">Operaciones</span>
-                <span class="text-gray-300 font-bold">&rarr;</span>
-                <span
-                    class="bg-pink-50 text-pink-700 px-2.5 py-1 rounded border border-pink-200 shadow-sm font-bold">Alertas
-                    de stock</span>
+            <div>
+                <div
+                    class="bg-gray-50 p-3 rounded-lg border border-gray-100 flex flex-wrap items-center gap-2 text-xs md:text-sm font-medium text-gray-600">
+                    <span class="text-gray-400 font-bold">Administrar laboratorios:</span>
+                    <span
+                        class="bg-white px-2.5 py-1 rounded border border-gray-200 shadow-sm text-gray-700">Gestión</span>
+                    <span class="text-gray-300 font-bold">&rarr;</span>
+                    <span
+                        class="bg-white px-2.5 py-1 rounded border border-gray-200 shadow-sm text-gray-700">Productos</span>
+                    <span class="text-gray-300 font-bold">&rarr;</span>
+                    <span
+                        class="bg-pink-50 text-pink-700 px-2.5 py-1 rounded border border-pink-200 shadow-sm font-bold">Laboratorios</span>
+                </div>
+                <div class="mt-1.5 pl-1">
+                    <a routerLink="/admin/laboratorio"
+                        class="text-xs font-semibold text-pink-600 hover:text-pink-700 inline-flex items-center gap-1">
+                        Ir a Laboratorios &rarr;
+                    </a>
+                </div>
+            </div>
+
+            <div>
+                <div
+                    class="bg-gray-50 p-3 rounded-lg border border-gray-100 flex flex-wrap items-center gap-2 text-xs md:text-sm font-medium text-gray-600">
+                    <span class="text-gray-400 font-bold">Nueva venta:</span>
+                    <span
+                        class="bg-white px-2.5 py-1 rounded border border-gray-200 shadow-sm text-gray-700">Gestión</span>
+                    <span class="text-gray-300 font-bold">&rarr;</span>
+                    <span
+                        class="bg-white px-2.5 py-1 rounded border border-gray-200 shadow-sm text-gray-700">Ventas</span>
+                    <span class="text-gray-300 font-bold">&rarr;</span>
+                    <span
+                        class="bg-pink-50 text-pink-700 px-2.5 py-1 rounded border border-pink-200 shadow-sm font-bold">Nueva
+                        venta</span>
+                </div>
+                <div class="mt-1.5 pl-1">
+                    <a routerLink="/admin/ventas/nueva"
+                        class="text-xs font-semibold text-pink-600 hover:text-pink-700 inline-flex items-center gap-1">
+                        Ir a Nueva venta &rarr;
+                    </a>
+                </div>
+            </div>
+
+            <div>
+                <div
+                    class="bg-gray-50 p-3 rounded-lg border border-gray-100 flex flex-wrap items-center gap-2 text-xs md:text-sm font-medium text-gray-600">
+                    <span class="text-gray-400 font-bold">Consultar stock:</span>
+                    <span
+                        class="bg-white px-2.5 py-1 rounded border border-gray-200 shadow-sm text-gray-700">Gestión</span>
+                    <span class="text-gray-300 font-bold">&rarr;</span>
+                    <span
+                        class="bg-white px-2.5 py-1 rounded border border-gray-200 shadow-sm text-gray-700">Inventario</span>
+                    <span class="text-gray-300 font-bold">&rarr;</span>
+                    <span
+                        class="bg-pink-50 text-pink-700 px-2.5 py-1 rounded border border-pink-200 shadow-sm font-bold">Stock
+                        actual</span>
+                </div>
+                <div class="mt-1.5 pl-1">
+                    <a routerLink="/admin/inventory/current-stock"
+                        class="text-xs font-semibold text-pink-600 hover:text-pink-700 inline-flex items-center gap-1">
+                        Ir a Stock actual &rarr;
+                    </a>
+                </div>
+            </div>
+
+            <div>
+                <div
+                    class="bg-gray-50 p-3 rounded-lg border border-gray-100 flex flex-wrap items-center gap-2 text-xs md:text-sm font-medium text-gray-600">
+                    <span class="text-gray-400 font-bold">Historial de compras:</span>
+                    <span
+                        class="bg-white px-2.5 py-1 rounded border border-gray-200 shadow-sm text-gray-700">Gestión</span>
+                    <span class="text-gray-300 font-bold">&rarr;</span>
+                    <span
+                        class="bg-white px-2.5 py-1 rounded border border-gray-200 shadow-sm text-gray-700">Compras</span>
+                    <span class="text-gray-300 font-bold">&rarr;</span>
+                    <span
+                        class="bg-pink-50 text-pink-700 px-2.5 py-1 rounded border border-pink-200 shadow-sm font-bold">Historial
+                        de compras</span>
+                </div>
+                <div class="mt-1.5 pl-1">
+                    <a routerLink="/admin/purchases/historial"
+                        class="text-xs font-semibold text-pink-600 hover:text-pink-700 inline-flex items-center gap-1">
+                        Ir a Historial de compras &rarr;
+                    </a>
+                </div>
+            </div>
+
+            <div>
+                <div
+                    class="bg-gray-50 p-3 rounded-lg border border-gray-100 flex flex-wrap items-center gap-2 text-xs md:text-sm font-medium text-gray-600">
+                    <span class="text-gray-400 font-bold">Administrar proveedores:</span>
+                    <span
+                        class="bg-white px-2.5 py-1 rounded border border-gray-200 shadow-sm text-gray-700">Gestión</span>
+                    <span class="text-gray-300 font-bold">&rarr;</span>
+                    <span
+                        class="bg-white px-2.5 py-1 rounded border border-gray-200 shadow-sm text-gray-700">Compras</span>
+                    <span class="text-gray-300 font-bold">&rarr;</span>
+                    <span
+                        class="bg-pink-50 text-pink-700 px-2.5 py-1 rounded border border-pink-200 shadow-sm font-bold">Proveedores</span>
+                </div>
+                <div class="mt-1.5 pl-1">
+                    <a routerLink="/admin/purchases/proveedor"
+                        class="text-xs font-semibold text-pink-600 hover:text-pink-700 inline-flex items-center gap-1">
+                        Ir a Proveedores &rarr;
+                    </a>
+                </div>
+            </div>
+
+            <div>
+                <div
+                    class="bg-gray-50 p-3 rounded-lg border border-gray-100 flex flex-wrap items-center gap-2 text-xs md:text-sm font-medium text-gray-600">
+                    <span class="text-gray-400 font-bold">Crear usuario:</span>
+                    <span
+                        class="bg-white px-2.5 py-1 rounded border border-gray-200 shadow-sm text-gray-700">Administración</span>
+                    <span class="text-gray-300 font-bold">&rarr;</span>
+                    <span
+                        class="bg-white px-2.5 py-1 rounded border border-gray-200 shadow-sm text-gray-700">Usuarios</span>
+                    <span class="text-gray-300 font-bold">&rarr;</span>
+                    <span
+                        class="bg-pink-50 text-pink-700 px-2.5 py-1 rounded border border-pink-200 shadow-sm font-bold">Lista
+                        de usuarios</span>
+                </div>
+                <div class="mt-1.5 pl-1">
+                    <a routerLink="/admin/usuarios/lista"
+                        class="text-xs font-semibold text-pink-600 hover:text-pink-700 inline-flex items-center gap-1">
+                        Ir a Lista de usuarios &rarr;
+                    </a>
+                </div>
+            </div>
+
+            <div>
+                <div
+                    class="bg-gray-50 p-3 rounded-lg border border-gray-100 flex flex-wrap items-center gap-2 text-xs md:text-sm font-medium text-gray-600">
+                    <span class="text-gray-400 font-bold">Ver alertas:</span>
+                    <span
+                        class="bg-white px-2.5 py-1 rounded border border-gray-200 shadow-sm text-gray-700">Operaciones</span>
+                    <span class="text-gray-300 font-bold">&rarr;</span>
+                    <span
+                        class="bg-pink-50 text-pink-700 px-2.5 py-1 rounded border border-pink-200 shadow-sm font-bold">Alertas
+                        de stock</span>
+                </div>
+                <div class="mt-1.5 pl-1">
+                    <a routerLink="/admin/alertas"
+                        class="text-xs font-semibold text-pink-600 hover:text-pink-700 inline-flex items-center gap-1">
+                        Ir a Alertas de stock &rarr;
+                    </a>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- Sección de Acordeones Simulados -->
     <div id="faqs" class="bg-white rounded-xl border border-gray-200 shadow-sm p-6">
-        <h2 class="text-lg font-bold text-gray-800 mb-4">Título del Bloque de Preguntas</h2>
+        <h2 class="text-lg font-bold text-gray-800 mb-4">Preguntas Frecuentes</h2>
 
         <div class="divide-y divide-gray-100">
-            <!-- Pregunta de simulación 1 -->
             <details class="group py-4">
                 <summary
                     class="flex items-center justify-between font-semibold text-gray-700 hover:text-pink-600 cursor-pointer list-none transition-colors">
-                    <span>Aquí va el texto simulado de la Pregunta Frecuente Número 1?</span>
+                    <span>¿Dónde registro una nueva venta?</span>
                     <span
                         class="transition-transform duration-200 group-open:rotate-180 text-xs text-gray-400">&darr;</span>
                 </summary>
                 <p class="mt-2 text-sm text-gray-500 leading-relaxed pl-1">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin elementum sed lorem id pulvinar. Ut
-                    finibus risus sit amet sodales pulvinar. Phasellus ut finibus magna, non volutpat lectus.
+                    Ve a <b>Gestión &rarr; Ventas &rarr; Nueva venta</b> en el menú lateral. Ahí podrás seleccionar los
+                    productos, la cantidad y el cliente antes de confirmar la venta.
                 </p>
             </details>
 
-            <!-- Pregunta de simulación 2 -->
             <details class="group py-4">
                 <summary
                     class="flex items-center justify-between font-semibold text-gray-700 hover:text-pink-600 cursor-pointer list-none transition-colors">
-                    <span>Aquí va el texto simulado de la Pregunta Frecuente Número 2?</span>
+                    <span>¿Cómo sé qué productos están por vencer o con stock bajo?</span>
                     <span
                         class="transition-transform duration-200 group-open:rotate-180 text-xs text-gray-400">&darr;</span>
                 </summary>
                 <p class="mt-2 text-sm text-gray-500 leading-relaxed pl-1">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin elementum sed lorem id pulvinar. Ut
-                    finibus risus sit amet sodales pulvinar. Phasellus ut finibus magna, non volutpat lectus.
+                    En <b>Operaciones</b> encontrarás dos secciones: <b>Productos por vencer</b> y <b>Alertas de
+                        stock</b>, que te muestran los productos que requieren atención.
                 </p>
             </details>
 
-            <!-- Pregunta de simulación 3 -->
             <details class="group py-4">
                 <summary
                     class="flex items-center justify-between font-semibold text-gray-700 hover:text-pink-600 cursor-pointer list-none transition-colors">
-                    <span>Aquí va el texto simulado de la Pregunta Frecuente Número 3?</span>
+                    <span>¿Dónde reviso los reportes del sistema?</span>
                     <span
                         class="transition-transform duration-200 group-open:rotate-180 text-xs text-gray-400">&darr;</span>
                 </summary>
                 <p class="mt-2 text-sm text-gray-500 leading-relaxed pl-1">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin elementum sed lorem id pulvinar. Ut
-                    finibus risus sit amet sodales pulvinar. Phasellus ut finibus magna, non volutpat lectus.
+                    En la sección <b>Reportes</b> del menú lateral puedes consultar ventas, inventario, compras,
+                    clientes, ingresos y movimientos.
                 </p>
             </details>
         </div>
