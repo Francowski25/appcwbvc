@@ -1,12 +1,19 @@
-<div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 flex flex-col gap-6">
+<div class="rounded-2xl overflow-hidden shadow-sm border border-gray-100 bg-white">
 
-    <div class="flex items-center justify-between flex-wrap gap-3">
-        <h2 class="text-xl font-extrabold text-gray-900 tracking-tight flex items-center gap-3">
-            <span class="p-2 bg-pink-50 text-pink-600 rounded-xl inline-flex items-center justify-center">
-                <i class="pi pi-exclamation-triangle text-lg"></i>
-            </span>
-            Productos en alerta de stock
-        </h2>
+    <div
+        class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 px-4 sm:px-5 py-4 border-b border-gray-50">
+        <div class="flex items-center gap-3">
+            <div class="bg-pink-100 p-2 rounded-xl">
+                <i class="pi pi-exclamation-triangle text-pink-500 text-base"></i>
+            </div>
+            <div>
+                <h2 class="text-base font-bold text-gray-800">Productos en alerta de stock</h2>
+                <p class="text-[11px] text-gray-400 mt-0.5">
+                    {{ productos().length }} {{ productos().length === 1 ? 'producto en alerta' : 'productos en alerta'
+                    }}
+                </p>
+            </div>
+        </div>
 
         <p-iconfield>
             <p-inputicon styleClass="pi pi-search" />
@@ -15,141 +22,111 @@
         </p-iconfield>
     </div>
 
-    <div class="overflow-x-auto rounded-xl border border-gray-100">
+    <div class="w-full overflow-x-auto">
         <p-table [value]="productos()" [loading]="loading()" [rowHover]="true" [paginator]="true" [rows]="5"
             styleClass="p-datatable-sm p-datatable-striped custom-table" [tableStyle]="{ 'min-width': '55rem' }">
 
             <ng-template #header>
                 <tr class="bg-pink-50/70 text-left">
-
-                    <th class="text-xs font-semibold text-pink-400 uppercase tracking-wider px-4 py-3 w-24 text-center">
-                        Foto
-                    </th>
-
+                    <th class="text-xs font-semibold text-pink-400 uppercase tracking-wider px-4 py-3 w-28 text-center">
+                        Foto</th>
                     <th pSortableColumn="name"
                         class="text-xs font-bold text-pink-500 uppercase tracking-wider px-4 py-3 cursor-pointer hover:bg-pink-100/40 transition-colors">
-                        <div class="flex items-center gap-1.5">
-                            <i class="pi pi-box text-xs"></i>
-                            Producto
-                            <p-sortIcon field="name" />
-                        </div>
+                        <div class="flex items-center gap-1.5"><i class="pi pi-box text-xs"></i>Producto<p-sortIcon
+                                field="name" /></div>
                     </th>
-
                     <th pSortableColumn="category"
                         class="text-xs font-bold text-pink-500 uppercase tracking-wider px-4 py-3 cursor-pointer hover:bg-pink-100/40 transition-colors">
-                        <div class="flex items-center gap-1.5">
-                            <i class="pi pi-tag text-xs"></i>
-                            Categoría
-                            <p-sortIcon field="category" />
-                        </div>
+                        <div class="flex items-center gap-1.5"><i class="pi pi-tag text-xs"></i>Categoría<p-sortIcon
+                                field="category" /></div>
                     </th>
-
                     <th pSortableColumn="totalStock"
                         class="text-xs font-bold text-pink-500 uppercase tracking-wider px-4 py-3 cursor-pointer hover:bg-pink-100/40 transition-colors">
-                        <div class="flex items-center gap-1.5">
-                            <i class="pi pi-chart-bar text-xs"></i>
-                            Stock actual
-                            <p-sortIcon field="totalStock" />
-                        </div>
+                        <div class="flex items-center gap-1.5"><i class="pi pi-chart-bar text-xs"></i>Stock
+                            actual<p-sortIcon field="totalStock" /></div>
                     </th>
-
                     <th class="text-xs font-bold text-pink-500 uppercase tracking-wider px-4 py-3">
-                        <div class="flex items-center gap-1.5">
-                            <i class="pi pi-arrow-down text-xs"></i>
-                            Stock mínimo
+                        <div class="flex items-center gap-1.5"><i class="pi pi-arrow-down text-xs"></i>Stock mínimo
                         </div>
                     </th>
-
                     <th class="text-xs font-bold text-pink-500 uppercase tracking-wider px-4 py-3">
-                        <div class="flex items-center gap-1.5">
-                            <i class="pi pi-minus-circle text-xs"></i>
-                            Déficit
-                        </div>
+                        <div class="flex items-center gap-1.5"><i class="pi pi-minus-circle text-xs"></i>Déficit</div>
                     </th>
-
                     <th pSortableColumn="nextExpiration"
                         class="text-xs font-bold text-pink-500 uppercase tracking-wider px-4 py-3 cursor-pointer hover:bg-pink-100/40 transition-colors">
-                        <div class="flex items-center gap-1.5">
-                            <i class="pi pi-calendar text-xs"></i>
-                            Vencimiento
-                            <p-sortIcon field="nextExpiration" />
+                        <div class="flex items-center gap-1.5"><i
+                                class="pi pi-calendar text-xs"></i>Vencimiento<p-sortIcon field="nextExpiration" />
                         </div>
                     </th>
-
                     <th class="text-xs font-bold text-pink-500 uppercase tracking-wider px-4 py-3">
-                        <div class="flex items-center gap-1.5">
-                            <i class="pi pi-info-circle text-xs"></i>
-                            Estado
+                        <div class="flex items-center gap-1.5"><i class="pi pi-info-circle text-xs"></i>Estado</div>
+                    </th>
+                    <th class="text-xs font-bold text-pink-500 uppercase tracking-wider px-4 py-3 text-center">
+                        <div class="flex items-center justify-center gap-1.5"><i class="pi pi-cog text-xs"></i>Acciones
                         </div>
                     </th>
-
-                    <th class="text-xs font-bold text-pink-500 uppercase tracking-wider px-4 py-3 text-right pr-10">
-                        <div class="flex items-center justify-end gap-1.5">
-                            <i class="pi pi-cog text-xs"></i>
-                            Acciones
-                        </div>
-                    </th>
-
                 </tr>
             </ng-template>
 
             <ng-template #body let-p>
-                <tr class="hover:bg-pink-50/30 transition-colors cursor-pointer">
+                <tr class="hover:bg-pink-50/30 transition-colors border-b border-gray-50 last:border-0">
 
                     <td class="px-4 py-3 text-center w-32 align-middle">
                         @if (p.image) {
                         <img [src]="'/images/product/' + p.image" [alt]="p.name"
-                            class="w-14 h-14 mx-auto rounded-2xl object-cover border border-pink-100 shadow-md transition-transform duration-300 hover:scale-105" />
+                            class="w-20 h-20 mx-auto rounded-2xl object-cover border border-pink-100 shadow-md transition-transform duration-300 hover:scale-105" />
                         } @else {
                         <div
-                            class="w-14 h-14 mx-auto rounded-2xl bg-gray-50 border border-dashed border-gray-200 flex flex-col items-center justify-center gap-1">
-                            <i class="pi pi-image text-gray-300 text-xl"></i>
-                            <span class="text-[9px] text-gray-400 font-semibold uppercase">Sin foto</span>
+                            class="w-20 h-20 mx-auto rounded-2xl bg-gray-50 border border-dashed border-gray-200 flex flex-col items-center justify-center gap-1">
+                            <i class="pi pi-image text-gray-300 text-2xl mb-0.5"></i>
+                            <span class="text-[10px] text-gray-400 font-semibold tracking-wide uppercase">Sin
+                                foto</span>
                         </div>
                         }
                     </td>
 
-                    <td class="px-4 py-3">
-                        <p class="text-sm font-semibold text-gray-800 m-0">{{ p.name }}</p>
-                        <p class="text-[11px] text-gray-400 mt-0.5 m-0 font-medium">SKU: {{ p.barcode ?? 'Sin código' }}
-                        </p>
+                    <td class="px-4 py-3 align-middle">
+                        <span class="font-semibold text-sm text-gray-800">{{ p.name }}</span>
+                        <p class="text-[11px] text-gray-400 mt-0.5 font-medium">SKU: {{ p.barcode ?? 'Sin código' }}</p>
                     </td>
 
-                    <td class="px-4 py-3">
+                    <td class="px-4 py-3 align-middle">
                         @if (p.category) {
-                        <p-tag severity="secondary" styleClass="text-[11px] font-semibold py-1 gap-1.5 rounded-lg">
-                            {{ p.category }}
-                        </p-tag>
+                        <span
+                            class="inline-flex items-center px-2.5 py-1 rounded-lg text-[11px] font-semibold bg-gray-100 text-gray-600">{{
+                            p.category }}</span>
                         } @else {
-                        <span class="text-xs text-gray-300 italic pl-1">Sin categoría</span>
+                        <span class="text-xs text-gray-300 italic">Sin categoría</span>
                         }
                     </td>
 
-                    <td class="px-4 py-3">
-                        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold" [class]="Number(p.totalStock) === 0
-                ? 'bg-red-50 text-red-600 border border-red-200'
-                : 'bg-orange-50 text-orange-600 border border-orange-200'">
+                    <td class="px-4 py-3 align-middle">
+                        <div class="flex items-center gap-1.5">
                             <span class="w-1.5 h-1.5 rounded-full"
-                                [class]="Number(p.totalStock) === 0 ? 'bg-red-500' : 'bg-orange-400'">
-                            </span>
-                            {{ p.totalStock }} u.
-                        </span>
+                                [class]="Number(p.totalStock) === 0 ? 'bg-red-500' : 'bg-orange-400'"></span>
+                            <span class="text-xs font-bold"
+                                [class]="Number(p.totalStock) === 0 ? 'text-red-600' : 'text-orange-600'">{{
+                                p.totalStock }} u.</span>
+                        </div>
                     </td>
 
-                    <td class="px-4 py-3">
-                        <span class="text-sm text-gray-500 font-medium">{{ p.stockMinimum }} u.</span>
+                    <td class="px-4 py-3 align-middle">
+                        <span class="font-bold text-sm text-gray-500">{{ p.stockMinimum }} u.</span>
                     </td>
-                    <td class="px-4 py-3">
-                        <span class="inline-flex items-center gap-1 text-sm font-bold text-red-400">
-                            <i class="pi pi-arrow-down text-xs"></i>
+
+                    <td class="px-4 py-3 align-middle">
+                        <span
+                            class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-bold bg-red-50 text-red-500 border border-red-100">
+                            <i class="pi pi-arrow-down text-[10px]"></i>
                             {{ getDeficit(p) }} u.
                         </span>
                     </td>
 
-                    <td class="px-4 py-3">
+                    <td class="px-4 py-3 align-middle">
                         @if (p.nextExpiration) {
-                        <span class="text-xs font-medium text-gray-500 flex items-center gap-1.5">
-                            <i class="pi pi-calendar text-gray-300 text-xs"></i>
+                        <span
+                            class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-medium bg-amber-50 text-amber-600 border border-amber-100">
+                            <i class="pi pi-calendar text-[10px]"></i>
                             {{ p.nextExpiration }}
                         </span>
                         } @else {
@@ -157,41 +134,40 @@
                         }
                     </td>
 
-                    <td class="px-4 py-3">
-                        @if (Number(p.totalStock) === 0) {
-                        <div class="flex items-center gap-2 text-xs font-bold tracking-wide text-red-600">
-                            <span class="w-1.5 h-1.5 rounded-full bg-red-500"></span>
-                            Agotado
-                        </div>
-                        } @else {
-                        <div class="flex items-center gap-2 text-xs font-bold tracking-wide text-orange-500">
-                            <span class="w-1.5 h-1.5 rounded-full bg-orange-400"></span>
-                            Crítico
-                        </div>
-                        }
+                    <td class="px-4 py-3 align-middle">
+                        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-bold border"
+                            [class]="Number(p.totalStock) === 0 
+                                ? 'bg-red-50 text-red-600 border-red-100' 
+                                : 'bg-orange-50 text-orange-600 border-orange-100'">
+                            <span class="w-1.5 h-1.5 rounded-full"
+                                [class]="Number(p.totalStock) === 0 ? 'bg-red-500' : 'bg-orange-400'"></span>
+                            {{ Number(p.totalStock) === 0 ? 'Agotado' : 'Crítico' }}
+                        </span>
                     </td>
 
                     <td class="px-4 py-3 align-middle">
                         <div class="flex items-center justify-center gap-1">
-                            <p-button icon="pi pi-eye" severity="secondary" [rounded]="true" [text]="true" size="small"
-                                pTooltip="Ver lotes" tooltipPosition="top" (onClick)="verLotes.emit(p)" />
-                            <p-button icon="pi pi-arrow-circle-down" severity="warn" [rounded]="true" [text]="true"
-                                size="small" pTooltip="Registrar ingreso" tooltipPosition="top"
-                                (onClick)="registrarIngreso.emit(p)" />
+                            <button type="button" (click)="verLotes.emit(p)" pTooltip="Ver lotes" tooltipPosition="top"
+                                class="w-8 h-8 flex items-center justify-center rounded-xl text-slate-400 hover:text-blue-600 hover:bg-blue-50 transition-all cursor-pointer">
+                                <i class="pi pi-eye text-sm"></i>
+                            </button>
+                            <button type="button" (click)="registrarIngreso.emit(p)" pTooltip="Registrar ingreso"
+                                tooltipPosition="top"
+                                class="w-8 h-8 flex items-center justify-center rounded-xl text-slate-400 hover:text-amber-600 hover:bg-amber-50 transition-all cursor-pointer">
+                                <i class="pi pi-arrow-circle-down text-sm"></i>
+                            </button>
                         </div>
                     </td>
-
                 </tr>
             </ng-template>
 
             <ng-template #emptymessage>
                 <tr>
                     <td colspan="9">
-                        <div class="flex flex-col items-center justify-center py-12 text-pink-200">
-                            <i class="pi pi-check-circle text-4xl mb-2 text-green-300"></i>
-                            <p class="text-xs font-medium text-gray-400">
-                                No hay productos con stock bajo. ¡Inventario saludable!
-                            </p>
+                        <div class="flex flex-col items-center justify-center py-12 gap-2">
+                            <i class="pi pi-check-circle text-4xl text-emerald-300"></i>
+                            <p class="text-xs font-medium text-gray-400">No hay productos con stock bajo. ¡Inventario
+                                saludable!</p>
                         </div>
                     </td>
                 </tr>
