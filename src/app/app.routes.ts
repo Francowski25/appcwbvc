@@ -11,7 +11,6 @@ import { CategoryGetall } from './features/pages/category/category-getall/catego
 import { LaboratoryGetall } from './features/pages/laboratory/laboratory-getall/laboratory-getall';
 import { inject } from '@angular/core';
 import { CurrentStock } from './features/pages/inventory/current-stock/current-stock';
-import { Income } from './features/pages/inventory/income/income';
 import { Movements } from './features/pages/inventory/movements/movements';
 import { LotGetall } from './features/pages/lot/lot-getall/lot-getall';
 import { PurchaseGetall } from './features/pages/purchases/purchase-getall/purchase-getall';
@@ -65,7 +64,6 @@ export const routes: Routes = [
           { path: '', redirectTo: 'current-stock', pathMatch: 'full' },
           { path: 'current-stock', component: CurrentStock },
           { path: 'lots', component: LotGetall },
-          { path: 'income', component: Income },
           { path: 'movements', component: Movements }
         ]
       },

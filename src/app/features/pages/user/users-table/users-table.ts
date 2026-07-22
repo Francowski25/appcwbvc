@@ -23,7 +23,8 @@ export class UsersTable {
   cambiarPassword = output<any>();
   cambiarEstado = output<any>();
   crearUsuario = output<void>();
-  exportarCSV = output<void>();
+  exportarExcel = output<void>();
+  exportarPDF = output<void>();
 
   getRoleLabel(role: string): string {
     const labels: Record<string, string> = {
