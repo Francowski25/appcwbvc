@@ -32,10 +32,6 @@ export class ProductSidebar {
   categoriaSeleccionada = input<string>('');
   laboratorioSeleccionado = input<string>('');
 
-  crearProducto = output<void>();
-  exportarCSV = output<void>();
-  exportarPDF = output<void>();
-
   categoriaChange = output<string>();
   laboratorioChange = output<string>();
   searchChange = output<string>();
