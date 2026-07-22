@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 import { TableModule } from 'primeng/table';
 
 @Component({
@@ -12,4 +12,8 @@ export class CustomerTable {
   clientes = input.required<any[]>();
   loading = input<boolean>(false);
   error = input<string>('');
+
+  exportarExcel = output();
+  exportarPDF = output();
+
 }
