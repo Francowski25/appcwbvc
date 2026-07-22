@@ -10,7 +10,7 @@
         <div class="md:col-span-1 lg:col-span-6">
             <app-laboratory-table class="w-full" [laboratorios]="filtrados()" [total]="totalLaboratories()"
                 [loading]="loading()" [error]="error()" (crearLaboratorio)="onCrearLaboratorio()"
-                (onEdit)="onEditar($event)" (onToggleStatus)="onToggleStatus($event)" (onDelete)="onEliminar($event)" />
+                (onEdit)="onEditar($event)" (onToggleStatus)="onToggleStatus($event)" />
         </div>
 
         <div class="md:col-span-1 lg:col-span-4">

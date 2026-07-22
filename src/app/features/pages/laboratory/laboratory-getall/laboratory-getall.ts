@@ -101,6 +101,4 @@ export class LaboratoryGetall implements OnInit {
       life: 3000
     });
   }
-
-  onEliminar(laboratorio: any): void { }
 }
