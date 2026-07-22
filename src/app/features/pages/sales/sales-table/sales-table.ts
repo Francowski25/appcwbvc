@@ -17,5 +17,8 @@ export class SalesTable {
   verDetalle = output<any>();
   nuevaVenta = output<void>();
 
+  exportarExcel = output<void>();
+  exportarPDF = output<void>();
+
   protected readonly Number = Number;
 }
