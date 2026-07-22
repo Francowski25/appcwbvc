@@ -10,7 +10,7 @@
         <div class="md:col-span-1 lg:col-span-6">
             <app-category-table class="w-full" [categorias]="filtrados()" [total]="totalCategorias()"
                 [loading]="loading()" [error]="error()" (crearCategoria)="onCrearCategoria()"
-                (onEdit)="onEditar($event)" (onToggleStatus)="onToggleStatus($event)" (onDelete)="onEliminar($event)" />
+                (onEdit)="onEditar($event)" (onToggleStatus)="onToggleStatus($event)" />
         </div>
 
         <div class="md:col-span-1 lg:col-span-4 flex">

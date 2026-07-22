@@ -102,5 +102,4 @@ export class CategoryGetall implements OnInit {
     });
   }
 
-  onEliminar(idCategory: any): void { }
 }

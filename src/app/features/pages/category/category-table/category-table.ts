@@ -23,7 +23,6 @@ export class CategoryTable {
   crearCategoria = output<void>();
   onEdit = output<any>();
   onToggleStatus = output<any>();
-  onDelete = output<any>();
   onExportExcel = output<void>();
   onExportPdf = output<void>();
 }
