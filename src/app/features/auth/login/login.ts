@@ -1,6 +1,7 @@
 import { Component, signal } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 import { ButtonModule } from 'primeng/button';
 import { CheckboxModule } from 'primeng/checkbox';
@@ -16,6 +17,7 @@ import { auth, Auth$Params } from '../../../api/functions';
 @Component({
   selector: 'app-login',
   imports: [
+    CommonModule,
     RouterLink,
     FormsModule,
     ButtonModule,
@@ -36,10 +38,11 @@ export class Login {
   remember = signal(false);
   loading = signal(false);
   error = signal('');
+  exiting = signal(false);
 
   constructor(
     private api: Api,
-    private router: Router
+    private router: Router,
   ) { }
 
   async onSubmit(): Promise<void> {
@@ -71,7 +74,11 @@ export class Login {
       };
 
       const route = routes[response.role.toLowerCase().trim()] ?? '/admin';
-      this.router.navigate([route]);
+
+      // Animar salida y navegar
+      this.exiting.set(true);
+      await this.delay(400);
+      await this.router.navigate([route]);
 
     } catch (err: unknown) {
       const message = err instanceof Error ? err.message : 'Error al iniciar sesión.';
@@ -79,5 +86,9 @@ export class Login {
     } finally {
       this.loading.set(false);
     }
+  }
+
+  private delay(ms: number): Promise<void> {
+    return new Promise(res => setTimeout(res, ms));
   }
 }

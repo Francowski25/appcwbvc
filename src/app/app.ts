@@ -27,28 +27,4 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 	styleUrls: ['./app.css']
 })
 export class App {
-	private messageService = inject(MessageService);
-
-	sidebarVisible = signal<boolean>(false);
-
-	navItems: MenuItem[] = [
-		{ label: 'Dashboard', icon: 'pi pi-home', routerLink: '/dashboard' },
-		{ label: 'Usuarios', icon: 'pi pi-users', routerLink: '/users' },
-		{ label: 'Configuración', icon: 'pi pi-cog', routerLink: '/settings' }
-	];
-
-	profileItems: MenuItem[] = [
-		{ label: 'Mi Perfil', icon: 'pi pi-user' },
-		{ label: 'Ajustes', icon: 'pi pi-sliders-h' },
-		{ separator: true },
-		{ label: 'Cerrar Sesión', icon: 'pi pi-sign-out', command: () => this.logout() }
-	];
-
-	toggleSidebar(): void {
-		this.sidebarVisible.update(visible => !visible);
-	}
-
-	logout(): void {
-		this.messageService.add({ severity: 'info', summary: 'Correcto!', detail: 'Sesión cerrada correctamente.', life: 5000 });
-	}
 }
