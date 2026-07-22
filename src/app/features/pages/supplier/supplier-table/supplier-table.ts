@@ -18,4 +18,6 @@ export class SupplierTable {
   editar = output<any>();
   toggleStatus = output<any>();
   nuevo = output<void>();
+  exportarExcel = output<void>();
+  exportarPDF = output<void>();
 }
