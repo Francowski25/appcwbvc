@@ -10,6 +10,4 @@ import { LayoutService } from '../layout.service';
 })
 export class Navbar {
   layout = inject(LayoutService);
-
-  search = '';
 }

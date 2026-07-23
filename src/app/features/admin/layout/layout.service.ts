@@ -1,12 +1,24 @@
-import { Injectable, signal } from '@angular/core';
+import { Injectable, signal, inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 
 @Injectable({ providedIn: 'root' })
 export class LayoutService {
-  /** Whether the off-canvas sidebar is open on mobile/tablet (< lg breakpoint). */
+  private platformId = inject(PLATFORM_ID);
+
   sidebarOpen = signal(false);
 
+  constructor() {
+    if (isPlatformBrowser(this.platformId)) {
+      window.addEventListener('resize', () => {
+        if (window.innerWidth >= 1024 && this.sidebarOpen()) {
+          this.close();
+        }
+      });
+    }
+  }
+
   toggle() {
-    this.sidebarOpen.set(!this.sidebarOpen());
+    this.sidebarOpen.update((open) => !open);
   }
 
   open() {

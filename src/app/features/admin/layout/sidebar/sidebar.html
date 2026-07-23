@@ -1,346 +1,370 @@
 @if (layout.sidebarOpen()) {
-<div class="fixed inset-0 z-30 bg-black/40 lg:hidden" (click)="layout.close()"></div>
+<div class="fixed inset-0 z-40 bg-slate-950/70 backdrop-blur-sm lg:hidden transition-opacity" (click)="layout.close()">
+</div>
 }
 
 <aside
-  class="flex flex-col bg-white border-r border-gray-200 transition-transform duration-300 h-screen fixed inset-y-0 left-0 z-40 -translate-x-full lg:static lg:z-auto lg:translate-x-0 lg:transition-[width]"
-  [class.translate-x-0]="layout.sidebarOpen()" [class.w-64]="!collapsed()" [class.w-16]="collapsed()">
+  class="fixed inset-y-0 left-0 z-50 flex flex-col h-screen bg-slate-950 border-r border-slate-800/80 text-slate-300 transition-all duration-300 overflow-hidden -translate-x-full lg:static lg:z-auto lg:translate-x-0"
+  [class.translate-x-0]="layout.sidebarOpen()" [class.w-72]="!collapsed()" [class.w-16]="collapsed()"
+  [class.max-lg:w-72]="true">
 
-  <div class="flex flex-col px-3 py-4 border-b border-gray-100 flex-shrink-0">
-    <div class="flex items-center justify-between">
-      <div class="flex items-center gap-2.5">
-        <img src="logo.png" alt="Logo" class="w-10 h-10 object-contain flex-shrink-0" />
-        @if (!collapsed()) {
-        <div class="overflow-hidden">
-          <p class="text-base font-bold leading-tight whitespace-nowrap text-pink-600">Virgen de</p>
-          <p class="text-base font-bold leading-tight whitespace-nowrap text-green-600">COCHARCAS</p>
+  <div class="absolute inset-0 pointer-events-none z-0 overflow-hidden opacity-10">
+    <img src="fondo-logo.png" alt=""
+      class="w-full h-full object-cover object-center scale-125 filter grayscale contrast-125" />
+    <div class="absolute inset-0 bg-gradient-to-b from-slate-950/80 via-slate-950/40 to-slate-950/90"></div>
+  </div>
+
+  <div class="relative z-10 flex flex-col h-full w-full">
+
+    <div class="flex flex-col px-3 py-4 border-b border-white/10 flex-shrink-0">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-2.5">
+          <img src="logo.png" alt="Logo" class="w-9 h-9 object-contain flex-shrink-0" />
+
+          <div class="overflow-hidden" [class.lg:hidden]="collapsed()">
+            <p class="text-sm font-black leading-tight whitespace-nowrap text-white">Virgen de</p>
+            <p class="text-sm font-black leading-tight whitespace-nowrap text-pink-400 tracking-wider">COCHARCAS</p>
+          </div>
         </div>
+
+        @if (!collapsed()) {
+        <button (click)="toggle()"
+          class="hidden lg:flex w-7 h-7 items-center justify-center rounded-lg text-slate-400 hover:text-white hover:bg-white/10 transition-colors border border-white/10">
+          <i class="pi pi-angle-left"></i>
+        </button>
         }
+
+        <button (click)="layout.close()"
+          class="lg:hidden w-8 h-8 flex items-center justify-center rounded-lg text-slate-400 hover:text-white hover:bg-white/10 transition-colors border border-white/10">
+          <i class="pi pi-times"></i>
+        </button>
       </div>
 
-      @if (!collapsed()) {
+      @if (collapsed()) {
       <button (click)="toggle()"
-        class="hidden lg:flex w-7 h-7 items-center justify-center rounded-md text-gray-400 hover:bg-gray-100 transition-colors border border-gray-200">
-        <i class="pi pi-angle-left"></i>
+        class="hidden lg:flex mt-3 items-center justify-center rounded-lg text-slate-400 hover:text-white hover:bg-white/10 transition-colors border border-white/10 py-1">
+        <i class="pi pi-angle-right"></i>
       </button>
       }
-
-      <button (click)="layout.close()"
-        class="lg:hidden w-7 h-7 flex items-center justify-center rounded-md text-gray-400 hover:bg-gray-100 transition-colors border border-gray-200">
-        <i class="pi pi-times"></i>
-      </button>
     </div>
 
-    @if (collapsed()) {
-    <button (click)="toggle()"
-      class="hidden lg:flex mt-3 items-center justify-center rounded-md text-gray-400 hover:bg-gray-100 transition-colors border border-gray-200 py-1">
-      <i class="pi pi-angle-right"></i>
-    </button>
-    }
-  </div>
+    <div class="flex-1 overflow-y-auto pr-1 py-3 custom-scrollbar">
 
-  <div class="flex-1 overflow-y-auto pr-2 py-3">
-
-    <nav class="px-2 flex flex-col gap-0.5 mb-2">
-      <a routerLink="/admin/dashboard" routerLinkActive="bg-pink-50 text-pink-700 font-medium"
-        class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-600 hover:bg-gray-100 transition-colors text-sm"
-        [class.justify-center]="collapsed()">
-        <i class="pi pi-home text-base flex-shrink-0"></i>
-        @if (!collapsed()) { <span>Dashboard</span> }
-      </a>
-    </nav>
-
-    @if (!collapsed()) {
-    <p class="px-4 py-1 text-xs font-semibold text-gray-400 uppercase tracking-wider mt-2">Gestión</p>
-    }
-
-    <nav class="px-2 flex flex-col gap-0.5 mb-2">
-
-      <button (click)="toggleSection('productos')"
-        class="flex items-center gap-3 px-3 py-2.5 w-full rounded-lg text-gray-600 hover:bg-gray-100 transition-colors text-sm"
-        [class.justify-center]="collapsed()" [class.bg-pink-50]="isSectionOpen('productos')"
-        [class.text-pink-700]="isSectionOpen('productos')">
-        <i class="pi pi-box text-base flex-shrink-0"></i>
-        @if (!collapsed()) {
-        <span class="flex-1 text-left">Productos</span>
-        <i class="pi text-xs transition-transform duration-200" [class.pi-chevron-down]="!isSectionOpen('productos')"
-          [class.pi-chevron-up]="isSectionOpen('productos')"></i>
-        }
-      </button>
-      @if (isSectionOpen('productos') && !collapsed()) {
-      <div class="ml-4 flex flex-col gap-0.5 border-l border-gray-200 pl-3 mt-0.5">
-        <a routerLink="/admin/productos/lista" routerLinkActive="text-pink-700 font-medium"
-          class="py-2 px-2 text-sm text-gray-500 hover:text-gray-800 transition-colors rounded">
-          Gestión de productos
+      <nav class="px-2 flex flex-col gap-0.5 mb-2">
+        <a routerLink="/admin/dashboard" (click)="layout.close()"
+          routerLinkActive="bg-pink-500/15 text-pink-300 font-semibold border-r-2 border-pink-500"
+          class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:text-slate-100 hover:bg-white/5 transition-colors text-sm"
+          [class.lg:justify-center]="collapsed()">
+          <i class="pi pi-home text-base flex-shrink-0"></i>
+          <span [class.lg:hidden]="collapsed()">Dashboard</span>
         </a>
-        <a routerLink="/admin/categoria" routerLinkActive="text-pink-700 font-medium"
-          class="py-2 px-2 text-sm text-gray-500 hover:text-gray-800 transition-colors rounded">
-          Categorías
-        </a>
-        <a routerLink="/admin/laboratorio" routerLinkActive="text-pink-700 font-medium"
-          class="py-2 px-2 text-sm text-gray-500 hover:text-gray-800 transition-colors rounded">
-          Laboratorios
-        </a>
-      </div>
-      }
+      </nav>
 
-      <button (click)="toggleSection('inventario')"
-        class="flex items-center gap-3 px-3 py-2.5 w-full rounded-lg text-gray-600 hover:bg-gray-100 transition-colors text-sm"
-        [class.justify-center]="collapsed()" [class.bg-pink-50]="isSectionOpen('inventario')"
-        [class.text-pink-700]="isSectionOpen('inventario')">
-        <i class="pi pi-warehouse text-base flex-shrink-0"></i>
-        @if (!collapsed()) {
-        <span class="flex-1 text-left">Inventario</span>
-        <i class="pi text-xs transition-transform duration-200" [class.pi-chevron-down]="!isSectionOpen('inventario')"
-          [class.pi-chevron-up]="isSectionOpen('inventario')"></i>
-        }
-      </button>
-      @if (isSectionOpen('inventario') && !collapsed()) {
-      <div class="ml-4 flex flex-col gap-0.5 border-l border-gray-200 pl-3 mt-0.5">
-        <a routerLink="/admin/inventory/current-stock" routerLinkActive="text-pink-700 font-medium"
-          class="py-2 px-2 text-sm text-gray-500 hover:text-gray-800 transition-colors rounded">
-          Stock actual
-        </a>
-        <a routerLink="/admin/inventory/lots" routerLinkActive="text-pink-700 font-medium"
-          class="py-2 px-2 text-sm text-gray-500 hover:text-gray-800 transition-colors rounded">
-          Lotes
-        </a>
-        <a routerLink="/admin/inventory/movements" routerLinkActive="text-pink-700 font-medium"
-          class="py-2 px-2 text-sm text-gray-500 hover:text-gray-800 transition-colors rounded">
-          Movimientos
-        </a>
-      </div>
-      }
+      <p class="px-4 py-1 text-[10px] font-bold text-slate-500 uppercase tracking-widest mt-2"
+        [class.lg:hidden]="collapsed()">Gestión</p>
 
-      <button (click)="toggleSection('compras')"
-        class="flex items-center gap-3 px-3 py-2.5 w-full rounded-lg text-gray-600 hover:bg-gray-100 transition-colors text-sm"
-        [class.justify-center]="collapsed()" [class.bg-pink-50]="isSectionOpen('compras')"
-        [class.text-pink-700]="isSectionOpen('compras')">
-        <i class="pi pi-truck text-base flex-shrink-0"></i>
-        @if (!collapsed()) {
-        <span class="flex-1 text-left">Compras</span>
-        <i class="pi text-xs transition-transform duration-200" [class.pi-chevron-down]="!isSectionOpen('compras')"
-          [class.pi-chevron-up]="isSectionOpen('compras')"></i>
-        }
-      </button>
-      @if (isSectionOpen('compras') && !collapsed()) {
-      <div class="ml-4 flex flex-col gap-0.5 border-l border-gray-200 pl-3 mt-0.5">
-        <a routerLink="/admin/purchases/historial" routerLinkActive="text-pink-700 font-medium"
-          class="py-2 px-2 text-sm text-gray-500 hover:text-gray-800 transition-colors rounded">
-          Ingresos de compras
-        </a>
-        <a routerLink="/admin/purchases/proveedor" routerLinkActive="text-pink-700 font-medium"
-          class="py-2 px-2 text-sm text-gray-500 hover:text-gray-800 transition-colors rounded">
-          Proveedores
-        </a>
-      </div>
-      }
+      <nav class="px-2 flex flex-col gap-0.5 mb-2">
 
-      <button (click)="toggleSection('ventas')"
-        class="flex items-center gap-3 px-3 py-2.5 w-full rounded-lg text-gray-600 hover:bg-gray-100 transition-colors text-sm"
-        [class.justify-center]="collapsed()" [class.bg-pink-50]="isSectionOpen('ventas')"
-        [class.text-pink-700]="isSectionOpen('ventas')">
-        <i class="pi pi-shopping-cart text-base flex-shrink-0"></i>
-        @if (!collapsed()) {
-        <span class="flex-1 text-left">Ventas</span>
-        <i class="pi text-xs transition-transform duration-200" [class.pi-chevron-down]="!isSectionOpen('ventas')"
-          [class.pi-chevron-up]="isSectionOpen('ventas')"></i>
-        }
-      </button>
-      @if (isSectionOpen('ventas') && !collapsed()) {
-      <div class="ml-4 flex flex-col gap-0.5 border-l border-gray-200 pl-3 mt-0.5">
-        <a routerLink="/admin/ventas/nueva" routerLinkActive="text-pink-700 font-medium"
-          class="py-2 px-2 text-sm text-gray-500 hover:text-gray-800 transition-colors rounded">
-          Nueva venta
-        </a>
-        <a routerLink="/admin/ventas/historial" routerLinkActive="text-pink-700 font-medium"
-          class="py-2 px-2 text-sm text-gray-500 hover:text-gray-800 transition-colors rounded">
-          Historial de ventas
-        </a>
-      </div>
-      }
+        <button (click)="toggleSection('productos')"
+          class="flex items-center gap-3 px-3 py-2.5 w-full rounded-lg text-slate-400 hover:text-slate-100 hover:bg-white/5 transition-colors text-sm"
+          [class.lg:justify-center]="collapsed()" [class.bg-white/5]="isSectionOpen('productos')"
+          [class.text-pink-400]="isSectionOpen('productos')">
+          <i class="pi pi-box text-base flex-shrink-0"></i>
+          <span class="flex-1 text-left" [class.lg:hidden]="collapsed()">Productos</span>
+          <i class="pi text-xs transition-transform duration-200" [class.lg:hidden]="collapsed()"
+            [class.pi-chevron-down]="!isSectionOpen('productos')"
+            [class.pi-chevron-up]="isSectionOpen('productos')"></i>
+        </button>
 
-    </nav>
-
-    @if (!collapsed()) {
-    <p class="px-4 py-1 text-xs font-semibold text-gray-400 uppercase tracking-wider mt-2">Administración</p>
-    }
-
-    <nav class="px-2 flex flex-col gap-0.5 mb-2">
-
-      <button (click)="toggleSection('usuarios')"
-        class="flex items-center gap-3 px-3 py-2.5 w-full rounded-lg text-gray-600 hover:bg-gray-100 transition-colors text-sm"
-        [class.justify-center]="collapsed()" [class.bg-pink-50]="isSectionOpen('usuarios')"
-        [class.text-pink-700]="isSectionOpen('usuarios')">
-        <i class="pi pi-user text-base flex-shrink-0"></i>
-        @if (!collapsed()) {
-        <span class="flex-1 text-left">Usuarios</span>
-        <i class="pi text-xs" [class.pi-chevron-down]="!isSectionOpen('usuarios')"
-          [class.pi-chevron-up]="isSectionOpen('usuarios')"></i>
-        }
-      </button>
-      @if (isSectionOpen('usuarios') && !collapsed()) {
-      <div class="ml-4 flex flex-col gap-0.5 border-l border-gray-200 pl-3 mt-0.5">
-        <a routerLink="/admin/usuarios/lista" routerLinkActive="text-pink-700 font-medium"
-          class="py-2 px-2 text-sm text-gray-500 hover:text-gray-800 transition-colors rounded">
-          Gestión de usuarios
-        </a>
-        <a routerLink="/admin/usuarios/roles-permisos" routerLinkActive="text-pink-700 font-medium"
-          class="py-2 px-2 text-sm text-gray-500 hover:text-gray-800 transition-colors rounded">
-          Roles y permisos
-        </a>
-      </div>
-      }
-
-      <button (click)="toggleSection('clientes')"
-        class="flex items-center gap-3 px-3 py-2.5 w-full rounded-lg text-gray-600 hover:bg-gray-100 transition-colors text-sm"
-        [class.justify-center]="collapsed()" [class.bg-pink-50]="isSectionOpen('clientes')"
-        [class.text-pink-700]="isSectionOpen('clientes')">
-        <i class="pi pi-users text-base flex-shrink-0"></i>
-        @if (!collapsed()) {
-        <span class="flex-1 text-left">Clientes</span>
-        <i class="pi text-xs transition-transform duration-200" [class.pi-chevron-down]="!isSectionOpen('clientes')"
-          [class.pi-chevron-up]="isSectionOpen('clientes')"></i>
-        }
-      </button>
-      @if (isSectionOpen('clientes') && !collapsed()) {
-      <div class="ml-4 flex flex-col gap-0.5 border-l border-gray-200 pl-3 mt-0.5">
-        <a routerLink="/admin/clientes" routerLinkActive="text-pink-700 font-medium"
-          class="py-2 px-2 text-sm text-gray-500 hover:text-gray-800 transition-colors rounded">
-          Gestión de clientes
-        </a>
-      </div>
-      }
-    </nav>
-
-    @if (!collapsed()) {
-    <p class="px-4 py-1 text-xs font-semibold text-gray-400 uppercase tracking-wider mt-2">Reportes</p>
-    }
-
-    <nav class="px-2 flex flex-col gap-0.5 mb-2">
-
-      <button (click)="toggleSection('reportes')"
-        class="flex items-center gap-3 px-3 py-2.5 w-full rounded-lg text-gray-600 hover:bg-gray-100 transition-colors text-sm"
-        [class.justify-center]="collapsed()" [class.bg-pink-50]="isSectionOpen('reportes')"
-        [class.text-pink-700]="isSectionOpen('reportes')">
-        <i class="pi pi-chart-bar text-base flex-shrink-0"></i>
-        @if (!collapsed()) {
-        <span class="flex-1 text-left">Reportes</span>
-        <i class="pi text-xs" [class.pi-chevron-down]="!isSectionOpen('reportes')"
-          [class.pi-chevron-up]="isSectionOpen('reportes')"></i>
-        }
-      </button>
-      @if (isSectionOpen('reportes') && !collapsed()) {
-      <div class="ml-4 flex flex-col gap-0.5 border-l border-gray-200 pl-3 mt-0.5">
-        <a routerLink="/admin/reports/sales" routerLinkActive="text-pink-700 font-medium"
-          class="py-2 px-2 text-sm text-gray-500 hover:text-gray-800 transition-colors rounded">
-          Ventas
-        </a>
-        <a routerLink="/admin/reports/inventory" routerLinkActive="text-pink-700 font-medium"
-          class="py-2 px-2 text-sm text-gray-500 hover:text-gray-800 transition-colors rounded">
-          Inventario
-        </a>
-        <a routerLink="/admin/reports/purchases" routerLinkActive="text-pink-700 font-medium"
-          class="py-2 px-2 text-sm text-gray-500 hover:text-gray-800 transition-colors rounded">
-          Compras
-        </a>
-        <a routerLink="/admin/reports/customers" routerLinkActive="text-pink-700 font-medium"
-          class="py-2 px-2 text-sm text-gray-500 hover:text-gray-800 transition-colors rounded">
-          Clientes
-        </a>
-        <a routerLink="/admin/reportes/ingresos" routerLinkActive="text-pink-700 font-medium"
-          class="py-2 px-2 text-sm text-gray-500 hover:text-gray-800 transition-colors rounded">
-          Ingresos
-        </a>
-        <a routerLink="/admin/reportes/movimientos" routerLinkActive="text-pink-700 font-medium"
-          class="py-2 px-2 text-sm text-gray-500 hover:text-gray-800 transition-colors rounded">
-          Movimientos de inventario
-        </a>
-      </div>
-      }
-
-    </nav>
-
-    @if (!collapsed()) {
-    <p class="px-4 py-1 text-xs font-semibold text-gray-400 uppercase tracking-wider mt-2">Operaciones</p>
-    }
-
-    <nav class="px-2 flex flex-col gap-0.5">
-      <a routerLink="/admin/operaciones/productos-vencer" routerLinkActive="bg-pink-50 text-pink-700 font-medium"
-        class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-600 hover:bg-gray-100 transition-colors text-sm"
-        [class.justify-center]="collapsed()">
-        <i class="pi pi-calendar"></i>
-        @if (!collapsed()) { <span>Productos por vencer</span> }
-      </a>
-      <a routerLink="/admin/alertas" routerLinkActive="bg-pink-50 text-pink-700 font-medium"
-        class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-600 hover:bg-gray-100 transition-colors text-sm"
-        [class.justify-center]="collapsed()">
-        <i class="pi pi-bell text-base flex-shrink-0"></i>
-        @if (!collapsed()) { <span>Alertas de stock</span> }
-      </a>
-    </nav>
-
-  </div>
-
-  <div class="border-t border-gray-100 p-3 flex-shrink-0">
-
-    <a routerLink="/admin/ayuda" routerLinkActive="bg-gray-100 text-gray-900"
-      class="flex items-center gap-3 px-2 py-2 rounded-lg text-gray-600 hover:bg-gray-100 transition-colors text-sm font-semibold"
-      [class.justify-center]="collapsed()">
-      <i class="pi pi-question-circle text-base flex-shrink-0"></i>
-      @if (!collapsed()) { <span>Ayuda</span> }
-    </a>
-
-    <a routerLink="/admin/almacen"
-      class="flex items-center gap-3 px-2 py-2 rounded-lg text-gray-600 hover:bg-gray-100 transition-colors text-sm font-semibold"
-      [class.justify-center]="collapsed()">
-      <i class="pi pi-box text-base flex-shrink-0"></i>
-      @if (!collapsed()) { <span>Almacén</span> }
-    </a>
-
-    <button (click)="logout()"
-      class="flex items-center gap-3 px-2 py-2 w-full rounded-lg text-gray-600 hover:text-red-500 hover:bg-red-50 transition-colors text-sm font-semibold"
-      [class.justify-center]="collapsed()">
-      <i class="pi pi-sign-out text-base flex-shrink-0"></i>
-      @if (!collapsed()) { <span>Cerrar sesión</span> }
-    </button>
-
-    <div class="relative mt-1 border-t border-gray-100 pt-3 user-menu-container">
-      <button (click)="toggleUserMenu()"
-        class="flex items-center gap-3 px-2 py-2 w-full rounded-lg hover:bg-gray-100 transition-colors"
-        [class.justify-center]="collapsed()">
-        <div
-          class="w-8 h-8 rounded-full bg-pink-500 text-pink-50 hover:bg-pink-600 flex items-center justify-center text-sm font-bold flex-shrink-0">
-          {{ user?.firstName?.charAt(0) }}
-        </div>
-        @if (!collapsed()) {
-        <div class="flex-1 overflow-hidden text-left">
-          <p class="text-sm font-bold text-gray-800 leading-tight truncate">{{ user?.firstName }}</p>
-          <p class="text-xs font-semibold text-gray-400 leading-tight capitalize">{{ user?.role }}</p>
-        </div>
-        <i class="pi pi-ellipsis-h text-gray-400 text-sm"></i>
-        }
-      </button>
-
-      @if (userMenuOpen() && !collapsed()) {
-      <div
-        class="absolute bottom-full left-2 right-2 mb-1 bg-white border border-gray-200 rounded-xl shadow-lg overflow-hidden z-50">
-
-        <div class="px-4 py-3 border-b border-gray-100 bg-gray-50">
-          <p class="text-sm font-bold text-gray-800 truncate">{{ user?.firstName }} {{ user?.surName }}</p>
-          <p class="text-xs text-gray-400 truncate">{{ user?.email }}</p>
-        </div>
-
-        <div class="py-1">
-          <a routerLink="/admin/profile" (click)="userMenuOpen.set(false)"
-            class="flex items-center gap-3 px-4 py-2.5 text-sm font-semibold text-gray-600 hover:bg-gray-50 transition-colors">
-            <i class="pi pi-user text-base"></i>
-            <span>Ver perfil</span>
+        @if (isSectionOpen('productos')) {
+        <div class="ml-4 flex flex-col gap-0.5 border-l border-white/10 pl-3 mt-0.5" [class.lg:hidden]="collapsed()">
+          <a routerLink="/admin/productos/lista" (click)="layout.close()"
+            routerLinkActive="bg-pink-500/15 text-pink-300 font-semibold border-r-2 border-pink-500"
+            class="py-2 px-2 text-sm text-slate-400 hover:text-slate-100 transition-colors rounded">
+            Gestión de productos
+          </a>
+          <a routerLink="/admin/categoria" (click)="layout.close()"
+            routerLinkActive="bg-pink-500/15 text-pink-300 font-semibold border-r-2 border-pink-500"
+            class="py-2 px-2 text-sm text-slate-400 hover:text-slate-100 transition-colors rounded">
+            Categorías
+          </a>
+          <a routerLink="/admin/laboratorio" (click)="layout.close()"
+            routerLinkActive="bg-pink-500/15 text-pink-300 font-semibold border-r-2 border-pink-500"
+            class="py-2 px-2 text-sm text-slate-400 hover:text-slate-100 transition-colors rounded">
+            Laboratorios
           </a>
         </div>
+        }
 
+        <button (click)="toggleSection('inventario')"
+          class="flex items-center gap-3 px-3 py-2.5 w-full rounded-lg text-slate-400 hover:text-slate-100 hover:bg-white/5 transition-colors text-sm"
+          [class.lg:justify-center]="collapsed()" [class.bg-white/5]="isSectionOpen('inventario')"
+          [class.text-pink-400]="isSectionOpen('inventario')">
+          <i class="pi pi-warehouse text-base flex-shrink-0"></i>
+          <span class="flex-1 text-left" [class.lg:hidden]="collapsed()">Inventario</span>
+          <i class="pi text-xs transition-transform duration-200" [class.lg:hidden]="collapsed()"
+            [class.pi-chevron-down]="!isSectionOpen('inventario')"
+            [class.pi-chevron-up]="isSectionOpen('inventario')"></i>
+        </button>
+
+        @if (isSectionOpen('inventario')) {
+        <div class="ml-4 flex flex-col gap-0.5 border-l border-white/10 pl-3 mt-0.5" [class.lg:hidden]="collapsed()">
+          <a routerLink="/admin/inventory/current-stock" (click)="layout.close()"
+            routerLinkActive="bg-pink-500/15 text-pink-300 font-semibold border-r-2 border-pink-500"
+            class="py-2 px-2 text-sm text-slate-400 hover:text-slate-100 transition-colors rounded">
+            Stock actual
+          </a>
+          <a routerLink="/admin/inventory/lots" (click)="layout.close()"
+            routerLinkActive="bg-pink-500/15 text-pink-300 font-semibold border-r-2 border-pink-500"
+            class="py-2 px-2 text-sm text-slate-400 hover:text-slate-100 transition-colors rounded">
+            Lotes
+          </a>
+          <a routerLink="/admin/inventory/movements" (click)="layout.close()"
+            routerLinkActive="bg-pink-500/15 text-pink-300 font-semibold border-r-2 border-pink-500"
+            class="py-2 px-2 text-sm text-slate-400 hover:text-slate-100 transition-colors rounded">
+            Movimientos
+          </a>
+        </div>
+        }
+
+        <button (click)="toggleSection('compras')"
+          class="flex items-center gap-3 px-3 py-2.5 w-full rounded-lg text-slate-400 hover:text-slate-100 hover:bg-white/5 transition-colors text-sm"
+          [class.lg:justify-center]="collapsed()" [class.bg-white/5]="isSectionOpen('compras')"
+          [class.text-pink-400]="isSectionOpen('compras')">
+          <i class="pi pi-truck text-base flex-shrink-0"></i>
+          <span class="flex-1 text-left" [class.lg:hidden]="collapsed()">Compras</span>
+          <i class="pi text-xs transition-transform duration-200" [class.lg:hidden]="collapsed()"
+            [class.pi-chevron-down]="!isSectionOpen('compras')" [class.pi-chevron-up]="isSectionOpen('compras')"></i>
+        </button>
+
+        @if (isSectionOpen('compras')) {
+        <div class="ml-4 flex flex-col gap-0.5 border-l border-white/10 pl-3 mt-0.5" [class.lg:hidden]="collapsed()">
+          <a routerLink="/admin/purchases/historial" (click)="layout.close()"
+            routerLinkActive="bg-pink-500/15 text-pink-300 font-semibold border-r-2 border-pink-500"
+            class="py-2 px-2 text-sm text-slate-400 hover:text-slate-100 transition-colors rounded">
+            Ingresos de compras
+          </a>
+          <a routerLink="/admin/purchases/proveedor" (click)="layout.close()"
+            routerLinkActive="bg-pink-500/15 text-pink-300 font-semibold border-r-2 border-pink-500"
+            class="py-2 px-2 text-sm text-slate-400 hover:text-slate-100 transition-colors rounded">
+            Proveedores
+          </a>
+        </div>
+        }
+
+        <button (click)="toggleSection('ventas')"
+          class="flex items-center gap-3 px-3 py-2.5 w-full rounded-lg text-slate-400 hover:text-slate-100 hover:bg-white/5 transition-colors text-sm"
+          [class.lg:justify-center]="collapsed()" [class.bg-white/5]="isSectionOpen('ventas')"
+          [class.text-pink-400]="isSectionOpen('ventas')">
+          <i class="pi pi-shopping-cart text-base flex-shrink-0"></i>
+          <span class="flex-1 text-left" [class.lg:hidden]="collapsed()">Ventas</span>
+          <i class="pi text-xs transition-transform duration-200" [class.lg:hidden]="collapsed()"
+            [class.pi-chevron-down]="!isSectionOpen('ventas')" [class.pi-chevron-up]="isSectionOpen('ventas')"></i>
+        </button>
+
+        @if (isSectionOpen('ventas')) {
+        <div class="ml-4 flex flex-col gap-0.5 border-l border-white/10 pl-3 mt-0.5" [class.lg:hidden]="collapsed()">
+          <a routerLink="/admin/ventas/nueva" (click)="layout.close()"
+            routerLinkActive="bg-pink-500/15 text-pink-300 font-semibold border-r-2 border-pink-500"
+            class="py-2 px-2 text-sm text-slate-400 hover:text-slate-100 transition-colors rounded">
+            Nueva venta
+          </a>
+          <a routerLink="/admin/ventas/historial" (click)="layout.close()"
+            routerLinkActive="bg-pink-500/15 text-pink-300 font-semibold border-r-2 border-pink-500"
+            class="py-2 px-2 text-sm text-slate-400 hover:text-slate-100 transition-colors rounded">
+            Historial de ventas
+          </a>
+        </div>
+        }
+
+      </nav>
+
+      <p class="px-4 py-1 text-[10px] font-bold text-slate-500 uppercase tracking-widest mt-2"
+        [class.lg:hidden]="collapsed()">Administración</p>
+
+      <nav class="px-2 flex flex-col gap-0.5 mb-2">
+
+        <button (click)="toggleSection('usuarios')"
+          class="flex items-center gap-3 px-3 py-2.5 w-full rounded-lg text-slate-400 hover:text-slate-100 hover:bg-white/5 transition-colors text-sm"
+          [class.lg:justify-center]="collapsed()" [class.bg-white/5]="isSectionOpen('usuarios')"
+          [class.text-pink-400]="isSectionOpen('usuarios')">
+          <i class="pi pi-user text-base flex-shrink-0"></i>
+          <span class="flex-1 text-left" [class.lg:hidden]="collapsed()">Usuarios</span>
+          <i class="pi text-xs" [class.lg:hidden]="collapsed()" [class.pi-chevron-down]="!isSectionOpen('usuarios')"
+            [class.pi-chevron-up]="isSectionOpen('usuarios')"></i>
+        </button>
+
+        @if (isSectionOpen('usuarios')) {
+        <div class="ml-4 flex flex-col gap-0.5 border-l border-white/10 pl-3 mt-0.5" [class.lg:hidden]="collapsed()">
+          <a routerLink="/admin/usuarios/lista" (click)="layout.close()"
+            routerLinkActive="bg-pink-500/15 text-pink-300 font-semibold border-r-2 border-pink-500"
+            class="py-2 px-2 text-sm text-slate-400 hover:text-slate-100 transition-colors rounded">
+            Gestión de usuarios
+          </a>
+          <a routerLink="/admin/usuarios/roles-permisos" (click)="layout.close()"
+            routerLinkActive="bg-pink-500/15 text-pink-300 font-semibold border-r-2 border-pink-500"
+            class="py-2 px-2 text-sm text-slate-400 hover:text-slate-100 transition-colors rounded">
+            Roles y permisos
+          </a>
+        </div>
+        }
+
+        <button (click)="toggleSection('clientes')"
+          class="flex items-center gap-3 px-3 py-2.5 w-full rounded-lg text-slate-400 hover:text-slate-100 hover:bg-white/5 transition-colors text-sm"
+          [class.lg:justify-center]="collapsed()" [class.bg-white/5]="isSectionOpen('clientes')"
+          [class.text-pink-400]="isSectionOpen('clientes')">
+          <i class="pi pi-users text-base flex-shrink-0"></i>
+          <span class="flex-1 text-left" [class.lg:hidden]="collapsed()">Clientes</span>
+          <i class="pi text-xs transition-transform duration-200" [class.lg:hidden]="collapsed()"
+            [class.pi-chevron-down]="!isSectionOpen('clientes')" [class.pi-chevron-up]="isSectionOpen('clientes')"></i>
+        </button>
+
+        @if (isSectionOpen('clientes')) {
+        <div class="ml-4 flex flex-col gap-0.5 border-l border-white/10 pl-3 mt-0.5" [class.lg:hidden]="collapsed()">
+          <a routerLink="/admin/clientes" (click)="layout.close()"
+            routerLinkActive="bg-pink-500/15 text-pink-300 font-semibold border-r-2 border-pink-500"
+            class="py-2 px-2 text-sm text-slate-400 hover:text-slate-100 transition-colors rounded">
+            Gestión de clientes
+          </a>
+        </div>
+        }
+      </nav>
+
+      <p class="px-4 py-1 text-[10px] font-bold text-slate-500 uppercase tracking-widest mt-2"
+        [class.lg:hidden]="collapsed()">Reportes</p>
+
+      <nav class="px-2 flex flex-col gap-0.5 mb-2">
+
+        <button (click)="toggleSection('reportes')"
+          class="flex items-center gap-3 px-3 py-2.5 w-full rounded-lg text-slate-400 hover:text-slate-100 hover:bg-white/5 transition-colors text-sm"
+          [class.lg:justify-center]="collapsed()" [class.bg-white/5]="isSectionOpen('reportes')"
+          [class.text-pink-400]="isSectionOpen('reportes')">
+          <i class="pi pi-chart-bar text-base flex-shrink-0"></i>
+          <span class="flex-1 text-left" [class.lg:hidden]="collapsed()">Reportes</span>
+          <i class="pi text-xs" [class.lg:hidden]="collapsed()" [class.pi-chevron-down]="!isSectionOpen('reportes')"
+            [class.pi-chevron-up]="isSectionOpen('reportes')"></i>
+        </button>
+
+        @if (isSectionOpen('reportes')) {
+        <div class="ml-4 flex flex-col gap-0.5 border-l border-white/10 pl-3 mt-0.5" [class.lg:hidden]="collapsed()">
+          <a routerLink="/admin/reports/sales" (click)="layout.close()"
+            routerLinkActive="bg-pink-500/15 text-pink-300 font-semibold border-r-2 border-pink-500"
+            class="py-2 px-2 text-sm text-slate-400 hover:text-slate-100 transition-colors rounded">
+            Ventas
+          </a>
+          <a routerLink="/admin/reports/inventory" (click)="layout.close()"
+            routerLinkActive="bg-pink-500/15 text-pink-300 font-semibold border-r-2 border-pink-500"
+            class="py-2 px-2 text-sm text-slate-400 hover:text-slate-100 transition-colors rounded">
+            Inventario
+          </a>
+          <a routerLink="/admin/reports/purchases" (click)="layout.close()"
+            routerLinkActive="bg-pink-500/15 text-pink-300 font-semibold border-r-2 border-pink-500"
+            class="py-2 px-2 text-sm text-slate-400 hover:text-slate-100 transition-colors rounded">
+            Compras
+          </a>
+          <a routerLink="/admin/reports/customers" (click)="layout.close()"
+            routerLinkActive="bg-pink-500/15 text-pink-300 font-semibold border-r-2 border-pink-500"
+            class="py-2 px-2 text-sm text-slate-400 hover:text-slate-100 transition-colors rounded">
+            Clientes
+          </a>
+          <a routerLink="/admin/reportes/ingresos" (click)="layout.close()"
+            routerLinkActive="bg-pink-500/15 text-pink-300 font-semibold border-r-2 border-pink-500"
+            class="py-2 px-2 text-sm text-slate-400 hover:text-slate-100 transition-colors rounded">
+            Ingresos
+          </a>
+          <a routerLink="/admin/reportes/movimientos" (click)="layout.close()"
+            routerLinkActive="bg-pink-500/15 text-pink-300 font-semibold border-r-2 border-pink-500"
+            class="py-2 px-2 text-sm text-slate-400 hover:text-slate-100 transition-colors rounded">
+            Movimientos de inventario
+          </a>
+        </div>
+        }
+
+      </nav>
+
+      <p class="px-4 py-1 text-[10px] font-bold text-slate-500 uppercase tracking-widest mt-2"
+        [class.lg:hidden]="collapsed()">Operaciones</p>
+
+      <nav class="px-2 flex flex-col gap-0.5">
+        <a routerLink="/admin/operaciones/productos-vencer" (click)="layout.close()"
+          routerLinkActive="bg-pink-500/15 text-pink-300 font-semibold border-r-2 border-pink-500"
+          class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:text-slate-100 hover:bg-white/5 transition-colors text-sm"
+          [class.lg:justify-center]="collapsed()">
+          <i class="pi pi-calendar text-base flex-shrink-0"></i>
+          <span [class.lg:hidden]="collapsed()">Productos por vencer</span>
+        </a>
+        <a routerLink="/admin/alertas" (click)="layout.close()"
+          routerLinkActive="bg-pink-500/15 text-pink-300 font-semibold border-r-2 border-pink-500"
+          class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:text-slate-100 hover:bg-white/5 transition-colors text-sm"
+          [class.lg:justify-center]="collapsed()">
+          <i class="pi pi-bell text-base flex-shrink-0"></i>
+          <span [class.lg:hidden]="collapsed()">Alertas de stock</span>
+        </a>
+      </nav>
+
+    </div>
+
+    <div class="border-t border-white/10 p-3 flex-shrink-0 bg-slate-950/60 backdrop-blur-md">
+      <a routerLink="/admin/ayuda" (click)="layout.close()"
+        routerLinkActive="bg-pink-500/15 text-pink-300 font-semibold border-r-2 border-pink-500"
+        class="flex items-center gap-3 px-2 py-2 rounded-lg text-slate-400 hover:text-slate-100 hover:bg-white/5 transition-colors text-sm font-medium"
+        [class.lg:justify-center]="collapsed()">
+        <i class="pi pi-question-circle text-base flex-shrink-0"></i>
+        <span [class.lg:hidden]="collapsed()">Ayuda</span>
+      </a>
+
+      <a routerLink="/admin/almacen" (click)="layout.close()"
+        routerLinkActive="bg-pink-500/15 text-pink-300 font-semibold border-r-2 border-pink-500"
+        class="flex items-center gap-3 px-2 py-2 rounded-lg text-slate-400 hover:text-slate-100 hover:bg-white/5 transition-colors text-sm font-medium"
+        [class.lg:justify-center]="collapsed()">
+        <i class="pi pi-box text-base flex-shrink-0"></i>
+        <span [class.lg:hidden]="collapsed()">Almacén</span>
+      </a>
+
+      <button (click)="logout()"
+        class="flex items-center gap-3 px-2 py-2 w-full rounded-lg text-slate-400 hover:text-red-400 hover:bg-red-500/10 transition-colors text-sm font-medium"
+        [class.lg:justify-center]="collapsed()">
+        <i class="pi pi-sign-out text-base flex-shrink-0"></i>
+        <span [class.lg:hidden]="collapsed()">Cerrar sesión</span>
+      </button>
+
+      <div class="relative mt-1 border-t border-white/10 pt-3 user-menu-container">
+        <button (click)="toggleUserMenu()"
+          class="flex items-center gap-3 px-2 py-2 w-full rounded-lg hover:bg-white/5 transition-colors"
+          [class.lg:justify-center]="collapsed()">
+          <div
+            class="w-8 h-8 rounded-full bg-pink-500/20 text-pink-300 border border-pink-500/30 flex items-center justify-center text-sm font-bold flex-shrink-0">
+            {{ user?.firstName?.charAt(0) }}
+          </div>
+
+          <div class="flex-1 overflow-hidden text-left" [class.lg:hidden]="collapsed()">
+            <p class="text-sm font-bold text-slate-200 leading-tight truncate">{{ user?.firstName }}</p>
+            <p class="text-xs font-semibold text-slate-400 leading-tight capitalize">{{ user?.role }}</p>
+          </div>
+          <i class="pi pi-ellipsis-h text-slate-500 text-sm" [class.lg:hidden]="collapsed()"></i>
+        </button>
+
+        @if (userMenuOpen()) {
+        <div
+          class="absolute bottom-full left-2 right-2 mb-1 bg-slate-900 border border-slate-700/80 rounded-xl shadow-xl overflow-hidden z-50">
+
+          <div class="px-4 py-3 border-b border-slate-800 bg-slate-950/50">
+            <p class="text-sm font-bold text-slate-100 truncate">{{ user?.firstName }} {{ user?.surName }}</p>
+            <p class="text-xs text-slate-400 truncate">{{ user?.email }}</p>
+          </div>
+
+          <div class="py-1">
+            <a routerLink="/admin/profile" (click)="userMenuOpen.set(false); layout.close()"
+              class="flex items-center gap-3 px-4 py-2.5 text-sm font-medium text-slate-300 hover:text-white hover:bg-white/5 transition-colors">
+              <i class="pi pi-user text-base"></i>
+              <span>Ver perfil</span>
+            </a>
+          </div>
+
+        </div>
+        }
       </div>
-      }
+
     </div>
 
   </div>
