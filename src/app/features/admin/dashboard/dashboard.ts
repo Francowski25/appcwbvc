@@ -1,26 +1,30 @@
 import { Component, OnInit, signal, computed, inject } from '@angular/core';
-import { DatePipe, DecimalPipe, registerLocaleData } from '@angular/common';
+import { registerLocaleData } from '@angular/common';
 import localeEs from '@angular/common/locales/es';
 import { Api } from '../../../api/api';
 import { ChartModule } from 'primeng/chart';
 import { productGetall, purchaseRecent, saleKpi, saleRecent, saleTopProduct, saleWeek, userGetall } from '../../../api/functions';
+import { DashboardBottomPanels } from './dashboard-bottom-panels/dashboard-bottom-panels';
+import { DashboardGraphics } from './dashboard-graphics/dashboard-graphics';
+import { DashboardKpi } from './dashboard-kpi/dashboard-kpi';
+import { DashboardMiddlePanels } from './dashboard-middle-panels/dashboard-middle-panels';
 
 registerLocaleData(localeEs, 'es');
 
 @Component({
   selector: 'app-dashboard',
-  imports: [DatePipe, DecimalPipe, ChartModule],
+  imports: [
+    ChartModule,
+    DashboardBottomPanels,
+    DashboardGraphics,
+    DashboardKpi,
+    DashboardMiddlePanels
+  ],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css',
 })
 export class Dashboard implements OnInit {
   private readonly api = inject(Api);
-
-  today: Date = new Date();
-  user = (() => {
-    const raw = localStorage.getItem('current_user');
-    return raw ? JSON.parse(raw) : null;
-  })();
 
   kpi = signal<any>(null);
   salesWeek = signal<any[]>([]);

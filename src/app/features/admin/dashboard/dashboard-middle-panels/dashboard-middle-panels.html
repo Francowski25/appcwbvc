@@ -1,0 +1,178 @@
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-stretch">
+
+    <div
+        class="lg:col-span-3 bg-white rounded-2xl border border-slate-200/60 shadow-sm p-5 flex flex-col justify-between w-full lg:min-h-[360px]">
+        <div class="flex flex-col h-full justify-between">
+            <div>
+                <div class="flex items-start justify-between mb-3 shrink-0">
+                    <div>
+                        <h3 class="text-sm font-extrabold text-slate-800 m-0">Top Productos</h3>
+                        <p class="text-[11px] text-slate-400 m-0 mt-0.5">Demanda del mes</p>
+                    </div>
+                    <div class="flex gap-1 bg-slate-100 p-0.5 rounded-lg text-[10px] font-bold">
+                        <span class="bg-indigo-600 text-white px-2 py-0.5 rounded-md shadow-xs">Ventas</span>
+                    </div>
+                </div>
+
+                @if (topProductos().length > 0) {
+                <div class="flex flex-col gap-3 mt-2 max-h-[260px] lg:max-h-[280px] overflow-y-auto pr-1">
+                    @for (item of topProductos(); track item.productName) {
+                    <div>
+                        <div class="flex justify-between items-center text-xs mb-1">
+                            <span class="font-medium text-slate-700 truncate max-w-[130px]">{{ item.productName
+                                }}</span>
+                            <span class="font-bold text-indigo-600">{{ item.totalQty }} u.</span>
+                        </div>
+                        <div class="w-full bg-slate-100 rounded-lg h-2 overflow-hidden">
+                            <div class="bg-indigo-500 h-full rounded-lg" [style.width.%]="item.pct"></div>
+                        </div>
+                    </div>
+                    }
+                </div>
+                } @else {
+                <div class="flex flex-col items-center justify-center py-10 text-slate-300">
+                    <i class="pi pi-box text-2xl mb-1"></i>
+                    <p class="text-xs text-slate-400 m-0">Sin datos de productos</p>
+                </div>
+                }
+            </div>
+        </div>
+    </div>
+
+    <div
+        class="lg:col-span-4 bg-white rounded-2xl border border-slate-200/60 shadow-sm p-5 flex flex-col justify-between w-full lg:min-h-[360px]">
+        <div class="flex flex-col h-full justify-between gap-3">
+            <div class="flex flex-col min-h-0">
+                <div class="flex items-start justify-between mb-3 shrink-0">
+                    <div>
+                        <h3 class="text-sm font-extrabold text-slate-800 m-0 flex items-center gap-1.5">
+                            <i class="pi pi-bell text-indigo-600"></i> Alertas del Sistema
+                        </h3>
+                        <p class="text-[11px] text-slate-400 m-0 mt-0.5">Inventarios y vencimientos</p>
+                    </div>
+                    @if (totalAlertas() > 0) {
+                    <span
+                        class="text-[10px] px-2 py-0.5 rounded-full bg-rose-50 text-rose-600 font-bold border border-rose-100">
+                        {{ totalAlertas() }} activas
+                    </span>
+                    }
+                </div>
+
+                <div class="flex flex-col gap-2 max-h-[220px] lg:max-h-[240px] overflow-y-auto pr-1">
+                    @for (p of alertasStock(); track p.idProduct) {
+                    @if (+p.totalStock === 0) {
+                    <div
+                        class="flex items-center justify-between p-2 bg-rose-50/50 rounded-xl border border-rose-100/80 text-xs">
+                        <div class="flex items-center gap-2 truncate">
+                            <span class="w-2 h-2 rounded-full bg-rose-500 shrink-0"></span>
+                            <span class="font-bold text-rose-900 truncate">{{ p.name }}</span>
+                        </div>
+                        <span
+                            class="text-[10px] font-bold text-rose-600 bg-rose-100 px-1.5 py-0.5 rounded shrink-0">Agotado</span>
+                    </div>
+                    } @else {
+                    <div
+                        class="flex items-center justify-between p-2 bg-amber-50/50 rounded-xl border border-amber-100/80 text-xs">
+                        <div class="flex items-center gap-2 truncate">
+                            <span class="w-2 h-2 rounded-full bg-amber-500 shrink-0"></span>
+                            <span class="font-semibold text-amber-900 truncate">{{ p.name }}</span>
+                        </div>
+                        <span class="text-[10px] text-amber-700 font-bold shrink-0">{{ p.totalStock }}/{{ p.stockMinimum
+                            }} u.</span>
+                    </div>
+                    }
+                    }
+
+                    @for (p of alertasVencimiento(); track p.idProduct) {
+                    <div
+                        class="flex items-center justify-between p-2 bg-indigo-50/50 rounded-xl border border-indigo-100/80 text-xs">
+                        <div class="flex items-center gap-2 truncate">
+                            <span class="w-2 h-2 rounded-full bg-indigo-500 shrink-0"></span>
+                            <span class="font-semibold text-indigo-900 truncate">{{ p.name }}</span>
+                        </div>
+                        <span class="text-[10px] text-indigo-600 font-bold shrink-0">Vence: {{ p.nextExpiration
+                            }}</span>
+                    </div>
+                    }
+
+                    @if (totalAlertas() === 0) {
+                    <div class="flex flex-col items-center justify-center py-10 text-slate-300">
+                        <i class="pi pi-check-circle text-3xl mb-1 text-emerald-400"></i>
+                        <p class="text-xs text-slate-400 m-0">Sin alertas activas</p>
+                    </div>
+                    }
+                </div>
+            </div>
+
+            <button
+                class="w-full py-1.5 text-xs font-bold text-indigo-600 rounded-xl text-center border border-indigo-100 shrink-0">
+                Ver panel de alertas →
+            </button>
+        </div>
+    </div>
+
+    <div
+        class="lg:col-span-5 bg-white rounded-2xl border border-slate-200/60 shadow-sm p-5 flex flex-col justify-between w-full lg:min-h-[360px]">
+        <div class="flex flex-col h-full justify-between">
+            <div>
+                <div class="flex items-start justify-between mb-3 shrink-0">
+                    <div>
+                        <h3 class="text-sm font-extrabold text-slate-800 m-0">Últimas Ventas</h3>
+                        <p class="text-[11px] text-slate-400 m-0 mt-0.5">Transacciones recientes</p>
+                    </div>
+                    <a routerLink="/admin/ventas/historial"
+                        class="text-xs font-bold text-indigo-600 hover:text-indigo-800 hover:underline transition-colors cursor-pointer">
+                        Ver todas
+                    </a>
+                </div>
+
+                @if (recentSales().length > 0) {
+                <div class="flex flex-col gap-2 max-h-[260px] lg:max-h-[280px] overflow-y-auto pr-1">
+                    @for (venta of recentSales(); track venta.saleNumber) {
+                    @let hasCustomer = venta.customerName && venta.customerName !== '-' && venta.customerName !== '—';
+
+                    <div class="flex items-center justify-between p-2 bg-slate-50/80 rounded-xl">
+                        <div class="flex items-center gap-2.5 min-w-0">
+                            <div class="w-8 h-8 rounded-full flex items-center justify-center shrink-0"
+                                [class]="hasCustomer ? 'bg-pink-100' : 'bg-amber-100'">
+                                <span class="text-xs font-bold"
+                                    [class]="hasCustomer ? 'text-pink-600' : 'text-amber-600'">
+                                    {{ hasCustomer ? venta.customerName.charAt(0).toUpperCase() : '⚡' }}
+                                </span>
+                            </div>
+
+                            <div class="min-w-0">
+                                <p class="text-xs font-bold text-slate-800 truncate m-0">
+                                    {{ hasCustomer ? venta.customerName : 'Venta rápida' }}
+                                </p>
+                                <p class="text-[10px] text-slate-400 m-0">
+                                    #{{ venta.saleNumber }} · {{ getHora(venta.saleDate) }}
+                                    @if (venta.customerDocument && venta.customerDocument !== '-' &&
+                                    venta.customerDocument !== '—') {
+                                    · {{ venta.customerDocument }}
+                                    }
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="text-right shrink-0">
+                            <span class="text-xs font-black text-slate-800">S/ {{ venta.total | number:'1.2-2' }}</span>
+                            <span
+                                class="block text-[9px] uppercase font-bold text-indigo-600 bg-indigo-50 px-1 rounded">
+                                {{ venta.paymentMethod }}
+                            </span>
+                        </div>
+                    </div>
+                    }
+                </div>
+                } @else {
+                <div class="flex flex-col items-center justify-center py-10 text-slate-300">
+                    <i class="pi pi-inbox text-3xl mb-1"></i>
+                    <p class="text-xs text-slate-400 m-0">Sin transacciones registradas</p>
+                </div>
+                }
+            </div>
+        </div>
+    </div>
+
+</div>

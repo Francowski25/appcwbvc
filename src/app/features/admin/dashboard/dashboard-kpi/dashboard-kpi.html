@@ -1,0 +1,126 @@
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
+
+    <!-- KPI 1: Ventas Hoy -->
+    <div class="bg-white rounded-2xl p-4 border border-slate-200/60 shadow-sm flex flex-col justify-between">
+        <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <div
+                    class="w-8 h-8 rounded-lg bg-indigo-50 border border-indigo-100 flex items-center justify-center text-indigo-600">
+                    <i class="pi pi-chart-line text-sm"></i>
+                </div>
+                <span class="text-xs font-bold text-slate-500">Ventas Hoy</span>
+            </div>
+        </div>
+        <div class="mt-3 flex items-baseline justify-between">
+            <div>
+                <h2 class="text-xl font-black text-slate-800 tracking-tight">
+                    S/ {{ kpi()?.ventasHoy | number:'1.2-2' }}
+                </h2>
+                <div class="mt-1 flex flex-col text-[11px] gap-0.5">
+                    @if (pctVentas() !== null) {
+                    <div class="flex items-center gap-1 font-bold"
+                        [class]="pctVentas()! >= 0 ? 'text-emerald-600' : 'text-rose-600'">
+                        <span>vs Ayer:</span>
+                        <i [class]="pctVentas()! >= 0 ? 'pi pi-arrow-up-right' : 'pi pi-arrow-down-right'"></i>
+                        <span>{{ pctVentas()! >= 0 ? '+' : '' }}{{ pctVentas() }}%</span>
+                    </div>
+                    } @else {
+                    <span class="text-slate-400 italic">Sin datos de ayer</span>
+                    }
+                </div>
+            </div>
+            <div class="w-16 h-8 text-indigo-500 opacity-80 flex items-end justify-end">
+                <svg class="w-full h-full stroke-current fill-none stroke-2" viewBox="0 0 50 25">
+                    <path d="M 0 20 Q 12 5, 25 15 T 50 5" />
+                </svg>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-white rounded-2xl p-4 border border-slate-200/60 shadow-sm flex flex-col justify-between">
+        <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <div
+                    class="w-8 h-8 rounded-lg bg-indigo-50 border border-indigo-100 flex items-center justify-center text-indigo-600">
+                    <i class="pi pi-shopping-bag text-sm"></i>
+                </div>
+                <span class="text-xs font-bold text-slate-500">Transacciones</span>
+            </div>
+        </div>
+        <div class="mt-3 flex items-baseline justify-between">
+            <div>
+                <h2 class="text-xl font-black text-slate-800 tracking-tight">
+                    {{ kpi()?.transaccionesHoy ?? 0 }}
+                </h2>
+                <p class="mt-1 text-[11px] font-semibold text-indigo-600 m-0">Ventas del día</p>
+            </div>
+            <div class="w-16 h-8 text-indigo-500 opacity-80 flex items-end justify-end">
+                <svg class="w-full h-full stroke-current fill-none stroke-2" viewBox="0 0 50 25">
+                    <path d="M 0 15 Q 15 25, 30 10 T 50 2" />
+                </svg>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-white rounded-2xl p-4 border border-slate-200/60 shadow-sm flex flex-col justify-between">
+        <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <div
+                    class="w-8 h-8 rounded-lg bg-indigo-50 border border-indigo-100 flex items-center justify-center text-indigo-600">
+                    <i class="pi pi-box text-sm"></i>
+                </div>
+                <span class="text-xs font-bold text-slate-500">Valor Inventario</span>
+            </div>
+        </div>
+        <div class="mt-3">
+            <h2 class="text-xl font-black text-slate-800 tracking-tight truncate">
+                S/ {{ valorAlmacen() | number:'1.2-2' }}
+            </h2>
+            <div class="mt-1.5 flex items-center gap-1.5 flex-wrap">
+                <span class="text-[10px] font-bold text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded">{{
+                    productosOk() }} OK</span>
+                <span class="text-[10px] font-bold text-amber-600 bg-amber-50 px-1.5 py-0.5 rounded">{{
+                    stockCriticoLocal() }} Crit.</span>
+                <span class="text-[10px] font-bold text-rose-600 bg-rose-50 px-1.5 py-0.5 rounded">{{ agotadosLocal() }}
+                    Agot.</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-white rounded-2xl p-4 border border-slate-200/60 shadow-sm flex flex-col justify-between">
+        <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <div
+                    class="w-8 h-8 rounded-lg bg-rose-50 border border-rose-100 flex items-center justify-center text-rose-600">
+                    <i class="pi pi-exclamation-triangle text-sm"></i>
+                </div>
+                <span class="text-xs font-bold text-slate-500">Stock Crítico</span>
+            </div>
+        </div>
+        <div class="mt-3 flex items-baseline justify-between">
+            <div>
+                <h2 class="text-xl font-black text-slate-800 tracking-tight">{{ kpi()?.stockCritico ?? 0 }}</h2>
+                <p class="mt-1 text-[11px] font-semibold text-rose-600 m-0">Requieren atención</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-white rounded-2xl p-4 border border-slate-200/60 shadow-sm flex flex-col justify-between">
+        <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <div
+                    class="w-8 h-8 rounded-lg bg-amber-50 border border-amber-100 flex items-center justify-center text-amber-600">
+                    <i class="pi pi-clock text-sm"></i>
+                </div>
+                <span class="text-xs font-bold text-slate-500">Por Vencer</span>
+            </div>
+        </div>
+        <div class="mt-3 flex items-baseline justify-between">
+            <div>
+                <h2 class="text-xl font-black text-slate-800 tracking-tight">{{ kpi()?.porVencer30Dias ?? 0 }}</h2>
+                <p class="mt-1 text-[11px] font-semibold text-amber-600 m-0">Próximos 30 días</p>
+            </div>
+        </div>
+    </div>
+
+</div>
