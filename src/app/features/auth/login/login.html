@@ -1,59 +1,165 @@
-<div class="flex min-h-screen items-center justify-center bg-gray-50 px-4">
-  <div class="card w-full max-w-md p-6">
+<div class="grid min-h-screen w-full grid-cols-1 lg:grid-cols-12 bg-slate-900 font-sans">
 
-    <div class="flex items-center justify-center gap-4 mb-6">
-      <div class="w-20 h-20">
-        <img src="logo.png" alt="Logo Botica" class="w-full h-full object-contain" />
+  <div
+    class="hidden lg:flex lg:col-span-7 flex-col justify-between relative p-12 overflow-hidden bg-gradient-to-br from-slate-950 via-slate-900 to-pink-950">
+
+    <img src="fondo-logo.png" alt="Virgen de Cocharcas"
+      class="absolute inset-0 w-full h-full object-contain object-center opacity-25 pointer-events-none mix-blend-luminosity scale-110" />
+
+    <div class="absolute -top-32 -left-32 w-96 h-96 bg-pink-600/20 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="absolute bottom-10 right-10 w-80 h-80 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none">
+    </div>
+
+    <div class="relative z-10 flex items-center gap-3">
+      <div
+        class="w-10 h-10 bg-white/10 backdrop-blur-md rounded-xl p-1.5 border border-white/15 flex items-center justify-center">
+        <img src="logo.png" alt="Logo" class="w-full h-full object-contain filter drop-shadow" />
       </div>
-      <div class="w-px h-14 bg-gray-300"></div>
       <div>
-        <h1 class="text-lg font-bold leading-tight text-pink-600">Virgen de</h1>
-        <p class="text-sm font-bold leading-tight text-green-600">COCHARCAS</p>
+        <span class="text-sm font-black tracking-wide text-white block leading-none">VIRGEN DE COCHARCAS</span>
+        <span class="text-[10px] uppercase font-bold text-emerald-400 tracking-widest">Farmacia & Salud</span>
       </div>
     </div>
 
-    <div class="text-center mb-6">
-      <h2 class="text-lg font-medium text-gray-700">Iniciar sesión</h2>
-      <p class="text-sm text-gray-400">Ingresa tus credenciales para continuar</p>
-    </div>
+    <div class="relative z-10 my-auto max-w-xl">
 
-    <form (ngSubmit)="onSubmit()">
-
-      <div class="flex flex-col gap-2 mb-4">
-        <label for="email" class="font-medium text-sm">Correo electrónico</label>
-        <p-iconField>
-          <p-inputIcon styleClass="pi pi-envelope" />
-          <input pInputText id="email" type="email" class="w-full" [ngModel]="email()"
-            (ngModelChange)="email.set($event)" name="email" placeholder="usuario@botica.com" autocomplete="email"
-            required />
-        </p-iconField>
+      <!-- Badge / Píldora de Versión con pulso activo -->
+      <div class="inline-flex items-center gap-2 px-3 py-1 bg-pink-500/10 border border-pink-500/30 rounded-full mb-6">
+        <span class="relative flex h-2 w-2">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+        </span>
+        <span class="text-pink-200 font-bold text-xs tracking-wide">
+          Sistema Intranet v2.0
+        </span>
       </div>
 
-      <div class="flex flex-col gap-2 mb-4">
-        <label for="passwd" class="font-medium text-sm">Contraseña</label>
-        <p-password inputId="passwd" [ngModel]="passwd()" (ngModelChange)="passwd.set($event)" name="passwd"
-          placeholder="••••••••" [feedback]="false" [toggleMask]="true" styleClass="w-full" inputStyleClass="w-full"
-          autocomplete="current-password" required />
-      </div>
+      <h1
+        class="text-4xl xl:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-100 to-pink-200 leading-[1.15] tracking-tight mb-4">
+        Gestión farmacéutica de Virgen de Cocharcas.
+      </h1>
 
-      <div class="flex justify-between items-center mb-4">
-        <div class="flex items-center gap-2">
-          <p-checkbox inputId="remember" [binary]="true" />
-          <label for="remember" class="text-sm text-gray-600 cursor-pointer">Recordarme</label>
+      <p class="text-slate-300 text-sm xl:text-base leading-relaxed font-normal mb-8">
+        Gestión unificada de farmacia para optimizar la atención, el inventario y nuestras ventas.
+      </p>
+
+      <div class="flex items-center gap-6 border-t border-white/10 pt-6">
+
+        <div class="flex items-center gap-2.5">
+          <div
+            class="w-8 h-8 rounded-lg bg-pink-500/15 border border-pink-500/20 flex items-center justify-center text-pink-300">
+            <i class="pi pi-box text-sm"></i>
+          </div>
+          <span class="text-xs font-bold text-slate-200 tracking-wide uppercase">Inventario</span>
         </div>
-        <a routerLink="/forgot-password" class="text-sm text-primary-600 hover:underline">
-          ¿Olvidaste tu contraseña?
-        </a>
+
+        <div class="w-px h-4 bg-white/15"></div>
+
+        <div class="flex items-center gap-2.5">
+          <div
+            class="w-8 h-8 rounded-lg bg-emerald-500/15 border border-emerald-500/20 flex items-center justify-center text-emerald-300">
+            <i class="pi pi-shopping-cart text-sm"></i>
+          </div>
+          <span class="text-xs font-bold text-slate-200 tracking-wide uppercase">Ventas</span>
+        </div>
+
+        <div class="w-px h-4 bg-white/15"></div>
+
+        <div class="flex items-center gap-2.5">
+          <div
+            class="w-8 h-8 rounded-lg bg-pink-500/15 border border-pink-500/20 flex items-center justify-center text-pink-300">
+            <i class="pi pi-list-check text-sm"></i>
+          </div>
+          <span class="text-xs font-bold text-slate-200 tracking-wide uppercase">Control de Stock</span>
+        </div>
+
       </div>
 
-      @if (error()) {
-      <p-message severity="error" [text]="error()" styleClass="w-full mb-4" />
-      }
+    </div>
 
-      <p-button type="submit" label="Iniciar sesión" icon="pi pi-sign-in" styleClass="w-full" [loading]="loading()"
-        [disabled]="!email() || !passwd() || loading()" />
-
-    </form>
-
+    <div class="relative z-10 flex items-center justify-between text-xs text-slate-400 border-t border-white/10 pt-4">
+      <span>© 2026 Botica Virgen de Cocharcas</span>
+    </div>
   </div>
+
+  <div class="col-span-1 lg:col-span-5 flex items-center justify-center bg-slate-50 p-6 sm:p-12 relative">
+
+    <div
+      class="w-full max-w-md bg-white p-8 sm:p-10 rounded-3xl border border-slate-200/80 shadow-xl shadow-slate-200/50">
+
+      <div class="flex items-center gap-3 mb-8 lg:hidden">
+        <div class="w-12 h-12 bg-pink-50 rounded-2xl p-2 border border-pink-100 flex items-center justify-center">
+          <img src="logo.png" alt="Logo" class="w-full h-full object-contain" />
+        </div>
+        <div>
+          <h2 class="text-base font-extrabold text-slate-900 leading-tight">Virgen de Cocharcas</h2>
+          <p class="text-xs text-emerald-600 font-bold">Portal de Acceso</p>
+        </div>
+      </div>
+
+      <div class="mb-8">
+        <h2 class="text-2xl font-black text-slate-900 tracking-tight">Bienvenido de nuevo</h2>
+        <p class="text-xs text-slate-500 font-medium mt-1">Ingresa tus credenciales para acceder al sistema</p>
+      </div>
+
+      <form (ngSubmit)="onSubmit()" class="space-y-5">
+
+        <div class="flex flex-col gap-1.5">
+          <label for="email" class="font-bold text-xs text-slate-700 uppercase tracking-wider">
+            Correo Electrónico
+          </label>
+          <p-iconField styleClass="w-full">
+            <p-inputIcon styleClass="pi pi-envelope text-slate-400" />
+            <input pInputText id="email" type="email"
+              class="w-full !rounded-xl !border-slate-300 focus:!border-pink-500 !text-sm !py-3" [ngModel]="email()"
+              (ngModelChange)="email.set($event)" name="email" placeholder="ejemplo@botica.com" autocomplete="email"
+              required />
+          </p-iconField>
+        </div>
+
+        <div class="flex flex-col gap-1.5">
+          <div class="flex justify-between items-center">
+            <label for="passwd" class="font-bold text-xs text-slate-700 uppercase tracking-wider">
+              Contraseña
+            </label>
+            <a routerLink="/forgot-password"
+              class="text-xs font-bold text-pink-600 hover:text-pink-700 transition-colors">
+              ¿Olvidaste tu clave?
+            </a>
+          </div>
+          <p-password inputId="passwd" [ngModel]="passwd()" (ngModelChange)="passwd.set($event)" name="passwd"
+            placeholder="••••••••" [feedback]="false" [toggleMask]="true" styleClass="w-full"
+            inputStyleClass="w-full !rounded-xl !border-slate-300 focus:!border-pink-500 !text-sm !py-3"
+            autocomplete="current-password" required />
+        </div>
+
+        <div class="flex items-center gap-2 pt-1">
+          <p-checkbox inputId="remember" [binary]="true" styleClass="rounded-lg" />
+          <label for="remember" class="text-xs text-slate-600 font-medium cursor-pointer select-none">
+            Mantener sesión iniciada
+          </label>
+        </div>
+
+        @if (error()) {
+        <div class="animate-fade-in">
+          <p-message severity="error" [text]="error()" styleClass="w-full !rounded-xl" />
+        </div>
+        }
+
+        <p-button type="submit" label="Iniciar Sesión" icon="pi pi-arrow-right" iconPos="right"
+          styleClass="w-full !bg-pink-600 hover:!bg-pink-700 !border-none !py-3.5 !rounded-xl !font-bold !text-sm shadow-lg shadow-pink-600/30 transition-all"
+          [loading]="loading()" [disabled]="!email() || !passwd() || loading()" />
+
+      </form>
+
+      <div class="mt-8 text-center border-t border-slate-100 pt-6">
+        <p class="text-[11px] text-slate-400">
+          ¿Problemas para acceder? <span class="text-slate-600 font-bold cursor-pointer hover:underline">Contacta a
+            soporte TI</span>
+        </p>
+      </div>
+
+    </div>
+  </div>
+
 </div>
