@@ -1,16 +1,19 @@
-import { Component, input, output, signal, inject } from '@angular/core';
+import { Component, output, signal, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { MessageService } from 'primeng/api';
 import { Api } from '../../../../api/api';
 import { categoryInsert } from '../../../../api/functions';
-import { DialogModule } from 'primeng/dialog';
 
 @Component({
   selector: 'app-category-insert',
   standalone: true,
-  imports: [FormsModule, InputTextModule, ProgressSpinnerModule, DialogModule],
+  imports: [
+    FormsModule,
+    InputTextModule,
+    ProgressSpinnerModule
+  ],
   templateUrl: './category-insert.html',
   styleUrl: './category-insert.css',
 })
@@ -19,9 +22,8 @@ export class CategoryInsert {
   private readonly api = inject(Api);
   private readonly messageService = inject(MessageService);
 
-  visible = input<boolean>(false);
-  onClose = output<void>();
-  onCrearCategoria = output<void>();
+  cerrarDialog = output<void>();
+  categoriaRegistrada = output<void>();
 
   name = signal('');
   nameError = signal('');
@@ -41,9 +43,9 @@ export class CategoryInsert {
     reader.readAsDataURL(file);
   }
 
-  onHide(): void {
+  cerrarModal(): void {
     this.resetForm();
-    this.onClose.emit();
+    this.cerrarDialog.emit();
   }
 
   resetForm(): void {
@@ -78,12 +80,22 @@ export class CategoryInsert {
 
       switch (res.type) {
         case 'success':
-          this.messageService.add({ severity: 'success', summary: 'Éxito', detail: res.listMessage[0], life: 4000 });
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Éxito',
+            detail: res.listMessage?.[0] ?? 'Categoría registrada exitosamente.',
+            life: 4000
+          });
           this.resetForm();
-          this.onCrearCategoria.emit();
+          this.categoriaRegistrada.emit();
           break;
         case 'warning':
-          this.messageService.add({ severity: 'warn', summary: 'Advertencia', detail: res.listMessage[0], life: 5000 });
+          this.messageService.add({
+            severity: 'warn',
+            summary: 'Advertencia',
+            detail: res.listMessage?.[0] ?? 'Ocurrió una advertencia.',
+            life: 5000
+          });
           break;
         default:
           this.error.set(res.listMessage?.[0] ?? 'Error al registrar.');

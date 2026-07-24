@@ -1,101 +1,88 @@
-<p-dialog [visible]="visible()" (visibleChange)="!$event && onHide()" [modal]="true" [draggable]="false"
-    [resizable]="false" [dismissableMask]="false" [style]="{ width: '52rem' }" [breakpoints]="{ '768px': '95vw' }"
-    styleClass="!rounded-2xl !p-0 overflow-hidden">
+<div class="px-6 max-w-4xl mx-auto py-4">
+    <div class="card bg-white rounded-2xl w-full">
 
-    <ng-template pTemplate="header">
-        <div class="flex items-center gap-4 py-1">
+        <!-- Sección Carga de Imagen -->
+        <div class="flex flex-col sm:flex-row items-center gap-5 mb-6 pb-6 border-b border-pink-50">
             <div
-                class="w-12 h-12 rounded-full bg-pink-100 flex items-center justify-center text-pink-500 border border-pink-200 shrink-0">
-                <i class="pi pi-tag text-xl"></i>
+                class="w-24 h-24 shrink-0 rounded-2xl overflow-hidden border border-gray-100 bg-pink-50 flex items-center justify-center ring-2 ring-pink-100 shadow-inner">
+                @if (previewUrl()) {
+                <img [src]="previewUrl()" alt="Preview" class="w-full h-full object-cover" />
+                } @else {
+                <i class="pi pi-tag text-pink-300 text-3xl"></i>
+                }
             </div>
-            <div class="text-left">
-                <h2 class="font-bold text-base md:text-lg text-slate-700 leading-tight">Registrar Nueva Categoría</h2>
-                <p class="text-xs text-slate-400 mt-0.5 leading-normal font-normal">
-                    Complete la información de la categoría a registrar.
-                </p>
+
+            <div class="flex flex-col text-center sm:text-left flex-1 gap-2">
+                <label class="text-xs font-bold text-slate-400 uppercase tracking-wider">
+                    Imagen <span class="text-gray-300 font-normal normal-case">(Opcional)</span>
+                </label>
+                <div class="flex justify-center sm:justify-start">
+                    <label for="fileCategoryInput" [class.opacity-60]="loading()"
+                        [class.pointer-events-none]="loading()"
+                        class="flex items-center gap-2 bg-white hover:bg-gray-50 text-slate-600 border border-gray-200 px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer shadow-sm">
+                        <i class="pi pi-upload text-sm"></i>
+                        <span>{{ selectedFileName() || 'Seleccionar imagen' }}</span>
+                    </label>
+                    <input id="fileCategoryInput" type="file" accept="image/*" class="hidden"
+                        (change)="onFileSelected($event)" [disabled]="loading()" />
+                </div>
             </div>
         </div>
-    </ng-template>
 
-    <div class="px-6 max-w-4xl mx-auto">
-        <div class="card bg-white rounded-2xl w-full py-6">
+        <!-- Sección Información General -->
+        <p class="text-xs font-bold text-pink-400 uppercase tracking-widest mb-3">Información General</p>
 
-            <div class="flex flex-col sm:flex-row items-center gap-5 mb-6 pb-6 border-b border-pink-50">
-                <div
-                    class="w-24 h-24 shrink-0 rounded-2xl overflow-hidden border border-gray-100 bg-pink-50 flex items-center justify-center ring-2 ring-pink-100 shadow-inner">
-                    @if (previewUrl()) {
-                    <img [src]="previewUrl()" alt="Preview" class="w-full h-full object-cover" />
-                    } @else {
-                    <i class="pi pi-tag text-pink-300 text-3xl"></i>
-                    }
-                </div>
-                <div class="flex flex-col text-center sm:text-left flex-1 gap-2">
-                    <label class="text-xs font-bold text-slate-400 uppercase tracking-wider">
-                        Imagen <span class="text-gray-300 font-normal normal-case">(Opcional)</span>
-                    </label>
-                    <div class="flex justify-center sm:justify-start">
-                        <label for="fileCategoryInput" [class.opacity-60]="loading()"
-                            [class.pointer-events-none]="loading()"
-                            class="flex items-center gap-2 bg-white hover:bg-gray-50 text-slate-600 border border-gray-200 px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer shadow-sm">
-                            <i class="pi pi-upload text-sm"></i>
-                            <span>{{ selectedFileName() || 'Seleccionar imagen' }}</span>
-                        </label>
-                        <input id="fileCategoryInput" type="file" accept="image/*" class="hidden"
-                            (change)="onFileSelected($event)" [disabled]="loading()" />
-                    </div>
-                </div>
-            </div>
+        <div class="grid grid-cols-1 gap-4 mb-6">
+            <div class="flex flex-col gap-1.5">
+                <label class="text-xs font-bold text-slate-400 uppercase tracking-wider">
+                    Nombre <span class="text-pink-400">*</span>
+                </label>
+                <input pInputText [ngModel]="name()" (ngModelChange)="name.set($event)" placeholder="Ej: Analgésicos"
+                    [readonly]="loading()"
+                    class="w-full text-xs py-2.5 rounded-xl border-gray-200 focus:border-pink-300" />
 
-            <p class="text-xs font-bold text-pink-400 uppercase tracking-widest mb-3">Información General</p>
-
-            <div class="grid grid-cols-1 gap-4 mb-6">
-                <div class="flex flex-col gap-1.5">
-                    <label class="text-xs font-bold text-slate-400 uppercase tracking-wider">
-                        Nombre <span class="text-pink-400">*</span>
-                    </label>
-                    <input pInputText [ngModel]="name()" (ngModelChange)="name.set($event)"
-                        placeholder="Ej: Analgésicos" [readonly]="loading()"
-                        class="w-full text-xs py-2.5 rounded-xl border-gray-200 focus:border-pink-300" />
-                    @if (nameError()) {
-                    <small class="text-[11px] text-red-500 font-medium flex items-center gap-1">
-                        <i class="pi pi-exclamation-circle text-[10px]"></i> {{ nameError() }}
-                    </small>
-                    }
-                </div>
-            </div>
-
-            @if (error()) {
-            <div class="bg-red-50 border border-red-200 text-red-600 text-sm rounded-xl px-4 py-3 mb-4">
-                {{ error() }}
-            </div>
-            }
-
-            <hr class="border-pink-50 my-4">
-
-            <div class="flex justify-between items-center">
-                <small class="text-[11px] text-gray-400">
-                    <span class="text-pink-400">*</span> Campos obligatorios
+                @if (nameError()) {
+                <small class="text-[11px] text-red-500 font-medium flex items-center gap-1">
+                    <i class="pi pi-exclamation-circle text-[10px]"></i> {{ nameError() }}
                 </small>
-                <div class="flex gap-3 items-center">
-                    @if (loading()) {
-                    <p-progressspinner styleClass="w-6 h-6" strokeWidth="4" />
-                    }
-                    <div class="flex justify-end items-center gap-3">
-                        <button type="button" (click)="onHide()" [disabled]="loading()"
-                            class="flex items-center justify-center gap-2 bg-white hover:bg-slate-50 text-slate-500 border border-slate-200 px-5 py-2.5 rounded-xl text-xs font-bold transition-all shadow-sm cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed">
-                            <i class="pi pi-arrow-left text-xs"></i>
-                            <span>Regresar</span>
-                        </button>
-                        <button type="button" (click)="onSubmit()" [disabled]="loading()"
-                            class="flex items-center justify-center gap-2 bg-pink-500 hover:bg-pink-600 text-white border border-pink-500 hover:border-pink-600 px-5 py-2.5 rounded-xl text-xs font-bold transition-all shadow-sm cursor-pointer disabled:bg-pink-300 disabled:border-pink-300 disabled:cursor-not-allowed">
-                            <i class="pi pi-plus text-xs"></i>
-                            <span>{{ loading() ? 'Registrando...' : 'Registrar Categoría' }}</span>
-                        </button>
-                    </div>
+                }
+            </div>
+        </div>
+
+        <!-- Mensajes de Error API -->
+        @if (error()) {
+        <div class="bg-red-50 border border-red-200 text-red-600 text-sm rounded-xl px-4 py-3 mb-4">
+            {{ error() }}
+        </div>
+        }
+
+        <hr class="border-pink-50 my-4">
+
+        <!-- Footer / Botones de Acción -->
+        <div class="flex justify-between items-center">
+            <small class="text-[11px] text-gray-400">
+                <span class="text-pink-400">*</span> Campos obligatorios
+            </small>
+
+            <div class="flex gap-3 items-center">
+                @if (loading()) {
+                <p-progressspinner styleClass="w-6 h-6" strokeWidth="4" />
+                }
+                <div class="flex justify-end items-center gap-3">
+                    <button type="button" (click)="cerrarModal()" [disabled]="loading()"
+                        class="flex items-center justify-center gap-2 bg-white hover:bg-slate-50 text-slate-500 border border-slate-200 px-5 py-2.5 rounded-xl text-xs font-bold transition-all shadow-sm cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed">
+                        <i class="pi pi-arrow-left text-xs"></i>
+                        <span>Regresar</span>
+                    </button>
+
+                    <button type="button" (click)="onSubmit()" [disabled]="loading()"
+                        class="flex items-center justify-center gap-2 bg-pink-500 hover:bg-pink-600 text-white border border-pink-500 hover:border-pink-600 px-5 py-2.5 rounded-xl text-xs font-bold transition-all shadow-sm cursor-pointer disabled:bg-pink-300 disabled:border-pink-300 disabled:cursor-not-allowed">
+                        <i class="pi pi-plus text-xs"></i>
+                        <span>{{ loading() ? 'Registrando...' : 'Registrar Categoría' }}</span>
+                    </button>
                 </div>
             </div>
-
         </div>
-    </div>
 
-</p-dialog>
+    </div>
+</div>

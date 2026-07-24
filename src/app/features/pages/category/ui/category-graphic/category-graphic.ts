@@ -35,11 +35,14 @@ export class CategoryGraphic {
           borderColor: 'transparent',
           borderRadius: 8,
           borderSkipped: false,
+          maxBarThickness: 40 // Evita que las barras se vean gigantes en pantallas anchas
         }
       ]
     };
   });
+
   chartOptions = signal<ChartOptions<'bar'>>({
+    responsive: true, // Habilita la respuesta responsive nativa de Chart.js
     maintainAspectRatio: false,
     interaction: {
       mode: 'index',
@@ -87,7 +90,14 @@ export class CategoryGraphic {
     },
     scales: {
       x: {
-        ticks: { color: '#94a3b8', font: { size: 11 } },
+        ticks: {
+          color: '#94a3b8',
+          font: { size: 11 },
+          maxRotation: 45, // Rotación máxima para etiquetas largas en pantallas pequeñas
+          minRotation: 0,
+          autoSkip: true,  // Salta etiquetas automáticamente si hay demasiadas categorías para el espacio
+          maxTicksLimit: 10 // Límite visible para evitar colapsos
+        },
         grid: { display: false },
         border: { display: false }
       },
