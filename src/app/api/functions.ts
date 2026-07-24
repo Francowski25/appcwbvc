@@ -19,10 +19,18 @@ export type { CategoryGetall$Params as CategoryGetall$Params } from './fn/catego
 export { categoryGetall as categoryGetall } from './fn/category/category-getall';
 export type { CategoryInsert$Params as CategoryInsert$Params } from './fn/category/category-insert';
 export { categoryInsert as categoryInsert } from './fn/category/category-insert';
+export type { CategoryStatus$Params as CategoryStatus$Params } from './fn/category/category-status';
+export { categoryStatus as categoryStatus } from './fn/category/category-status';
+export type { CategoryDetail$Params as CategoryDetail$Params } from './fn/category/category-detail';
+export { categoryDetail as categoryDetail } from './fn/category/category-detail';
 export type { LaboratoryGetall$Params as LaboratoryGetall$Params } from './fn/laboratory/laboratory-getall';
 export { laboratoryGetall as laboratoryGetall } from './fn/laboratory/laboratory-getall';
 export type { LaboratoryInsert$Params as LaboratoryInsert$Params } from './fn/laboratory/laboratory-insert';
 export { laboratoryInsert as laboratoryInsert } from './fn/laboratory/laboratory-insert';
+export type { LaboratoryStatus$Params as LaboratoryStatus$Params } from './fn/laboratory/laboratory-status';
+export { laboratoryStatus as laboratoryStatus } from './fn/laboratory/laboratory-status';
+export type { LaboratoryDetail$Params as LaboratoryDetail$Params } from './fn/laboratory/laboratory-detail';
+export { laboratoryDetail as laboratoryDetail } from './fn/laboratory/laboratory-detail';
 export type { InventoryGetall$Params as InventoryGetall$Params } from './fn/inventory/inventory-getall';
 export { inventoryGetall as inventoryGetall } from './fn/inventory/inventory-getall';
 export type { InventoryReportMovements$Params as InventoryReportMovements$Params } from './fn/inventory/inventory-report-movements';
