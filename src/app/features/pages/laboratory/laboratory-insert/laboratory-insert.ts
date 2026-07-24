@@ -1,16 +1,19 @@
-import { Component, input, output, signal, inject } from '@angular/core';
+import { Component, output, signal, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { MessageService } from 'primeng/api';
 import { Api } from '../../../../api/api';
 import { laboratoryInsert } from '../../../../api/functions';
-import { DialogModule } from 'primeng/dialog';
 
 @Component({
   selector: 'app-laboratory-insert',
   standalone: true,
-  imports: [FormsModule, InputTextModule, ProgressSpinnerModule, DialogModule],
+  imports: [
+    FormsModule,
+    InputTextModule,
+    ProgressSpinnerModule
+  ],
   templateUrl: './laboratory-insert.html',
   styleUrl: './laboratory-insert.css',
 })
@@ -19,9 +22,8 @@ export class LaboratoryInsert {
   private readonly api = inject(Api);
   private readonly messageService = inject(MessageService);
 
-  visible = input<boolean>(false);
-  onClose = output<void>();
-  onLaboratoryCreated = output<void>();
+  cerrarDialog = output<void>();
+  laboratorioRegistrado = output<void>();
 
   name = signal('');
   nameError = signal('');
@@ -41,9 +43,9 @@ export class LaboratoryInsert {
     reader.readAsDataURL(file);
   }
 
-  onHide(): void {
+  cerrarModal(): void {
     this.resetForm();
-    this.onClose.emit();
+    this.cerrarDialog.emit();
   }
 
   resetForm(): void {
@@ -78,15 +80,25 @@ export class LaboratoryInsert {
 
       switch (res.type) {
         case 'success':
-          this.messageService.add({ severity: 'success', summary: 'Éxito', detail: res.listMessage[0], life: 4000 });
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Éxito',
+            detail: res.listMessage?.[0] ?? 'Laboratorio registrado exitosamente.',
+            life: 4000
+          });
           this.resetForm();
-          this.onLaboratoryCreated.emit();
+          this.laboratorioRegistrado.emit();
           break;
         case 'warning':
-          this.messageService.add({ severity: 'warn', summary: 'Advertencia', detail: res.listMessage[0], life: 5000 });
+          this.messageService.add({
+            severity: 'warn',
+            summary: 'Advertencia',
+            detail: res.listMessage?.[0] ?? 'Ocurrió una advertencia.',
+            life: 5000
+          });
           break;
         default:
-          this.error.set(res.listMessage?.[0] ?? 'Error al registrar.');
+          this.error.set(res.listMessage?.[0] ?? 'Error al registrar el laboratorio.');
       }
     } catch {
       this.error.set('No se pudo conectar con el servidor.');

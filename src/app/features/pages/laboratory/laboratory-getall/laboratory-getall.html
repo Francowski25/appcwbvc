@@ -1,26 +1,90 @@
-<div class="p-3 sm:p-4 lg:p-6 flex flex-col gap-4 sm:gap-6">
+<div class="p-3 sm:p-4 lg:p-6 flex flex-col gap-4 sm:gap-6 w-full max-w-full overflow-x-hidden">
 
     <app-laboratory-sidebar [busquedaValue]="busqueda()" [estadoValue]="estadoFiltro()"
         [totalLaboratories]="totalLaboratories()" [totalActivas]="totalActivas()" [totalInactivas]="totalInactivas()"
         (busquedaChange)="onBusquedaChange($event)" (estadoChange)="onEstadoChange($event)"
         (crearLaboratorio)="onCrearLaboratorio()" />
 
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-10 gap-4 sm:gap-6 items-stretch">
+    <div class="grid grid-cols-1 lg:grid-cols-10 gap-4 sm:gap-6 items-stretch w-full">
 
-        <div class="md:col-span-1 lg:col-span-6">
-            <app-laboratory-table class="w-full" [laboratorios]="filtrados()" [total]="totalLaboratories()"
-                [loading]="loading()" [error]="error()" (crearLaboratorio)="onCrearLaboratorio()"
-                (onEdit)="onEditar($event)" (onToggleStatus)="onToggleStatus($event)" />
+        <div class="lg:col-span-6 min-w-0 w-full flex flex-col">
+            <app-laboratory-table class="w-full flex-1 flex flex-col" [laboratorios]="filtrados()"
+                [total]="totalLaboratories()" [loading]="loading()" [error]="error()"
+                (crearLaboratorio)="onCrearLaboratorio()" (onEdit)="onEditar($event)"
+                (onToggleStatus)="onToggleStatus($event)" />
         </div>
 
-        <div class="md:col-span-1 lg:col-span-4">
-            <app-laboratory-graphic class="flex-1" [laboratories]="laboratories()"
-                [products]="products()"></app-laboratory-graphic>
+        <div class="lg:col-span-4 min-w-0 w-full flex flex-col">
+            <app-laboratory-graphic class="w-full flex-1 flex flex-col min-h-[350px] lg:min-h-0"
+                [laboratories]="laboratories()" [products]="products()">
+            </app-laboratory-graphic>
         </div>
 
     </div>
 
-    <app-laboratory-insert [visible]="showInsertDialog()" (onClose)="onLaboratorioRegistrado()"
-        (onLaboratoryCreated)="onLaboratorioRegistrado()"></app-laboratory-insert>
+    <p-confirmDialog />
+
+    <p-dialog [visible]="showInsertDialog()" (visibleChange)="showInsertDialog.set($event)" [modal]="true"
+        [draggable]="false" [resizable]="false" [style]="{ width: '48rem' }" [breakpoints]="{ '768px': '95vw' }"
+        [dismissableMask]="false" styleClass="!rounded-2xl !p-0 overflow-hidden"
+        (onHide)="laboratoryInsertComp()?.resetForm()">
+
+        <ng-template #header>
+            <div class="flex items-center gap-4 py-1">
+                <div
+                    class="w-12 h-12 rounded-full bg-pink-100 flex items-center justify-center text-pink-600 border border-pink-200 shrink-0">
+                    <i class="pi pi-building text-xl"></i>
+                </div>
+                <div class="text-left">
+                    <h2 class="font-bold text-base md:text-lg text-slate-700 leading-tight">Registrar Nuevo Laboratorio
+                    </h2>
+                    <p class="text-xs text-slate-400 mt-0.5 leading-normal font-normal">
+                        Complete el nombre y datos iniciales del laboratorio proveedor.
+                    </p>
+                </div>
+            </div>
+        </ng-template>
+
+        <ng-template #icons>
+            <button class="p-dialog-header-icon p-link" (click)="showInsertDialog.set(false)">
+                <i class="pi pi-times"></i>
+            </button>
+        </ng-template>
+
+        <app-laboratory-insert (cerrarDialog)="showInsertDialog.set(false)"
+            (laboratorioRegistrado)="onLaboratorioRegistrado()" />
+
+    </p-dialog>
+
+    <p-dialog [visible]="showDetailDialog()" (visibleChange)="showDetailDialog.set($event)" [modal]="true"
+        [draggable]="false" [resizable]="false" [style]="{ width: '48rem' }" [breakpoints]="{ '768px': '95vw' }"
+        [dismissableMask]="false" styleClass="!rounded-2xl !p-0 overflow-hidden">
+
+        <ng-template #header>
+            <div class="flex items-center gap-4 py-1">
+                <div
+                    class="w-12 h-12 rounded-full bg-pink-100 flex items-center justify-center text-pink-600 border border-pink-200 shrink-0">
+                    <i class="pi pi-info-circle text-xl"></i>
+                </div>
+                <div class="text-left">
+                    <h2 class="font-bold text-base md:text-lg text-slate-700 leading-tight">Información del Laboratorio
+                    </h2>
+                    <p class="text-xs text-slate-400 mt-0.5 leading-normal font-normal">
+                        Detalles de métricas, productos asociados y fechas de auditoría.
+                    </p>
+                </div>
+            </div>
+        </ng-template>
+
+        <ng-template #icons>
+            <button class="p-dialog-header-icon p-link" (click)="showDetailDialog.set(false)">
+                <i class="pi pi-times"></i>
+            </button>
+        </ng-template>
+
+        <app-laboratory-detail [laboratorio]="selectedLaboratory()" (onClose)="onLaboratorioDetallado()"
+            (onEditar)="onLaboratorioDetallado()" />
+
+    </p-dialog>
 
 </div>
