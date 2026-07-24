@@ -183,10 +183,14 @@
           </td>
 
           <td class="px-6 py-3 align-middle text-right">
-            <div class="flex items-center justify-center">
+            <div class="flex items-center justify-center gap-1">
               <button type="button" (click)="seleccionar.emit(product)" pTooltip="Detalle" tooltipPosition="top"
                 aria-label="Ver detalle del producto">
                 <i class="pi pi-eye text-xl flex-shrink-0" style="text-shadow: 0 0 8px #009688;"></i>
+              </button>
+              <button type="button" pTooltip="Cambiar estado" tooltipPosition="top"
+                class="w-8 h-8 flex items-center justify-center rounded-xl text-slate-400 hover:text-slate-600 transition-all cursor-pointer">
+                <i class="pi {{ product.status === 'activo' ? 'pi-lock' : 'pi-lock-open' }} text-sm sm:text-base"></i>
               </button>
             </div>
           </td>
