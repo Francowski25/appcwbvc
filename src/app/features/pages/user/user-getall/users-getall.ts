@@ -8,12 +8,14 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { UserKpi } from '../user-kpi/user-kpi';
 import { UsersInsert } from '../user-insert/user-insert';
 import { MessageService } from 'primeng/api';
+import { UserDetails } from '../user-details/user-details';
 
 @Component({
   selector: 'app-users-list',
   standalone: true,
   imports: [
     UsersSidebar,
+    UserDetails,
     UsersTable,
     UserKpi,
     UsersInsert,
@@ -23,7 +25,8 @@ import { MessageService } from 'primeng/api';
   templateUrl: './users-getall.html',
   styleUrl: './users-getall.css',
 })
-export class UsersList implements OnInit {
+export class UsersGetall implements OnInit {
+
   private readonly api = inject(Api);
   private readonly messageService = inject(MessageService);
 
@@ -34,6 +37,8 @@ export class UsersList implements OnInit {
   rol = signal<string>('');
   estado = signal<string>('');
   showInsertDialog = signal<boolean>(false);
+  showDetailsDialog = signal<boolean>(false);
+  usuarioSeleccionado = signal<any>(null);
 
   private readonly currentUser: { email: string } | null = (() => {
     try {
@@ -86,6 +91,31 @@ export class UsersList implements OnInit {
     this.usuariosDelRolActual().filter((u: any) => u.status?.toLowerCase() !== 'activo').length
   );
 
+  onEditar(user: any): void {
+    this.usuarioSeleccionado.set(user);
+    this.showDetailsDialog.set(true);
+  }
+
+  onGuardarUsuario(usuarioActualizado: any): void {
+    if (!usuarioActualizado) return;
+
+    this.usuarios.update((lista) =>
+      lista.map((u) =>
+        u.idUser === usuarioActualizado.idUser ? { ...u, ...usuarioActualizado } : u
+      )
+    );
+
+    this.usuarioSeleccionado.set(usuarioActualizado);
+    this.showDetailsDialog.set(false);
+
+    this.messageService.add({
+      severity: 'success',
+      summary: 'Usuario Actualizado',
+      detail: 'Los datos del usuario se guardaron correctamente.',
+      life: 4000
+    });
+  }
+
   ngOnInit(): void {
     this.initialization();
   }
@@ -120,7 +150,6 @@ export class UsersList implements OnInit {
     this.initialization();
   }
 
-  onEditar(user: any): void { }
   onChangePassword(user: any): void { }
 
   onToggleStatus(user: any): void {

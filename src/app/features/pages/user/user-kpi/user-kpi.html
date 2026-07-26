@@ -1,59 +1,92 @@
-<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
 
-    <div class="card bg-white rounded-2xl border border-pink-100 shadow-sm p-6">
+    <div class="card bg-white rounded-2xl border border-pink-100 shadow-sm p-4">
         <div class="flex items-start justify-between">
             <div class="flex flex-col">
-                <span class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Total Usuarios</span>
-                <span class="text-3xl font-black text-gray-800 m-0">{{ total() }}</span>
-                <span class="text-xs font-bold text-pink-400 mt-1 flex items-center gap-1">
-                    <i class="pi pi-users"></i> General
+                <span class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Total</span>
+                <span class="text-2xl font-black text-gray-800 m-0">{{ total() }}</span>
+                <span class="text-[11px] font-bold text-pink-400 mt-1 flex items-center gap-1">
+                    <i class="pi pi-users text-xs"></i> General
                 </span>
             </div>
-            <div class="w-12 h-12 rounded-2xl bg-pink-50 flex items-center justify-center">
-                <i class="pi pi-users text-pink-500 text-xl"></i>
+            <div class="w-10 h-10 rounded-xl bg-pink-50 flex items-center justify-center shrink-0">
+                <i class="pi pi-users text-pink-500 text-lg"></i>
             </div>
         </div>
     </div>
 
-    <div class="card bg-white rounded-2xl border border-pink-100 shadow-sm p-6">
+    <div class="card bg-white rounded-2xl border border-pink-100 shadow-sm p-4">
         <div class="flex items-start justify-between">
             <div class="flex flex-col">
-                <span class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Personal Activo</span>
-                <span class="text-3xl font-black text-gray-800 m-0">{{ activos() }}</span>
-                <span class="text-xs font-bold text-pink-400 mt-1 flex items-center gap-1">
+                <span class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Activos</span>
+                <span class="text-2xl font-black text-gray-800 m-0">{{ activos() }}</span>
+                <span class="text-[11px] font-bold text-pink-400 mt-1 flex items-center gap-1">
                     <span class="w-1.5 h-1.5 rounded-full bg-pink-400 animate-pulse"></span> Operando
                 </span>
             </div>
-            <div class="w-12 h-12 rounded-2xl bg-pink-50 flex items-center justify-center">
-                <i class="pi pi-user-plus text-pink-500 text-xl"></i>
+            <div class="w-10 h-10 rounded-xl bg-pink-50 flex items-center justify-center shrink-0">
+                <i class="pi pi-user-plus text-pink-500 text-lg"></i>
             </div>
         </div>
     </div>
 
-    <div class="card bg-white rounded-2xl border border-pink-100 shadow-sm p-6">
+    <div class="card bg-white rounded-2xl border border-pink-100 shadow-sm p-4">
         <div class="flex items-start justify-between">
             <div class="flex flex-col">
-                <span class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Restringidos</span>
-                <span class="text-3xl font-black text-gray-800 m-0">{{ inactivos() }}</span>
-                <span class="text-xs font-bold text-pink-400 mt-1 flex items-center gap-1">
-                    <i class="pi pi-user-minus"></i> Inactivos
+                <span class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Inactivos</span>
+                <span class="text-2xl font-black text-gray-800 m-0">{{ inactivos() }}</span>
+                <span class="text-[11px] font-bold text-pink-400 mt-1 flex items-center gap-1">
+                    <i class="pi pi-user-minus text-xs"></i> Bloqueados
                 </span>
             </div>
-            <div class="w-12 h-12 rounded-2xl bg-pink-50 flex items-center justify-center">
-                <i class="pi pi-user-minus text-pink-500 text-xl"></i>
+            <div class="w-10 h-10 rounded-xl bg-pink-50 flex items-center justify-center shrink-0">
+                <i class="pi pi-user-minus text-pink-500 text-lg"></i>
             </div>
         </div>
     </div>
 
-    <div class="card bg-pink-100 rounded-2xl border border-pink-100 shadow-sm p-6">
+    <div class="card bg-white rounded-2xl border border-pink-100 shadow-sm p-4">
         <div class="flex items-start justify-between">
             <div class="flex flex-col">
-                <span class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Detalles</span>
+                <span class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Admins</span>
+                <span class="text-2xl font-black text-gray-800 m-0">{{ admins() }}</span>
+                <span class="text-[11px] font-bold text-pink-400 mt-1 flex items-center gap-1">
+                    <i class="pi pi-shield text-xs"></i> Control
+                </span>
             </div>
-            <div class="w-12 h-12 rounded-2xl bg-pink-50 flex items-center justify-center">
-                <i class="pi pi-info-circle text-slate-500 text-base"></i>
+            <div class="w-10 h-10 rounded-xl bg-pink-50 flex items-center justify-center shrink-0">
+                <i class="pi pi-shield text-pink-500 text-lg"></i>
             </div>
         </div>
     </div>
 
+    <div class="card bg-white rounded-2xl border border-pink-100 shadow-sm p-4">
+        <div class="flex items-start justify-between">
+            <div class="flex flex-col">
+                <span class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Químicos</span>
+                <span class="text-2xl font-black text-gray-800 m-0">{{ quimicos() }}</span>
+                <span class="text-[11px] font-bold text-pink-400 mt-1 flex items-center gap-1">
+                    <i class="pi pi-verified text-xs"></i> Botica
+                </span>
+            </div>
+            <div class="w-10 h-10 rounded-xl bg-pink-50 flex items-center justify-center shrink-0">
+                <i class="pi pi-verified text-pink-500 text-lg"></i>
+            </div>
+        </div>
+    </div>
+
+    <div class="card bg-white rounded-2xl border border-pink-100 shadow-sm p-4">
+        <div class="flex items-start justify-between">
+            <div class="flex flex-col">
+                <span class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Vendedores</span>
+                <span class="text-2xl font-black text-gray-800 m-0">{{ vendedores() }}</span>
+                <span class="text-[11px] font-bold text-pink-400 mt-1 flex items-center gap-1">
+                    <i class="pi pi-shopping-bag text-xs"></i> Ventas
+                </span>
+            </div>
+            <div class="w-10 h-10 rounded-xl bg-pink-50 flex items-center justify-center shrink-0">
+                <i class="pi pi-shopping-bag text-pink-500 text-lg"></i>
+            </div>
+        </div>
+    </div>
 </div>

@@ -1,7 +1,8 @@
 <div class="flex flex-col gap-6 w-full">
 
   <app-user-kpi [total]="totalUsuarios()" [activos]="totalActivos()" [inactivos]="totalInactivos()"
-    class="w-full block" />
+    [admins]="totalesPorRol().administrador" [quimicos]="totalesPorRol().quimico"
+    [vendedores]="totalesPorRol().vendedor" class="w-full block" />
 
   <div class="flex flex-col lg:flex-row gap-6 items-start w-full">
 
@@ -46,5 +47,35 @@
 
   <app-users-insert #insertUserComp (usuarioRegistrado)="onUsuarioRegistrado()"
     (cerrarDialog)="showInsertDialog.set(false)" />
+
+</p-dialog>
+
+<p-dialog [visible]="showDetailsDialog()" (visibleChange)="showDetailsDialog.set($event)" [modal]="true"
+  [draggable]="false" [resizable]="false" [style]="{ width: '52rem' }" [breakpoints]="{ '768px': '95vw' }"
+  [dismissableMask]="false" styleClass="!rounded-2xl !p-0 overflow-hidden">
+
+  <ng-template #header>
+    <div class="flex items-center gap-4 py-1">
+      <div
+        class="w-12 h-12 rounded-full bg-pink-100 flex items-center justify-center text-pink-600 border border-pink-200 shrink-0">
+        <i class="pi pi-user text-xl"></i>
+      </div>
+      <div class="text-left">
+        <h2 class="font-bold text-base md:text-lg text-slate-700 leading-tight">Detalles y Edición de Usuario</h2>
+        <p class="text-xs text-slate-400 mt-0.5 leading-normal font-normal">
+          Consulte o modifique la información de la cuenta de usuario seleccionada.
+        </p>
+      </div>
+    </div>
+  </ng-template>
+
+  <ng-template #icons>
+    <button class="p-dialog-header-icon p-link" (click)="showDetailsDialog.set(false)">
+      <i class="pi pi-times"></i>
+    </button>
+  </ng-template>
+
+  <app-user-details [usuario]="usuarioSeleccionado()" (onClose)="showDetailsDialog.set(false)"
+    (onSave)="onGuardarUsuario($event)" />
 
 </p-dialog>

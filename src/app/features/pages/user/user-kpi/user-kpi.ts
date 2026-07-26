@@ -11,4 +11,7 @@ export class UserKpi {
   total = input<number>(0);
   activos = input<number>(0);
   inactivos = input<number>(0);
+  admins = input<number>(0);
+  quimicos = input<number>(0);
+  vendedores = input<number>(0);
 }

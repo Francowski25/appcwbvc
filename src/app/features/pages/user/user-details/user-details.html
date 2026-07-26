@@ -1,1 +1,140 @@
-<p>user-details works!</p>
+<form (ngSubmit)="guardarCambios()" class="w-full max-w-2xl mx-auto p-2 sm:p-4 animate-fade-in">
+    <div class="card bg-white rounded-2xl border border-pink-100 w-full p-4 sm:p-6 shadow-sm flex flex-col gap-6">
+
+        <div
+            class="flex flex-col sm:flex-row items-center gap-5 p-4 rounded-2xl bg-pink-50/40 border border-pink-100/60">
+            <div class="shrink-0">
+                @if (previewImage()) {
+                <img [src]="previewImage()" alt="Previsualización Avatar"
+                    class="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl object-cover ring-2 ring-pink-200/60 shadow-inner" />
+                } @else if (editImage()) {
+                <img [src]="'/images/user/' + editImage()" alt="Avatar"
+                    class="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl object-cover ring-2 ring-pink-200/60 shadow-inner" />
+                } @else {
+                <div
+                    class="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-pink-100/60 flex items-center justify-center ring-2 ring-pink-200/60 shadow-inner">
+                    <i class="pi pi-user text-pink-300 text-2xl"></i>
+                </div>
+                }
+            </div>
+
+            <div class="flex flex-col items-center sm:items-start gap-2 flex-1 min-w-0 text-center sm:text-left">
+                <label class="text-xs font-bold text-slate-400 uppercase tracking-wider flex items-center gap-1.5">
+                    <i class="pi pi-image text-pink-400 text-xs"></i> Imagen de Perfil
+                </label>
+
+                <input type="file" #fileInput (change)="onFileSelected($event)" accept="image/*" class="hidden" />
+
+                <div class="flex items-center gap-2">
+                    <button type="button" (click)="fileInput.click()"
+                        class="flex items-center gap-1.5 text-xs font-bold text-pink-600 bg-white hover:bg-pink-50 px-3 py-2 rounded-xl border border-pink-200 transition-all cursor-pointer shadow-sm">
+                        <i class="pi pi-upload text-xs"></i>
+                        <span>Cambiar foto</span>
+                    </button>
+
+                    @if (previewImage()) {
+                    <button type="button" (click)="restaurarImagen()" pTooltip="Restaurar foto anterior"
+                        class="flex items-center justify-center w-8 h-8 rounded-xl bg-white hover:bg-slate-50 text-slate-500 border border-slate-200 transition-all cursor-pointer shadow-sm">
+                        <i class="pi pi-refresh text-xs"></i>
+                    </button>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <p class="text-xs font-bold text-pink-400 uppercase tracking-widest -mb-2">Información del Usuario</p>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+            <div class="flex flex-col gap-1">
+                <label class="text-xs font-bold text-slate-400 uppercase tracking-wider">
+                    Nombres <span class="text-pink-500">*</span>
+                </label>
+                <input pInputText type="text" [value]="editFirstName()"
+                    (input)="editFirstName.set($any($event.target).value)" placeholder="Ej. Ricardo"
+                    class="w-full text-xs py-2 px-3 rounded-xl border-gray-200 focus:border-pink-300" />
+            </div>
+
+            <div class="flex flex-col gap-1">
+                <label class="text-xs font-bold text-slate-400 uppercase tracking-wider">
+                    Apellidos <span class="text-pink-500">*</span>
+                </label>
+                <input pInputText type="text" [value]="editSurName()"
+                    (input)="editSurName.set($any($event.target).value)" placeholder="Ej. Palomino Ortiz"
+                    class="w-full text-xs py-2 px-3 rounded-xl border-gray-200 focus:border-pink-300" />
+            </div>
+
+            <div class="flex flex-col gap-1">
+                <label class="text-xs font-bold text-slate-400 uppercase tracking-wider">
+                    DNI / Documento <span class="text-pink-500">*</span>
+                </label>
+                <input pInputText type="text" [value]="editDni()" (input)="editDni.set($any($event.target).value)"
+                    placeholder="Ej. 25841397" maxlength="8"
+                    class="w-full text-xs py-2 px-3 rounded-xl border-gray-200 focus:border-pink-300" />
+            </div>
+
+            <div class="flex flex-col gap-1">
+                <label class="text-xs font-bold text-slate-400 uppercase tracking-wider">
+                    Celular <span class="text-pink-500">*</span>
+                </label>
+                <input pInputText type="text" [value]="editCellPhone()"
+                    (input)="editCellPhone.set($any($event.target).value)" placeholder="Ej. 932145678" maxlength="9"
+                    class="w-full text-xs py-2 px-3 rounded-xl border-gray-200 focus:border-pink-300" />
+            </div>
+
+            <div class="flex flex-col gap-1 md:col-span-2">
+                <label class="text-xs font-bold text-slate-400 uppercase tracking-wider">
+                    Correo Electrónico <span class="text-pink-500">*</span>
+                </label>
+                <input pInputText type="email" [value]="editEmail()" (input)="editEmail.set($any($event.target).value)"
+                    placeholder="ejemplo@botica.com"
+                    class="w-full text-xs py-2 px-3 rounded-xl border-gray-200 focus:border-pink-300" />
+            </div>
+
+            <div class="flex flex-col gap-1">
+                <label class="text-xs font-bold text-slate-400 uppercase tracking-wider">Estado de la cuenta</label>
+                <div class="flex items-center gap-2.5 px-3.5 py-2.5 bg-gray-50 rounded-xl border border-gray-100">
+                    @if (usuario()?.status?.toLowerCase() === 'activo') {
+                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 ring-4 ring-emerald-500/10"></span>
+                    <span class="text-xs font-bold text-gray-800 capitalize">
+                        {{ usuario()?.status }}
+                    </span>
+                    } @else {
+                    <span class="w-2.5 h-2.5 rounded-full bg-rose-500 ring-4 ring-rose-500/10"></span>
+                    <span class="text-xs font-bold text-gray-800 capitalize">
+                        {{ usuario()?.status || 'Inactivo' }}
+                    </span>
+                    }
+                </div>
+            </div>
+
+            <div class="flex flex-col gap-1">
+                <label class="text-xs font-bold text-slate-400 uppercase tracking-wider">Rol de Sistema</label>
+                <div class="flex items-center gap-2 px-3.5 py-2.5 bg-gray-50 rounded-xl border border-gray-100">
+                    <i class="pi pi-shield text-pink-400 text-xs"></i>
+                    <span class="text-xs font-bold text-gray-800 capitalize">
+                        {{ usuario()?.role || 'Sin Rol' }}
+                    </span>
+                </div>
+            </div>
+
+        </div>
+
+        <hr class="border-pink-50 my-1" />
+
+        <div class="flex justify-end items-center gap-3">
+            <button type="button" (click)="onClose.emit()"
+                class="flex items-center justify-center gap-2 bg-white hover:bg-slate-50 text-slate-500 border border-slate-200 px-5 py-2.5 rounded-xl text-xs font-bold transition-all shadow-sm cursor-pointer">
+                <i class="pi pi-times text-xs"></i>
+                <span>Cancelar</span>
+            </button>
+
+            <button type="submit"
+                class="flex items-center justify-center gap-2 bg-pink-500 hover:bg-pink-600 text-white border border-pink-500 hover:border-pink-600 px-5 py-2.5 rounded-xl text-xs font-bold transition-all shadow-sm cursor-pointer">
+                <i class="pi pi-check text-xs"></i>
+                <span>Guardar Cambios</span>
+            </button>
+        </div>
+
+    </div>
+</form>
