@@ -9,6 +9,7 @@ import { SalesDetail } from '../sales-detail/sales-detail';
 
 @Component({
   selector: 'app-sales-getall',
+  standalone: true,
   imports: [SalesKpi, SalesSidebar, SalesTable, SalesDetail],
   templateUrl: './sales-getall.html',
 })
@@ -27,6 +28,8 @@ export class SalesGetall implements OnInit {
   ventaSeleccionada = signal<any>(null);
   showDetail = signal<boolean>(false);
 
+  totalVentas = computed(() => this.ventas().length);
+
   filtrados = computed(() => {
     const q = this.busqueda().toLowerCase().trim();
     const metodo = this.metodoPagoSeleccionado();
@@ -42,8 +45,6 @@ export class SalesGetall implements OnInit {
     return lista;
   });
 
-  totalVentas = computed(() => this.ventas().length);
-
   montoTotal = computed(() =>
     this.ventas()
       .filter(v => v.status === 'Completada')
@@ -58,11 +59,25 @@ export class SalesGetall implements OnInit {
     }).length;
   });
 
+  montoHoy = computed(() => {
+    const hoy = new Date().toDateString();
+    return this.ventas()
+      .filter(v => {
+        if (!v.saleDate || v.status !== 'Completada') return false;
+        return new Date(v.saleDate).toDateString() === hoy;
+      })
+      .reduce((acc, v) => acc + Number(v.total ?? 0), 0);
+  });
+
   ticketPromedio = computed(() => {
     const completadas = this.ventas().filter(v => v.status === 'Completada');
     if (completadas.length === 0) return 0;
     return completadas.reduce((acc, v) => acc + Number(v.total ?? 0), 0) / completadas.length;
   });
+
+  ventasCompletadas = computed(() =>
+    this.ventas().filter(v => v.status === 'Completada').length
+  );
 
   metodosPago = computed(() =>
     this.ventas().reduce((acc: any[], v: any) => {

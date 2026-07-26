@@ -1,62 +1,119 @@
-<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+<div
+    class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2.5 sm:gap-3 lg:gap-4 w-full items-stretch">
 
-    <div class="bg-white rounded-2xl border border-pink-100 shadow-sm p-6">
-        <div class="flex items-start justify-between">
-            <div class="flex flex-col">
-                <span class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Total Ventas</span>
-                <span class="text-3xl font-black text-gray-800 m-0">{{ totalVentas() }}</span>
-                <span class="text-xs font-bold text-pink-400 mt-1 flex items-center gap-1">
-                    <i class="pi pi-list"></i> Registradas
-                </span>
+    <div
+        class="card bg-white rounded-2xl border border-pink-100 shadow-sm p-3 sm:p-4 col-span-1 flex flex-col justify-between h-full hover:shadow-md transition-shadow min-w-0">
+        <div class="flex items-start justify-between gap-1.5 min-w-0">
+            <span
+                class="text-[10px] sm:text-[11px] font-bold text-slate-400 uppercase tracking-wider leading-tight min-h-[22px] flex items-center truncate">Total
+                Ventas</span>
+            <div class="w-7 h-7 sm:w-9 sm:h-9 rounded-xl bg-pink-50 flex items-center justify-center shrink-0">
+                <i class="pi pi-shopping-cart text-pink-500 text-xs sm:text-base"></i>
             </div>
-            <div class="w-12 h-12 rounded-2xl bg-pink-50 flex items-center justify-center">
-                <i class="pi pi-shopping-cart text-pink-500 text-xl"></i>
-            </div>
+        </div>
+        <div class="mt-2 min-w-0">
+            <span class="text-lg sm:text-2xl font-black text-gray-800 leading-none block truncate">{{ totalVentas()
+                }}</span>
+            <span class="text-[10px] sm:text-[11px] font-bold text-pink-400 mt-1.5 flex items-center gap-1 truncate">
+                <i class="pi pi-list text-[10px] sm:text-xs shrink-0"></i> <span class="truncate">Registradas</span>
+            </span>
         </div>
     </div>
 
-    <div class="bg-white rounded-2xl border border-green-100 shadow-sm p-6">
-        <div class="flex items-start justify-between">
-            <div class="flex flex-col">
-                <span class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Monto Total</span>
-                <span class="text-2xl font-black text-gray-800 m-0">S/ {{ montoTotal() | number:'1.2-2' }}</span>
-                <span class="text-xs font-bold text-green-400 mt-1 flex items-center gap-1">
-                    <i class="pi pi-dollar"></i> Ingresos totales
-                </span>
+    <div
+        class="card bg-white rounded-2xl border border-pink-100 shadow-sm p-3 sm:p-4 col-span-1 flex flex-col justify-between h-full hover:shadow-md transition-shadow min-w-0">
+        <div class="flex items-start justify-between gap-1.5 min-w-0">
+            <span
+                class="text-[10px] sm:text-[11px] font-bold text-slate-400 uppercase tracking-wider leading-tight min-h-[22px] flex items-center truncate">Monto
+                Total</span>
+            <div class="w-7 h-7 sm:w-9 sm:h-9 rounded-xl bg-pink-50 flex items-center justify-center shrink-0">
+                <i class="pi pi-dollar text-pink-500 text-xs sm:text-base"></i>
             </div>
-            <div class="w-12 h-12 rounded-2xl bg-green-50 flex items-center justify-center">
-                <i class="pi pi-dollar text-green-500 text-xl"></i>
-            </div>
+        </div>
+        <div class="mt-2 min-w-0">
+            <span class="text-lg sm:text-2xl font-black text-gray-800 leading-none block truncate">S/ {{ montoTotal() |
+                number:'1.2-2' }}</span>
+            <span class="text-[10px] sm:text-[11px] font-bold text-pink-400 mt-1.5 flex items-center gap-1 truncate">
+                <i class="pi pi-wallet text-[10px] sm:text-xs shrink-0"></i> <span class="truncate">Ingresos
+                    acum.</span>
+            </span>
         </div>
     </div>
 
-    <div class="bg-white rounded-2xl border border-blue-100 shadow-sm p-6">
-        <div class="flex items-start justify-between">
-            <div class="flex flex-col">
-                <span class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Ventas Hoy</span>
-                <span class="text-3xl font-black text-gray-800 m-0">{{ ventasHoy() }}</span>
-                <span class="text-xs font-bold text-blue-400 mt-1 flex items-center gap-1">
-                    <i class="pi pi-calendar"></i> Del día
-                </span>
+    <div
+        class="card bg-white rounded-2xl border border-pink-100 shadow-sm p-3 sm:p-4 col-span-1 flex flex-col justify-between h-full hover:shadow-md transition-shadow min-w-0">
+        <div class="flex items-start justify-between gap-1.5 min-w-0">
+            <span
+                class="text-[10px] sm:text-[11px] font-bold text-slate-400 uppercase tracking-wider leading-tight min-h-[22px] flex items-center truncate">Ventas
+                Hoy</span>
+            <div class="w-7 h-7 sm:w-9 sm:h-9 rounded-xl bg-pink-50 flex items-center justify-center shrink-0">
+                <i class="pi pi-calendar text-pink-500 text-xs sm:text-base"></i>
             </div>
-            <div class="w-12 h-12 rounded-2xl bg-blue-50 flex items-center justify-center">
-                <i class="pi pi-calendar text-blue-500 text-xl"></i>
-            </div>
+        </div>
+        <div class="mt-2 min-w-0">
+            <span class="text-lg sm:text-2xl font-black text-gray-800 leading-none block truncate">{{ ventasHoy()
+                }}</span>
+            <span class="text-[10px] sm:text-[11px] font-bold text-pink-400 mt-1.5 flex items-center gap-1 truncate">
+                <i class="pi pi-clock text-[10px] sm:text-xs shrink-0"></i> <span class="truncate">Del día</span>
+            </span>
         </div>
     </div>
 
-    <div class="bg-white rounded-2xl border border-orange-100 shadow-sm p-6">
-        <div class="flex items-start justify-between">
-            <div class="flex flex-col">
-                <span class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Ticket Promedio</span>
-                <span class="text-2xl font-black text-gray-800 m-0">S/ {{ ticketPromedio() | number:'1.2-2' }}</span>
-                <span class="text-xs font-bold text-orange-400 mt-1 flex items-center gap-1">
-                    <i class="pi pi-calculator"></i> Por venta
-                </span>
+    <div
+        class="card bg-white rounded-2xl border border-pink-100 shadow-sm p-3 sm:p-4 col-span-1 flex flex-col justify-between h-full hover:shadow-md transition-shadow min-w-0">
+        <div class="flex items-start justify-between gap-1.5 min-w-0">
+            <span
+                class="text-[10px] sm:text-[11px] font-bold text-slate-400 uppercase tracking-wider leading-tight min-h-[22px] flex items-center truncate">Ingresos
+                Hoy</span>
+            <div class="w-7 h-7 sm:w-9 sm:h-9 rounded-xl bg-pink-50 flex items-center justify-center shrink-0">
+                <i class="pi pi-money-bill text-pink-500 text-xs sm:text-base"></i>
             </div>
-            <div class="w-12 h-12 rounded-2xl bg-orange-50 flex items-center justify-center">
-                <i class="pi pi-calculator text-orange-500 text-xl"></i>
+        </div>
+        <div class="mt-2 min-w-0">
+            <span class="text-lg sm:text-2xl font-black text-gray-800 leading-none block truncate">S/ {{ montoHoy() |
+                number:'1.2-2' }}</span>
+            <span class="text-[10px] sm:text-[11px] font-bold text-pink-400 mt-1.5 flex items-center gap-1 truncate">
+                <i class="pi pi-sun text-[10px] sm:text-xs shrink-0"></i> <span class="truncate">Recaudación hoy</span>
+            </span>
+        </div>
+    </div>
+
+    <div
+        class="card bg-white rounded-2xl border border-pink-100 shadow-sm p-3 sm:p-4 col-span-1 flex flex-col justify-between h-full hover:shadow-md transition-shadow min-w-0">
+        <div class="flex items-start justify-between gap-1.5 min-w-0">
+            <span
+                class="text-[10px] sm:text-[11px] font-bold text-slate-400 uppercase tracking-wider leading-tight min-h-[22px] flex items-center truncate">Ticket
+                Prom.</span>
+            <div class="w-7 h-7 sm:w-9 sm:h-9 rounded-xl bg-pink-50 flex items-center justify-center shrink-0">
+                <i class="pi pi-calculator text-pink-500 text-xs sm:text-base"></i>
             </div>
+        </div>
+        <div class="mt-2 min-w-0">
+            <span class="text-lg sm:text-2xl font-black text-gray-800 leading-none block truncate">S/ {{
+                ticketPromedio() | number:'1.2-2' }}</span>
+            <span class="text-[10px] sm:text-[11px] font-bold text-pink-400 mt-1.5 flex items-center gap-1 truncate">
+                <i class="pi pi-chart-line text-[10px] sm:text-xs shrink-0"></i> <span class="truncate">Por
+                    transacción</span>
+            </span>
+        </div>
+    </div>
+
+    <div
+        class="card bg-white rounded-2xl border border-pink-100 shadow-sm p-3 sm:p-4 col-span-1 flex flex-col justify-between h-full hover:shadow-md transition-shadow min-w-0">
+        <div class="flex items-start justify-between gap-1.5 min-w-0">
+            <span
+                class="text-[10px] sm:text-[11px] font-bold text-slate-400 uppercase tracking-wider leading-tight min-h-[22px] flex items-center truncate">Completadas</span>
+            <div class="w-7 h-7 sm:w-9 sm:h-9 rounded-xl bg-pink-50 flex items-center justify-center shrink-0">
+                <i class="pi pi-check-circle text-pink-500 text-xs sm:text-base"></i>
+            </div>
+        </div>
+        <div class="mt-2 min-w-0">
+            <span class="text-lg sm:text-2xl font-black text-gray-800 leading-none block truncate">{{
+                ventasCompletadas() }}</span>
+            <span class="text-[10px] sm:text-[11px] font-bold text-pink-400 mt-1.5 flex items-center gap-1 truncate">
+                <i class="pi pi-check-circle text-[10px] sm:text-xs shrink-0"></i> <span
+                    class="truncate">Cerradas</span>
+            </span>
         </div>
     </div>
 

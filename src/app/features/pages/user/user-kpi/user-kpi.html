@@ -1,92 +1,112 @@
-<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+<div
+    class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2.5 sm:gap-3 lg:gap-4 w-full items-stretch">
 
-    <div class="card bg-white rounded-2xl border border-pink-100 shadow-sm p-4">
-        <div class="flex items-start justify-between">
-            <div class="flex flex-col">
-                <span class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Total</span>
-                <span class="text-2xl font-black text-gray-800 m-0">{{ total() }}</span>
-                <span class="text-[11px] font-bold text-pink-400 mt-1 flex items-center gap-1">
-                    <i class="pi pi-users text-xs"></i> General
-                </span>
+    <div
+        class="card bg-white rounded-2xl border border-pink-100 shadow-sm p-3 sm:p-4 col-span-1 flex flex-col justify-between h-full hover:shadow-md transition-shadow min-w-0">
+        <div class="flex items-start justify-between gap-1.5 min-w-0">
+            <span
+                class="text-[10px] sm:text-[11px] font-bold text-slate-400 uppercase tracking-wider leading-tight min-h-[22px] flex items-center truncate">Total</span>
+            <div class="w-7 h-7 sm:w-9 sm:h-9 rounded-xl bg-pink-50 flex items-center justify-center shrink-0">
+                <i class="pi pi-users text-pink-500 text-xs sm:text-base"></i>
             </div>
-            <div class="w-10 h-10 rounded-xl bg-pink-50 flex items-center justify-center shrink-0">
-                <i class="pi pi-users text-pink-500 text-lg"></i>
-            </div>
+        </div>
+        <div class="mt-2 min-w-0">
+            <span class="text-lg sm:text-2xl font-black text-gray-800 leading-none block truncate">{{ total() }}</span>
+            <span class="text-[10px] sm:text-[11px] font-bold text-pink-400 mt-1.5 flex items-center gap-1 truncate">
+                <i class="pi pi-users text-[10px] sm:text-xs shrink-0"></i> <span class="truncate">General</span>
+            </span>
         </div>
     </div>
 
-    <div class="card bg-white rounded-2xl border border-pink-100 shadow-sm p-4">
-        <div class="flex items-start justify-between">
-            <div class="flex flex-col">
-                <span class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Activos</span>
-                <span class="text-2xl font-black text-gray-800 m-0">{{ activos() }}</span>
-                <span class="text-[11px] font-bold text-pink-400 mt-1 flex items-center gap-1">
-                    <span class="w-1.5 h-1.5 rounded-full bg-pink-400 animate-pulse"></span> Operando
-                </span>
+    <div
+        class="card bg-white rounded-2xl border border-pink-100 shadow-sm p-3 sm:p-4 col-span-1 flex flex-col justify-between h-full hover:shadow-md transition-shadow min-w-0">
+        <div class="flex items-start justify-between gap-1.5 min-w-0">
+            <span
+                class="text-[10px] sm:text-[11px] font-bold text-slate-400 uppercase tracking-wider leading-tight min-h-[22px] flex items-center truncate">Activos</span>
+            <div class="w-7 h-7 sm:w-9 sm:h-9 rounded-xl bg-pink-50 flex items-center justify-center shrink-0">
+                <i class="pi pi-user-plus text-pink-500 text-xs sm:text-base"></i>
             </div>
-            <div class="w-10 h-10 rounded-xl bg-pink-50 flex items-center justify-center shrink-0">
-                <i class="pi pi-user-plus text-pink-500 text-lg"></i>
-            </div>
+        </div>
+        <div class="mt-2 min-w-0">
+            <span class="text-lg sm:text-2xl font-black text-gray-800 leading-none block truncate">{{ activos()
+                }}</span>
+            <span class="text-[10px] sm:text-[11px] font-bold text-pink-400 mt-1.5 flex items-center gap-1 truncate">
+                <span class="w-1.5 h-1.5 rounded-full bg-pink-400 animate-pulse shrink-0"></span> <span
+                    class="truncate">Operando</span>
+            </span>
         </div>
     </div>
 
-    <div class="card bg-white rounded-2xl border border-pink-100 shadow-sm p-4">
-        <div class="flex items-start justify-between">
-            <div class="flex flex-col">
-                <span class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Inactivos</span>
-                <span class="text-2xl font-black text-gray-800 m-0">{{ inactivos() }}</span>
-                <span class="text-[11px] font-bold text-pink-400 mt-1 flex items-center gap-1">
-                    <i class="pi pi-user-minus text-xs"></i> Bloqueados
-                </span>
+    <div
+        class="card bg-white rounded-2xl border border-pink-100 shadow-sm p-3 sm:p-4 col-span-1 flex flex-col justify-between h-full hover:shadow-md transition-shadow min-w-0">
+        <div class="flex items-start justify-between gap-1.5 min-w-0">
+            <span
+                class="text-[10px] sm:text-[11px] font-bold text-slate-400 uppercase tracking-wider leading-tight min-h-[22px] flex items-center truncate">Inactivos</span>
+            <div class="w-7 h-7 sm:w-9 sm:h-9 rounded-xl bg-pink-50 flex items-center justify-center shrink-0">
+                <i class="pi pi-user-minus text-pink-500 text-xs sm:text-base"></i>
             </div>
-            <div class="w-10 h-10 rounded-xl bg-pink-50 flex items-center justify-center shrink-0">
-                <i class="pi pi-user-minus text-pink-500 text-lg"></i>
-            </div>
+        </div>
+        <div class="mt-2 min-w-0">
+            <span class="text-lg sm:text-2xl font-black text-gray-800 leading-none block truncate">{{ inactivos()
+                }}</span>
+            <span class="text-[10px] sm:text-[11px] font-bold text-pink-400 mt-1.5 flex items-center gap-1 truncate">
+                <i class="pi pi-user-minus text-[10px] sm:text-xs shrink-0"></i> <span
+                    class="truncate">Bloqueados</span>
+            </span>
         </div>
     </div>
 
-    <div class="card bg-white rounded-2xl border border-pink-100 shadow-sm p-4">
-        <div class="flex items-start justify-between">
-            <div class="flex flex-col">
-                <span class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Admins</span>
-                <span class="text-2xl font-black text-gray-800 m-0">{{ admins() }}</span>
-                <span class="text-[11px] font-bold text-pink-400 mt-1 flex items-center gap-1">
-                    <i class="pi pi-shield text-xs"></i> Control
-                </span>
+    <div
+        class="card bg-white rounded-2xl border border-pink-100 shadow-sm p-3 sm:p-4 col-span-1 flex flex-col justify-between h-full hover:shadow-md transition-shadow min-w-0">
+        <div class="flex items-start justify-between gap-1.5 min-w-0">
+            <span
+                class="text-[10px] sm:text-[11px] font-bold text-slate-400 uppercase tracking-wider leading-tight min-h-[22px] flex items-center truncate">Admins</span>
+            <div class="w-7 h-7 sm:w-9 sm:h-9 rounded-xl bg-pink-50 flex items-center justify-center shrink-0">
+                <i class="pi pi-shield text-pink-500 text-xs sm:text-base"></i>
             </div>
-            <div class="w-10 h-10 rounded-xl bg-pink-50 flex items-center justify-center shrink-0">
-                <i class="pi pi-shield text-pink-500 text-lg"></i>
-            </div>
+        </div>
+        <div class="mt-2 min-w-0">
+            <span class="text-lg sm:text-2xl font-black text-gray-800 leading-none block truncate">{{ admins() }}</span>
+            <span class="text-[10px] sm:text-[11px] font-bold text-pink-400 mt-1.5 flex items-center gap-1 truncate">
+                <i class="pi pi-shield text-[10px] sm:text-xs shrink-0"></i> <span class="truncate">Control</span>
+            </span>
         </div>
     </div>
 
-    <div class="card bg-white rounded-2xl border border-pink-100 shadow-sm p-4">
-        <div class="flex items-start justify-between">
-            <div class="flex flex-col">
-                <span class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Químicos</span>
-                <span class="text-2xl font-black text-gray-800 m-0">{{ quimicos() }}</span>
-                <span class="text-[11px] font-bold text-pink-400 mt-1 flex items-center gap-1">
-                    <i class="pi pi-verified text-xs"></i> Botica
-                </span>
+    <div
+        class="card bg-white rounded-2xl border border-pink-100 shadow-sm p-3 sm:p-4 col-span-1 flex flex-col justify-between h-full hover:shadow-md transition-shadow min-w-0">
+        <div class="flex items-start justify-between gap-1.5 min-w-0">
+            <span
+                class="text-[10px] sm:text-[11px] font-bold text-slate-400 uppercase tracking-wider leading-tight min-h-[22px] flex items-center truncate">Químicos</span>
+            <div class="w-7 h-7 sm:w-9 sm:h-9 rounded-xl bg-pink-50 flex items-center justify-center shrink-0">
+                <i class="pi pi-verified text-pink-500 text-xs sm:text-base"></i>
             </div>
-            <div class="w-10 h-10 rounded-xl bg-pink-50 flex items-center justify-center shrink-0">
-                <i class="pi pi-verified text-pink-500 text-lg"></i>
-            </div>
+        </div>
+        <div class="mt-2 min-w-0">
+            <span class="text-lg sm:text-2xl font-black text-gray-800 leading-none block truncate">{{ quimicos()
+                }}</span>
+            <span class="text-[10px] sm:text-[11px] font-bold text-pink-400 mt-1.5 flex items-center gap-1 truncate">
+                <i class="pi pi-verified text-[10px] sm:text-xs shrink-0"></i> <span class="truncate">Botica</span>
+            </span>
         </div>
     </div>
 
-    <div class="card bg-white rounded-2xl border border-pink-100 shadow-sm p-4">
-        <div class="flex items-start justify-between">
-            <div class="flex flex-col">
-                <span class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Vendedores</span>
-                <span class="text-2xl font-black text-gray-800 m-0">{{ vendedores() }}</span>
-                <span class="text-[11px] font-bold text-pink-400 mt-1 flex items-center gap-1">
-                    <i class="pi pi-shopping-bag text-xs"></i> Ventas
-                </span>
-            </div>
-            <div class="w-10 h-10 rounded-xl bg-pink-50 flex items-center justify-center shrink-0">
-                <i class="pi pi-shopping-bag text-pink-500 text-lg"></i>
+    <div
+        class="card bg-white rounded-2xl border border-pink-100 shadow-sm p-3 sm:p-4 col-span-1 flex flex-col justify-between h-full hover:shadow-md transition-shadow min-w-0">
+        <div class="flex items-start justify-between gap-1.5 min-w-0">
+            <span
+                class="text-[10px] sm:text-[11px] font-bold text-slate-400 uppercase tracking-wider leading-tight min-h-[22px] flex items-center truncate">Vendedores</span>
+            <div class="w-7 h-7 sm:w-9 sm:h-9 rounded-xl bg-pink-50 flex items-center justify-center shrink-0">
+                <i class="pi pi-shopping-bag text-pink-500 text-xs sm:text-base"></i>
             </div>
         </div>
+        <div class="mt-2 min-w-0">
+            <span class="text-lg sm:text-2xl font-black text-gray-800 leading-none block truncate">{{ vendedores()
+                }}</span>
+            <span class="text-[10px] sm:text-[11px] font-bold text-pink-400 mt-1.5 flex items-center gap-1 truncate">
+                <i class="pi pi-shopping-bag text-[10px] sm:text-xs shrink-0"></i> <span class="truncate">Ventas</span>
+            </span>
+        </div>
     </div>
+
 </div>

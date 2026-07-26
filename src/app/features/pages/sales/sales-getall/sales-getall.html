@@ -1,19 +1,21 @@
-<div class="p-3 sm:p-4 lg:p-6 flex flex-col gap-6">
+<div class="p-3 sm:p-4 lg:p-6 flex flex-col gap-6 w-full">
 
     <app-sales-kpi [totalVentas]="totalVentas()" [montoTotal]="montoTotal()" [ventasHoy]="ventasHoy()"
-        [ticketPromedio]="ticketPromedio()" />
+        [montoHoy]="montoHoy()" [ticketPromedio]="ticketPromedio()" [ventasCompletadas]="ventasCompletadas()" />
 
-    <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+    <div class="grid grid-cols-1 lg:grid-cols-4 gap-6 items-start">
 
-        <div class="lg:col-span-3">
+        <div class="lg:col-span-3 min-w-0">
             <app-sales-table [ventas]="filtrados()" [loading]="loading()" [error]="error()"
                 (verDetalle)="onVerDetalle($event)" (nuevaVenta)="onNuevaVenta()" />
         </div>
 
-        <app-sales-sidebar [busqueda]="busqueda()" [metodoPagoSeleccionado]="metodoPagoSeleccionado()"
-            [estadoSeleccionado]="estadoSeleccionado()" [metodosPago]="metodosPago()"
-            (busquedaChange)="onBusqueda($event)" (metodoPagoChange)="onMetodoPagoChange($event)"
-            (estadoChange)="onEstadoChange($event)" (limpiarFiltros)="onLimpiarFiltros()" />
+        <div class="lg:col-span-1">
+            <app-sales-sidebar [busqueda]="busqueda()" [metodoPagoSeleccionado]="metodoPagoSeleccionado()"
+                [estadoSeleccionado]="estadoSeleccionado()" [metodosPago]="metodosPago()"
+                (busquedaChange)="onBusqueda($event)" (metodoPagoChange)="onMetodoPagoChange($event)"
+                (estadoChange)="onEstadoChange($event)" (limpiarFiltros)="onLimpiarFiltros()" />
+        </div>
 
     </div>
 
