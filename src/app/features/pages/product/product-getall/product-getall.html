@@ -1,8 +1,11 @@
 <div class="p-3 sm:p-4 lg:p-6 pb-0">
   <app-product-kpi [total]="totalProductosQty()" [agotados]="productosAgotadosQty()"
-    [porVencer]="productosPorVencerQty()" [valor]="valorInventarioMonto()">
+    [stockBajo]="productosStockBajoQty()" [porVencer]="productosPorVencerQty()" [totalCategorias]="totalCategoriasQty()"
+    [totalLaboratorios]="totalLaboratoriosQty()" [valor]="valorInventarioMonto()"
+    [promocionesActivas]="promocionesActivasQty()">
   </app-product-kpi>
 </div>
+
 <div class="p-3 sm:p-4 lg:p-6 flex flex-col lg:flex-row gap-6 items-start">
 
   <app-products-table class="flex-1 min-w-0 w-full" [total]="totalProductosQty()" [filtrados]="filtrados()"
@@ -79,7 +82,8 @@
     </button>
   </ng-template>
 
-  <app-product-details [productoSeleccionado]="productoSeleccionado()" [loading]="loading()" [error]="error()"
-    (cerrarDialog)="showDetails.set(false)" (editarProducto)="onEditarProducto($event)" />
+  <app-product-detail [producto]="productoSeleccionado()" (onClose)="showDetails.set(false)"
+    (onSave)="onEditarProducto($event)">
+  </app-product-detail>
 
 </p-dialog>

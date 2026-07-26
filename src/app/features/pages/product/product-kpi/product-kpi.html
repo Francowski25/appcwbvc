@@ -1,61 +1,133 @@
-<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-4 w-full items-stretch">
 
-    <div class="card bg-white rounded-2xl border border-pink-100 shadow-sm p-6">
-        <div class="flex items-start justify-between">
-            <div class="flex flex-col">
-                <span class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Total Productos</span>
-                <span class="text-3xl font-black text-gray-800 m-0">{{ total() }}</span>
-                <span class="text-xs font-bold text-pink-400 mt-1 flex items-center gap-1">
-                    <i class="pi pi-box"></i> Todos los registros
-                </span>
+    <div
+        class="card bg-white rounded-2xl border border-pink-100 shadow-sm p-4 col-span-1 flex flex-col justify-between h-full hover:shadow-md transition-shadow">
+        <div class="flex items-start justify-between gap-2">
+            <span
+                class="text-[11px] font-bold text-slate-400 uppercase tracking-wider leading-tight min-h-[22px]">Total</span>
+            <div class="w-9 h-9 rounded-xl bg-pink-50 flex items-center justify-center shrink-0">
+                <i class="pi pi-shopping-bag text-pink-500 text-base"></i>
             </div>
-            <div class="w-12 h-12 rounded-2xl bg-pink-50 flex items-center justify-center">
-                <i class="pi pi-shopping-bag text-pink-500 text-xl"></i>
-            </div>
+        </div>
+        <div class="mt-2">
+            <span class="text-2xl font-black text-gray-800 leading-none block">{{ total() }}</span>
+            <span class="text-[11px] font-bold text-pink-400 mt-2 flex items-center gap-1 truncate">
+                <i class="pi pi-box text-xs"></i> Catálogo
+            </span>
         </div>
     </div>
 
-    <div class="card bg-white rounded-2xl border border-pink-100 shadow-sm p-6">
-        <div class="flex items-start justify-between">
-            <div class="flex flex-col">
-                <span class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Productos Agotados</span>
-                <span class="text-3xl font-black text-gray-800 m-0">{{ agotados() }}</span>
-                <span class="text-xs font-bold text-pink-400 mt-1 flex items-center gap-1">
-                    <i class="pi pi-exclamation-triangle"></i> Stock Cero
-                </span>
+    <div
+        class="card bg-white rounded-2xl border border-pink-100 shadow-sm p-4 col-span-1 flex flex-col justify-between h-full hover:shadow-md transition-shadow">
+        <div class="flex items-start justify-between gap-2">
+            <span
+                class="text-[11px] font-bold text-slate-400 uppercase tracking-wider leading-tight min-h-[22px]">Agotados</span>
+            <div class="w-9 h-9 rounded-xl bg-pink-50 flex items-center justify-center shrink-0">
+                <i class="pi pi-ban text-pink-500 text-base"></i>
             </div>
-            <div class="w-12 h-12 rounded-2xl bg-pink-50 flex items-center justify-center">
-                <i class="pi pi-ban text-pink-500 text-xl"></i>
-            </div>
+        </div>
+        <div class="mt-2">
+            <span class="text-2xl font-black text-gray-800 leading-none block">{{ agotados() }}</span>
+            <span class="text-[11px] font-bold text-pink-400 mt-2 flex items-center gap-1 truncate">
+                <i class="pi pi-ban text-xs"></i> Stock Cero
+            </span>
         </div>
     </div>
 
-    <div class="card bg-white rounded-2xl border border-pink-100 shadow-sm p-6">
-        <div class="flex items-start justify-between">
-            <div class="flex flex-col">
-                <span class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Por Vencer</span>
-                <span class="text-3xl font-black text-gray-800 m-0">{{ porVencer() }}</span>
-                <span class="text-xs font-bold text-pink-400 mt-1 flex items-center gap-1">
-                    <i class="pi pi-clock"></i> Próximos 30 días
-                </span>
+    <div
+        class="card bg-white rounded-2xl border border-pink-100 shadow-sm p-4 col-span-1 flex flex-col justify-between h-full hover:shadow-md transition-shadow">
+        <div class="flex items-start justify-between gap-2">
+            <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider leading-tight min-h-[22px]">Stock
+                Bajo</span>
+            <div class="w-9 h-9 rounded-xl bg-pink-50 flex items-center justify-center shrink-0">
+                <i class="pi pi-exclamation-triangle text-pink-500 text-base"></i>
             </div>
-            <div class="w-12 h-12 rounded-2xl bg-pink-50 flex items-center justify-center">
-                <i class="pi pi-calendar-times text-pink-500 text-xl"></i>
-            </div>
+        </div>
+        <div class="mt-2">
+            <span class="text-2xl font-black text-gray-800 leading-none block">{{ stockBajo() }}</span>
+            <span class="text-[11px] font-bold text-pink-400 mt-2 flex items-center gap-1 truncate">
+                <i class="pi pi-exclamation-circle text-xs"></i> &le; 10 und.
+            </span>
         </div>
     </div>
 
-    <div class="card bg-pink-100 rounded-2xl border border-pink-100 shadow-sm p-6">
-        <div class="flex items-start justify-between">
-            <div class="flex flex-col">
-                <span class="text-xs font-bold text-pink-700 uppercase tracking-widest mb-2">Valor Inventario</span>
-                <span class="text-3xl font-black text-gray-800 m-0">S/ {{ valor() | number:'1.2-2' }}</span>
-                <span class="text-xs font-bold text-pink-600 mt-1 flex items-center gap-1">
-                    <i class="pi pi-dollar"></i> Valor total en stock
+    <div
+        class="card bg-white rounded-2xl border border-pink-100 shadow-sm p-4 col-span-1 flex flex-col justify-between h-full hover:shadow-md transition-shadow">
+        <div class="flex items-start justify-between gap-2">
+            <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider leading-tight min-h-[22px]">Por
+                Vencer</span>
+            <div class="w-9 h-9 rounded-xl bg-pink-50 flex items-center justify-center shrink-0">
+                <i class="pi pi-calendar-times text-pink-500 text-base"></i>
+            </div>
+        </div>
+        <div class="mt-2">
+            <span class="text-2xl font-black text-gray-800 leading-none block">{{ porVencer() }}</span>
+            <span class="text-[11px] font-bold text-pink-400 mt-2 flex items-center gap-1 truncate">
+                <i class="pi pi-clock text-xs"></i> 30 días
+            </span>
+        </div>
+    </div>
+
+    <div
+        class="card bg-white rounded-2xl border border-pink-100 shadow-sm p-4 col-span-1 flex flex-col justify-between h-full hover:shadow-md transition-shadow">
+        <div class="flex items-start justify-between gap-2">
+            <span
+                class="text-[11px] font-bold text-slate-400 uppercase tracking-wider leading-tight min-h-[22px]">Categorías</span>
+            <div class="w-9 h-9 rounded-xl bg-pink-50 flex items-center justify-center shrink-0">
+                <i class="pi pi-tags text-pink-500 text-base"></i>
+            </div>
+        </div>
+        <div class="mt-2">
+            <span class="text-2xl font-black text-gray-800 leading-none block">{{ totalCategorias() }}</span>
+            <span class="text-[11px] font-bold text-pink-400 mt-2 flex items-center gap-1 truncate">
+                <i class="pi pi-folder text-xs"></i> Secciones
+            </span>
+        </div>
+    </div>
+
+    <div
+        class="card bg-white rounded-2xl border border-pink-100 shadow-sm p-4 col-span-1 flex flex-col justify-between h-full hover:shadow-md transition-shadow">
+        <div class="flex items-start justify-between gap-2">
+            <span
+                class="text-[11px] font-bold text-slate-400 uppercase tracking-wider leading-tight min-h-[22px]">Laboratorios</span>
+            <div class="w-9 h-9 rounded-xl bg-pink-50 flex items-center justify-center shrink-0">
+                <i class="pi pi-building text-pink-500 text-base"></i>
+            </div>
+        </div>
+        <div class="mt-2">
+            <span class="text-2xl font-black text-gray-800 leading-none block">{{ totalLaboratorios() }}</span>
+            <span class="text-[11px] font-bold text-pink-400 mt-2 flex items-center gap-1 truncate">
+                <i class="pi pi-verified text-xs"></i> Marcas
+            </span>
+        </div>
+    </div>
+
+    <div
+        class="card bg-pink-50/80 rounded-2xl border border-pink-200 shadow-sm p-4 col-span-1 sm:col-span-2 md:col-span-2 lg:col-span-2 flex flex-col justify-between h-full hover:shadow-md transition-shadow">
+        <div class="flex items-start justify-between gap-2">
+            <div class="flex items-center gap-2 min-h-[22px]">
+                <span
+                    class="text-[11px] font-bold text-pink-700 uppercase tracking-wider leading-tight">Promociones</span>
+                <span
+                    class="bg-pink-500 text-white text-[9px] font-extrabold px-1.5 py-0.5 rounded-full uppercase tracking-wider animate-pulse">
+                    Activas
                 </span>
             </div>
-            <div class="w-12 h-12 rounded-2xl bg-pink-50 flex items-center justify-center">
-                <i class="pi pi-calculator text-pink-500 text-xl"></i>
+            <div
+                class="w-9 h-9 rounded-xl bg-white flex items-center justify-center shrink-0 border border-pink-200 shadow-xs">
+                <i class="pi pi-percentage text-pink-600 text-base"></i>
+            </div>
+        </div>
+
+        <div class="flex items-end justify-between mt-2 gap-2">
+            <div>
+                <div class="flex items-baseline gap-1.5">
+                    <span class="text-2xl font-black text-gray-800 leading-none">{{ promocionesActivas() }}</span>
+                    <span class="text-xs text-slate-500 font-medium">ofertas</span>
+                </div>
+                <span class="text-[11px] font-bold text-pink-600 mt-2 flex items-center gap-1 truncate">
+                    <i class="pi pi-dollar text-xs"></i> Valor total: S/ {{ valor() | number:'1.2-2' }}
+                </span>
             </div>
         </div>
     </div>

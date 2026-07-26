@@ -3,12 +3,12 @@ import { Api } from '../../../../api/api';
 import { productGetall } from '../../../../api/functions';
 import { ProductsTable } from '../products-table/products-table';
 import { ProductSidebar } from '../product-sidebar/product-sidebar';
-import { ProductDetails } from '../product-details/product-details';
 import { Dialog } from "primeng/dialog";
 import { ProductInsert } from "../product-insert/product-insert";
 import { ProductKpi } from '../product-kpi/product-kpi';
 import { ProductGrowth } from '../ui/product-growth/product-growth';
 import { ProductCategory } from '../ui/product-category/product-category';
+import { ProductDetail } from '../product-detail/product-detail';
 
 interface FiltroContador {
   name: string;
@@ -21,7 +21,7 @@ interface FiltroContador {
   imports: [
     ProductsTable,
     ProductSidebar,
-    ProductDetails,
+    ProductDetail,
     ProductKpi,
     Dialog,
     ProductInsert,
@@ -51,6 +51,10 @@ export class ProductGetall implements OnInit {
   showCreate = signal<boolean>(false);
   showDetails = signal<boolean>(false);
 
+  totalCategoriasQty = computed(() => this.categorias().length);
+  totalLaboratoriosQty = computed(() => this.laboratorios().length);
+  totalProductosQty = computed(() => this.productos().length);
+
   filtrados = computed(() => {
     const q = this.busqueda().toLowerCase().trim();
     const cat = this.categoriaSeleccionada();
@@ -64,8 +68,6 @@ export class ProductGetall implements OnInit {
 
     return lista.filter((p: any) => p.name?.toLowerCase().includes(q));
   });
-
-  totalProductosQty = computed(() => this.productos().length);
 
   productosAgotadosQty = computed(() =>
     this.productos().filter((p: any) => Number(p.totalStock ?? 0) <= 0).length
@@ -85,6 +87,17 @@ export class ProductGetall implements OnInit {
   valorInventarioMonto = computed(() =>
     this.productos().reduce((acc: number, p: any) =>
       acc + (Number(p.totalStock ?? 0) * Number(p.priceSale ?? 0)), 0)
+  );
+
+  productosStockBajoQty = computed(() =>
+    this.productos().filter((p: any) => {
+      const stock = Number(p.totalStock ?? 0);
+      return stock > 0 && stock <= 10;
+    }).length
+  );
+
+  promocionesActivasQty = computed(() =>
+    this.productos().filter((p: any) => p.hasDiscount || p.isPromotion || Number(p.discountPercent ?? 0) > 0).length
   );
 
   ngOnInit(): void {
@@ -158,7 +171,22 @@ export class ProductGetall implements OnInit {
     this.initialization();
   }
 
-  onEditarProducto(product: any): void { }
+  onEditarProducto(productoActualizado: any): void {
+    if (!productoActualizado) return;
+    //api de edit
+    this.productos.update((lista) =>
+      lista.map((p) =>
+        p.idProduct === productoActualizado.idProduct ? { ...p, ...productoActualizado } : p
+      )
+    );
+
+    this.productoSeleccionado.set(productoActualizado);
+
+    this.categorias.set(this.buildCategorias(this.productos()));
+    this.laboratorios.set(this.buildLaboratorios(this.productos()));
+
+    this.showDetails.set(false);
+  }
 
   onExportarCSV(): void { }
 

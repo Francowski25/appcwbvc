@@ -1,4 +1,4 @@
-import { Component, input, computed } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -11,7 +11,10 @@ import { CommonModule } from '@angular/common';
 export class ProductKpi {
   total = input<number>(0);
   agotados = input<number>(0);
+  stockBajo = input<number>(0);
   porVencer = input<number>(0);
+  totalCategorias = input<number>(0);
+  totalLaboratorios = input<number>(0);
   valor = input<number>(0);
-
+  promocionesActivas = input<number>(0);
 }
