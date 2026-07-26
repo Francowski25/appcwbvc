@@ -4,7 +4,7 @@ import { Login } from './features/auth/login/login';
 import { Admin } from './features/admin/admin';
 import { Dashboard } from './features/admin/dashboard/dashboard';
 import { Profile } from './features/admin/profile/profile';
-import { UsersList } from './features/pages/user/user-getall/users-getall';
+import { UsersGetall } from './features/pages/user/user-getall/users-getall';
 import { RolesPermissions } from './features/pages/user/roles-permissions/roles-permissions';
 import { ProductGetall } from './features/pages/product/product-getall/product-getall';
 import { CategoryGetall } from './features/pages/category/category-getall/category-getall';
@@ -54,7 +54,7 @@ export const routes: Routes = [
       {
         path: 'usuarios', children: [
           { path: '', redirectTo: 'lista', pathMatch: 'full' },
-          { path: 'lista', component: UsersList },
+          { path: 'lista', component: UsersGetall },
           { path: 'roles-permisos', component: RolesPermissions },
         ]
       },
