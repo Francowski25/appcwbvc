@@ -12,13 +12,18 @@ import {
 import {
   Badge,
   BadgeModule
-} from "./chunk-FCJHXZYF.js";
+} from "./chunk-3LGP2GNB.js";
 import {
   Ripple
 } from "./chunk-RFIWG3VE.js";
 import {
   ConnectedOverlayScrollHandler
 } from "./chunk-B4OS73ZC.js";
+import {
+  RouterLink,
+  RouterLinkActive,
+  RouterModule
+} from "./chunk-LPTE5OGR.js";
 import {
   BaseComponent,
   PARENT_INSTANCE
@@ -27,14 +32,14 @@ import {
   BaseStyle
 } from "./chunk-XBFSX4ZR.js";
 import {
+  Bind,
+  BindModule
+} from "./chunk-KCMSSV6U.js";
+import {
   OverlayService,
   PrimeTemplate,
   SharedModule
 } from "./chunk-2NG34RPY.js";
-import {
-  Bind,
-  BindModule
-} from "./chunk-KCMSSV6U.js";
 import {
   T,
   V2 as V,
@@ -45,16 +50,11 @@ import {
   s2 as s,
   ut
 } from "./chunk-6VCYEF6R.js";
-import "./chunk-Z4TEE3MD.js";
-import {
-  RouterLink,
-  RouterLinkActive,
-  RouterModule
-} from "./chunk-LPTE5OGR.js";
 import {
   DomSanitizer
 } from "./chunk-DB5TIEMH.js";
 import "./chunk-JZRRZHSA.js";
+import "./chunk-Z4TEE3MD.js";
 import {
   CommonModule,
   NgForOf,

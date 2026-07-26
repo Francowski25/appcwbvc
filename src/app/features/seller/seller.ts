@@ -4,6 +4,7 @@ import { Sidebar } from './layout/sidebar/sidebar';
 import { Navbar } from './layout/navbar/navbar';
 import { ToastModule } from 'primeng/toast';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { Drawer } from '../../shared/components/drawer/drawer';
 
 @Component({
   selector: 'app-seller',
@@ -12,7 +13,8 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
     Sidebar,
     Navbar,
     ToastModule,
-    ConfirmDialogModule
+    ConfirmDialogModule,
+    Drawer
   ],
   templateUrl: './seller.html',
   styleUrl: './seller.css',

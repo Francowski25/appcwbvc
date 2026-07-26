@@ -12,13 +12,13 @@ import {
   BaseStyle
 } from "./chunk-XBFSX4ZR.js";
 import {
-  PrimeTemplate,
-  SharedModule
-} from "./chunk-2NG34RPY.js";
-import {
   Bind,
   BindModule
 } from "./chunk-KCMSSV6U.js";
+import {
+  PrimeTemplate,
+  SharedModule
+} from "./chunk-2NG34RPY.js";
 import {
   k,
   q
@@ -766,4 +766,4 @@ export {
   Checkbox,
   CheckboxModule
 };
-//# sourceMappingURL=chunk-3KLBSTQX.js.map
+//# sourceMappingURL=chunk-WKFHWWUP.js.map

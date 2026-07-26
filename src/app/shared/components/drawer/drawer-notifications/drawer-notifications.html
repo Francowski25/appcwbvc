@@ -1,0 +1,149 @@
+<div class="space-y-3.5">
+
+    <div class="flex items-center justify-between pb-2 border-b border-slate-200/60">
+        <div class="flex items-center gap-2">
+            <span class="text-xs font-bold text-slate-800">Alertas del Sistema</span>
+            <span class="px-2 py-0.5 text-[10px] font-bold bg-rose-500 text-white rounded-full shadow-2xs">
+                2 nuevas
+            </span>
+        </div>
+        <button type="button"
+            class="text-[11px] font-semibold text-blue-600 hover:text-blue-700 hover:underline transition-all">
+            Marcar todas como leídas
+        </button>
+    </div>
+
+    <div class="space-y-2">
+
+
+        <div
+            class="relative p-3 bg-rose-50/80 hover:bg-rose-50 rounded-2xl border border-rose-200/90 shadow-2xs transition-all flex gap-3 group cursor-pointer">
+            <span
+                class="absolute top-3 right-3 w-2 h-2 rounded-full bg-rose-500 ring-4 ring-rose-100 animate-pulse"></span>
+
+            <div
+                class="w-8 h-8 rounded-xl bg-rose-500 text-white flex items-center justify-center flex-shrink-0 mt-0.5 shadow-xs">
+                <i class="pi pi-times-circle text-sm"></i>
+            </div>
+
+            <div class="flex-1 min-w-0 space-y-1 pr-3">
+                <div class="flex items-center justify-between gap-1">
+                    <p class="text-xs font-bold text-rose-950 truncate">Stock Agotado</p>
+                    <span class="text-[10px] font-bold text-rose-600 flex-shrink-0">Hace 10 min</span>
+                </div>
+                <p class="text-[11px] text-rose-900 leading-relaxed font-medium">
+                    El producto <strong class="font-bold text-rose-950">Paracetamol 500mg</strong> se ha quedado sin
+                    stock (<span class="font-mono font-bold">0 unids</span>).
+                </p>
+                <div class="flex items-center gap-2 pt-1">
+                    <span class="px-1.5 py-0.5 text-[9px] font-bold bg-rose-200/80 text-rose-900 rounded">
+                        Código: 7501234567891
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <div
+            class="relative p-3 bg-amber-50/80 hover:bg-amber-50 rounded-2xl border border-amber-200/90 shadow-2xs transition-all flex gap-3 group cursor-pointer">
+            <span class="absolute top-3 right-3 w-2 h-2 rounded-full bg-amber-500 ring-4 ring-amber-100"></span>
+
+            <div
+                class="w-8 h-8 rounded-xl bg-amber-500 text-white flex items-center justify-center flex-shrink-0 mt-0.5 shadow-xs">
+                <i class="pi pi-exclamation-triangle text-sm"></i>
+            </div>
+
+            <div class="flex-1 min-w-0 space-y-1 pr-3">
+                <div class="flex items-center justify-between gap-1">
+                    <p class="text-xs font-bold text-amber-950 truncate">Stock Mínimo Superado</p>
+                    <span class="text-[10px] font-bold text-amber-700 flex-shrink-0">Hace 45 min</span>
+                </div>
+                <p class="text-[11px] text-amber-900 leading-relaxed font-medium">
+                    <strong class="font-bold text-amber-950">Clotrimazol Crema</strong> tiene solo <span
+                        class="font-bold font-mono">2 unids</span> (Mínimo: 5 unids).
+                </p>
+                <div class="flex items-center gap-2 pt-1">
+                    <span class="px-1.5 py-0.5 text-[9px] font-bold bg-amber-200/80 text-amber-900 rounded">
+                        Proveedor: Farmacéutica Andina
+                    </span>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div
+            class="p-3 bg-white hover:bg-slate-50 rounded-2xl border border-slate-200/60 transition-all flex gap-3 group cursor-pointer opacity-75 hover:opacity-100">
+            <div
+                class="w-8 h-8 rounded-xl bg-rose-50 text-rose-500 flex items-center justify-center flex-shrink-0 mt-0.5 border border-rose-100">
+                <i class="pi pi-times-circle text-sm"></i>
+            </div>
+
+            <div class="flex-1 min-w-0 space-y-1">
+                <div class="flex items-center justify-between gap-1">
+                    <p class="text-xs font-semibold text-slate-700 truncate">Stock Agotado</p>
+                    <span class="text-[10px] font-normal text-slate-400 flex-shrink-0">Hace 2 horas</span>
+                </div>
+                <p class="text-[11px] text-slate-500 leading-relaxed">
+                    El producto <span class="font-semibold text-slate-700">Loratadina 10mg</span> no tiene unidades
+                    disponibles.
+                </p>
+                <div class="flex items-center gap-2 pt-1">
+                    <span
+                        class="px-1.5 py-0.5 text-[9px] font-medium bg-slate-100 text-slate-500 rounded border border-slate-200/50">
+                        Min. Requerido: 12
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <div
+            class="p-3 bg-white hover:bg-slate-50 rounded-2xl border border-slate-200/60 transition-all flex gap-3 group cursor-pointer opacity-75 hover:opacity-100">
+            <div
+                class="w-8 h-8 rounded-xl bg-orange-50 text-orange-500 flex items-center justify-center flex-shrink-0 mt-0.5 border border-orange-100">
+                <i class="pi pi-calendar-times text-sm"></i>
+            </div>
+
+            <div class="flex-1 min-w-0 space-y-1">
+                <div class="flex items-center justify-between gap-1">
+                    <p class="text-xs font-semibold text-slate-700 truncate">Lote Próximo a Vencer</p>
+                    <span class="text-[10px] font-normal text-slate-400 flex-shrink-0">Ayer</span>
+                </div>
+                <p class="text-[11px] text-slate-500 leading-relaxed">
+                    Lote <span class="font-mono font-semibold text-slate-700">LOT-001</span> vence el 15/07/2026.
+                </p>
+                <div class="flex items-center gap-2 pt-1">
+                    <span
+                        class="px-1.5 py-0.5 text-[9px] font-medium bg-slate-100 text-slate-500 rounded border border-slate-200/50">
+                        Lote: LOT-001
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <div
+            class="p-3 bg-white hover:bg-slate-50 rounded-2xl border border-slate-200/60 transition-all flex gap-3 group cursor-pointer opacity-75 hover:opacity-100">
+            <div
+                class="w-8 h-8 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center flex-shrink-0 mt-0.5 border border-emerald-100">
+                <i class="pi pi-arrow-down-left text-sm"></i>
+            </div>
+
+            <div class="flex-1 min-w-0 space-y-1">
+                <div class="flex items-center justify-between gap-1">
+                    <p class="text-xs font-semibold text-slate-700 truncate">Ingreso de Stock</p>
+                    <span class="text-[10px] font-normal text-slate-400 flex-shrink-0">18 Jun</span>
+                </div>
+                <p class="text-[11px] text-slate-500 leading-relaxed">
+                    Ingresaron <span class="font-mono font-semibold text-slate-700">180 unids</span> de Omeprazol 20mg.
+                </p>
+                <div class="flex items-center gap-2 pt-1">
+                    <span
+                        class="px-1.5 py-0.5 text-[9px] font-medium bg-slate-100 text-slate-500 rounded border border-slate-200/50">
+                        Química Suiza SRL
+                    </span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>

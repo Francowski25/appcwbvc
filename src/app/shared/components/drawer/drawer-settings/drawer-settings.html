@@ -1,0 +1,158 @@
+<div class="space-y-5">
+
+    <div class="space-y-2">
+        <span class="text-[10px] font-bold tracking-wider text-slate-400 uppercase px-1">
+            Umbrales de Stock y Vencimiento
+        </span>
+
+        <div class="p-3 bg-slate-50/80 rounded-xl border border-slate-200/60 space-y-3">
+
+            <div class="flex items-center justify-between gap-3">
+                <div class="flex items-center gap-2.5 min-w-0">
+                    <div
+                        class="w-7 h-7 rounded-lg bg-orange-50 text-orange-600 flex items-center justify-center flex-shrink-0 border border-orange-100">
+                        <i class="pi pi-calendar-times text-xs"></i>
+                    </div>
+                    <div>
+                        <span class="text-xs font-semibold text-slate-800 block truncate">Aviso de Vencimiento</span>
+                        <span class="text-[10px] text-slate-400 block">Anticipación para alertar lotes</span>
+                    </div>
+                </div>
+                <div class="flex items-center gap-1.5 flex-shrink-0">
+                    <input type="number" value="30" min="1" max="180"
+                        class="w-14 px-2 py-1 bg-white border border-slate-200 text-xs text-center font-bold text-slate-800 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-500/10 outline-none transition-all" />
+                    <span class="text-[11px] font-medium text-slate-500">días</span>
+                </div>
+            </div>
+
+            <div class="border-t border-slate-200/40"></div>
+
+            <div class="flex items-center justify-between gap-3">
+                <div class="flex items-center gap-2.5 min-w-0">
+                    <div
+                        class="w-7 h-7 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center flex-shrink-0 border border-amber-100">
+                        <i class="pi pi-box text-xs"></i>
+                    </div>
+                    <div>
+                        <span class="text-xs font-semibold text-slate-800 block truncate">Umbral de Stock Bajo</span>
+                        <span class="text-[10px] text-slate-400 block">Anticipación de stock bajo</span>
+                    </div>
+                </div>
+                <div class="flex items-center gap-1.5 flex-shrink-0">
+                    <input type="number" value="3" min="1" max="180"
+                        class="w-14 px-2 py-1 bg-white border border-slate-200 text-xs text-center font-bold text-slate-800 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-500/10 outline-none transition-all" />
+                    <span class="text-[11px] font-medium text-slate-500">días</span>
+                </div>
+            </div>
+
+            <div class="border-t border-slate-200/40"></div>
+
+            <div class="flex items-center justify-between gap-3">
+                <div class="flex items-center gap-2.5 min-w-0">
+                    <div
+                        class="w-7 h-7 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center flex-shrink-0 border border-indigo-100">
+                        <i class="pi pi-clock text-xs"></i>
+                    </div>
+                    <div>
+                        <span class="text-xs font-semibold text-slate-800 block truncate">Verificación de
+                            Agotados</span>
+                        <span class="text-[10px] text-slate-400 block">Frecuencia de escaneo en DB</span>
+                    </div>
+                </div>
+                <select
+                    class="px-2 py-1 bg-white border border-slate-200 text-xs font-medium text-slate-700 rounded-lg focus:border-blue-500 outline-none transition-all cursor-pointer">
+                    <option value="realtime">En tiempo real</option>
+                    <option value="hourly">Cada 1 hora</option>
+                    <option value="daily" selected>1 vez al día</option>
+                </select>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="space-y-2">
+        <span class="text-[10px] font-bold tracking-wider text-slate-400 uppercase px-1">
+            Notificaciones del Sistema
+        </span>
+
+        <div class="space-y-1.5">
+            <label
+                class="flex items-center justify-between p-2.5 bg-slate-50/80 hover:bg-slate-100/80 rounded-xl border border-slate-200/60 transition-all cursor-pointer group">
+                <div class="flex items-center gap-3">
+                    <div
+                        class="w-7 h-7 rounded-lg bg-rose-50 text-rose-600 flex items-center justify-center flex-shrink-0 border border-rose-100">
+                        <i class="pi pi-bell text-xs"></i>
+                    </div>
+                    <div>
+                        <span class="text-xs font-semibold text-slate-800 block">Alarma por Stock Agotado</span>
+                        <span class="text-[10px] text-slate-400">Sonido inmediato al llegar a 0 unidades</span>
+                    </div>
+                </div>
+                <div class="relative inline-flex items-center cursor-pointer">
+                    <input type="checkbox" checked class="sr-only peer">
+                    <div
+                        class="w-8 h-4.5 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-3.5 after:w-3.5 after:transition-all peer-checked:bg-rose-600">
+                    </div>
+                </div>
+            </label>
+
+            <label
+                class="flex items-center justify-between p-2.5 bg-slate-50/80 hover:bg-slate-100/80 rounded-xl border border-slate-200/60 transition-all cursor-pointer group">
+                <div class="flex items-center gap-3">
+                    <div
+                        class="w-7 h-7 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center flex-shrink-0 border border-blue-100">
+                        <i class="pi pi-send text-xs"></i>
+                    </div>
+                    <div>
+                        <span class="text-xs font-semibold text-slate-800 block">Aviso a Administración</span>
+                        <span class="text-[10px] text-slate-400">Enviar resumen de stock crítico al cierre</span>
+                    </div>
+                </div>
+                <div class="relative inline-flex items-center cursor-pointer">
+                    <input type="checkbox" checked class="sr-only peer">
+                    <div
+                        class="w-8 h-4.5 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-3.5 after:w-3.5 after:transition-all peer-checked:bg-blue-600">
+                    </div>
+                </div>
+            </label>
+        </div>
+    </div>
+
+    <div class="space-y-2">
+        <span class="text-[10px] font-bold tracking-wider text-slate-400 uppercase px-1">
+            Ajustes de Interfaz
+        </span>
+
+        <div class="space-y-1.5">
+            <div class="p-2.5 bg-slate-50/80 rounded-xl border border-slate-200/60 space-y-2">
+                <div class="flex items-center gap-3">
+                    <div
+                        class="w-7 h-7 rounded-lg bg-slate-200 text-slate-700 flex items-center justify-center flex-shrink-0">
+                        <i class="pi pi-desktop text-xs"></i>
+                    </div>
+                    <span class="text-xs font-semibold text-slate-800">Tema del Sistema</span>
+                </div>
+
+                <div class="grid grid-cols-2 gap-1.5 pt-0.5">
+                    <button type="button"
+                        class="py-1.5 px-2 text-[11px] font-semibold rounded-lg bg-white text-blue-600 border border-blue-200 shadow-2xs flex items-center justify-center gap-1.5">
+                        <i class="pi pi-sun text-[11px]"></i> Claro
+                    </button>
+                    <button type="button"
+                        class="py-1.5 px-2 text-[11px] font-medium rounded-lg bg-slate-100 text-slate-500 hover:text-slate-800 border border-transparent transition-all flex items-center justify-center gap-1.5">
+                        <i class="pi pi-moon text-[11px]"></i> Oscuro
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="pt-2 border-t border-slate-100">
+        <button type="button"
+            class="w-full py-2.5 px-3 bg-blue-600 hover:bg-blue-700 active:scale-[0.99] text-white text-xs font-semibold rounded-xl shadow-xs transition-all flex items-center justify-center gap-2">
+            <i class="pi pi-save text-xs"></i>
+            Guardar Configuración
+        </button>
+    </div>
+
+</div>

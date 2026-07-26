@@ -2,7 +2,7 @@ import { Component, signal, HostListener, inject } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs/operators';
-import { LayoutService } from '../layout.service';
+import { LayoutService } from '../../../../services/layout.service';
 
 @Component({
   selector: 'app-sidebar',

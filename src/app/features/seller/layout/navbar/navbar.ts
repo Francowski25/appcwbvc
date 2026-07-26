@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { LayoutService } from '../layout.service';
+import { LayoutService } from '../../../../services/layout.service';
 
 @Component({
   selector: 'app-navbar',

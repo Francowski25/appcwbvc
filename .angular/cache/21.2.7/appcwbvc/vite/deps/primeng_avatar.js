@@ -6,11 +6,11 @@ import {
   BaseStyle
 } from "./chunk-XBFSX4ZR.js";
 import {
-  SharedModule
-} from "./chunk-2NG34RPY.js";
-import {
   Bind
 } from "./chunk-KCMSSV6U.js";
+import {
+  SharedModule
+} from "./chunk-2NG34RPY.js";
 import "./chunk-6VCYEF6R.js";
 import "./chunk-Z4TEE3MD.js";
 import {

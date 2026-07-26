@@ -10,19 +10,19 @@
 
   <div class="flex items-center gap-0.5 sm:gap-2 flex-shrink-0 ml-auto">
 
-    <button type="button" aria-label="Mensajes"
+    <button type="button" aria-label="Mensajes" (click)="layout.toggleDrawer('messages')"
       class="w-9 h-9 flex-shrink-0 relative flex items-center justify-center rounded-lg text-slate-300 hover:text-white hover:bg-white/10 lg:text-gray-500 lg:hover:text-gray-700 lg:hover:bg-gray-100 transition-colors">
       <i class="pi pi-envelope text-lg"></i>
       <span class="absolute top-2 right-2 w-2 h-2 bg-blue-500 rounded-full"></span>
     </button>
 
-    <button type="button" aria-label="Notificaciones"
+    <button type="button" aria-label="Notificaciones" (click)="layout.toggleDrawer('notifications')"
       class="w-9 h-9 flex-shrink-0 relative flex items-center justify-center rounded-lg text-slate-300 hover:text-white hover:bg-white/10 lg:text-gray-500 lg:hover:text-gray-700 lg:hover:bg-gray-100 transition-colors">
       <i class="pi pi-bell text-lg"></i>
       <span class="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full"></span>
     </button>
 
-    <button type="button" aria-label="Configuración"
+    <button type="button" aria-label="Configuración" (click)="layout.toggleDrawer('settings')"
       class="w-9 h-9 flex-shrink-0 flex items-center justify-center rounded-lg text-slate-300 hover:text-white hover:bg-white/10 lg:text-gray-500 lg:hover:text-gray-700 lg:hover:bg-gray-100 transition-colors">
       <i class="pi pi-cog text-lg"></i>
     </button>
