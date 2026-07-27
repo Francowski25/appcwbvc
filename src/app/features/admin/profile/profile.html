@@ -1,137 +1,141 @@
-<div class="p-3 sm:p-4 lg:p-6">
-  <div class="mb-6">
-    <h2 class="text-xl font-bold text-gray-800">Mi perfil</h2>
-    <p class="text-xs text-gray-400 mt-0.5">Información de tu cuenta</p>
+<div class="p-3 sm:p-4 lg:p-6 space-y-6">
+
+  <div class="flex items-center justify-between">
+    <div>
+      <h2 class="text-xl font-bold text-gray-800 tracking-tight">Mi perfil</h2>
+      <p class="text-xs text-gray-400 mt-0.5">Información general y credenciales de tu cuenta</p>
+    </div>
   </div>
 
   <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
-    <div class="lg:col-span-1 flex flex-col gap-4">
+    <div class="lg:col-span-1 flex flex-col gap-5">
 
-      <div class="bg-white rounded-2xl border border-pink-100 shadow-sm overflow-hidden">
-        <div class="h-20 bg-gradient-to-r from-pink-400 to-pink-600"></div>
-        <div class="px-4 pb-5">
-          <div class="-mt-8 mb-4">
+      <div class="bg-white rounded-2xl border border-pink-100 shadow-xs overflow-hidden">
+        <div class="h-24 bg-gradient-to-r from-pink-400 via-pink-500 to-pink-600"></div>
+        <div class="px-5 pb-5">
+          <div class="-mt-10 mb-3 flex items-end justify-between">
             <div
-              class="w-16 h-16 rounded-2xl bg-pink-500 border-4 border-white flex items-center justify-center text-white text-xl font-bold shadow-md">
-              {{ user?.firstName?.charAt(0) }}
+              class="w-18 h-18 rounded-2xl bg-pink-500 border-4 border-white flex items-center justify-center text-white text-2xl font-bold shadow-md">
+              {{ user()?.firstName?.charAt(0) }}
             </div>
+            <span class="px-2.5 py-1 rounded-full text-[11px] font-bold capitalize flex items-center gap-1.5"
+              [class]="user()?.status === 'activo' ? 'bg-emerald-50 text-emerald-600 border border-emerald-200/60' : 'bg-rose-50 text-rose-600 border border-rose-200/60'">
+              <span class="w-1.5 h-1.5 rounded-full"
+                [class]="user()?.status === 'activo' ? 'bg-emerald-500' : 'bg-rose-500'"></span>
+              {{ user()?.status }}
+            </span>
           </div>
-          <h3 class="text-base font-bold text-gray-900">{{ user?.firstName }} {{ user?.surName }}</h3>
-          <span
-            class="inline-block mt-1 px-3 py-0.5 rounded-full text-xs font-semibold bg-pink-100 text-pink-600 capitalize">
-            {{ user?.role }}
-          </span>
 
-          <div class="mt-4 flex flex-col gap-2">
-            <div class="flex items-center gap-2 text-xs text-gray-500">
-              <i class="pi pi-envelope text-pink-400 text-xs"></i>
-              <span class="truncate">{{ user?.email }}</span>
-            </div>
-            <div class="flex items-center gap-2 text-xs" [class.text-green-600]="user?.status === 'activo'"
-              [class.text-red-500]="user?.status !== 'activo'">
-              <i class="pi pi-circle-fill text-xs"></i>
-              <span class="capitalize">{{ user?.status }}</span>
+          <h3 class="text-base font-bold text-gray-900 tracking-tight">{{ user()?.firstName }} {{ user()?.surName }}
+          </h3>
+          <p class="text-xs font-semibold text-pink-600 capitalize mt-0.5">{{ user()?.role }}</p>
+
+          <div class="mt-4 pt-4 border-t border-pink-100/60 flex flex-col gap-2.5">
+            <div class="flex items-center gap-2.5 text-xs text-gray-600">
+              <div class="w-6 h-6 rounded-md bg-pink-50 flex items-center justify-center text-pink-500 shrink-0">
+                <i class="pi pi-envelope text-[11px]"></i>
+              </div>
+              <span class="truncate font-medium">{{ user()?.email }}</span>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="bg-white rounded-2xl border border-pink-100 shadow-sm p-4 flex flex-col gap-2">
-        <p class="text-xs font-semibold text-pink-400 uppercase tracking-wider mb-1">Acciones</p>
+      <div class="bg-white rounded-2xl border border-pink-100 shadow-xs p-3.5 space-y-1.5">
+        <span class="text-[10px] font-bold text-pink-400 uppercase tracking-wider px-2 block mb-2">
+          Acciones de Cuenta
+        </span>
 
         <button type="button" (click)="showEditProfileDialog.set(true)"
-          class="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-pink-50 transition-colors group w-full text-left border-0 bg-transparent cursor-pointer">
+          class="w-full flex items-center gap-3 p-2.5 rounded-xl hover:bg-pink-50/60 border border-transparent hover:border-pink-200/60 transition-all group text-left cursor-pointer">
           <div
-            class="w-8 h-8 rounded-lg bg-pink-100 flex items-center justify-center group-hover:bg-pink-200 transition-colors shrink-0">
-            <i class="pi pi-pencil text-pink-500 text-xs"></i>
+            class="w-8 h-8 rounded-lg bg-pink-100 text-pink-600 flex items-center justify-center group-hover:bg-pink-500 group-hover:text-white transition-all shrink-0">
+            <i class="pi pi-pencil text-xs"></i>
           </div>
-          <div>
-            <p class="text-sm font-semibold text-gray-800 m-0">Editar perfil</p>
-            <p class="text-xs text-gray-400 m-0">Actualizar información</p>
+          <div class="min-w-0 flex-1">
+            <p class="text-xs font-bold text-gray-800 m-0">Editar perfil</p>
+            <p class="text-[11px] text-gray-400 m-0 truncate">Actualizar información</p>
           </div>
-          <i class="pi pi-chevron-right text-pink-300 text-xs ml-auto"></i>
+          <i class="pi pi-chevron-right text-pink-300 text-xs group-hover:translate-x-0.5 transition-transform"></i>
         </button>
 
         <button type="button" (click)="showPasswordDialog.set(true)"
-          class="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-pink-50 transition-colors group w-full text-left border-0 bg-transparent cursor-pointer">
+          class="w-full flex items-center gap-3 p-2.5 rounded-xl hover:bg-pink-50/60 border border-transparent hover:border-pink-200/60 transition-all group text-left cursor-pointer">
           <div
-            class="w-8 h-8 rounded-lg bg-pink-100 flex items-center justify-center group-hover:bg-pink-200 transition-colors shrink-0">
-            <i class="pi pi-lock text-pink-500 text-xs"></i>
+            class="w-8 h-8 rounded-lg bg-pink-100 text-pink-600 flex items-center justify-center group-hover:bg-pink-500 group-hover:text-white transition-all shrink-0">
+            <i class="pi pi-lock text-xs"></i>
           </div>
-          <div>
-            <p class="text-sm font-semibold text-gray-800 m-0">Contraseña</p>
-            <p class="text-xs text-gray-400 m-0">Cambiar contraseña</p>
+          <div class="min-w-0 flex-1">
+            <p class="text-xs font-bold text-gray-800 m-0">Contraseña</p>
+            <p class="text-[11px] text-gray-400 m-0 truncate">Cambiar contraseña de acceso</p>
           </div>
-          <i class="pi pi-chevron-right text-pink-300 text-xs ml-auto"></i>
+          <i class="pi pi-chevron-right text-pink-300 text-xs group-hover:translate-x-0.5 transition-transform"></i>
         </button>
       </div>
 
     </div>
 
-    <div class="lg:col-span-2 flex flex-col gap-4">
+    <div class="lg:col-span-2 flex flex-col gap-5">
 
-      <div class="bg-white rounded-2xl border border-pink-100 shadow-sm p-5">
-        <div class="flex items-center gap-2 mb-4">
-          <div class="w-7 h-7 rounded-lg bg-pink-100 flex items-center justify-center">
-            <i class="pi pi-user text-pink-500 text-xs"></i>
+      <div class="bg-white rounded-2xl border border-pink-100 shadow-xs p-5">
+        <div class="flex items-center gap-2.5 mb-4">
+          <div class="w-8 h-8 rounded-lg bg-pink-100 text-pink-600 flex items-center justify-center">
+            <i class="pi pi-user text-xs"></i>
           </div>
-          <p class="text-sm font-bold text-gray-800 m-0">Información personal</p>
+          <p class="text-xs font-bold text-gray-800 uppercase tracking-wider m-0">Información personal</p>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-
-          <div class="flex flex-col gap-1 p-3 rounded-xl bg-pink-50/50 border border-pink-100">
-            <span class="text-xs font-semibold text-pink-400 uppercase tracking-wider">Nombre</span>
-            <span class="text-sm font-semibold text-gray-800">{{ user?.firstName }}</span>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+          <div class="p-3.5 rounded-xl bg-pink-50/50 border border-pink-100">
+            <span class="text-[10px] font-bold text-pink-400 uppercase tracking-wider block mb-1">Nombre</span>
+            <span class="text-xs font-bold text-gray-800">{{ user()?.firstName }}</span>
           </div>
 
-          <div class="flex flex-col gap-1 p-3 rounded-xl bg-pink-50/50 border border-pink-100">
-            <span class="text-xs font-semibold text-pink-400 uppercase tracking-wider">Apellido</span>
-            <span class="text-sm font-semibold text-gray-800">{{ user?.surName }}</span>
+          <div class="p-3.5 rounded-xl bg-pink-50/50 border border-pink-100">
+            <span class="text-[10px] font-bold text-pink-400 uppercase tracking-wider block mb-1">Apellido</span>
+            <span class="text-xs font-bold text-gray-800">{{ user()?.surName }}</span>
           </div>
 
-          <div class="col-span-2 flex flex-col gap-1 p-3 rounded-xl bg-pink-50/50 border border-pink-100">
-            <span class="text-xs font-semibold text-pink-400 uppercase tracking-wider">Correo electrónico</span>
-            <span class="text-sm font-semibold text-gray-800">{{ user?.email }}</span>
+          <div class="col-span-1 sm:col-span-2 p-3.5 rounded-xl bg-pink-50/50 border border-pink-100">
+            <span class="text-[10px] font-bold text-pink-400 uppercase tracking-wider block mb-1">Correo
+              electrónico</span>
+            <span class="text-xs font-bold text-gray-800">{{ user()?.email }}</span>
           </div>
-
         </div>
       </div>
 
-      <div class="bg-white rounded-2xl border border-pink-100 shadow-sm p-5">
-        <div class="flex items-center gap-2 mb-4">
-          <div class="w-7 h-7 rounded-lg bg-pink-100 flex items-center justify-center">
-            <i class="pi pi-shield text-pink-500 text-xs"></i>
+      <div class="bg-white rounded-2xl border border-pink-100 shadow-xs p-5">
+        <div class="flex items-center gap-2.5 mb-4">
+          <div class="w-8 h-8 rounded-lg bg-pink-100 text-pink-600 flex items-center justify-center">
+            <i class="pi pi-shield text-xs"></i>
           </div>
-          <p class="text-sm font-bold text-gray-800 m-0">Cuenta</p>
+          <p class="text-xs font-bold text-gray-800 uppercase tracking-wider m-0">Cuenta</p>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-
-          <div class="flex flex-col gap-1 p-3 rounded-xl bg-pink-50/50 border border-pink-100">
-            <span class="text-xs font-semibold text-pink-400 uppercase tracking-wider">Rol</span>
-            <span class="text-sm font-semibold text-gray-800 capitalize">{{ user?.role }}</span>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+          <div class="p-3.5 rounded-xl bg-pink-50/50 border border-pink-100">
+            <span class="text-[10px] font-bold text-pink-400 uppercase tracking-wider block mb-1">Rol</span>
+            <span class="text-xs font-bold text-gray-800 capitalize">{{ user()?.role }}</span>
           </div>
 
-          <div class="flex flex-col gap-1 p-3 rounded-xl bg-pink-50/50 border border-pink-100">
-            <span class="text-xs font-semibold text-pink-400 uppercase tracking-wider">Estado</span>
-            <span class="text-sm font-semibold capitalize" [class.text-green-600]="user?.status === 'activo'"
-              [class.text-red-500]="user?.status !== 'activo'">
-              {{ user?.status }}
+          <div class="p-3.5 rounded-xl bg-pink-50/50 border border-pink-100">
+            <span class="text-[10px] font-bold text-pink-400 uppercase tracking-wider block mb-1">Estado</span>
+            <span class="text-xs font-bold capitalize" [class.text-emerald-600]="user()?.status === 'activo'"
+              [class.text-rose-500]="user()?.status !== 'activo'">
+              {{ user()?.status }}
             </span>
           </div>
 
-          <div class="flex flex-col gap-1 p-3 rounded-xl bg-pink-50/50 border border-pink-100">
-            <span class="text-xs font-semibold text-pink-400 uppercase tracking-wider">Creado</span>
-            <span class="text-sm font-semibold text-gray-800">{{ user?.createdAt | date:'dd/MM/yyyy' }}</span>
+          <div class="p-3.5 rounded-xl bg-pink-50/50 border border-pink-100">
+            <span class="text-[10px] font-bold text-pink-400 uppercase tracking-wider block mb-1">Creado</span>
+            <span class="text-xs font-bold text-gray-800">{{ user()?.createdAt | date:'dd/MM/yyyy' }}</span>
           </div>
 
-          <div class="flex flex-col gap-1 p-3 rounded-xl bg-pink-50/50 border border-pink-100">
-            <span class="text-xs font-semibold text-pink-400 uppercase tracking-wider">Actualizado</span>
-            <span class="text-sm font-semibold text-gray-800">{{ user?.updatedAt | date:'dd/MM/yyyy' }}</span>
+          <div class="p-3.5 rounded-xl bg-pink-50/50 border border-pink-100">
+            <span class="text-[10px] font-bold text-pink-400 uppercase tracking-wider block mb-1">Actualizado</span>
+            <span class="text-xs font-bold text-gray-800">{{ user()?.updatedAt | date:'dd/MM/yyyy' }}</span>
           </div>
-
         </div>
       </div>
 
@@ -140,14 +144,44 @@
   </div>
 </div>
 
-<p-dialog header="Editar perfil" [visible]="showEditProfileDialog()" (visibleChange)="showEditProfileDialog.set($event)"
-  [modal]="true" [style]="{ width: '35rem' }" [breakpoints]="{ '768px': '95vw' }" [draggable]="false"
-  [resizable]="false">
-  <app-edit-profile></app-edit-profile>
+<p-dialog [visible]="showEditProfileDialog()" (visibleChange)="showEditProfileDialog.set($event)" [modal]="true"
+  [style]="{ width: '40rem' }" [breakpoints]="{ '768px': '95vw' }" [draggable]="false" [resizable]="false"
+  [dismissableMask]="true" maskStyleClass="backdrop-blur-xs bg-slate-900/30">
+
+  <ng-template pTemplate="header">
+    <div class="flex items-center gap-3">
+      <div class="w-9 h-9 rounded-xl bg-pink-100 text-pink-600 flex items-center justify-center shrink-0">
+        <i class="pi pi-pencil text-sm"></i>
+      </div>
+      <div>
+        <h3 class="text-sm font-bold text-gray-800 m-0">Editar perfil</h3>
+        <p class="text-[11px] text-gray-400 m-0">Actualizar información de la cuenta</p>
+      </div>
+    </div>
+  </ng-template>
+
+  <div class="pt-2">
+    <app-edit-profile [user]="user()" (closeModal)="showEditProfileDialog.set(false)" />
+  </div>
 </p-dialog>
 
-<p-dialog header="Cambiar contraseña" [visible]="showPasswordDialog()" (visibleChange)="showPasswordDialog.set($event)"
-  [modal]="true" [style]="{ width: '28rem' }" [breakpoints]="{ '768px': '95vw' }" [draggable]="false"
-  [resizable]="false">
-  <app-password-settings></app-password-settings>
+<p-dialog [visible]="showPasswordDialog()" (visibleChange)="showPasswordDialog.set($event)" [modal]="true"
+  [style]="{ width: '40rem' }" [breakpoints]="{ '768px': '95vw' }" [draggable]="false" [resizable]="false"
+  [dismissableMask]="true" maskStyleClass="backdrop-blur-xs bg-slate-900/30">
+
+  <ng-template pTemplate="header">
+    <div class="flex items-center gap-3">
+      <div class="w-9 h-9 rounded-xl bg-pink-100 text-pink-600 flex items-center justify-center shrink-0">
+        <i class="pi pi-lock text-sm"></i>
+      </div>
+      <div>
+        <h3 class="text-sm font-bold text-gray-800 m-0">Cambiar contraseña</h3>
+        <p class="text-[11px] text-gray-400 m-0">Actualizar credencial de acceso</p>
+      </div>
+    </div>
+  </ng-template>
+
+  <div class="pt-2">
+    <app-password-settings (closeModal)="showPasswordDialog.set(false)" />
+  </div>
 </p-dialog>

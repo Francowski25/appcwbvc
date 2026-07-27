@@ -11,7 +11,7 @@ import { PasswordSettings } from './password-settings/password-settings';
   styleUrl: './profile.css',
 })
 export class Profile {
-  user = (() => {
+  user = signal(() => {
     const raw = localStorage.getItem('current_user');
     return raw ? JSON.parse(raw) : null;
   })();
