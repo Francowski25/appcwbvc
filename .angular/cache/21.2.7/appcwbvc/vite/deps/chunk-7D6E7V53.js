@@ -1,9 +1,12 @@
 import {
-  Fluid
-} from "./chunk-AVZNGQ5K.js";
-import {
   BaseModelHolder
 } from "./chunk-JCVXXMJ2.js";
+import {
+  NgControl
+} from "./chunk-L4FARHV5.js";
+import {
+  Fluid
+} from "./chunk-AVZNGQ5K.js";
 import {
   PARENT_INSTANCE
 } from "./chunk-GYXQQEFS.js";
@@ -13,9 +16,6 @@ import {
 import {
   Bind
 } from "./chunk-KCMSSV6U.js";
-import {
-  NgControl
-} from "./chunk-L4FARHV5.js";
 import {
   Directive,
   HostListener,
@@ -383,4 +383,4 @@ export {
   InputText,
   InputTextModule
 };
-//# sourceMappingURL=chunk-JT73HP36.js.map
+//# sourceMappingURL=chunk-7D6E7V53.js.map

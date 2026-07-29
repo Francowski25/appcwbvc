@@ -1,6 +1,41 @@
-<form [formGroup]="editProfileForm" (ngSubmit)="onSubmit()" class="space-y-4">
+<form [formGroup]="editProfileForm" (ngSubmit)="onSubmit()" class="space-y-5">
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-3.5">
+    <div class="p-4 rounded-2xl bg-slate-50/80 border border-slate-200/80 flex items-center gap-4">
+        <div class="relative shrink-0">
+            @if (editProfileForm.get('image')?.value) {
+            <img [src]="'/images/user/' + user()?.image" alt="Avatar"
+                class="w-16 h-16 rounded-2xl object-cover border-2 border-pink-400 shadow-xs" />
+            } @else {
+            <div
+                class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-pink-500 to-rose-400 border-2 border-white flex items-center justify-center text-white text-xl font-black shadow-xs">
+                {{ editProfileForm.get('firstName')?.value?.charAt(0) || 'U' }}
+            </div>
+            }
+        </div>
+
+        <div class="flex-1 min-w-0 space-y-1.5">
+            <span class="text-xs font-extrabold text-slate-800 block">Foto de Perfil</span>
+            <div class="flex items-center gap-2">
+                <label for="avatarUpload"
+                    class="px-3 py-1.5 bg-white hover:bg-slate-100 border border-slate-200 text-slate-700 text-[11px] font-bold rounded-xl transition-all cursor-pointer shadow-2xs flex items-center gap-1.5 active:scale-95">
+                    <i class="pi pi-upload text-[11px] text-pink-500"></i>
+                    Subir imagen
+                </label>
+                <input id="avatarUpload" type="file" accept="image/*" class="hidden"
+                    (change)="onFileSelected($event)" />
+
+                @if (editProfileForm.get('image')?.value) {
+                <button type="button" (click)="removeImage()"
+                    class="px-2.5 py-1.5 text-rose-500 hover:bg-rose-50 text-[11px] font-bold rounded-xl transition-all cursor-pointer">
+                    Remover
+                </button>
+                }
+            </div>
+            <p class="text-[10px] text-slate-400 m-0">Soporta PNG, JPG o GIF (Máx 2MB)</p>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
 
         <div class="space-y-3">
             <span class="text-[11px] font-extrabold text-pink-500 uppercase tracking-wider block">
@@ -8,16 +43,16 @@
             </span>
 
             <div class="space-y-1">
-                <label for="firstName" class="text-xs font-bold text-gray-700 block">
+                <label for="firstName" class="text-xs font-bold text-slate-700 block">
                     Nombre <span class="text-rose-500">*</span>
                 </label>
                 <div class="relative flex items-center">
-                    <div class="absolute left-3 text-pink-400 pointer-events-none flex items-center">
+                    <div class="absolute left-3 text-pink-400 pointer-events-none flex items-center z-10">
                         <i class="pi pi-user text-xs"></i>
                     </div>
                     <input id="firstName" type="text" formControlName="firstName" placeholder="Ej. Juan"
-                        class="w-full pl-9 pr-3 py-2.5 bg-slate-50/50 hover:bg-white focus:bg-white border border-gray-200 focus:border-pink-500 focus:ring-2 focus:ring-pink-500/10 text-xs font-semibold text-gray-800 rounded-xl outline-none transition-all"
-                        [class.border-rose-400]="isFieldInvalid('firstName')" />
+                        class="w-full pl-9 pr-3 py-2 bg-slate-50/50 hover:bg-white focus:bg-white border border-slate-200 focus:border-pink-500 focus:ring-2 focus:ring-pink-500/10 text-xs font-semibold text-slate-800 rounded-xl outline-none transition-all relative z-0"
+                        [class.!border-rose-400]="isFieldInvalid('firstName')" />
                 </div>
                 @if (isFieldInvalid('firstName')) {
                 <span class="text-[10px] font-semibold text-rose-500 block">El nombre es obligatorio</span>
@@ -25,16 +60,16 @@
             </div>
 
             <div class="space-y-1">
-                <label for="surName" class="text-xs font-bold text-gray-700 block">
+                <label for="surName" class="text-xs font-bold text-slate-700 block">
                     Apellido <span class="text-rose-500">*</span>
                 </label>
                 <div class="relative flex items-center">
-                    <div class="absolute left-3 text-pink-400 pointer-events-none flex items-center">
+                    <div class="absolute left-3 text-pink-400 pointer-events-none flex items-center z-10">
                         <i class="pi pi-id-card text-xs"></i>
                     </div>
                     <input id="surName" type="text" formControlName="surName" placeholder="Ej. Pérez"
-                        class="w-full pl-9 pr-3 py-2.5 bg-slate-50/50 hover:bg-white focus:bg-white border border-gray-200 focus:border-pink-500 focus:ring-2 focus:ring-pink-500/10 text-xs font-semibold text-gray-800 rounded-xl outline-none transition-all"
-                        [class.border-rose-400]="isFieldInvalid('surName')" />
+                        class="w-full pl-9 pr-3 py-2 bg-slate-50/50 hover:bg-white focus:bg-white border border-slate-200 focus:border-pink-500 focus:ring-2 focus:ring-pink-500/10 text-xs font-semibold text-slate-800 rounded-xl outline-none transition-all relative z-0"
+                        [class.!border-rose-400]="isFieldInvalid('surName')" />
                 </div>
                 @if (isFieldInvalid('surName')) {
                 <span class="text-[10px] font-semibold text-rose-500 block">El apellido es obligatorio</span>
@@ -42,62 +77,88 @@
             </div>
 
             <div class="space-y-1">
-                <label for="email" class="text-xs font-bold text-gray-700 block">
+                <label for="email" class="text-xs font-bold text-slate-700 block">
                     Correo electrónico <span class="text-rose-500">*</span>
                 </label>
                 <div class="relative flex items-center">
-                    <div class="absolute left-3 text-pink-400 pointer-events-none flex items-center">
+                    <div class="absolute left-3 text-pink-400 pointer-events-none flex items-center z-10">
                         <i class="pi pi-envelope text-xs"></i>
                     </div>
-                    <input id="email" type="email" formControlName="email" placeholder="ejemplo@farmacia.com"
-                        class="w-full pl-9 pr-3 py-2.5 bg-slate-50/50 hover:bg-white focus:bg-white border border-gray-200 focus:border-pink-500 focus:ring-2 focus:ring-pink-500/10 text-xs font-semibold text-gray-800 rounded-xl outline-none transition-all"
-                        [class.border-rose-400]="isFieldInvalid('email')" />
+                    <input id="email" type="email" formControlName="email" placeholder="ejemplo@correo.com"
+                        class="w-full pl-9 pr-3 py-2 bg-slate-50/50 hover:bg-white focus:bg-white border border-slate-200 focus:border-pink-500 focus:ring-2 focus:ring-pink-500/10 text-xs font-semibold text-slate-800 rounded-xl outline-none transition-all relative z-0"
+                        [class.!border-rose-400]="isFieldInvalid('email')" />
                 </div>
                 @if (isFieldInvalid('email')) {
                 <span class="text-[10px] font-semibold text-rose-500 block">Ingresa un correo válido</span>
                 }
             </div>
+
+            <div class="space-y-1">
+                <label for="cellPhone" class="text-xs font-bold text-slate-700 block">
+                    Teléfono / Celular
+                </label>
+                <div class="relative flex items-center">
+                    <div class="absolute left-3 text-pink-400 pointer-events-none flex items-center z-10">
+                        <i class="pi pi-phone text-xs"></i>
+                    </div>
+                    <input id="cellPhone" type="tel" formControlName="cellPhone" placeholder="Ej. +51 987654321"
+                        class="w-full pl-9 pr-3 py-2 bg-slate-50/50 hover:bg-white focus:bg-white border border-slate-200 focus:border-pink-500 focus:ring-2 focus:ring-pink-500/10 text-xs font-semibold text-slate-800 rounded-xl outline-none transition-all relative z-0"
+                        [class.!border-rose-400]="isFieldInvalid('cellPhone')" />
+                </div>
+                @if (isFieldInvalid('cellPhone')) {
+                <span class="text-[10px] font-semibold text-rose-500 block">Formato de teléfono no válido</span>
+                }
+            </div>
         </div>
 
-        <div class="p-3 bg-pink-50/40 rounded-2xl border border-pink-100 flex flex-col justify-between space-y-3">
+        <div class="p-4 bg-pink-50/40 rounded-2xl border border-pink-100 flex flex-col justify-between space-y-3">
             <div class="space-y-2.5">
-                <span class="text-[10px] font-bold text-gray-400 uppercase tracking-wider block">
-                    Datos Actuales
+                <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">
+                    Datos Registrados
                 </span>
 
                 <div class="space-y-2">
-                    <div class="bg-white/80 p-2.5 rounded-xl border border-pink-100/60">
-                        <span class="text-[10px] font-medium text-pink-400 block mb-0.5">Nombre Completo</span>
-                        <span class="text-xs font-bold text-gray-800 leading-tight block break-words">
+                    <div class="bg-white/80 p-2.5 rounded-xl border border-pink-100/60 shadow-2xs">
+                        <span class="text-[10px] font-medium text-pink-500 block mb-0.5">Nombre Completo</span>
+                        <span class="text-xs font-bold text-slate-800 leading-tight block break-words">
                             {{ user()?.firstName || '---' }} {{ user()?.surName || '' }}
                         </span>
                     </div>
 
-                    <div class="bg-white/80 p-2.5 rounded-xl border border-pink-100/60">
-                        <span class="text-[10px] font-medium text-pink-400 block mb-0.5">Correo Registrado</span>
-                        <span class="text-xs font-bold text-gray-800 leading-tight block break-all">
+                    <div class="bg-white/80 p-2.5 rounded-xl border border-pink-100/60 shadow-2xs">
+                        <span class="text-[10px] font-medium text-pink-500 block mb-0.5">Correo Registrado</span>
+                        <span class="text-xs font-bold text-slate-800 leading-tight block break-all">
                             {{ user()?.email || '---' }}
+                        </span>
+                    </div>
+
+                    <div class="bg-white/80 p-2.5 rounded-xl border border-pink-100/60 shadow-2xs">
+                        <span class="text-[10px] font-medium text-pink-500 block mb-0.5">Celular Registrado</span>
+                        <span class="text-xs font-bold text-slate-800 leading-tight block">
+                            {{ user()?.cellPhone || 'Sin registrar' }}
                         </span>
                     </div>
                 </div>
             </div>
 
-            <div class="pt-2 border-t border-pink-100/60 flex items-center gap-1.5 text-[11px] text-gray-500">
-                <i class="pi pi-shield text-pink-500 text-xs shrink-0"></i>
-                <span>Rol: <strong class="text-gray-800 capitalize">{{ user()?.role || 'Usuario' }}</strong></span>
+            <div class="pt-2 border-t border-pink-100/60 flex items-center justify-between text-[11px] text-slate-500">
+                <div class="flex items-center gap-1.5">
+                    <i class="pi pi-shield text-pink-500 text-xs shrink-0"></i>
+                    <span>Rol: <strong class="text-slate-800 capitalize">{{ user()?.role || 'Usuario' }}</strong></span>
+                </div>
             </div>
         </div>
 
     </div>
 
-    <div class="pt-3 border-t border-gray-100 flex items-center justify-end gap-2">
+    <div class="pt-3 border-t border-slate-100 flex items-center justify-end gap-2">
         <button type="button" (click)="onCancel()"
-            class="px-4 py-2 bg-slate-100 hover:bg-slate-200 active:scale-[0.98] text-gray-700 text-xs font-bold rounded-xl transition-all cursor-pointer">
+            class="px-4 py-2 bg-slate-100 hover:bg-slate-200 active:scale-[0.98] text-slate-700 text-xs font-bold rounded-xl transition-all cursor-pointer">
             Cancelar
         </button>
 
         <button type="submit" [disabled]="editProfileForm.invalid || loading()"
-            class="px-4 py-2 bg-pink-500 hover:bg-pink-600 active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed disabled:active:scale-100 text-white text-xs font-bold rounded-xl shadow-xs transition-all flex items-center gap-1.5 cursor-pointer">
+            class="px-4 py-2 bg-pink-500 hover:bg-pink-600 active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed text-white text-xs font-bold rounded-xl shadow-xs transition-all flex items-center gap-1.5 cursor-pointer">
             @if (loading()) {
             <i class="pi pi-spin pi-spinner text-xs"></i>
             } @else {
@@ -108,3 +169,35 @@
     </div>
 
 </form>
+
+<p-confirmDialog #cd [style]="{ width: '26rem' }" [breakpoints]="{ '768px': '90vw' }" [draggable]="false">
+    <ng-template pTemplate="headless" let-message let-onAccept="onAccept" let-onReject="onReject">
+        <div class="flex flex-col items-center p-6 text-center bg-white rounded-3xl border border-slate-100 shadow-2xl">
+
+            <div
+                class="w-14 h-14 rounded-2xl bg-pink-50 border border-pink-100 text-pink-500 flex items-center justify-center mb-4 shadow-xs">
+                <i class="pi pi-exclamation-triangle text-2xl"></i>
+            </div>
+
+            <h3 class="text-base font-extrabold text-slate-900 m-0">
+                {{ message.header || '¿Guardar cambios?' }}
+            </h3>
+            <p class="text-xs text-slate-500 mt-2 mb-6 leading-relaxed">
+                {{ message.message }}
+            </p>
+
+            <div class="flex items-center justify-center gap-3 w-full">
+                <button type="button" (click)="onReject()"
+                    class="flex-1 py-2.5 px-4 bg-slate-100 hover:bg-slate-200 active:scale-95 text-slate-700 text-xs font-bold rounded-xl transition-all cursor-pointer">
+                    Cancelar
+                </button>
+                <button type="button" (click)="onAccept()"
+                    class="flex-1 py-2.5 px-4 bg-pink-500 hover:bg-pink-600 active:scale-95 text-white text-xs font-bold rounded-xl shadow-xs transition-all cursor-pointer flex items-center justify-center gap-1.5">
+                    <i class="pi pi-check text-xs"></i>
+                    <span>Sí, guardar</span>
+                </button>
+            </div>
+
+        </div>
+    </ng-template>
+</p-confirmDialog>

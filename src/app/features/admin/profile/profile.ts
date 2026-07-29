@@ -6,16 +6,24 @@ import { PasswordSettings } from './password-settings/password-settings';
 
 @Component({
   selector: 'app-profile',
+  standalone: true,
   imports: [DatePipe, DialogModule, EditProfile, PasswordSettings],
   templateUrl: './profile.html',
   styleUrl: './profile.css',
 })
 export class Profile {
-  user = signal(() => {
-    const raw = localStorage.getItem('current_user');
-    return raw ? JSON.parse(raw) : null;
-  })();
+  user = signal<any>(this.getUserFromStorage());
 
   showEditProfileDialog = signal(false);
   showPasswordDialog = signal(false);
+
+  private getUserFromStorage(): any {
+    const raw = localStorage.getItem('current_user');
+    return raw ? JSON.parse(raw) : null;
+  }
+
+  refreshUserData(): void {
+    const updatedUser = this.getUserFromStorage();
+    this.user.set(updatedUser);
+  }
 }

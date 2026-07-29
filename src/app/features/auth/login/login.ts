@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
@@ -12,9 +12,11 @@ import { PasswordModule } from 'primeng/password';
 
 import { Api } from '../../../api/api';
 import { auth, Auth$Params } from '../../../api/functions';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-login',
+  standalone: true,
   imports: [
     RouterLink,
     FormsModule,
@@ -30,17 +32,15 @@ import { auth, Auth$Params } from '../../../api/functions';
   styleUrl: './login.css',
 })
 export class Login {
+  private readonly api = inject(Api);
+  private readonly router = inject(Router);
+  private readonly authService = inject(AuthService);
 
   email = signal('');
   passwd = signal('');
   remember = signal(false);
   loading = signal(false);
   error = signal('');
-
-  constructor(
-    private api: Api,
-    private router: Router
-  ) { }
 
   async onSubmit(): Promise<void> {
     if (!this.email() || !this.passwd()) return;
@@ -61,8 +61,7 @@ export class Login {
         return;
       }
 
-      localStorage.setItem('current_user', JSON.stringify(response));
-      sessionStorage.setItem('loggedIn', 'true');
+      this.authService.saveSession(response);
 
       const routes: Record<string, string> = {
         'administrador': '/admin',
@@ -70,7 +69,8 @@ export class Login {
         'quimico': '/quimico',
       };
 
-      const route = routes[response.role.toLowerCase().trim()] ?? '/admin';
+      const roleKey = response.role?.toLowerCase().trim() ?? '';
+      const route = routes[roleKey] ?? '/admin';
       this.router.navigate([route]);
 
     } catch (err: unknown) {

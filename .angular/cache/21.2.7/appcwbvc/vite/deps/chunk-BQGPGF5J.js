@@ -1,10 +1,10 @@
 import {
-  withHttpTransferCache
-} from "./chunk-JZRRZHSA.js";
-import {
   CommonModule,
   PLATFORM_BROWSER_ID
 } from "./chunk-NJSJXP3D.js";
+import {
+  withHttpTransferCache
+} from "./chunk-JZRRZHSA.js";
 import {
   DomAdapter,
   XhrFactory,
@@ -1746,4 +1746,4 @@ export {
   provideClientHydration,
   VERSION
 };
-//# sourceMappingURL=chunk-DB5TIEMH.js.map
+//# sourceMappingURL=chunk-BQGPGF5J.js.map

@@ -20,11 +20,6 @@ import {
   ConnectedOverlayScrollHandler
 } from "./chunk-B4OS73ZC.js";
 import {
-  RouterLink,
-  RouterLinkActive,
-  RouterModule
-} from "./chunk-LPTE5OGR.js";
-import {
   BaseComponent,
   PARENT_INSTANCE
 } from "./chunk-GYXQQEFS.js";
@@ -50,11 +45,15 @@ import {
   s2 as s,
   ut
 } from "./chunk-6VCYEF6R.js";
+import "./chunk-Z4TEE3MD.js";
+import {
+  RouterLink,
+  RouterLinkActive,
+  RouterModule
+} from "./chunk-F4D5WV73.js";
 import {
   DomSanitizer
-} from "./chunk-DB5TIEMH.js";
-import "./chunk-JZRRZHSA.js";
-import "./chunk-Z4TEE3MD.js";
+} from "./chunk-BQGPGF5J.js";
 import {
   CommonModule,
   NgForOf,
@@ -63,6 +62,7 @@ import {
   NgTemplateOutlet,
   isPlatformBrowser
 } from "./chunk-NJSJXP3D.js";
+import "./chunk-JZRRZHSA.js";
 import "./chunk-JFQHQQCP.js";
 import {
   ChangeDetectionStrategy,

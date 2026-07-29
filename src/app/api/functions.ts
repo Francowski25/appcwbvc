@@ -9,6 +9,10 @@ export type { UserInsert$Params as UserInsert$Params } from './fn/user/user-inse
 export { userInsert as userInsert } from './fn/user/user-insert';
 export type { UserStatus$Params as UserStatus$Params } from './fn/user/user-status';
 export { userStatus as userStatus } from './fn/user/user-status';
+export type { UserUpdateProfile$Params as UserUpdateProfile$Params } from './fn/user/user-update-profile';
+export { userUpdateProfile as userUpdateProfile } from './fn/user/user-update-profile';
+export type { UserUpdatePassword$Params as UserUpdatePassword$Params } from './fn/user/user-update-password';
+export { userUpdatePassword as userUpdatePassword } from './fn/user/user-update-password';
 export type { ProductGetall$Params as ProductGetall$Params } from './fn/product/product-getall';
 export { productGetall as productGetall } from './fn/product/product-getall';
 export type { ProductInsert$Params as ProductInsert$Params } from './fn/product/product-insert';

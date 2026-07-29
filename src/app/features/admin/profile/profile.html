@@ -1,140 +1,188 @@
-<div class="p-3 sm:p-4 lg:p-6 space-y-6">
+<div class="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8 space-y-8 font-sans antialiased text-slate-800">
 
-  <div class="flex items-center justify-between">
+  <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-200/60">
     <div>
-      <h2 class="text-xl font-bold text-gray-800 tracking-tight">Mi perfil</h2>
-      <p class="text-xs text-gray-400 mt-0.5">Información general y credenciales de tu cuenta</p>
+      <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">Mi Perfil</h1>
+      <p class="text-xs sm:text-sm font-medium text-slate-500 mt-1">
+        Gestiona tu información personal, seguridad y credenciales
+      </p>
+    </div>
+
+    <div
+      class="flex items-center gap-2 self-start sm:self-auto px-3 py-1.5 rounded-xl bg-slate-100/80 border border-slate-200/70 text-xs font-medium text-slate-600 shadow-xs">
+      <i class="pi pi-clock text-slate-400 text-xs"></i>
+      <span>Último cambio: <strong class="text-slate-700">{{ user()?.updatedAt | date:'mediumDate' }}</strong></span>
     </div>
   </div>
 
-  <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
 
-    <div class="lg:col-span-1 flex flex-col gap-5">
+    <div class="lg:col-span-1 flex flex-col gap-6">
 
-      <div class="bg-white rounded-2xl border border-pink-100 shadow-xs overflow-hidden">
-        <div class="h-24 bg-gradient-to-r from-pink-400 via-pink-500 to-pink-600"></div>
-        <div class="px-5 pb-5">
-          <div class="-mt-10 mb-3 flex items-end justify-between">
+      <div class="bg-white rounded-3xl border border-slate-200/80 shadow-xs overflow-hidden">
+        <div class="h-28 bg-gradient-to-tr from-pink-600 via-rose-500 to-pink-400 relative overflow-hidden">
+          <div
+            class="absolute inset-0 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:16px_16px] opacity-20">
+          </div>
+        </div>
+
+        <div class="px-6 pb-6 pt-0 relative flex flex-col items-center text-center">
+          <div class="relative -mt-12 mb-3">
+            @if (user()?.image) {
+            <img [src]="'/images/user/' + user()?.image" alt="Avatar"
+              class="w-24 h-24 rounded-2xl object-cover border-4 border-white shadow-md ring-1 ring-slate-100" />
+            } @else {
             <div
-              class="w-18 h-18 rounded-2xl bg-pink-500 border-4 border-white flex items-center justify-center text-white text-2xl font-bold shadow-md">
-              {{ user()?.firstName?.charAt(0) }}
+              class="w-24 h-24 rounded-2xl bg-gradient-to-tr from-pink-500 to-rose-400 border-4 border-white flex items-center justify-center text-white text-3xl font-black shadow-md tracking-wider">
+              {{ user()?.firstName?.trim()?.charAt(0) || 'U' }}
             </div>
-            <span class="px-2.5 py-1 rounded-full text-[11px] font-bold capitalize flex items-center gap-1.5"
-              [class]="user()?.status === 'activo' ? 'bg-emerald-50 text-emerald-600 border border-emerald-200/60' : 'bg-rose-50 text-rose-600 border border-rose-200/60'">
-              <span class="w-1.5 h-1.5 rounded-full"
-                [class]="user()?.status === 'activo' ? 'bg-emerald-500' : 'bg-rose-500'"></span>
-              {{ user()?.status }}
+            }
+
+            <span class="absolute bottom-1 right-1 flex h-4 w-4">
+              <span [class]="user()?.status === 'activo' ? 'animate-ping bg-emerald-400' : 'bg-rose-400'"
+                class="absolute inline-flex h-full w-full rounded-full opacity-75"></span>
+              <span [class]="user()?.status === 'activo' ? 'bg-emerald-500' : 'bg-rose-500'"
+                class="relative inline-flex rounded-full h-4 w-4 border-2 border-white"></span>
             </span>
           </div>
 
-          <h3 class="text-base font-bold text-gray-900 tracking-tight">{{ user()?.firstName }} {{ user()?.surName }}
+          <h3 class="text-lg font-bold text-slate-900 leading-snug">
+            {{ user()?.firstName }} {{ user()?.surName }}
           </h3>
-          <p class="text-xs font-semibold text-pink-600 capitalize mt-0.5">{{ user()?.role }}</p>
+          <p class="text-xs text-slate-500 font-medium truncate max-w-[220px]">
+            {{ user()?.email }}
+          </p>
 
-          <div class="mt-4 pt-4 border-t border-pink-100/60 flex flex-col gap-2.5">
-            <div class="flex items-center gap-2.5 text-xs text-gray-600">
-              <div class="w-6 h-6 rounded-md bg-pink-50 flex items-center justify-center text-pink-500 shrink-0">
-                <i class="pi pi-envelope text-[11px]"></i>
-              </div>
-              <span class="truncate font-medium">{{ user()?.email }}</span>
-            </div>
+          <div
+            class="mt-3 inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-semibold bg-pink-50 text-pink-700 capitalize border border-pink-100">
+            <i class="pi pi-shield mr-1.5 text-[10px]"></i>
+            {{ user()?.role || 'Usuario' }}
           </div>
         </div>
       </div>
 
-      <div class="bg-white rounded-2xl border border-pink-100 shadow-xs p-3.5 space-y-1.5">
-        <span class="text-[10px] font-bold text-pink-400 uppercase tracking-wider px-2 block mb-2">
-          Acciones de Cuenta
+      <div class="bg-white rounded-3xl border border-slate-200/80 shadow-xs p-5 space-y-3">
+        <span class="text-[10px] font-extrabold text-slate-400 uppercase tracking-widest block mb-2 px-1">
+          Configuración Rápida
         </span>
 
         <button type="button" (click)="showEditProfileDialog.set(true)"
-          class="w-full flex items-center gap-3 p-2.5 rounded-xl hover:bg-pink-50/60 border border-transparent hover:border-pink-200/60 transition-all group text-left cursor-pointer">
+          class="w-full flex items-center gap-3.5 p-3 rounded-2xl hover:bg-slate-50 border border-transparent hover:border-slate-200/60 transition-all duration-200 group text-left cursor-pointer active:scale-[0.99]">
           <div
-            class="w-8 h-8 rounded-lg bg-pink-100 text-pink-600 flex items-center justify-center group-hover:bg-pink-500 group-hover:text-white transition-all shrink-0">
-            <i class="pi pi-pencil text-xs"></i>
+            class="w-10 h-10 rounded-xl bg-pink-50 text-pink-600 group-hover:bg-pink-600 group-hover:text-white transition-all duration-200 flex items-center justify-center shrink-0 shadow-2xs">
+            <i class="pi pi-pencil text-sm"></i>
           </div>
           <div class="min-w-0 flex-1">
-            <p class="text-xs font-bold text-gray-800 m-0">Editar perfil</p>
-            <p class="text-[11px] text-gray-400 m-0 truncate">Actualizar información</p>
+            <p class="text-xs font-bold text-slate-800 m-0 group-hover:text-pink-600 transition-colors">Editar Perfil
+            </p>
+            <p class="text-[11px] text-slate-400 m-0 truncate">Actualiza tus datos e información</p>
           </div>
-          <i class="pi pi-chevron-right text-pink-300 text-xs group-hover:translate-x-0.5 transition-transform"></i>
+          <i
+            class="pi pi-chevron-right text-slate-300 text-xs group-hover:text-pink-500 group-hover:translate-x-0.5 transition-all"></i>
         </button>
 
         <button type="button" (click)="showPasswordDialog.set(true)"
-          class="w-full flex items-center gap-3 p-2.5 rounded-xl hover:bg-pink-50/60 border border-transparent hover:border-pink-200/60 transition-all group text-left cursor-pointer">
+          class="w-full flex items-center gap-3.5 p-3 rounded-2xl hover:bg-slate-50 border border-transparent hover:border-slate-200/60 transition-all duration-200 group text-left cursor-pointer active:scale-[0.99]">
           <div
-            class="w-8 h-8 rounded-lg bg-pink-100 text-pink-600 flex items-center justify-center group-hover:bg-pink-500 group-hover:text-white transition-all shrink-0">
-            <i class="pi pi-lock text-xs"></i>
+            class="w-10 h-10 rounded-xl bg-pink-50 text-pink-600 group-hover:bg-pink-600 group-hover:text-white transition-all duration-200 flex items-center justify-center shrink-0 shadow-2xs">
+            <i class="pi pi-shield text-sm"></i>
           </div>
           <div class="min-w-0 flex-1">
-            <p class="text-xs font-bold text-gray-800 m-0">Contraseña</p>
-            <p class="text-[11px] text-gray-400 m-0 truncate">Cambiar contraseña de acceso</p>
+            <p class="text-xs font-bold text-slate-800 m-0 group-hover:text-pink-600 transition-colors">Seguridad</p>
+            <p class="text-[11px] text-slate-400 m-0 truncate">Cambiar contraseña de acceso</p>
           </div>
-          <i class="pi pi-chevron-right text-pink-300 text-xs group-hover:translate-x-0.5 transition-transform"></i>
+          <i
+            class="pi pi-chevron-right text-slate-300 text-xs group-hover:text-pink-500 group-hover:translate-x-0.5 transition-all"></i>
         </button>
       </div>
 
     </div>
 
-    <div class="lg:col-span-2 flex flex-col gap-5">
+    <div class="lg:col-span-2 flex flex-col gap-6">
 
-      <div class="bg-white rounded-2xl border border-pink-100 shadow-xs p-5">
-        <div class="flex items-center gap-2.5 mb-4">
-          <div class="w-8 h-8 rounded-lg bg-pink-100 text-pink-600 flex items-center justify-center">
-            <i class="pi pi-user text-xs"></i>
+      <div class="bg-white rounded-3xl border border-slate-200/80 shadow-xs p-6 space-y-6">
+        <div class="flex items-center gap-3 pb-4 border-b border-slate-100">
+          <div
+            class="w-10 h-10 rounded-2xl bg-pink-50 text-pink-600 flex items-center justify-center shrink-0 border border-pink-100/50">
+            <i class="pi pi-user text-base"></i>
           </div>
-          <p class="text-xs font-bold text-gray-800 uppercase tracking-wider m-0">Información personal</p>
+          <div>
+            <h3 class="text-sm font-extrabold text-slate-900 uppercase tracking-wider m-0">Información Personal</h3>
+            <p class="text-xs text-slate-400 m-0">Datos de identificación registrados en el sistema</p>
+          </div>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-          <div class="p-3.5 rounded-xl bg-pink-50/50 border border-pink-100">
-            <span class="text-[10px] font-bold text-pink-400 uppercase tracking-wider block mb-1">Nombre</span>
-            <span class="text-xs font-bold text-gray-800">{{ user()?.firstName }}</span>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div class="p-4 rounded-2xl bg-slate-50/70 border border-slate-100">
+            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">Nombre</span>
+            <span class="text-xs font-bold text-slate-800 block">{{ user()?.firstName || '-' }}</span>
           </div>
 
-          <div class="p-3.5 rounded-xl bg-pink-50/50 border border-pink-100">
-            <span class="text-[10px] font-bold text-pink-400 uppercase tracking-wider block mb-1">Apellido</span>
-            <span class="text-xs font-bold text-gray-800">{{ user()?.surName }}</span>
+          <div class="p-4 rounded-2xl bg-slate-50/70 border border-slate-100">
+            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">Apellido</span>
+            <span class="text-xs font-bold text-slate-800 block">{{ user()?.surName || '-' }}</span>
           </div>
 
-          <div class="col-span-1 sm:col-span-2 p-3.5 rounded-xl bg-pink-50/50 border border-pink-100">
-            <span class="text-[10px] font-bold text-pink-400 uppercase tracking-wider block mb-1">Correo
-              electrónico</span>
-            <span class="text-xs font-bold text-gray-800">{{ user()?.email }}</span>
+          <div class="p-4 rounded-2xl bg-slate-50/70 border border-slate-100 flex items-center justify-between">
+            <div>
+              <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">Correo
+                electrónico</span>
+              <span class="text-xs font-bold text-slate-800 block truncate">{{ user()?.email }}</span>
+            </div>
+            <span
+              class="px-2.5 py-1 rounded-lg bg-emerald-50 text-emerald-600 border border-emerald-200/60 text-[10px] font-bold shrink-0 ml-2">
+              Verificado
+            </span>
+          </div>
+
+          <div class="p-4 rounded-2xl bg-slate-50/70 border border-slate-100">
+            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">Teléfono /
+              Celular</span>
+            <span class="text-xs font-bold text-slate-800 block">{{ user()?.cellPhone || 'Sin registrar' }}</span>
           </div>
         </div>
       </div>
 
-      <div class="bg-white rounded-2xl border border-pink-100 shadow-xs p-5">
-        <div class="flex items-center gap-2.5 mb-4">
-          <div class="w-8 h-8 rounded-lg bg-pink-100 text-pink-600 flex items-center justify-center">
-            <i class="pi pi-shield text-xs"></i>
+      <div class="bg-white rounded-3xl border border-slate-200/80 shadow-xs p-6 space-y-6">
+        <div class="flex items-center gap-3 pb-4 border-b border-slate-100">
+          <div
+            class="w-10 h-10 rounded-2xl bg-pink-50 text-pink-600 flex items-center justify-center shrink-0 border border-pink-100/50">
+            <i class="pi pi-sliders-h text-base"></i>
           </div>
-          <p class="text-xs font-bold text-gray-800 uppercase tracking-wider m-0">Cuenta</p>
+          <div>
+            <h3 class="text-sm font-extrabold text-slate-900 uppercase tracking-wider m-0">Detalles de la Cuenta</h3>
+            <p class="text-xs text-slate-400 m-0">Parámetros de acceso y auditoría</p>
+          </div>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-          <div class="p-3.5 rounded-xl bg-pink-50/50 border border-pink-100">
-            <span class="text-[10px] font-bold text-pink-400 uppercase tracking-wider block mb-1">Rol</span>
-            <span class="text-xs font-bold text-gray-800 capitalize">{{ user()?.role }}</span>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div class="p-4 rounded-2xl bg-slate-50/70 border border-slate-100">
+            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">Rol de Usuario</span>
+            <span class="text-xs font-bold text-slate-800 capitalize block">{{ user()?.role }}</span>
           </div>
 
-          <div class="p-3.5 rounded-xl bg-pink-50/50 border border-pink-100">
-            <span class="text-[10px] font-bold text-pink-400 uppercase tracking-wider block mb-1">Estado</span>
-            <span class="text-xs font-bold capitalize" [class.text-emerald-600]="user()?.status === 'activo'"
-              [class.text-rose-500]="user()?.status !== 'activo'">
+          <div class="p-4 rounded-2xl bg-slate-50/70 border border-slate-100">
+            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">Estado de
+              cuenta</span>
+            <span class="text-xs font-bold capitalize inline-flex items-center gap-1.5"
+              [class.text-emerald-600]="user()?.status === 'activo'"
+              [class.text-rose-600]="user()?.status !== 'activo'">
+              <span class="w-2 h-2 rounded-full" [class.bg-emerald-500]="user()?.status === 'activo'"
+                [class.bg-rose-500]="user()?.status !== 'activo'"></span>
               {{ user()?.status }}
             </span>
           </div>
 
-          <div class="p-3.5 rounded-xl bg-pink-50/50 border border-pink-100">
-            <span class="text-[10px] font-bold text-pink-400 uppercase tracking-wider block mb-1">Creado</span>
-            <span class="text-xs font-bold text-gray-800">{{ user()?.createdAt | date:'dd/MM/yyyy' }}</span>
+          <div class="p-4 rounded-2xl bg-slate-50/70 border border-slate-100">
+            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">Fecha de
+              Registro</span>
+            <span class="text-xs font-bold text-slate-800 block">{{ user()?.createdAt | date:'dd/MM/yyyy' }}</span>
           </div>
 
-          <div class="p-3.5 rounded-xl bg-pink-50/50 border border-pink-100">
-            <span class="text-[10px] font-bold text-pink-400 uppercase tracking-wider block mb-1">Actualizado</span>
-            <span class="text-xs font-bold text-gray-800">{{ user()?.updatedAt | date:'dd/MM/yyyy' }}</span>
+          <div class="p-4 rounded-2xl bg-slate-50/70 border border-slate-100">
+            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">Última
+              Modificación</span>
+            <span class="text-xs font-bold text-slate-800 block">{{ user()?.updatedAt | date:'dd/MM/yyyy' }}</span>
           </div>
         </div>
       </div>
@@ -144,44 +192,48 @@
   </div>
 </div>
 
-<p-dialog [visible]="showEditProfileDialog()" (visibleChange)="showEditProfileDialog.set($event)" [modal]="true"
-  [style]="{ width: '40rem' }" [breakpoints]="{ '768px': '95vw' }" [draggable]="false" [resizable]="false"
-  [dismissableMask]="true" maskStyleClass="backdrop-blur-xs bg-slate-900/30">
+<p-dialog [visible]="showEditProfileDialog()" (visibleChange)="showEditProfileDialog.set($event)"
+  (onShow)="editProfileComp.resetFormToUser()" [modal]="true" [style]="{ width: '38rem' }"
+  [breakpoints]="{ '768px': '95vw' }" [draggable]="false" [dismissableMask]="true"
+  maskStyleClass="backdrop-blur-sm bg-slate-900/40">
 
   <ng-template pTemplate="header">
     <div class="flex items-center gap-3">
-      <div class="w-9 h-9 rounded-xl bg-pink-100 text-pink-600 flex items-center justify-center shrink-0">
-        <i class="pi pi-pencil text-sm"></i>
+      <div
+        class="w-10 h-10 rounded-2xl bg-pink-50 text-pink-600 flex items-center justify-center shrink-0 border border-pink-100">
+        <i class="pi pi-user-edit text-base"></i>
       </div>
       <div>
-        <h3 class="text-sm font-bold text-gray-800 m-0">Editar perfil</h3>
-        <p class="text-[11px] text-gray-400 m-0">Actualizar información de la cuenta</p>
+        <h3 class="text-base font-extrabold text-slate-900 m-0">Editar Perfil</h3>
+        <p class="text-xs text-slate-400 m-0">Actualiza tus nombres y datos generales</p>
       </div>
     </div>
   </ng-template>
 
   <div class="pt-2">
-    <app-edit-profile [user]="user()" (closeModal)="showEditProfileDialog.set(false)" />
+    <app-edit-profile #editProfileComp [user]="user()" (closeModal)="showEditProfileDialog.set(false)"
+      (usuarioActualizado)="refreshUserData()" />
   </div>
 </p-dialog>
 
 <p-dialog [visible]="showPasswordDialog()" (visibleChange)="showPasswordDialog.set($event)" [modal]="true"
-  [style]="{ width: '40rem' }" [breakpoints]="{ '768px': '95vw' }" [draggable]="false" [resizable]="false"
-  [dismissableMask]="true" maskStyleClass="backdrop-blur-xs bg-slate-900/30">
+  [style]="{ width: '38rem' }" [breakpoints]="{ '768px': '95vw' }" [draggable]="false" [resizable]="false"
+  [dismissableMask]="true" maskStyleClass="backdrop-blur-sm bg-slate-900/40">
 
   <ng-template pTemplate="header">
     <div class="flex items-center gap-3">
-      <div class="w-9 h-9 rounded-xl bg-pink-100 text-pink-600 flex items-center justify-center shrink-0">
-        <i class="pi pi-lock text-sm"></i>
+      <div
+        class="w-10 h-10 rounded-2xl bg-pink-50 text-pink-600 flex items-center justify-center shrink-0 border border-pink-100">
+        <i class="pi pi-key text-base"></i>
       </div>
       <div>
-        <h3 class="text-sm font-bold text-gray-800 m-0">Cambiar contraseña</h3>
-        <p class="text-[11px] text-gray-400 m-0">Actualizar credencial de acceso</p>
+        <h3 class="text-base font-extrabold text-slate-900 m-0">Cambiar Contraseña</h3>
+        <p class="text-xs text-slate-400 m-0">Gestiona las credenciales de acceso a tu cuenta</p>
       </div>
     </div>
   </ng-template>
 
   <div class="pt-2">
-    <app-password-settings (closeModal)="showPasswordDialog.set(false)" />
+    <app-password-settings [user]="user()" (closeModal)="showPasswordDialog.set(false)" />
   </div>
 </p-dialog>
