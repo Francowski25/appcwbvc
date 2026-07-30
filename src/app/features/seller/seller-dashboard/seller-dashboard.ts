@@ -5,11 +5,13 @@ import { Api } from '../../../api/api';
 import { saleGetall, productGetall } from '../../../api/functions';
 import { ChartModule } from 'primeng/chart';
 import { Router } from '@angular/router';
+import { AuthService } from '../../../services/auth.service';
 
 registerLocaleData(localeEs, 'es');
 
 @Component({
   selector: 'app-seller-dashboard',
+  standalone: true,
   imports: [DatePipe, DecimalPipe, ChartModule],
   templateUrl: './seller-dashboard.html',
   styleUrl: './seller-dashboard.css',
@@ -17,26 +19,31 @@ registerLocaleData(localeEs, 'es');
 export class SellerDashboard implements OnInit {
   private readonly api = inject(Api);
   private readonly router = inject(Router);
+  private readonly authService = inject(AuthService);
 
-  today: Date = new Date();
-  user = (() => {
-    const raw = localStorage.getItem('current_user');
-    return raw ? JSON.parse(raw) : null;
-  })();
+  user = this.authService.currentUser;
+  hoy = new Date();
 
   ventas = signal<any[]>([]);
   productos = signal<any[]>([]);
   loading = signal<boolean>(true);
 
-  misVentas = computed(() =>
-    this.ventas().filter(v => v.userName === `${this.user?.firstName} ${this.user?.surName}`)
-  );
+  misVentas = computed(() => {
+    const currentUser = this.user();
+    if (!currentUser) return [];
+    const fullName = `${currentUser.firstName ?? ''} ${currentUser.surName ?? ''}`.trim().toLowerCase();
+
+    return this.ventas().filter(v =>
+      v.userName?.toLowerCase().trim() === fullName ||
+      v.userEmail === currentUser.email
+    );
+  });
 
   misVentasHoy = computed(() => {
-    const hoy = new Date().toDateString();
+    const hoyStr = new Date().toDateString();
     return this.misVentas().filter(v => {
       if (!v.saleDate) return false;
-      return new Date(v.saleDate).toDateString() === hoy;
+      return new Date(v.saleDate).toDateString() === hoyStr;
     });
   });
 
@@ -78,6 +85,7 @@ export class SellerDashboard implements OnInit {
       const key = fecha.toISOString().substring(0, 10);
       agrupado[key] = 0;
     }
+
     this.misVentas()
       .filter(v => v.status === 'Completada')
       .forEach(v => {
@@ -140,7 +148,9 @@ export class SellerDashboard implements OnInit {
       const raw: any = await this.api.invoke$Response(saleGetall);
       const data = typeof raw.body === 'string' ? JSON.parse(raw.body) : raw.body;
       if (data.type === 'success') this.ventas.set(data.listSales ?? []);
-    } catch { }
+    } catch (error) {
+      console.error('Error cargando ventas:', error);
+    }
   }
 
   private async loadProductos(): Promise<void> {
@@ -148,7 +158,9 @@ export class SellerDashboard implements OnInit {
       const raw: any = await this.api.invoke$Response(productGetall);
       const data = typeof raw.body === 'string' ? JSON.parse(raw.body) : raw.body;
       if (data.type === 'success') this.productos.set(data.listProducts ?? []);
-    } catch { }
+    } catch (error) {
+      console.error('Error cargando productos:', error);
+    }
   }
 
   getHora(dateStr: string): string {

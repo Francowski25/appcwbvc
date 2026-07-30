@@ -1,5 +1,5 @@
 import { Component, OnInit, signal, computed, inject } from '@angular/core';
-import { registerLocaleData } from '@angular/common';
+import { DatePipe, registerLocaleData } from '@angular/common';
 import localeEs from '@angular/common/locales/es';
 import { Api } from '../../../api/api';
 import { ChartModule } from 'primeng/chart';
@@ -8,6 +8,7 @@ import { DashboardBottomPanels } from './dashboard-bottom-panels/dashboard-botto
 import { DashboardGraphics } from './dashboard-graphics/dashboard-graphics';
 import { DashboardKpi } from './dashboard-kpi/dashboard-kpi';
 import { DashboardMiddlePanels } from './dashboard-middle-panels/dashboard-middle-panels';
+import { AuthService } from '../../../services/auth.service';
 
 registerLocaleData(localeEs, 'es');
 
@@ -18,13 +19,18 @@ registerLocaleData(localeEs, 'es');
     DashboardBottomPanels,
     DashboardGraphics,
     DashboardKpi,
-    DashboardMiddlePanels
+    DashboardMiddlePanels,
+    DatePipe
   ],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css',
 })
 export class Dashboard implements OnInit {
   private readonly api = inject(Api);
+  private readonly authService = inject(AuthService);
+
+  user = this.authService.currentUser;
+  hoy = new Date();
 
   kpi = signal<any>(null);
   salesWeek = signal<any[]>([]);
