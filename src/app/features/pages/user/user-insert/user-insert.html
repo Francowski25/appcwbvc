@@ -6,44 +6,18 @@
             <p class="text-xs font-bold text-pink-400 uppercase tracking-widest mb-3">Datos Personales</p>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-
-                <div class="flex flex-col gap-1.5">
-                    <label class="text-xs font-bold text-slate-400 uppercase tracking-wider">
-                        Nombres <span class="text-pink-400">*</span>
-                    </label>
-                    <input pInputText formControlName="firstName" placeholder="Ej. Juan Carlos"
-                        class="w-full text-xs py-2.5 rounded-xl border-gray-200 focus:border-pink-300" />
-                    @if((firstNameFb.touched || firstNameFb.dirty) && firstNameFb.hasError('required')) {
-                    <small class="text-[11px] text-red-500 font-medium flex items-center gap-1">
-                        <i class="pi pi-exclamation-circle text-[10px]"></i> Campo requerido.
-                    </small>
-                    }
-                    @if((firstNameFb.touched || firstNameFb.dirty) && firstNameFb.hasError('maxlength')) {
-                    <small class="text-[11px] text-red-500 font-medium flex items-center gap-1">
-                        <i class="pi pi-exclamation-circle text-[10px]"></i> Máximo 70 caracteres.
-                    </small>
-                    }
-                </div>
-
-                <div class="flex flex-col gap-1.5">
-                    <label class="text-xs font-bold text-slate-400 uppercase tracking-wider">
-                        Apellidos <span class="text-pink-400">*</span>
-                    </label>
-                    <input pInputText formControlName="surName" placeholder="Ej. Casas Pompa"
-                        class="w-full text-xs py-2.5 rounded-xl border-gray-200 focus:border-pink-300" />
-                    @if((surNameFb.touched || surNameFb.dirty) && surNameFb.hasError('required')) {
-                    <small class="text-[11px] text-red-500 font-medium flex items-center gap-1">
-                        <i class="pi pi-exclamation-circle text-[10px]"></i> Campo requerido.
-                    </small>
-                    }
-                </div>
-
                 <div class="flex flex-col gap-1.5">
                     <label class="text-xs font-bold text-slate-400 uppercase tracking-wider">
                         Dni <span class="text-pink-400">*</span>
                     </label>
-                    <input pInputText formControlName="dni" placeholder="Ej. 12345678"
-                        class="w-full text-xs py-2.5 rounded-xl border-gray-200 focus:border-pink-300" />
+                    <div class="relative">
+                        <input pInputText formControlName="dni" placeholder="Ej. 12345678" maxlength="8"
+                            class="w-full text-xs py-2.5 pr-8 rounded-xl border-gray-200 focus:border-pink-300" />
+                        @if(isLoadingDni()) {
+                        <i
+                            class="pi pi-spin pi-spinner absolute right-3 top-1/2 -translate-y-1/2 text-pink-400 text-xs"></i>
+                        }
+                    </div>
                     @if((dniFb.touched || dniFb.dirty) && dniFb.hasError('required')) {
                     <small class="text-[11px] text-red-500 font-medium flex items-center gap-1">
                         <i class="pi pi-exclamation-circle text-[10px]"></i> Campo requerido.
@@ -74,13 +48,43 @@
                     }
                 </div>
 
+                <div class="flex flex-col gap-1.5">
+                    <label class="text-xs font-bold text-slate-400 uppercase tracking-wider">
+                        Nombres <span class="text-pink-400">*</span>
+                    </label>
+                    <input pInputText formControlName="firstName" placeholder="Ej. Juan Carlos"
+                        class="w-full text-xs py-2.5 rounded-xl border-gray-200 focus:border-pink-300 disabled:bg-slate-100 disabled:text-slate-500 disabled:cursor-not-allowed" />
+                    @if((firstNameFb.touched || firstNameFb.dirty) && firstNameFb.hasError('required')) {
+                    <small class="text-[11px] text-red-500 font-medium flex items-center gap-1">
+                        <i class="pi pi-exclamation-circle text-[10px]"></i> Campo requerido.
+                    </small>
+                    }
+                    @if((firstNameFb.touched || firstNameFb.dirty) && firstNameFb.hasError('maxlength')) {
+                    <small class="text-[11px] text-red-500 font-medium flex items-center gap-1">
+                        <i class="pi pi-exclamation-circle text-[10px]"></i> Máximo 70 caracteres.
+                    </small>
+                    }
+                </div>
+
+                <div class="flex flex-col gap-1.5">
+                    <label class="text-xs font-bold text-slate-400 uppercase tracking-wider">
+                        Apellidos <span class="text-pink-400">*</span>
+                    </label>
+                    <input pInputText formControlName="surName" placeholder="Ej. Casas Pompa"
+                        class="w-full text-xs py-2.5 rounded-xl border-gray-200 focus:border-pink-300 disabled:bg-slate-100 disabled:text-slate-500 disabled:cursor-not-allowed" />
+                    @if((surNameFb.touched || surNameFb.dirty) && surNameFb.hasError('required')) {
+                    <small class="text-[11px] text-red-500 font-medium flex items-center gap-1">
+                        <i class="pi pi-exclamation-circle text-[10px]"></i> Campo requerido.
+                    </small>
+                    }
+                </div>
             </div>
 
             <p class="text-xs font-bold text-pink-400 uppercase tracking-widest mb-3">Acceso al Sistema</p>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
 
-                <div class="flex flex-col gap-1.5">
+                <div class="flex flex-col gap-1.5 col-span-1 md:col-span-2">
                     <label class="text-xs font-bold text-slate-400 uppercase tracking-wider">
                         Correo Electrónico <span class="text-pink-400">*</span>
                     </label>
@@ -98,17 +102,29 @@
                     }
                 </div>
 
-
-                <div class="flex flex-col gap-1.5">
+                <div class="flex flex-col gap-2 col-span-1 md:col-span-2">
                     <label class="text-xs font-bold text-slate-400 uppercase tracking-wider">
                         Rol Asignado <span class="text-pink-400">*</span>
                     </label>
-                    <p-select [options]="listRoles" formControlName="role" optionLabel="label" optionValue="value"
-                        placeholder="Seleccione un rol"
-                        class="w-full text-xs rounded-xl border-gray-200 focus:border-pink-300" />
+
+                    <div class="grid grid-cols-2 gap-3">
+                        @for(roleOpt of listRoles; track roleOpt.value) {
+                        <label
+                            class="flex items-center gap-3 p-3 rounded-xl border border-gray-200 cursor-pointer transition-all hover:bg-pink-50/50"
+                            [ngClass]="{ 'border-pink-300 bg-pink-50/30': roleFb.value === roleOpt.value }">
+
+                            <p-radioButton [value]="roleOpt.value" formControlName="role" [inputId]="roleOpt.value" />
+
+                            <span class="text-xs font-medium text-slate-700 select-none">
+                                {{ roleOpt.label }}
+                            </span>
+                        </label>
+                        }
+                    </div>
+
                     @if((roleFb.touched || roleFb.dirty) && roleFb.hasError('required')) {
                     <small class="text-[11px] text-red-500 font-medium flex items-center gap-1">
-                        <i class="pi pi-exclamation-circle text-[10px]"></i> Campo requerido.
+                        <i class="pi pi-exclamation-circle text-[10px]"></i> Deberá seleccionar un rol.
                     </small>
                     }
                 </div>
