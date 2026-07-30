@@ -13,6 +13,8 @@ export type { UserUpdateProfile$Params as UserUpdateProfile$Params } from './fn/
 export { userUpdateProfile as userUpdateProfile } from './fn/user/user-update-profile';
 export type { UserUpdatePassword$Params as UserUpdatePassword$Params } from './fn/user/user-update-password';
 export { userUpdatePassword as userUpdatePassword } from './fn/user/user-update-password';
+export type { ReniecConsultarDni$Params as ReniecConsultarDni$Params } from './fn/user/reniec-consultar-dni';
+export { reniecConsultarDni as reniecConsultarDni } from './fn/user/reniec-consultar-dni';
 export type { ProductGetall$Params as ProductGetall$Params } from './fn/product/product-getall';
 export { productGetall as productGetall } from './fn/product/product-getall';
 export type { ProductInsert$Params as ProductInsert$Params } from './fn/product/product-insert';

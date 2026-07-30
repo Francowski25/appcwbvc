@@ -1,6 +1,5 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { Router } from '@angular/router';
-import { Api } from '../api/api';
 
 export interface UserData {
     id?: number;
@@ -18,7 +17,6 @@ export interface UserData {
     providedIn: 'root'
 })
 export class AuthService {
-    private readonly api = inject(Api);
     private readonly router = inject(Router);
 
     readonly currentUser = signal<UserData | null>(this.getUserFromStorage());

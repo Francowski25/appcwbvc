@@ -32,24 +32,21 @@ export class ExportService {
                 format: 'a4'
             });
 
-            // Tipado estricto para evitar el error de asignación de Color en jsPDF
-            const primaryColor: [number, number, number] = [219, 39, 119]; // #db2777
-            const textColor: [number, number, number] = [55, 65, 81];      // #374151
+            const primaryColor: [number, number, number] = [219, 39, 119];
+            const textColor: [number, number, number] = [55, 65, 81];
 
-            // --- ENCABEZADO DE LA EMPRESA ---
             doc.setTextColor(primaryColor[0], primaryColor[1], primaryColor[2]);
             doc.setFont('helvetica', 'bold');
             doc.setFontSize(20);
-            doc.text('FARMA-SALUD S.A.C.', 14, 20);
+            doc.text('VIRGEN DE COCHARCAS', 14, 20);
 
             doc.setFontSize(9);
             doc.setTextColor(107, 114, 128);
             doc.setFont('helvetica', 'normal');
-            doc.text('Av. Principal 123 - Arequipa, Perú', 14, 25);
-            doc.text('RUC: 20123456789', 14, 29);
-            doc.text('Contacto: contacto@farmasalud.com', 14, 33);
+            doc.text('Av. Tamburco - Abancay, Perú', 14, 25);
+            doc.text('RUC: 20621160309', 14, 29);
+            doc.text('Contacto: franco@bvc.com', 14, 33);
 
-            // --- CUADRO DE BOLETA DE VENTA ---
             doc.setDrawColor(243, 244, 246);
             doc.setFillColor(249, 250, 251);
             doc.roundedRect(120, 12, 76, 23, 3, 3, 'FD');
@@ -65,11 +62,9 @@ export class ExportService {
             doc.setFont('helvetica', 'normal');
             doc.text(`Fecha: ${new Date().toLocaleDateString()}`, 123, 29);
 
-            // Línea divisoria
             doc.setDrawColor(229, 231, 235);
             doc.line(14, 40, 196, 40);
 
-            // --- INFORMACIÓN DEL CLIENTE ---
             doc.setFont('helvetica', 'bold');
             doc.setFontSize(10);
             doc.setTextColor(textColor[0], textColor[1], textColor[2]);
@@ -86,7 +81,6 @@ export class ExportService {
             }
             doc.text(`Método de pago: ${data.metodoPago}`, 120, 53);
 
-            // --- TABLA DE PRODUCTOS ---
             const headers = [['PRODUCTO', 'LOTE', 'CANT.', 'P. UNIT', 'SUBTOTAL']];
             const tableRows = data.items.map(item => [
                 item.productName,
@@ -120,7 +114,6 @@ export class ExportService {
                 margin: { left: 14, right: 14 }
             });
 
-            // --- POSICIÓN DE LOS TOTALES ---
             const lastAutoTable = (doc as any).lastAutoTable;
             const finalY = lastAutoTable && lastAutoTable.finalY ? lastAutoTable.finalY + 10 : 120;
 
@@ -136,7 +129,6 @@ export class ExportService {
             doc.setTextColor(textColor[0], textColor[1], textColor[2]);
             doc.text('TOTAL:', 140, finalY + 16);
 
-            // Valores numéricos
             doc.setFont('helvetica', 'normal');
             doc.text(`S/ ${data.subtotal.toFixed(2)}`, 195, finalY, { align: 'right' });
             doc.text(`S/ ${data.descuento.toFixed(2)}`, 195, finalY + 5, { align: 'right' });
@@ -147,14 +139,12 @@ export class ExportService {
             doc.setFontSize(11);
             doc.text(`S/ ${data.total.toFixed(2)}`, 195, finalY + 16, { align: 'right' });
 
-            // --- PIE DE PÁGINA ---
             doc.setFont('helvetica', 'italic');
             doc.setFontSize(8);
             doc.setTextColor(156, 163, 175);
             doc.text('Representación impresa de la Boleta de Venta Electrónica.', 14, finalY + 30);
             doc.text('Gracias por su preferencia.', 14, finalY + 34);
 
-            // --- CONVERSIÓN A BLOB Y APERTURA DIRECTA ---
             const pdfBlob = doc.output('blob');
             const blobURL = URL.createObjectURL(pdfBlob);
 
@@ -167,13 +157,10 @@ export class ExportService {
         } catch (pdfError) {
             console.error('Error generando el PDF en el servicio:', pdfError);
             if (pestanaAbierta) pestanaAbierta.close();
-            throw pdfError; // Propagamos el error para que el componente lo maneje con el Toast
         }
     }
 
-    // --- FUTURA IMPLEMENTACIÓN DE EXCEL ---
     exportarAExcel(data: any): void {
         console.log('Aquí irá tu lógica para exportar a Excel usando xlsx o similar', data);
-        // Pronto podrás importar xlsx y generar hojas de cálculo estructuradas aquí mismo.
     }
 }

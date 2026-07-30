@@ -1,10 +1,14 @@
 import { Component, OnInit, signal, computed, inject } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { Api } from '../../../../api/api';
 import { customerGetall, customerInsert, lotByproduct, productGetall, saleInsert } from '../../../../api/functions';
 import { DecimalPipe } from '@angular/common';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { ExportPDFData, ExportService } from '../../../../services/export.service';
+import { environment } from '../../../../environments/environments';
+import { debounceTime, distinctUntilChanged, filter, switchMap, catchError } from 'rxjs/operators';
+import { of, Subject } from 'rxjs';
 
 interface ItemVenta {
   idProduct: string;
@@ -19,20 +23,35 @@ interface ItemVenta {
   lotes: any[];
 }
 
+interface ReniecDniResponse {
+  first_name: string;
+  first_last_name: string;
+  second_last_name: string;
+  full_name: string;
+  document_number: string;
+}
+
 @Component({
   selector: 'app-sales-new',
+  standalone: true,
   imports: [DecimalPipe, ToastModule],
   templateUrl: './sales-new.html',
 })
 export class SalesNew implements OnInit {
   private readonly api = inject(Api);
+  private readonly http = inject(HttpClient);
   private readonly messageService = inject(MessageService);
-  private readonly exportService = inject(ExportService); // Inyectamos el servicio de exportación
+  private readonly exportService = inject(ExportService);
+  private readonly documentoSubject$ = new Subject<{ documentType: string; documentNumber: string }>();
+
+  busquedaCliente = signal<string>('');
+  showCustomerSearch = signal<boolean>(false);
 
   clientes = signal<any[]>([]);
   productos = signal<any[]>([]);
   loading = signal<boolean>(false);
   loadingCliente = signal<boolean>(false);
+  loadingReniec = signal<boolean>(false);
   loadingData = signal<boolean>(true);
 
   tieneCliente = signal<boolean>(false);
@@ -61,8 +80,120 @@ export class SalesNew implements OnInit {
       .slice(0, 8);
   });
 
+  clientesFiltrados = computed(() => {
+    const query = this.busquedaCliente().toLowerCase().trim();
+    if (!query) return this.clientes();
+
+    return this.clientes().filter(c =>
+      c.name.toLowerCase().includes(query) ||
+      c.documentNumber.includes(query)
+    );
+  });
+
+  constructor() {
+    this.listenDocumentChanges();
+  }
+
   ngOnInit(): void {
     this.loadData();
+  }
+
+  private listenDocumentChanges(): void {
+    this.documentoSubject$.pipe(
+      debounceTime(400),
+      distinctUntilChanged((prev, curr) =>
+        prev.documentType === curr.documentType && prev.documentNumber === curr.documentNumber
+      ),
+      filter(({ documentType, documentNumber }) => {
+        if (documentType === 'DNI' && /^[0-9]{8}$/.test(documentNumber)) {
+          return true;
+        }
+        return false;
+      }),
+      switchMap(({ documentNumber }) => {
+        this.loadingReniec.set(true);
+        const url = `${environment.urlBase}/api/reniec/${documentNumber}`;
+
+        return this.http.get<ReniecDniResponse>(url).pipe(
+          catchError(() => {
+            this.messageService.add({
+              severity: 'warn',
+              summary: 'DNI no encontrado',
+              detail: 'No se encontraron datos para este DNI. Ingréselos manualmente.',
+              life: 4000
+            });
+            return of(null);
+          })
+        );
+      })
+    ).subscribe((res: ReniecDniResponse | null) => {
+      this.loadingReniec.set(false);
+      if (!res) return;
+
+      const nombreCompleto = `${res.first_name || ''} ${res.first_last_name || ''} ${res.second_last_name || ''}`.trim();
+
+      this.nuevoCliente.update(c => ({
+        ...c,
+        name: res.full_name || nombreCompleto
+      }));
+    });
+  }
+
+  onModoVentaRapida(): void {
+    this.tieneCliente.set(false);
+    this.clienteSeleccionado.set(null);
+    this.showNuevoCliente.set(false);
+  }
+
+  onActivarRegistrarNuevo(): void {
+    this.showNuevoCliente.set(true);
+    this.clienteSeleccionado.set(null);
+  }
+
+  onDocumentTypeChange(tipo: string): void {
+    this.nuevoCliente.update(c => ({ ...c, documentType: tipo }));
+    this.documentoSubject$.next({
+      documentType: tipo,
+      documentNumber: this.nuevoCliente().documentNumber
+    });
+  }
+
+  onDocumentNumberInput(numero: string): void {
+    this.nuevoCliente.update(c => ({ ...c, documentNumber: numero }));
+    this.documentoSubject$.next({
+      documentType: this.nuevoCliente().documentType,
+      documentNumber: numero
+    });
+  }
+
+  onNombreNuevoClienteInput(nombre: string): void {
+    this.nuevoCliente.update(c => ({ ...c, name: nombre }));
+  }
+
+  onBusquedaCliente(event: Event): void {
+    const val = (event.target as HTMLInputElement).value;
+    this.busquedaCliente.set(val);
+    this.showCustomerSearch.set(true);
+  }
+
+  onLimpiarBusquedaCliente(): void {
+    this.busquedaCliente.set('');
+    this.showCustomerSearch.set(false);
+  }
+
+  onSeleccionarClienteExistente(cliente: any): void {
+    this.seleccionarCliente(cliente);
+    this.showCustomerSearch.set(false);
+    this.busquedaCliente.set('');
+  }
+
+  onCrearClienteDesdeBusqueda(): void {
+    this.showNuevoCliente.set(true);
+    this.showCustomerSearch.set(false);
+  }
+
+  seleccionarCliente(cliente: any): void {
+    this.clienteSeleccionado.set(cliente);
   }
 
   private async loadData(): Promise<void> {
@@ -280,7 +411,6 @@ export class SalesNew implements OnInit {
       return;
     }
 
-    // ABRIMOS LA PESTAÑA INMEDIATAMENTE (Evita el bloqueo del navegador)
     const nuevaPestana = window.open('', '_blank');
     if (nuevaPestana) {
       nuevaPestana.document.write(`
