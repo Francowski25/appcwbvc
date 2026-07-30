@@ -1,121 +1,126 @@
-<div class="px-6 max-w-4xl mx-auto">
+<div class="px-3 sm:px-6 max-w-4xl mx-auto w-full">
 
-    <div class="card bg-white rounded-2xl border border-pink-100 w-full p-6">
+    <div class="card bg-white rounded-2xl border border-pink-100 w-full p-4 sm:p-6 md:p-8 shadow-sm">
         <form [formGroup]="frmInsertUser">
 
-            <p class="text-xs font-bold text-pink-400 uppercase tracking-widest mb-3">Datos Personales</p>
+            <p class="text-xs font-bold text-pink-500 uppercase tracking-widest mb-4 flex items-center gap-2">
+                <i class="pi pi-id-card text-xs"></i> Datos Personales
+            </p>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+
                 <div class="flex flex-col gap-1.5">
-                    <label class="text-xs font-bold text-slate-400 uppercase tracking-wider">
-                        Dni <span class="text-pink-400">*</span>
+                    <label class="text-xs font-bold text-slate-500 uppercase tracking-wider">
+                        Dni <span class="text-pink-500">*</span>
                     </label>
                     <div class="relative">
                         <input pInputText formControlName="dni" placeholder="Ej. 12345678" maxlength="8"
-                            class="w-full text-xs py-2.5 pr-8 rounded-xl border-gray-200 focus:border-pink-300" />
+                            class="w-full text-xs py-2.5 pr-8 rounded-xl border-gray-200 focus:border-pink-300 transition-colors" />
                         @if(isLoadingDni()) {
                         <i
                             class="pi pi-spin pi-spinner absolute right-3 top-1/2 -translate-y-1/2 text-pink-400 text-xs"></i>
                         }
                     </div>
                     @if((dniFb.touched || dniFb.dirty) && dniFb.hasError('required')) {
-                    <small class="text-[11px] text-red-500 font-medium flex items-center gap-1">
+                    <small class="text-[11px] text-red-500 font-medium flex items-center gap-1 mt-0.5">
                         <i class="pi pi-exclamation-circle text-[10px]"></i> Campo requerido.
                     </small>
                     }
                     @if((dniFb.touched || dniFb.dirty) && dniFb.hasError('pattern')) {
-                    <small class="text-[11px] text-red-500 font-medium flex items-center gap-1">
+                    <small class="text-[11px] text-red-500 font-medium flex items-center gap-1 mt-0.5">
                         <i class="pi pi-exclamation-circle text-[10px]"></i> El DNI debe contener 8 números.
                     </small>
                     }
                 </div>
 
                 <div class="flex flex-col gap-1.5">
-                    <label class="text-xs font-bold text-slate-400 uppercase tracking-wider">
-                        Celular <span class="text-pink-400">*</span>
+                    <label class="text-xs font-bold text-slate-500 uppercase tracking-wider">
+                        Celular <span class="text-pink-500">*</span>
                     </label>
-                    <input pInputText formControlName="cellPhone" placeholder="Ej. 12345678"
-                        class="w-full text-xs py-2.5 rounded-xl border-gray-200 focus:border-pink-300" />
+                    <input pInputText formControlName="cellPhone" placeholder="Ej. 987654321"
+                        class="w-full text-xs py-2.5 rounded-xl border-gray-200 focus:border-pink-300 transition-colors" />
                     @if((cellPhoneFb.touched || cellPhoneFb.dirty) && cellPhoneFb.hasError('required')) {
-                    <small class="text-[11px] text-red-500 font-medium flex items-center gap-1">
+                    <small class="text-[11px] text-red-500 font-medium flex items-center gap-1 mt-0.5">
                         <i class="pi pi-exclamation-circle text-[10px]"></i> Campo requerido.
                     </small>
                     }
                     @if((cellPhoneFb.touched || cellPhoneFb.dirty) && cellPhoneFb.hasError('pattern')) {
-                    <small class="text-[11px] text-red-500 font-medium flex items-center gap-1">
+                    <small class="text-[11px] text-red-500 font-medium flex items-center gap-1 mt-0.5">
                         <i class="pi pi-exclamation-circle text-[10px]"></i> El celular debe contener 9 números.
                     </small>
                     }
                 </div>
 
                 <div class="flex flex-col gap-1.5">
-                    <label class="text-xs font-bold text-slate-400 uppercase tracking-wider">
-                        Nombres <span class="text-pink-400">*</span>
+                    <label class="text-xs font-bold text-slate-500 uppercase tracking-wider">
+                        Nombres <span class="text-pink-500">*</span>
                     </label>
                     <input pInputText formControlName="firstName" placeholder="Ej. Juan Carlos"
-                        class="w-full text-xs py-2.5 rounded-xl border-gray-200 focus:border-pink-300 disabled:bg-slate-100 disabled:text-slate-500 disabled:cursor-not-allowed" />
+                        class="w-full text-xs py-2.5 rounded-xl border-gray-200 focus:border-pink-300 disabled:bg-slate-100 disabled:text-slate-500 disabled:cursor-not-allowed transition-colors" />
                     @if((firstNameFb.touched || firstNameFb.dirty) && firstNameFb.hasError('required')) {
-                    <small class="text-[11px] text-red-500 font-medium flex items-center gap-1">
+                    <small class="text-[11px] text-red-500 font-medium flex items-center gap-1 mt-0.5">
                         <i class="pi pi-exclamation-circle text-[10px]"></i> Campo requerido.
                     </small>
                     }
                     @if((firstNameFb.touched || firstNameFb.dirty) && firstNameFb.hasError('maxlength')) {
-                    <small class="text-[11px] text-red-500 font-medium flex items-center gap-1">
+                    <small class="text-[11px] text-red-500 font-medium flex items-center gap-1 mt-0.5">
                         <i class="pi pi-exclamation-circle text-[10px]"></i> Máximo 70 caracteres.
                     </small>
                     }
                 </div>
 
                 <div class="flex flex-col gap-1.5">
-                    <label class="text-xs font-bold text-slate-400 uppercase tracking-wider">
-                        Apellidos <span class="text-pink-400">*</span>
+                    <label class="text-xs font-bold text-slate-500 uppercase tracking-wider">
+                        Apellidos <span class="text-pink-500">*</span>
                     </label>
                     <input pInputText formControlName="surName" placeholder="Ej. Casas Pompa"
-                        class="w-full text-xs py-2.5 rounded-xl border-gray-200 focus:border-pink-300 disabled:bg-slate-100 disabled:text-slate-500 disabled:cursor-not-allowed" />
+                        class="w-full text-xs py-2.5 rounded-xl border-gray-200 focus:border-pink-300 disabled:bg-slate-100 disabled:text-slate-500 disabled:cursor-not-allowed transition-colors" />
                     @if((surNameFb.touched || surNameFb.dirty) && surNameFb.hasError('required')) {
-                    <small class="text-[11px] text-red-500 font-medium flex items-center gap-1">
+                    <small class="text-[11px] text-red-500 font-medium flex items-center gap-1 mt-0.5">
                         <i class="pi pi-exclamation-circle text-[10px]"></i> Campo requerido.
                     </small>
                     }
                 </div>
             </div>
 
-            <p class="text-xs font-bold text-pink-400 uppercase tracking-widest mb-3">Acceso al Sistema</p>
+            <p class="text-xs font-bold text-pink-500 uppercase tracking-widest mb-4 flex items-center gap-2">
+                <i class="pi pi-shield text-xs"></i> Acceso al Sistema
+            </p>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
 
-                <div class="flex flex-col gap-1.5 col-span-1 md:col-span-2">
-                    <label class="text-xs font-bold text-slate-400 uppercase tracking-wider">
-                        Correo Electrónico <span class="text-pink-400">*</span>
+                <div class="flex flex-col gap-1.5 col-span-1 sm:col-span-2">
+                    <label class="text-xs font-bold text-slate-500 uppercase tracking-wider">
+                        Correo Electrónico <span class="text-pink-500">*</span>
                     </label>
                     <input pInputText type="email" formControlName="email" placeholder="usuario@botica.com"
-                        class="w-full text-xs py-2.5 rounded-xl border-gray-200 focus:border-pink-300" />
+                        class="w-full text-xs py-2.5 rounded-xl border-gray-200 focus:border-pink-300 transition-colors" />
                     @if((emailFb.touched || emailFb.dirty) && emailFb.hasError('required')) {
-                    <small class="text-[11px] text-red-500 font-medium flex items-center gap-1">
+                    <small class="text-[11px] text-red-500 font-medium flex items-center gap-1 mt-0.5">
                         <i class="pi pi-exclamation-circle text-[10px]"></i> Campo requerido.
                     </small>
                     }
                     @if((emailFb.touched || emailFb.dirty) && emailFb.hasError('email')) {
-                    <small class="text-[11px] text-red-500 font-medium flex items-center gap-1">
+                    <small class="text-[11px] text-red-500 font-medium flex items-center gap-1 mt-0.5">
                         <i class="pi pi-exclamation-circle text-[10px]"></i> Formato de correo inválido.
                     </small>
                     }
                 </div>
 
-                <div class="flex flex-col gap-2 col-span-1 md:col-span-2">
-                    <label class="text-xs font-bold text-slate-400 uppercase tracking-wider">
-                        Rol Asignado <span class="text-pink-400">*</span>
+                <div class="flex flex-col gap-2 col-span-1 sm:col-span-2">
+                    <label class="text-xs font-bold text-slate-500 uppercase tracking-wider">
+                        Rol Asignado <span class="text-pink-500">*</span>
                     </label>
 
-                    <div class="grid grid-cols-2 gap-3">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                         @for(roleOpt of listRoles; track roleOpt.value) {
                         <label
                             class="flex items-center gap-3 p-3 rounded-xl border border-gray-200 cursor-pointer transition-all hover:bg-pink-50/50"
-                            [ngClass]="{ 'border-pink-300 bg-pink-50/30': roleFb.value === roleOpt.value }">
+                            [ngClass]="{ 'border-pink-400 bg-pink-50/40 shadow-sm': roleFb.value === roleOpt.value }">
 
                             <p-radioButton [value]="roleOpt.value" formControlName="role" [inputId]="roleOpt.value" />
 
-                            <span class="text-xs font-medium text-slate-700 select-none">
+                            <span class="text-xs font-semibold text-slate-700 select-none">
                                 {{ roleOpt.label }}
                             </span>
                         </label>
@@ -123,80 +128,83 @@
                     </div>
 
                     @if((roleFb.touched || roleFb.dirty) && roleFb.hasError('required')) {
-                    <small class="text-[11px] text-red-500 font-medium flex items-center gap-1">
+                    <small class="text-[11px] text-red-500 font-medium flex items-center gap-1 mt-0.5">
                         <i class="pi pi-exclamation-circle text-[10px]"></i> Deberá seleccionar un rol.
                     </small>
                     }
                 </div>
 
-                <div class="flex flex-col gap-1.5">
-                    <label class="text-xs font-bold text-slate-400 uppercase tracking-wider">
-                        Avatar
-                        <span class="text-gray-300 font-normal normal-case">(Opcional)</span>
+                <div class="flex flex-col gap-1.5 col-span-1 sm:col-span-2">
+                    <label class="text-xs font-bold text-slate-500 uppercase tracking-wider">
+                        Avatar <span class="text-slate-400 font-normal normal-case">(Opcional)</span>
                     </label>
 
-                    <div class="flex items-center gap-3">
-                        <!-- Preview -->
-                        @if(previewUrl()) {
-                        <img [src]="previewUrl()" alt="Preview"
-                            class="w-10 h-10 rounded-full object-cover ring-2 ring-pink-100" />
-                        } @else {
-                        <div
-                            class="w-10 h-10 rounded-full bg-pink-50 flex items-center justify-center ring-2 ring-pink-100">
-                            <i class="pi pi-user text-pink-300"></i>
-                        </div>
-                        }
+                    <div class="flex flex-col sm:flex-row sm:items-center gap-3">
+                        <div class="flex items-center gap-3">
+                            @if(previewUrl()) {
+                            <img [src]="previewUrl()" alt="Preview"
+                                class="w-11 h-11 rounded-full object-cover ring-2 ring-pink-200 shadow-sm" />
+                            } @else {
+                            <div
+                                class="w-11 h-11 rounded-full bg-pink-50 flex items-center justify-center ring-2 ring-pink-100">
+                                <i class="pi pi-user text-pink-400 text-lg"></i>
+                            </div>
+                            }
 
-                        <label for="fileAvatar"
-                            class="flex items-center gap-2 bg-white hover:bg-gray-50 text-slate-600 border border-gray-200 px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer">
-                            <i class="pi pi-upload text-sm"></i>
-                            <span>{{ selectedFileName() || 'Seleccionar imagen' }}</span>
-                        </label>
-                        <input id="fileAvatar" type="file" accept="image/*" class="hidden"
-                            (change)="onFileSelected($event)" />
+                            <label for="fileAvatar"
+                                class="flex-1 sm:flex-none flex items-center justify-center gap-2 bg-white hover:bg-slate-50 text-slate-600 border border-gray-200 px-4 py-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer shadow-sm">
+                                <i class="pi pi-upload text-xs"></i>
+                                <span class="truncate max-w-[200px]">{{ selectedFileName() || 'Seleccionar imagen'
+                                    }}</span>
+                            </label>
+                            <input id="fileAvatar" type="file" accept="image/*" class="hidden"
+                                (change)="onFileSelected($event)" />
+                        </div>
                     </div>
                 </div>
 
             </div>
 
-            <p class="text-xs font-bold text-pink-400 uppercase tracking-widest mb-3">Contraseña</p>
+            <p class="text-xs font-bold text-pink-500 uppercase tracking-widest mb-4 flex items-center gap-2">
+                <i class="pi pi-lock text-xs"></i> Contraseña
+            </p>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
 
                 <div class="flex flex-col gap-1.5">
-                    <label class="text-xs font-bold text-slate-400 uppercase tracking-wider">
-                        Contraseña <span class="text-pink-400">*</span>
+                    <label class="text-xs font-bold text-slate-500 uppercase tracking-wider">
+                        Contraseña <span class="text-pink-500">*</span>
                     </label>
                     <input pInputText type="password" formControlName="password" placeholder="Mínimo 6 caracteres"
-                        class="w-full text-xs py-2.5 rounded-xl border-gray-200 focus:border-pink-300" />
+                        class="w-full text-xs py-2.5 rounded-xl border-gray-200 focus:border-pink-300 transition-colors" />
                     @if((passwordFb.touched || passwordFb.dirty) && passwordFb.hasError('required')) {
-                    <small class="text-[11px] text-red-500 font-medium flex items-center gap-1">
+                    <small class="text-[11px] text-red-500 font-medium flex items-center gap-1 mt-0.5">
                         <i class="pi pi-exclamation-circle text-[10px]"></i> Campo requerido.
                     </small>
                     }
                     @if((passwordFb.touched || passwordFb.dirty) && passwordFb.hasError('minlength')) {
-                    <small class="text-[11px] text-red-500 font-medium flex items-center gap-1">
+                    <small class="text-[11px] text-red-500 font-medium flex items-center gap-1 mt-0.5">
                         <i class="pi pi-exclamation-circle text-[10px]"></i> Mínimo 6 caracteres.
                     </small>
                     }
                 </div>
 
                 <div class="flex flex-col gap-1.5">
-                    <label class="text-xs font-bold text-slate-400 uppercase tracking-wider">
-                        Confirmar Contraseña <span class="text-pink-400">*</span>
+                    <label class="text-xs font-bold text-slate-500 uppercase tracking-wider">
+                        Confirmar Contraseña <span class="text-pink-500">*</span>
                     </label>
                     <input pInputText type="password" formControlName="confirmPassword"
                         placeholder="Repite la contraseña"
-                        class="w-full text-xs py-2.5 rounded-xl border-gray-200 focus:border-pink-300" />
+                        class="w-full text-xs py-2.5 rounded-xl border-gray-200 focus:border-pink-300 transition-colors" />
                     @if((confirmPasswordFb.touched || confirmPasswordFb.dirty) &&
                     confirmPasswordFb.hasError('required')) {
-                    <small class="text-[11px] text-red-500 font-medium flex items-center gap-1">
+                    <small class="text-[11px] text-red-500 font-medium flex items-center gap-1 mt-0.5">
                         <i class="pi pi-exclamation-circle text-[10px]"></i> Campo requerido.
                     </small>
                     }
                     @if((confirmPasswordFb.touched || confirmPasswordFb.dirty) &&
                     frmInsertUser.hasError('passwordMismatch')) {
-                    <small class="text-[11px] text-red-500 font-medium flex items-center gap-1">
+                    <small class="text-[11px] text-red-500 font-medium flex items-center gap-1 mt-0.5">
                         <i class="pi pi-exclamation-circle text-[10px]"></i> Las contraseñas no coinciden.
                     </small>
                     }
@@ -204,29 +212,33 @@
 
             </div>
 
-            <hr class="border-pink-50 my-4">
+            <hr class="border-slate-100 my-6">
         </form>
-        <div class="flex justify-between items-center">
-            <small class="text-[11px] text-gray-400">
-                <span class="text-pink-400">*</span> Campos obligatorios
+
+        <div class="flex flex-col-reverse sm:flex-row sm:justify-between sm:items-center gap-4">
+
+            <small class="text-[11px] text-slate-400 text-center sm:text-left">
+                <span class="text-pink-500 font-bold">*</span> Campos obligatorios
             </small>
-            <div class="flex gap-3 items-center">
+
+            <div class="flex flex-col-reverse sm:flex-row items-center gap-3 w-full sm:w-auto">
+
                 @if(isLoading()) {
                 <p-progressSpinner styleClass="w-6 h-6" strokeWidth="4" />
                 }
-                <div class="flex justify-end items-center gap-3">
-                    <button type="button" (click)="closeDialog()"
-                        class="flex items-center justify-center gap-2 bg-white hover:bg-slate-50 text-slate-500 border border-slate-200 px-5 py-2.5 rounded-xl text-xs font-bold transition-all shadow-sm cursor-pointer">
-                        <i class="pi pi-arrow-left text-xs"></i>
-                        <span>Regresar</span>
-                    </button>
 
-                    <button type="button" (click)="sendInsertUser($event)"
-                        class="flex items-center justify-center gap-2 bg-pink-500 hover:bg-pink-600 text-white border border-pink-500 hover:border-pink-600 px-5 py-2.5 rounded-xl text-xs font-bold transition-all shadow-sm cursor-pointer">
-                        <i class="pi pi-plus text-xs"></i>
-                        <span>Registrar Usuario</span>
-                    </button>
-                </div>
+                <button type="button" (click)="closeDialog()"
+                    class="w-full sm:w-auto flex items-center justify-center gap-2 bg-white hover:bg-slate-50 text-slate-600 border border-slate-200 px-5 py-2.5 rounded-xl text-xs font-bold transition-all shadow-sm active:scale-95 cursor-pointer">
+                    <i class="pi pi-arrow-left text-xs"></i>
+                    <span>Regresar</span>
+                </button>
+
+                <button type="button" (click)="sendInsertUser($event)"
+                    class="w-full sm:w-auto flex items-center justify-center gap-2 bg-pink-500 hover:bg-pink-600 text-white border border-pink-500 hover:border-pink-600 px-5 py-2.5 rounded-xl text-xs font-bold transition-all shadow-sm active:scale-95 cursor-pointer">
+                    <i class="pi pi-plus text-xs"></i>
+                    <span>Registrar Usuario</span>
+                </button>
+
             </div>
         </div>
 
