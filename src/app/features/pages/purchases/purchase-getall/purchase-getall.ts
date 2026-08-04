@@ -7,10 +7,13 @@ import { PurchaseSidebar } from '../purchase-sidebar/purchase-sidebar';
 import { PurchaseTable } from '../purchase-table/purchase-table';
 import { PurchaseDetail } from '../purchase-detail/purchase-detail';
 import { PurchaseNew } from '../purchase-new/purchase-new';
+import { DecimalPipe } from '@angular/common';
 
 @Component({
   selector: 'app-purchase-getall',
-  imports: [PurchaseKpi, PurchaseSidebar, PurchaseTable, PurchaseDetail, PurchaseNew],
+  imports: [PurchaseKpi, PurchaseSidebar, PurchaseTable, PurchaseDetail, PurchaseNew,
+    DecimalPipe
+  ],
   templateUrl: './purchase-getall.html',
   styleUrl: './purchase-getall.css',
 })

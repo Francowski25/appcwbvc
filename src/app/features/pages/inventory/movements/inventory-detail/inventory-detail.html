@@ -1,0 +1,203 @@
+<p-dialog [visible]="visible()" (visibleChange)="visibleChange.emit($event)" [modal]="true" [draggable]="false"
+    [resizable]="false" [dismissableMask]="true"
+    styleClass="!border-0 !rounded-3xl !shadow-2xl overflow-hidden w-full max-w-2xl mx-4">
+
+    <ng-template pTemplate="header">
+        <div class="flex items-center justify-between w-full pr-1">
+            <div class="flex items-center gap-3">
+                <div
+                    class="bg-gradient-to-br from-pink-500 to-rose-500 text-white p-2.5 rounded-xl shadow-md shadow-pink-500/20 flex items-center justify-center shrink-0">
+                    <i class="pi pi-receipt text-lg"></i>
+                </div>
+                <div>
+                    <h2 class="text-base font-black text-slate-900 tracking-tight">Detalle del Movimiento</h2>
+                    <p class="text-xs text-pink-600 font-bold mt-0.5">Información completa e insumos registrados</p>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+
+    <div class="font-sans text-slate-700 -mx-5 -mb-5 bg-white">
+
+        @if (loading()) {
+        <div class="p-16 flex flex-col items-center justify-center space-y-4">
+            <i class="pi pi-spin pi-spinner text-pink-500 text-4xl"></i>
+            <p class="text-xs text-slate-500 font-semibold tracking-wide">Cargando información...</p>
+        </div>
+        }
+
+        @else if (error()) {
+        <div
+            class="m-6 p-5 bg-rose-50 border border-rose-200 rounded-2xl text-rose-700 text-xs flex items-center gap-4 shadow-sm">
+            <i class="pi pi-exclamation-triangle text-3xl text-rose-500 shrink-0"></i>
+            <div>
+                <p class="font-black text-rose-950 text-sm">Error de comunicación</p>
+                <p class="text-rose-700/90 font-medium mt-1">{{ error() }}</p>
+            </div>
+        </div>
+        }
+
+        @else if (detail(); as data) {
+
+        <div class="p-6 bg-slate-50/50 border-b border-slate-200/70 space-y-5">
+
+            <div class="flex flex-wrap items-center justify-between gap-3">
+                <div class="flex items-center gap-2.5">
+                    @switch (data.type) {
+                    @case ('Ajuste_Negativo') {
+                    <span
+                        class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-white text-rose-700 border border-rose-200 shadow-sm">
+                        <i class="pi pi-minus-circle text-xs"></i> Ajuste Negativo
+                    </span>
+                    }
+                    @case ('Ajuste_Positivo') {
+                    <span
+                        class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-white text-amber-700 border border-amber-300 shadow-sm">
+                        <i class="pi pi-plus-circle text-xs"></i> Ajuste Positivo
+                    </span>
+                    }
+                    @case ('Entrada') {
+                    <span
+                        class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-white text-emerald-700 border border-emerald-200 shadow-sm">
+                        <i class="pi pi-arrow-down-left text-xs"></i> Entrada
+                    </span>
+                    }
+                    @case ('Salida') {
+                    <span
+                        class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-white text-blue-700 border border-blue-200 shadow-sm">
+                        <i class="pi pi-arrow-up-right text-xs"></i> Salida
+                    </span>
+                    }
+                    }
+                </div>
+
+                <div
+                    class="flex items-center gap-2 text-sm font-semibold text-slate-600 bg-white px-3 py-1.5 rounded-lg border border-slate-200 shadow-sm">
+                    <i class="pi pi-calendar text-xs text-pink-500"></i>
+                    <span>{{ data.movementDate | date:'dd MMM yyyy, hh:mm a' }}</span>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-4 pt-1 pb-1 px-1">
+                <div
+                    class="w-12 h-12 rounded-2xl bg-slate-900 text-white border-2 border-slate-700 text-lg font-black flex items-center justify-center shrink-0 shadow-lg">
+                    <i class="pi pi-user text-xl"></i>
+                </div>
+                <div class="flex flex-col gap-0.5">
+                    <span class="font-extrabold text-slate-950 text-base leading-tight">{{ data.userName }}</span>
+                    <div
+                        class="text-xs text-slate-600 capitalize font-semibold flex flex-wrap items-center gap-x-2.5 gap-y-1">
+                        <span class="bg-slate-100 px-2 py-0.5 rounded border border-slate-200 text-slate-700">{{
+                            data.role }}</span>
+                        @if(data.dni) {
+                        <span class="text-slate-300">|</span>
+                        <span>Documento DNI: <strong class="text-slate-900 font-bold text-sm ml-0.5">{{ data.dni
+                                }}</strong></span>
+                        }
+                    </div>
+                </div>
+            </div>
+
+            @if (data.observation) {
+            <div class="bg-white border-2 border-slate-200 rounded-2xl p-4 shadow-inner">
+                <div class="flex items-center gap-2 mb-2 pb-2 border-b border-slate-100">
+                    <i class="pi pi-align-left text-slate-400 text-sm"></i>
+                    <h4 class="text-xs font-bold text-slate-500 uppercase tracking-wider">Observaciones</h4>
+                </div>
+                <p class="text-sm text-slate-800 font-medium leading-relaxed italic">
+                    "{{ data.observation }}"
+                </p>
+            </div>
+            }
+        </div>
+
+        <div
+            class="px-6 py-3.5 bg-slate-100/70 border-y border-slate-200 flex items-center justify-between text-xs font-black text-slate-500 tracking-wider uppercase">
+            <span class="flex items-center gap-2.5">
+                <i class="pi pi-box text-pink-500 text-base"></i>
+                Insumos y Productos Afectados
+            </span>
+            <span
+                class="bg-white px-3 py-1 rounded-full text-slate-800 border border-slate-200 font-bold text-xs shadow-sm">
+                {{ data.listDetail?.length || 0 }} ítems
+            </span>
+        </div>
+
+        <div class="p-6 space-y-4 max-h-[380px] overflow-y-auto bg-white divid-y divide-slate-100">
+            @for (item of data.listDetail; track item.idDetail) {
+            <div
+                class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 rounded-2xl bg-white border border-slate-200 hover:border-pink-200 hover:bg-pink-50/20 transition-all shadow-sm hover:shadow-md">
+
+                <div class="flex items-center gap-4">
+                    <div
+                        class="w-12 h-12 rounded-2xl bg-pink-50 text-pink-600 flex items-center justify-center shrink-0 border border-pink-100 shadow-sm">
+                        <i class="pi pi-box text-xl"></i>
+                    </div>
+
+                    <div class="space-y-1.5">
+                        <h4 class="text-sm font-extrabold text-slate-950 leading-snug">{{ item.productName }}</h4>
+                        <div class="flex flex-wrap items-center gap-2 text-[11px]">
+                            @if (item.lotCode) {
+                            <span
+                                class="px-2.5 py-0.5 rounded bg-slate-100 border border-slate-200 text-slate-800 font-bold uppercase tracking-wide">
+                                Lote: {{ item.lotCode }}
+                            </span>
+                            }
+                            @if (item.expirationDate) {
+                            <span class="text-slate-500 font-semibold flex items-center gap-1.5">
+                                <i class="pi pi-calendar-times text-xs text-rose-500"></i>
+                                Vence: {{ item.expirationDate | date:'dd / MM / yyyy' }}
+                            </span>
+                            }
+                        </div>
+                    </div>
+                </div>
+
+                <div
+                    class="text-left sm:text-right border-t sm:border-t-0 border-slate-100 pt-3 sm:pt-0 flex sm:flex-col justify-between sm:justify-center items-center sm:items-end gap-1">
+                    <div class="text-sm font-bold text-slate-600">
+                        <span class="text-pink-600 font-black text-base">{{ item.quantity }} u.</span>
+                        <span class="text-slate-400 font-medium ml-1"> × {{ item.unitCost |
+                            currency:'PEN':'symbol':'1.2-2' }}</span>
+                    </div>
+                    <div
+                        class="text-sm font-black text-slate-950 mt-0.5 bg-slate-50 px-2 py-0.5 rounded border border-slate-100">
+                        <span class="text-[10px] text-slate-400 uppercase font-semibold mr-1.5">Subtotal:</span>
+                        {{ item.subtotal | currency:'PEN':'symbol':'1.2-2' }}
+                    </div>
+                </div>
+
+            </div>
+            }
+        </div>
+
+        <div
+            class="p-5 sm:p-6 bg-slate-950 text-white flex items-center justify-between border-t border-slate-800 shadow-inner">
+            <div class="flex items-center gap-3.5">
+                <div
+                    class="w-11 h-11 rounded-xl bg-slate-800 text-pink-400 flex items-center justify-center shrink-0 border border-slate-700">
+                    <i class="pi pi-calculator text-xl"></i>
+                </div>
+                <div>
+                    <span class="block text-[11px] font-bold text-slate-400 uppercase tracking-wider">Valor Total del
+                        Movimiento</span>
+                    <span class="text-xs text-slate-300 font-medium mt-0.5 block">Resumen de costos de los insumos
+                        afectados</span>
+                </div>
+            </div>
+            <div class="text-right">
+                <span class="text-3xl font-black text-pink-400 tracking-tight">
+                    {{ data.costoTotal | currency:'PEN ':'symbol':'1.2-2' }}
+                </span>
+            </div>
+        </div>
+
+        } @else {
+        <div class="p-20 text-center text-slate-400 space-y-3 bg-white">
+            <i class="pi pi-inbox text-5xl text-slate-200"></i>
+            <p class="text-sm font-semibold">No se pudo cargar el detalle del movimiento.</p>
+        </div>
+        }
+
+    </div>
+</p-dialog>

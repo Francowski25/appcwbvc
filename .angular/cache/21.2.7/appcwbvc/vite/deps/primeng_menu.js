@@ -12,7 +12,7 @@ import {
 import {
   Badge,
   BadgeModule
-} from "./chunk-3LGP2GNB.js";
+} from "./chunk-FCJHXZYF.js";
 import {
   Ripple
 } from "./chunk-RFIWG3VE.js";
@@ -27,14 +27,14 @@ import {
   BaseStyle
 } from "./chunk-XBFSX4ZR.js";
 import {
-  Bind,
-  BindModule
-} from "./chunk-KCMSSV6U.js";
-import {
   OverlayService,
   PrimeTemplate,
   SharedModule
 } from "./chunk-2NG34RPY.js";
+import {
+  Bind,
+  BindModule
+} from "./chunk-KCMSSV6U.js";
 import {
   T,
   V2 as V,
@@ -50,10 +50,11 @@ import {
   RouterLink,
   RouterLinkActive,
   RouterModule
-} from "./chunk-F4D5WV73.js";
+} from "./chunk-LPTE5OGR.js";
 import {
   DomSanitizer
-} from "./chunk-BQGPGF5J.js";
+} from "./chunk-DB5TIEMH.js";
+import "./chunk-JZRRZHSA.js";
 import {
   CommonModule,
   NgForOf,
@@ -62,7 +63,6 @@ import {
   NgTemplateOutlet,
   isPlatformBrowser
 } from "./chunk-NJSJXP3D.js";
-import "./chunk-JZRRZHSA.js";
 import "./chunk-JFQHQQCP.js";
 import {
   ChangeDetectionStrategy,
@@ -135,8 +135,8 @@ import {
   ɵɵtextInterpolate,
   ɵɵviewQuerySignal
 } from "./chunk-HP7SRXOB.js";
-import "./chunk-HWYXSU2G.js";
 import "./chunk-JRFR6BLO.js";
+import "./chunk-HWYXSU2G.js";
 import "./chunk-MARUHEWW.js";
 import {
   __spreadValues

@@ -9,26 +9,26 @@ import { RequestBuilder } from '../../request-builder';
 
 
 export interface UserUpdatePassword$Params {
-    body?: {
-        'idUser'?: string;
-        'password'?: string;
-    }
+      body?: {
+'idUser'?: string;
+'password'?: string;
+}
 }
 
 export function userUpdatePassword(http: HttpClient, rootUrl: string, params?: UserUpdatePassword$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
-    const rb = new RequestBuilder(rootUrl, userUpdatePassword.PATH, 'put');
-    if (params) {
-        rb.body(params.body, 'multipart/form-data');
-    }
+  const rb = new RequestBuilder(rootUrl, userUpdatePassword.PATH, 'put');
+  if (params) {
+    rb.body(params.body, 'multipart/form-data');
+  }
 
-    return http.request(
-        rb.build({ responseType: 'text', accept: '*/*', context })
-    ).pipe(
-        filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
-        map((r: HttpResponse<any>) => {
-            return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
-        })
-    );
+  return http.request(
+    rb.build({ responseType: 'text', accept: '*/*', context })
+  ).pipe(
+    filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
+    map((r: HttpResponse<any>) => {
+      return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+    })
+  );
 }
 
 userUpdatePassword.PATH = '/users/updatePassword';

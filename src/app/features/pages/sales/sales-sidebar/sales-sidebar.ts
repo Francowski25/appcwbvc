@@ -6,6 +6,7 @@ import { NgClass } from '@angular/common';
 
 @Component({
   selector: 'app-sales-sidebar',
+  standalone: true,
   imports: [InputTextModule, IconFieldModule, InputIconModule, NgClass],
   templateUrl: './sales-sidebar.html',
 })
@@ -25,7 +26,7 @@ export class SalesSidebar {
     { name: 'Anulada', dot: 'bg-red-500' },
   ];
 
-  metodosIcono: Record<string, string> = {
+  metodosIcono: Record<string, string | undefined> = {
     'Efectivo': 'pi-wallet',
     'Tarjeta': 'pi-credit-card',
     'Yape': 'pi-mobile',
@@ -36,6 +37,10 @@ export class SalesSidebar {
 
   onBusquedaInput(event: Event): void {
     this.busquedaChange.emit((event.target as HTMLInputElement).value);
+  }
+
+  onLimpiarBusqueda(): void {
+    this.busquedaChange.emit('');
   }
 
   onMetodoClick(name: string): void {

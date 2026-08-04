@@ -1,0 +1,288 @@
+<div
+    class="bg-white rounded-3xl border border-slate-200/80 shadow-sm overflow-hidden flex flex-col w-full font-sans text-slate-700">
+
+    <div
+        class="p-5 sm:p-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border-b border-slate-100 bg-white">
+
+        <div class="flex items-center gap-3.5">
+            <div
+                class="w-10 h-10 rounded-2xl bg-pink-50 text-pink-600 border border-pink-100 flex items-center justify-center shrink-0 shadow-xs">
+                <i class="pi pi-book text-base"></i>
+            </div>
+            <div>
+                <div class="flex items-center gap-2">
+                    <h3 class="text-base font-black text-slate-900 tracking-tight">Kardex por Producto</h3>
+                    <span
+                        class="text-[10px] font-extrabold text-pink-600 bg-pink-50 px-2 py-0.5 rounded-md border border-pink-100 uppercase">
+                        Trazabilidad FEFO
+                    </span>
+                </div>
+                <p class="text-xs text-slate-400 font-medium mt-0.5 hidden md:block">
+                    Histórico detallado de movimientos de inventario por producto e insumo
+                </p>
+            </div>
+        </div>
+
+        <div class="w-full md:w-80 relative">
+            <div class="relative flex items-center">
+                <i class="pi pi-search absolute left-3.5 top-1/2 -translate-y-1/2 text-xs text-slate-400"></i>
+
+                <input type="text" [value]="searchProductQuery()" (input)="onProductSearchInput($event)"
+                    (focus)="onInputFocus()" placeholder="Buscar producto (Paracetamol, Amoxicilina...)"
+                    class="w-full text-xs pl-9 pr-8 py-2.5 rounded-xl bg-slate-50/80 border border-slate-200/80 font-semibold text-slate-800 placeholder-slate-400 focus:outline-none focus:bg-white focus:border-pink-500 focus:ring-2 focus:ring-pink-500/10 transition-all shadow-2xs" />
+
+                @if (searchProductQuery()) {
+                <button (click)="clearSearch()" type="button"
+                    class="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 text-xs p-1">
+                    <i class="pi pi-times-circle"></i>
+                </button>
+                }
+            </div>
+
+            @if (showProductDropdown()) {
+            <div
+                class="absolute z-50 left-0 right-0 mt-2 bg-white border border-slate-200/80 rounded-2xl shadow-xl overflow-hidden divide-y divide-slate-100 max-h-64 overflow-y-auto">
+
+                @if (searchingProduct()) {
+                <div class="p-4 text-center text-slate-400 flex items-center justify-center gap-2">
+                    <i class="pi pi-spin pi-spinner text-pink-500 text-sm"></i>
+                    <span class="text-xs font-semibold">Buscando en catálogo...</span>
+                </div>
+                }
+
+                @else if (searchResults().length > 0) {
+                @for (prod of searchResults(); track prod.idProduct) {
+                <div (mousedown)="$event.preventDefault(); selectProduct(prod)"
+                    class="p-3 px-4 hover:bg-pink-50/40 cursor-pointer transition-colors flex items-center justify-between group">
+
+                    <div class="flex flex-col gap-0.5">
+                        <span class="text-xs font-extrabold text-slate-900 group-hover:text-pink-600 transition-colors">
+                            {{ prod.name ?? prod.productName }}
+                        </span>
+                        <span class="text-[11px] text-slate-400 font-medium">
+                            Cod: <strong class="text-slate-600">{{ prod.barcode ?? 'S/C' }}</strong> • Stock: <strong
+                                class="text-slate-700">{{ prod.stock ?? 0 }} un.</strong>
+                        </span>
+                    </div>
+
+                    @if ((prod.stock ?? 0) <= (prod.stockMinimum ?? prod.minStock ?? 5)) { <span
+                        class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-rose-50 text-rose-600 border border-rose-200 shrink-0">
+                        Bajo mínimo
+                        </span>
+                        } @else {
+                        <span
+                            class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-emerald-50 text-emerald-600 border border-emerald-200 shrink-0">
+                            OK
+                        </span>
+                        }
+                </div>
+                }
+                }
+
+                @else {
+                <div class="p-4 text-center text-slate-400">
+                    <p class="text-xs font-semibold">No se encontraron productos coincidentes.</p>
+                </div>
+                }
+            </div>
+            }
+        </div>
+
+    </div>
+
+    @if (selectedProduct() && !loading()) {
+    <div
+        class="grid grid-cols-2 sm:grid-cols-4 divide-x divide-y sm:divide-y-0 divide-slate-100 bg-slate-50/60 border-b border-slate-100">
+
+        <div class="p-4 px-5 space-y-0.5">
+            <span class="text-[10px] font-extrabold text-slate-400 uppercase tracking-wider block">Producto
+                Seleccionado</span>
+            <span class="text-xs sm:text-sm font-black text-slate-900 truncate block" [title]="productName()">
+                {{ productName() }}
+            </span>
+        </div>
+
+        <div class="p-4 px-5 space-y-0.5">
+            <span class="text-[10px] font-extrabold text-slate-400 uppercase tracking-wider block">Stock Actual</span>
+            <span class="text-xs sm:text-sm font-black text-emerald-600 block">
+                {{ saldoActual() | number:'1.0-2' }} <span class="text-[11px] font-bold text-slate-400">un.</span>
+            </span>
+        </div>
+
+        <div class="p-4 px-5 space-y-0.5">
+            <span class="text-[10px] font-extrabold text-slate-400 uppercase tracking-wider block">Entradas
+                Totales</span>
+            <span class="text-xs sm:text-sm font-black text-blue-600 block">
+                +{{ totalEntradas() | number:'1.0-2' }}
+            </span>
+        </div>
+
+        <div class="p-4 px-5 space-y-0.5">
+            <span class="text-[10px] font-extrabold text-slate-400 uppercase tracking-wider block">Salidas
+                Totales</span>
+            <span class="text-xs sm:text-sm font-black text-rose-600 block">
+                -{{ totalSalidas() | number:'1.0-2' }}
+            </span>
+        </div>
+
+    </div>
+    }
+
+    <div class="overflow-x-auto min-h-[240px]">
+        <table class="w-full text-left text-xs border-collapse">
+            <thead>
+                <tr
+                    class="border-b border-slate-100 bg-slate-50/80 text-[10px] font-extrabold text-slate-400 uppercase tracking-wider">
+                    <th class="py-3.5 px-4 sm:px-6">FECHA / HORA</th>
+                    <th class="py-3.5 px-4">TIPO</th>
+                    <th class="py-3.5 px-4">LOTE / VENCIMIENTO</th>
+                    <th class="py-3.5 px-4 text-center">CANTIDAD</th>
+                    <th class="py-3.5 px-4 text-center">STOCK RESULTANTE</th>
+                    <th class="py-3.5 px-4 sm:px-6">RESPONSABLE / OBSERVACIÓN</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100">
+
+                @if (loading()) {
+                <tr>
+                    <td colspan="6" class="py-14 text-center text-slate-400">
+                        <i class="pi pi-spin pi-spinner text-pink-500 text-3xl"></i>
+                        <p class="text-xs font-extrabold mt-2.5 text-slate-700">Cargando kardex del producto...</p>
+                    </td>
+                </tr>
+                }
+
+                @else if (!selectedProduct()) {
+                <tr>
+                    <td colspan="6" class="py-16 text-center">
+                        <div
+                            class="w-12 h-12 rounded-2xl bg-pink-50 text-pink-500 border border-pink-100 flex items-center justify-center mx-auto mb-3 shadow-2xs">
+                            <i class="pi pi-search text-xl"></i>
+                        </div>
+                        <h4 class="text-sm font-black text-slate-900">Seleccione un producto para ver su Kardex</h4>
+                        <p class="text-xs text-slate-400 font-medium mt-1">
+                            Trazabilidad completa por lote con método FEFO
+                        </p>
+                    </td>
+                </tr>
+                }
+
+                @else if (kardexList().length === 0) {
+                <tr>
+                    <td colspan="6" class="py-14 text-center text-slate-400">
+                        <i class="pi pi-inbox text-3xl text-slate-300"></i>
+                        <p class="text-xs font-semibold mt-2">No se encontraron movimientos para este producto.</p>
+                    </td>
+                </tr>
+                }
+
+                @else {
+                @for (item of paginatedList(); track item.idDetail || $index) {
+                <tr class="hover:bg-slate-50/70 transition-colors group">
+
+                    <td class="py-3.5 px-4 sm:px-6 text-slate-600 font-semibold whitespace-nowrap">
+                        <span class="flex items-center gap-1.5">
+                            <i class="pi pi-clock text-[11px] text-slate-400"></i>
+                            {{ (item.movementDate || item.date || item.fecha) | date:'dd MMM yyyy, hh:mm a' }}
+                        </span>
+                    </td>
+
+                    <td class="py-3.5 px-4 whitespace-nowrap">
+                        @switch (item.type) {
+                        @case ('Entrada') {
+                        <span
+                            class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-extrabold bg-emerald-50 text-emerald-700 border border-emerald-200/80">
+                            <i class="pi pi-arrow-down-left text-[10px]"></i> Entrada
+                        </span>
+                        }
+                        @case ('Salida') {
+                        <span
+                            class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-extrabold bg-blue-50 text-blue-700 border border-blue-200/80">
+                            <i class="pi pi-arrow-up-right text-[10px]"></i> Salida
+                        </span>
+                        }
+                        @default {
+                        <span
+                            class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-extrabold bg-amber-50 text-amber-700 border border-amber-200/80">
+                            {{ item.type }}
+                        </span>
+                        }
+                        }
+                    </td>
+
+                    <td class="py-3.5 px-4 whitespace-nowrap">
+                        <div class="flex items-center gap-2">
+                            <span
+                                class="px-2 py-0.5 rounded-md bg-slate-100 border border-slate-200/80 text-[10px] font-mono font-extrabold text-slate-700 uppercase">
+                                {{ item.lote || item.lot || 'N/A' }}
+                            </span>
+
+                            @if (item.expirationDate) {
+                            <span class="text-[11px] font-extrabold flex items-center gap-1"
+                                [class.text-rose-600]="isExpired(item.expirationDate)"
+                                [class.text-amber-600]="!isExpired(item.expirationDate)">
+                                <i class="pi pi-calendar text-[10px]"></i>
+                                {{ item.expirationDate }}
+                            </span>
+                            }
+                        </div>
+                    </td>
+
+                    <td class="py-3.5 px-4 text-center whitespace-nowrap">
+                        @if ((item.movimiento ?? item.quantity ?? 0) > 0) {
+                        <span
+                            class="inline-flex items-center justify-center px-2.5 py-0.5 rounded-full text-xs font-black bg-emerald-50 text-emerald-700 border border-emerald-200 min-w-[58px]">
+                            +{{ item.movimiento ?? item.quantity }}
+                        </span>
+                        } @else {
+                        <span
+                            class="inline-flex items-center justify-center px-2.5 py-0.5 rounded-full text-xs font-black bg-rose-50 text-rose-700 border border-rose-200 min-w-[58px]">
+                            {{ item.movimiento ?? item.quantity }}
+                        </span>
+                        }
+                    </td>
+
+                    <td class="py-3.5 px-4 text-center font-black text-slate-900 whitespace-nowrap text-xs">
+                        {{ item.saldoResultante ?? item.saldo ?? 0 }} <span
+                            class="text-[10px] text-slate-400 font-bold">un.</span>
+                    </td>
+
+                    <td class="py-3.5 px-4 sm:px-6 whitespace-nowrap">
+                        <div class="flex flex-col">
+                            <span class="font-bold text-slate-900 text-xs flex items-center gap-1.5">
+                                <i class="pi pi-user text-[10px] text-slate-400"></i>
+                                {{ item.responsable || item.userName || 'Sistema' }}
+                            </span>
+                            @if (item.observation) {
+                            <span class="text-[10px] text-slate-400 font-medium italic truncate max-w-[220px]"
+                                [title]="item.observation">
+                                "{{ item.observation }}"
+                            </span>
+                            }
+                        </div>
+                    </td>
+
+                </tr>
+                }
+                }
+
+            </tbody>
+        </table>
+    </div>
+
+    @if (!loading() && kardexList().length > 0) {
+    <div
+        class="border-t border-slate-100 py-3 px-5 bg-white flex flex-col sm:flex-row items-center justify-between gap-3">
+        <span class="text-xs text-slate-400 font-medium text-center sm:text-left">
+            Mostrando <strong class="text-slate-700 font-bold">{{ primerRegistro() }}</strong> -
+            <strong class="text-slate-700 font-bold">{{ ultimoRegistro() }}</strong> de
+            <strong class="text-slate-700 font-bold">{{ kardexList().length }}</strong> registros
+        </span>
+
+        <p-paginator [rows]="filasPorPagina()" [totalRecords]="kardexList().length"
+            (onPageChange)="onPageChange($event)" styleClass="!bg-transparent !border-0 text-xs">
+        </p-paginator>
+    </div>
+    }
+
+</div>

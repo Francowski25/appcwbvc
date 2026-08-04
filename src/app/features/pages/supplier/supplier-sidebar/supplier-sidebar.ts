@@ -1,13 +1,10 @@
 import { Component, input, output } from '@angular/core';
-import { InputTextModule } from 'primeng/inputtext';
-import { IconFieldModule } from 'primeng/iconfield';
-import { InputIconModule } from 'primeng/inputicon';
 import { NgClass } from '@angular/common';
 
 @Component({
   selector: 'app-supplier-sidebar',
   standalone: true,
-  imports: [InputTextModule, IconFieldModule, InputIconModule, NgClass],
+  imports: [NgClass],
   templateUrl: './supplier-sidebar.html',
   styleUrl: './supplier-sidebar.css',
 })
@@ -20,14 +17,18 @@ export class SupplierSidebar {
   limpiarFiltros = output<void>();
 
   estados = [
-    { name: 'activo', label: 'Activo', dot: 'bg-green-500' },
-    { name: 'inactivo', label: 'Inactivo', dot: 'bg-red-500' },
+    { name: 'activo', label: 'Activos', icon: 'pi pi-check-circle' },
+    { name: 'inactivo', label: 'Inactivos', icon: 'pi pi-ban' },
   ];
 
   hayFiltros = () => !!(this.busqueda() || this.estadoSeleccionado());
 
   onBusquedaInput(event: Event): void {
     this.busquedaChange.emit((event.target as HTMLInputElement).value);
+  }
+
+  onLimpiarBusqueda(): void {
+    this.busquedaChange.emit('');
   }
 
   onEstadoClick(name: string): void {

@@ -1,92 +1,208 @@
 <p-dialog [visible]="visible()" (visibleChange)="visibleChange.emit($event)" [modal]="true" [draggable]="false"
-    [resizable]="false" [style]="{ width: '650px' }" [breakpoints]="{ '768px': '95vw' }" header="Detalle de Venta">
+    [resizable]="false" [style]="{ width: '680px' }" [breakpoints]="{ '768px': '95vw' }"
+    styleClass="custom-sale-dialog overflow-hidden rounded-3xl">
 
-    @if (venta(); as v) {
-    <div class="flex flex-col gap-4">
-
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            <div class="bg-gray-50 rounded-xl p-3">
-                <p class="text-xs text-gray-400 mb-1">N° Venta</p>
-                <p class="text-sm font-bold font-mono text-gray-700">{{ v.saleNumber }}</p>
-            </div>
-            <div class="bg-gray-50 rounded-xl p-3">
-                <p class="text-xs text-gray-400 mb-1">Fecha</p>
-                <p class="text-sm font-bold text-gray-700">{{ v.saleDate }}</p>
-            </div>
-            <div class="bg-gray-50 rounded-xl p-3">
-                <p class="text-xs text-gray-400 mb-1">Cliente</p>
-                <p class="text-sm font-bold text-gray-700">{{ v.customerName ?? '—' }}</p>
-                <p class="text-xs text-gray-400">{{ v.customerDocument ?? '—' }}</p>
-            </div>
-            <div class="bg-gray-50 rounded-xl p-3">
-                <p class="text-xs text-gray-400 mb-1">Vendedor</p>
-                <p class="text-sm font-bold text-gray-700">{{ v.userName ?? '—' }}</p>
-            </div>
-            <div class="bg-gray-50 rounded-xl p-3">
-                <p class="text-xs text-gray-400 mb-1">Método de pago</p>
-                <p class="text-sm font-bold text-gray-700">{{ v.paymentMethod }}</p>
-            </div>
-            <div class="bg-gray-50 rounded-xl p-3">
-                <p class="text-xs text-gray-400 mb-1">Estado</p>
-                <div class="flex items-center gap-2 text-xs font-bold"
-                    [class]="v.status === 'Completada' ? 'text-emerald-600' : 'text-red-500'">
-                    <span class="w-1.5 h-1.5 rounded-full"
-                        [class]="v.status === 'Completada' ? 'bg-emerald-500' : 'bg-red-400'"></span>
-                    {{ v.status }}
+    <ng-template pTemplate="header">
+        <div class="flex items-center justify-between w-full pr-4">
+            <div class="flex items-center gap-3">
+                <div
+                    class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-pink-500 to-rose-500 text-white flex items-center justify-center shadow-md shadow-pink-500/25">
+                    <i class="pi pi-receipt text-lg"></i>
+                </div>
+                <div>
+                    <span class="text-[10px] font-black uppercase tracking-widest text-slate-400 block -mb-0.5">Resumen
+                        de Transacción</span>
+                    <h2 class="text-base font-black text-slate-800 tracking-tight flex items-center gap-2">
+                        Detalle de Venta
+                        @if (venta(); as v) {
+                        <span
+                            class="text-xs font-mono font-bold text-pink-600 bg-pink-50 border border-pink-200/60 px-2 py-0.5 rounded-lg">
+                            #{{ v.saleNumber }}
+                        </span>
+                        }
+                    </h2>
                 </div>
             </div>
         </div>
+    </ng-template>
 
-        <div class="overflow-x-auto rounded-xl border border-gray-100">
-            <table class="w-full text-sm">
-                <thead class="bg-pink-50/70">
-                    <tr>
-                        <th class="text-xs font-bold text-pink-500 uppercase px-4 py-2 text-left">Producto</th>
-                        <th class="text-xs font-bold text-pink-500 uppercase px-4 py-2 text-left">Lote</th>
-                        <th class="text-xs font-bold text-pink-500 uppercase px-4 py-2 text-right">Cant.</th>
-                        <th class="text-xs font-bold text-pink-500 uppercase px-4 py-2 text-right">Precio u.</th>
-                        <th class="text-xs font-bold text-pink-500 uppercase px-4 py-2 text-right">Subtotal</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @for (d of v.detalles ?? []; track d.idSaleDetail) {
-                    <tr class="border-t border-gray-100 hover:bg-pink-50/20">
-                        <td class="px-4 py-2 font-medium text-gray-700">{{ d.productName ?? '—' }}</td>
-                        <td class="px-4 py-2 text-gray-500 font-mono text-xs">{{ d.lotCode ?? '—' }}</td>
-                        <td class="px-4 py-2 text-right font-bold text-gray-700">{{ d.quantity }} u.</td>
-                        <td class="px-4 py-2 text-right text-gray-500">S/ {{ Number(d.unitPrice) | number:'1.2-2' }}
-                        </td>
-                        <td class="px-4 py-2 text-right font-bold text-pink-600">S/ {{ Number(d.subtotal) |
-                            number:'1.2-2' }}</td>
-                    </tr>
-                    }
-                </tbody>
-                <tfoot class="bg-gray-50">
-                    <tr>
-                        <td colspan="2" class="px-4 py-2 text-xs text-gray-500">Subtotal</td>
-                        <td colspan="3" class="px-4 py-2 text-right font-bold text-gray-700">S/ {{ Number(v.subtotal) |
-                            number:'1.2-2' }}</td>
-                    </tr>
-                    <tr>
-                        <td colspan="2" class="px-4 py-2 text-xs text-gray-500">Descuento</td>
-                        <td colspan="3" class="px-4 py-2 text-right font-bold text-gray-700">S/ {{ Number(v.discount) |
-                            number:'1.2-2' }}</td>
-                    </tr>
-                    <tr>
-                        <td colspan="2" class="px-4 py-2 text-xs text-gray-500">IGV (18%)</td>
-                        <td colspan="3" class="px-4 py-2 text-right font-bold text-gray-700">S/ {{ Number(v.igv) |
-                            number:'1.2-2' }}</td>
-                    </tr>
-                    <tr>
-                        <td colspan="2" class="px-4 py-2 text-sm font-black text-gray-800">TOTAL</td>
-                        <td colspan="3" class="px-4 py-2 text-right font-black text-pink-600 text-lg">S/ {{
-                            Number(v.total) | number:'1.2-2' }}</td>
-                    </tr>
-                </tfoot>
-            </table>
+    @if (venta(); as v) {
+    <div class="space-y-4 pt-2">
+
+        <div class="p-3.5 rounded-2xl bg-slate-900 text-white flex items-center justify-between gap-3 shadow-sm">
+            <div class="flex items-center gap-2 text-xs font-medium text-slate-300">
+                <i class="pi pi-calendar text-pink-400"></i>
+                <span>Fecha de Emisión:</span>
+                <strong class="text-white font-semibold">{{ v.saleDate }}</strong>
+            </div>
+
+            <div class="flex items-center gap-2">
+                @if (v.status === 'Completada') {
+                <span
+                    class="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl bg-emerald-500/20 border border-emerald-500/30 text-xs font-bold text-emerald-300">
+                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                    Completada
+                </span>
+                } @else {
+                <span
+                    class="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl bg-rose-500/20 border border-rose-500/30 text-xs font-bold text-rose-300">
+                    <span class="w-2 h-2 rounded-full bg-rose-400"></span>
+                    Anulada
+                </span>
+                }
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+
+            <div class="bg-slate-50 border border-slate-200/80 rounded-2xl p-3 flex items-start gap-2.5">
+                <div
+                    class="w-8 h-8 rounded-xl bg-pink-100 text-pink-700 flex items-center justify-center shrink-0 border border-pink-200">
+                    <i class="pi pi-user text-xs"></i>
+                </div>
+                <div class="overflow-hidden">
+                    <p class="text-[10px] font-bold uppercase text-slate-400 tracking-wider">Cliente</p>
+                    <p class="text-xs font-bold text-slate-800 truncate" [title]="v.customerName ?? 'Venta rápida'">
+                        {{ v.customerName ?? 'Venta rápida' }}
+                    </p>
+                    <p class="text-[10px] text-slate-500 font-mono truncate">
+                        {{ (v.customerDocument && v.customerDocument !== '-' && v.customerDocument !== '—') ?
+                        v.customerDocument : 'Sin Doc.' }}
+                    </p>
+                </div>
+            </div>
+
+            <div class="bg-slate-50 border border-slate-200/80 rounded-2xl p-3 flex items-start gap-2.5">
+                <div
+                    class="w-8 h-8 rounded-xl bg-slate-200/80 text-slate-700 flex items-center justify-center shrink-0 border border-slate-300/60">
+                    <i class="pi pi-id-card text-xs"></i>
+                </div>
+                <div class="overflow-hidden">
+                    <p class="text-[10px] font-bold uppercase text-slate-400 tracking-wider">Atendido por</p>
+                    <p class="text-xs font-bold text-slate-800 truncate" [title]="v.userName ?? '—'">
+                        {{ v.userName ?? '—' }}
+                    </p>
+                    <p class="text-[10px] text-slate-400">Personal Autorizado</p>
+                </div>
+            </div>
+
+            <div class="bg-slate-50 border border-slate-200/80 rounded-2xl p-3 flex items-start gap-2.5">
+                <div
+                    class="w-8 h-8 rounded-xl bg-blue-100 text-blue-700 flex items-center justify-center shrink-0 border border-blue-200">
+                    <i class="pi pi-wallet text-xs"></i>
+                </div>
+                <div class="overflow-hidden">
+                    <p class="text-[10px] font-bold uppercase text-slate-400 tracking-wider">Método de Pago</p>
+                    <p class="text-xs font-black text-blue-700 truncate">
+                        {{ v.paymentMethod }}
+                    </p>
+                    <p class="text-[10px] text-slate-400">Pago confirmado</p>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="rounded-2xl border border-slate-200 overflow-hidden bg-white shadow-2xs">
+            <div class="px-4 py-2.5 bg-slate-50 border-b border-slate-200 flex items-center justify-between">
+                <span class="text-xs font-black text-slate-700 flex items-center gap-2">
+                    <i class="pi pi-box text-pink-500"></i>
+                    Productos Vendidos ({{ (v.detalles ?? []).length }})
+                </span>
+            </div>
+
+            <div class="overflow-x-auto max-h-[200px]">
+                <table class="w-full text-xs">
+                    <thead class="bg-slate-100/70 text-slate-500 font-bold uppercase tracking-wider sticky top-0 z-10">
+                        <tr>
+                            <th class="px-4 py-2 text-left">Producto</th>
+                            <th class="px-3 py-2 text-left">Lote</th>
+                            <th class="px-3 py-2 text-center">Cant.</th>
+                            <th class="px-3 py-2 text-right">Precio U.</th>
+                            <th class="px-4 py-2 text-right">Subtotal</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100 text-slate-700">
+                        @for (d of v.detalles ?? []; track d.idSaleDetail) {
+                        <tr class="hover:bg-pink-50/30 transition-colors">
+                            <td class="px-4 py-2.5 font-bold text-slate-800">
+                                {{ d.productName ?? '—' }}
+                            </td>
+                            <td class="px-3 py-2.5">
+                                <span
+                                    class="font-mono text-[10px] bg-slate-100 text-slate-600 px-2 py-0.5 rounded-md border border-slate-200">
+                                    {{ d.lotCode ?? 'S/L' }}
+                                </span>
+                            </td>
+                            <td class="px-3 py-2.5 text-center font-bold">
+                                <span
+                                    class="px-2 py-0.5 rounded-lg bg-slate-100 text-slate-800 border border-slate-200/80">
+                                    {{ d.quantity }} u.
+                                </span>
+                            </td>
+                            <td class="px-3 py-2.5 text-right font-medium text-slate-500">
+                                S/ {{ Number(d.unitPrice) | number:'1.2-2' }}
+                            </td>
+                            <td class="px-4 py-2.5 text-right font-black text-pink-600">
+                                S/ {{ Number(d.subtotal) | number:'1.2-2' }}
+                            </td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="flex flex-col sm:flex-row justify-between items-end gap-4 pt-1">
+
+            <div class="text-[11px] text-slate-400 space-y-1 hidden sm:block">
+                <p class="flex items-center gap-1.5"><i class="pi pi-check-circle text-emerald-500"></i> Comprobante
+                    registrado e IGV calculado</p>
+                <p class="flex items-center gap-1.5"><i class="pi pi-shield text-slate-400"></i> Documento de control
+                    interno de caja</p>
+            </div>
+
+            <div class="w-full sm:w-72 bg-slate-50 border border-slate-200 rounded-2xl p-3 space-y-2">
+                <div class="flex justify-between items-center text-xs text-slate-500 font-medium">
+                    <span>Subtotal</span>
+                    <span class="font-bold text-slate-700">S/ {{ Number(v.subtotal) | number:'1.2-2' }}</span>
+                </div>
+
+                @if (Number(v.discount) > 0) {
+                <div class="flex justify-between items-center text-xs text-rose-600 font-medium">
+                    <span>Descuento</span>
+                    <span class="font-bold">- S/ {{ Number(v.discount) | number:'1.2-2' }}</span>
+                </div>
+                }
+
+                <div class="flex justify-between items-center text-xs text-slate-500 font-medium">
+                    <span>IGV (18%)</span>
+                    <span class="font-bold text-slate-700">S/ {{ Number(v.igv) | number:'1.2-2' }}</span>
+                </div>
+
+                <div
+                    class="pt-2 border-t border-slate-200/80 flex justify-between items-center bg-slate-900 text-white -mx-3 -mb-3 p-3 rounded-b-2xl shadow-inner">
+                    <span class="text-xs font-black uppercase tracking-wider">Monto Total</span>
+                    <span class="text-base font-black text-pink-400">
+                        S/ {{ Number(v.total) | number:'1.2-2' }}
+                    </span>
+                </div>
+            </div>
+
         </div>
 
     </div>
     }
+
+    <ng-template pTemplate="footer">
+        <div class="flex items-center justify-end w-full pt-3 border-t border-slate-100">
+
+            <button type="button" (click)="visibleChange.emit(false)"
+                class="inline-flex items-center gap-2 px-5 py-2 rounded-xl bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white text-xs font-bold shadow-md shadow-pink-500/25 transition-all active:scale-95 cursor-pointer border-0">
+                <i class="pi pi-times text-xs"></i>
+                <span>Cerrar</span>
+            </button>
+
+        </div>
+    </ng-template>
 
 </p-dialog>

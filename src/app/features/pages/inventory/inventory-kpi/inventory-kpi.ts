@@ -8,8 +8,10 @@ import { Component, input } from '@angular/core';
   styleUrl: './inventory-kpi.css',
 })
 export class InventoryKpi {
+  totalProductos = input.required<number>();
   agotados = input.required<number>();
   criticos = input.required<number>();
   enAlerta = input.required<number>();
+  optimos = input.required<number>();
   saludInventario = input.required<number>();
 }

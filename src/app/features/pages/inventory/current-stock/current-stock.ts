@@ -37,6 +37,10 @@ export class CurrentStock implements OnInit {
     this.productos().filter(p => Number(p.totalStock) <= Number(p.stockMinimum))
   );
 
+  optimos = computed(() =>
+    this.productos().filter(p => Number(p.totalStock) > Number(p.stockMinimum))
+  );
+
   totalProductos = computed(() => this.productos().length);
 
   saludInventario = computed(() => {

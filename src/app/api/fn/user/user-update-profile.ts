@@ -9,30 +9,30 @@ import { RequestBuilder } from '../../request-builder';
 
 
 export interface UserUpdateProfile$Params {
-    body?: {
-        'idUser'?: string;
-        'image'?: string;
-        'firstName'?: string;
-        'surName'?: string;
-        'email'?: string;
-        'cellPhone'?: string;
-    }
+      body?: {
+'cellPhone'?: string;
+'email'?: string;
+'firstName'?: string;
+'idUser'?: string;
+'image'?: string;
+'surName'?: string;
+}
 }
 
 export function userUpdateProfile(http: HttpClient, rootUrl: string, params?: UserUpdateProfile$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
-    const rb = new RequestBuilder(rootUrl, userUpdateProfile.PATH, 'put');
-    if (params) {
-        rb.body(params.body, 'multipart/form-data');
-    }
+  const rb = new RequestBuilder(rootUrl, userUpdateProfile.PATH, 'put');
+  if (params) {
+    rb.body(params.body, 'multipart/form-data');
+  }
 
-    return http.request(
-        rb.build({ responseType: 'text', accept: '*/*', context })
-    ).pipe(
-        filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
-        map((r: HttpResponse<any>) => {
-            return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
-        })
-    );
+  return http.request(
+    rb.build({ responseType: 'text', accept: '*/*', context })
+  ).pipe(
+    filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
+    map((r: HttpResponse<any>) => {
+      return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+    })
+  );
 }
 
 userUpdateProfile.PATH = '/users/updateProfile';

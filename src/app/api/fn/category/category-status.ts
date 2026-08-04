@@ -9,27 +9,25 @@ import { RequestBuilder } from '../../request-builder';
 
 
 export interface CategoryStatus$Params {
-    id: string;
-    newStatus: string;
-    body?: any
+  id: string;
+  newStatus: string;
 }
 
 export function categoryStatus(http: HttpClient, rootUrl: string, params: CategoryStatus$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
-    const rb = new RequestBuilder(rootUrl, categoryStatus.PATH, 'put');
-    if (params) {
-        rb.path('id', params.id, {});
-        rb.path('newStatus', params.newStatus, {});
-        rb.body(params.body, 'text/plain');
-    }
+  const rb = new RequestBuilder(rootUrl, categoryStatus.PATH, 'put');
+  if (params) {
+    rb.path('id', params.id, {});
+    rb.path('newStatus', params.newStatus, {});
+  }
 
-    return http.request(
-        rb.build({ responseType: 'text', accept: '*/*', context })
-    ).pipe(
-        filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
-        map((r: HttpResponse<any>) => {
-            return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
-        })
-    );
+  return http.request(
+    rb.build({ responseType: 'text', accept: '*/*', context })
+  ).pipe(
+    filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
+    map((r: HttpResponse<any>) => {
+      return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+    })
+  );
 }
 
 categoryStatus.PATH = '/categories/status/{id}/{newStatus}';

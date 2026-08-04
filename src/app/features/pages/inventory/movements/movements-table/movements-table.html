@@ -1,0 +1,206 @@
+<div
+    class="bg-white rounded-2xl border border-slate-200 shadow-[0_4px_25px_-4px_rgba(236,72,153,0.08)] flex flex-col overflow-hidden font-sans text-slate-700">
+
+    <div
+        class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 px-5 py-4 bg-gradient-to-r from-pink-50/80 via-white to-rose-50/50 border-b border-pink-100/60">
+        <div class="flex items-center gap-3">
+            <div
+                class="bg-pink-500 text-white p-2.5 rounded-xl shadow-md shadow-pink-500/25 flex items-center justify-center shrink-0">
+                <i class="pi pi-history text-lg"></i>
+            </div>
+            <div>
+                <h2 class="text-base font-black text-slate-900 tracking-tight">Historial de Movimientos</h2>
+                <p class="text-xs text-pink-600 font-bold mt-0.5">
+                    {{ filtrados().length }} {{ filtrados().length === 1 ? 'movimiento registrado' : 'movimientos
+                    registrados' }}
+                </p>
+            </div>
+        </div>
+        <div class="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
+            <button type="button" (click)="onExportExcel.emit()" pTooltip="Exportar a Excel" tooltipPosition="top"
+                class="flex w-full sm:w-auto cursor-pointer items-center justify-center gap-2 rounded-xl border border-emerald-300 bg-emerald-50/60 px-3 py-2 text-xs font-black text-emerald-700 shadow-2xs transition-all hover:bg-emerald-100 hover:border-emerald-400 active:scale-95">
+                <i class="pi pi-file-excel text-sm text-emerald-600"></i>
+                <span>Excel</span>
+            </button>
+
+            <button type="button" (click)="onExportPdf.emit()" pTooltip="Exportar a PDF" tooltipPosition="top"
+                class="flex w-full sm:w-auto cursor-pointer items-center justify-center gap-2 rounded-xl border border-rose-300 bg-rose-50/60 px-3 py-2 text-xs font-black text-rose-700 shadow-2xs transition-all hover:bg-rose-100 hover:border-rose-400 active:scale-95">
+                <i class="pi pi-file-pdf text-sm text-rose-600"></i>
+                <span>PDF</span>
+            </button>
+
+            <button type="button" (click)="crearMovimiento.emit()"
+                class="flex w-full sm:w-auto cursor-pointer items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-pink-500 to-rose-500 px-4 py-2 text-xs font-black text-white shadow-md shadow-pink-500/25 transition-all hover:from-pink-600 hover:to-rose-600 active:scale-95">
+                <i class="pi pi-plus text-xs"></i>
+                <span>Nuevo movimiento</span>
+            </button>
+        </div>
+    </div>
+
+    @if (error()) {
+    <div
+        class="mx-5 mt-4 p-4 bg-rose-50 border border-rose-200 rounded-2xl text-rose-700 text-xs flex items-start gap-3 shadow-2xs">
+        <i class="pi pi-exclamation-circle text-lg text-rose-600 mt-0.5 shrink-0"></i>
+        <div class="flex-1">
+            <p class="font-black text-rose-800 text-sm">Ha ocurrido un error</p>
+            <p class="text-rose-600/90 font-medium mt-0.5">{{ error() }}</p>
+        </div>
+    </div>
+    }
+
+    @if (loading()) {
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 p-5 bg-slate-50/30">
+        @for (i of [1, 2, 3, 4, 5, 6]; track i) {
+        <div
+            class="h-[240px] rounded-2xl bg-slate-100 animate-pulse border border-slate-200/60 p-5 flex flex-col justify-between">
+            <div class="space-y-4">
+                <div class="flex justify-end">
+                    <div class="w-24 h-6 bg-slate-200 rounded-full"></div>
+                </div>
+                <div class="flex gap-3 items-center">
+                    <div class="w-10 h-10 bg-slate-200 rounded-xl"></div>
+                    <div class="space-y-1.5 flex-1">
+                        <div class="w-3/4 h-4 bg-slate-200 rounded"></div>
+                        <div class="w-1/2 h-3 bg-slate-200 rounded"></div>
+                    </div>
+                </div>
+                <div class="w-full h-11 bg-slate-200 rounded-xl"></div>
+            </div>
+            <div class="w-full h-9 bg-slate-200 rounded-xl"></div>
+        </div>
+        }
+    </div>
+    }
+
+    @else if (filtrados().length > 0) {
+    <div class="p-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 bg-slate-50/50">
+        @for (item of paginados(); track item.idMovement) {
+        <div
+            class="group relative bg-white border border-slate-200 hover:border-pink-500/60 rounded-2xl p-5 shadow-sm hover:shadow-xl hover:shadow-pink-500/10 transition-all duration-300 flex flex-col justify-between">
+
+            <div>
+                <div class="flex items-center justify-end pb-3 border-b border-slate-100 bg-pi">
+                    <div class="flex-1 min-w-0">
+                        <span
+                            class="text-[9px] font-black tracking-wider text-pink-500 uppercase block mb-0.5">Movimiento</span>
+                        <h3
+                            class="text-xs font-black text-slate-900 line-clamp-1 group-hover:text-pink-600 transition-colors">
+                            {{ shortenId(item.idMovement) }}
+                        </h3>
+                    </div>
+                    <div class="shrink-0">
+                        @switch (item.type) {
+                        @case ('Ajuste_Negativo') {
+                        <span
+                            class="inline-flex items-center gap-1.5 text-xs font-black text-rose-700 bg-rose-50 border border-rose-200/80 px-2.5 py-1 rounded-full">
+                            <i class="pi pi-minus-circle text-xs"></i>
+                            <span>Aj. Negativo</span>
+                        </span>
+                        }
+                        @case ('Ajuste_Positivo') {
+                        <span
+                            class="inline-flex items-center gap-1.5 text-xs font-black text-amber-700 bg-amber-50 border border-amber-200/80 px-2.5 py-1 rounded-full">
+                            <i class="pi pi-plus-circle text-xs"></i>
+                            <span>Aj. Positivo</span>
+                        </span>
+                        }
+                        @case ('Entrada') {
+                        <span
+                            class="inline-flex items-center gap-1.5 text-xs font-black text-emerald-700 bg-emerald-50 border border-emerald-200/80 px-2.5 py-1 rounded-full">
+                            <i class="pi pi-arrow-down-left text-xs"></i>
+                            <span>Entrada</span>
+                        </span>
+                        }
+                        @case ('Salida') {
+                        <span
+                            class="inline-flex items-center gap-1.5 text-xs font-black text-blue-700 bg-blue-50 border border-blue-200/80 px-2.5 py-1 rounded-full">
+                            <i class="pi pi-arrow-up-right text-xs"></i>
+                            <span>Salida</span>
+                        </span>
+                        }
+                        }
+                    </div>
+                </div>
+
+                <div class="mt-3.5">
+                    <div class="flex items-center gap-3">
+                        <div
+                            class="w-10 h-10 rounded-xl bg-slate-900 text-pink-400 border border-pink-500/30 text-xs font-black flex items-center justify-center shrink-0 shadow-md">
+                            {{ getInitials(item.userName) }}
+                        </div>
+                        <div class="flex flex-col min-w-0">
+                            <span
+                                class="font-black text-slate-900 text-sm truncate group-hover:text-pink-600 transition-colors"
+                                [title]="item.userName">
+                                {{ item.userName }}
+                            </span>
+                            <span class="text-xs text-slate-400 capitalize font-semibold truncate">{{ item.role
+                                }}</span>
+                        </div>
+                    </div>
+
+                    <div
+                        class="mt-3 flex items-center gap-2 text-xs text-slate-500 font-medium bg-slate-50 px-2.5 py-1.5 rounded-lg border border-slate-100">
+                        <i class="pi pi-calendar text-xs text-pink-500 shrink-0"></i>
+                        <span class="truncate">{{ item.movementDate | date:'dd MMM. yyyy, hh:mm a' }}</span>
+                    </div>
+                </div>
+
+                <div
+                    class="my-3.5 bg-slate-900 text-white p-3 rounded-xl border border-slate-800 shadow-inner flex items-center justify-between">
+                    <div class="flex items-center gap-2">
+                        <i class="pi pi-box text-pink-400 text-xs"></i>
+                        <span class="text-[10px] font-black text-slate-300 uppercase tracking-wider">Productos
+                            Afectados</span>
+                    </div>
+                    <span
+                        class="text-sm font-extrabold text-pink-300 bg-pink-950/60 px-2.5 py-0.5 rounded-lg border border-pink-500/30">
+                        {{ item.totalProductos }} u.
+                    </span>
+                </div>
+
+                <p class="text-xs text-slate-500 font-medium line-clamp-2 min-h-[36px] italic mb-1"
+                    [title]="item.observation">
+                    "{{ item.observation || 'Sin observaciones' }}"
+                </p>
+            </div>
+
+            <div class="pt-3 border-t border-slate-100 mt-2">
+                <button type="button" (click)="seleccionar.emit(item)"
+                    class="w-full cursor-pointer flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white font-black text-xs shadow-md shadow-pink-500/20 transition-all active:scale-95">
+                    <i class="pi pi-eye text-xs"></i>
+                    <span>Ver Detalle del Movimiento</span>
+                </button>
+            </div>
+
+        </div>
+        }
+    </div>
+
+    <div
+        class="border-t border-slate-100 py-3 px-5 bg-white flex flex-col sm:flex-row items-center justify-between gap-3">
+        <span class="text-xs text-slate-400 font-medium text-center sm:text-left">
+            Mostrando <strong class="text-slate-700 font-bold">{{ primerRegistro() }}</strong> - <strong
+                class="text-slate-700 font-bold">{{ ultimoRegistro() }}</strong> de <strong
+                class="text-slate-700 font-bold">{{ filtrados().length }}</strong> registros
+        </span>
+        <p-paginator [rows]="filasPorPagina()" [totalRecords]="filtrados().length" (onPageChange)="onPageChange($event)"
+            styleClass="!bg-transparent !border-0 text-xs">
+        </p-paginator>
+    </div>
+    }
+
+    @else {
+    <div class="flex flex-col items-center justify-center py-20 px-4 bg-white text-center">
+        <div
+            class="w-16 h-16 rounded-2xl bg-pink-50 text-pink-500 flex items-center justify-center mb-4 shadow-md shadow-pink-500/10 border border-pink-100">
+            <i class="pi pi-history text-3xl"></i>
+        </div>
+        <h3 class="text-base font-black text-slate-900">Sin Movimientos</h3>
+        <p class="text-xs text-slate-400 font-medium mt-1 max-w-xs">
+            No se encontraron movimientos registrados o coincidentes con la búsqueda.
+        </p>
+    </div>
+    }
+
+</div>

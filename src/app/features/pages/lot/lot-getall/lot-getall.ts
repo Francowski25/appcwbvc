@@ -1,20 +1,23 @@
 import { Component, OnInit, signal, computed, inject } from '@angular/core';
 import { Api } from '../../../../api/api';
 import { LotKpi } from '../lot-kpi/lot-kpi';
-import { LotSidebar } from '../lot-sidebar/lot-sidebar';
+import { LotSidebar, Proveedor, EstadoLote } from '../lot-sidebar/lot-sidebar';
 import { LotTable } from '../lot-table/lot-table';
 import { LotStock } from '../ui/lot-stock/lot-stock';
 import { LotStatus } from '../ui/lot-status/lot-status';
 import { lotGetall } from '../../../../api/functions';
+import { DecimalPipe } from '@angular/common';
 
 @Component({
   selector: 'app-lots',
+  standalone: true,
   imports: [
     LotKpi,
     LotSidebar,
     LotTable,
     LotStock,
-    LotStatus
+    LotStatus,
+    DecimalPipe
   ],
   templateUrl: './lot-getall.html',
 })
@@ -29,19 +32,50 @@ export class LotGetall implements OnInit {
   proveedorSeleccionado = signal<string>('');
   estadoSeleccionado = signal<string>('');
 
+  proveedores = computed<Proveedor[]>(() => {
+    return this.lotes().reduce((acc: Proveedor[], l: any) => {
+      const nombre = l.supplierName || 'Sin proveedor';
+      const item = acc.find(p => p.name.toLowerCase() === nombre.toLowerCase());
+      if (item) {
+        item.count++;
+      } else {
+        acc.push({ name: nombre, count: 1 });
+      }
+      return acc;
+    }, []);
+  });
+
+  estados = computed<EstadoLote[]>(() => {
+    return this.lotes().reduce((acc: EstadoLote[], l: any) => {
+      const estado = l.expirationStatus || 'Sin estado';
+      const item = acc.find(e => e.name.toLowerCase() === estado.toLowerCase());
+      if (item) {
+        item.count++;
+      } else {
+        acc.push({ name: estado, count: 1 });
+      }
+      return acc;
+    }, []);
+  });
+
   filtrados = computed(() => {
     const q = this.busqueda().toLowerCase().trim();
-    const prov = this.proveedorSeleccionado();
-    const estado = this.estadoSeleccionado();
+    const prov = this.proveedorSeleccionado().toLowerCase().trim();
+    const estado = this.estadoSeleccionado().toLowerCase().trim();
 
     let lista = this.lotes();
 
-    if (prov) lista = lista.filter((l: any) => l.supplierName === prov);
-    if (estado) lista = lista.filter((l: any) => l.expirationStatus === estado);
+    if (prov) {
+      lista = lista.filter((l: any) => l.supplierName?.toLowerCase().includes(prov));
+    }
+    if (estado) {
+      lista = lista.filter((l: any) => l.expirationStatus?.toLowerCase().includes(estado));
+    }
     if (q) {
       lista = lista.filter((l: any) =>
         l.code?.toLowerCase().includes(q) ||
-        l.productName?.toLowerCase().includes(q)
+        l.productName?.toLowerCase().includes(q) ||
+        l.lotNumber?.toLowerCase().includes(q)
       );
     }
 
@@ -50,8 +84,16 @@ export class LotGetall implements OnInit {
 
   totalLotes = computed(() => this.lotes().length);
 
+  optimos = computed(() =>
+    this.lotes().filter(l => l.expirationStatus === 'Vigente' || l.expirationStatus === 'Óptimo').length
+  );
+
   porVencer = computed(() =>
     this.lotes().filter(l => l.expirationStatus === 'Por vencer').length
+  );
+
+  vencidos = computed(() =>
+    this.lotes().filter(l => l.expirationStatus === 'Vencido').length
   );
 
   agotados = computed(() =>
@@ -98,11 +140,5 @@ export class LotGetall implements OnInit {
 
   onEstadoChange(name: string): void {
     this.estadoSeleccionado.set(name);
-  }
-
-  onLimpiarFiltros(): void {
-    this.busqueda.set('');
-    this.proveedorSeleccionado.set('');
-    this.estadoSeleccionado.set('');
   }
 }

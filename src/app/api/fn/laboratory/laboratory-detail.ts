@@ -9,23 +9,23 @@ import { RequestBuilder } from '../../request-builder';
 
 
 export interface LaboratoryDetail$Params {
-    idLaboratory?: string;
+  idLaboratory?: string;
 }
 
 export function laboratoryDetail(http: HttpClient, rootUrl: string, params?: LaboratoryDetail$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
-    const rb = new RequestBuilder(rootUrl, laboratoryDetail.PATH, 'get');
-    if (params) {
-        rb.query('idLaboratory', params.idLaboratory, {});
-    }
+  const rb = new RequestBuilder(rootUrl, laboratoryDetail.PATH, 'get');
+  if (params) {
+    rb.query('idLaboratory', params.idLaboratory, {});
+  }
 
-    return http.request(
-        rb.build({ responseType: 'text', accept: '*/*', context })
-    ).pipe(
-        filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
-        map((r: HttpResponse<any>) => {
-            return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
-        })
-    );
+  return http.request(
+    rb.build({ responseType: 'text', accept: '*/*', context })
+  ).pipe(
+    filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
+    map((r: HttpResponse<any>) => {
+      return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+    })
+  );
 }
 
 laboratoryDetail.PATH = '/laboratories/detail';

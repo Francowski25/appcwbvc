@@ -9,23 +9,23 @@ import { RequestBuilder } from '../../request-builder';
 
 
 export interface CategoryDetail$Params {
-    idCategory?: string;
+  idCategory?: string;
 }
 
 export function categoryDetail(http: HttpClient, rootUrl: string, params?: CategoryDetail$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
-    const rb = new RequestBuilder(rootUrl, categoryDetail.PATH, 'get');
-    if (params) {
-        rb.query('idCategory', params.idCategory, {});
-    }
+  const rb = new RequestBuilder(rootUrl, categoryDetail.PATH, 'get');
+  if (params) {
+    rb.query('idCategory', params.idCategory, {});
+  }
 
-    return http.request(
-        rb.build({ responseType: 'text', accept: '*/*', context })
-    ).pipe(
-        filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
-        map((r: HttpResponse<any>) => {
-            return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
-        })
-    );
+  return http.request(
+    rb.build({ responseType: 'text', accept: '*/*', context })
+  ).pipe(
+    filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
+    map((r: HttpResponse<any>) => {
+      return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+    })
+  );
 }
 
 categoryDetail.PATH = '/categories/detail';

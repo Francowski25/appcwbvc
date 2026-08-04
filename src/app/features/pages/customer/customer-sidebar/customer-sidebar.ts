@@ -1,41 +1,58 @@
-import { Component, input, output } from '@angular/core';
-import { InputTextModule } from 'primeng/inputtext';
-import { IconFieldModule } from 'primeng/iconfield';
-import { InputIconModule } from 'primeng/inputicon';
-import { NgClass } from '@angular/common';
+import { Component, input, output, computed } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-customer-sidebar',
   standalone: true,
-  imports: [InputTextModule, IconFieldModule, InputIconModule, NgClass],
+  imports: [CommonModule],
   templateUrl: './customer-sidebar.html',
-  styleUrl: './customer-sidebar.css',
+  styleUrl: './customer-sidebar.css'
 })
 export class CustomerSidebar {
+  // Inputs desde el padre
   busqueda = input<string>('');
   tipoDocSeleccionado = input<string>('');
-  tiposDoc = input<any[]>([]);
+  tiposDoc = input<{ name: string; count: number }[]>([]);
+  totalClientes = input<number>(0);
 
+  // Outputs hacia el padre
   busquedaChange = output<string>();
   tipoDocChange = output<string>();
   limpiarFiltros = output<void>();
 
-  hayFiltros = () => !!(this.busqueda() || this.tipoDocSeleccionado());
+  // Evalúa si hay algún filtro activo para mostrar el botón "Limpiar"
+  hayFiltros = computed(() => !!this.busqueda() || !!this.tipoDocSeleccionado());
 
   onBusquedaInput(event: Event): void {
-    this.busquedaChange.emit((event.target as HTMLInputElement).value);
+    const value = (event.target as HTMLInputElement).value;
+    this.busquedaChange.emit(value);
   }
 
-  onTipoDocClick(name: string): void {
-    this.tipoDocChange.emit(this.tipoDocSeleccionado() === name ? '' : name);
+  onLimpiarBusqueda(): void {
+    this.busquedaChange.emit('');
+  }
+
+  onTipoDocClick(tipo: string): void {
+    // Si vuelve a hacer clic en el mismo tipo seleccionado, se desmarca regresando a ''
+    const nuevoTipo = this.tipoDocSeleccionado() === tipo ? '' : tipo;
+    this.tipoDocChange.emit(nuevoTipo);
+  }
+
+  onLimpiarTodosLosFiltros(): void {
+    this.limpiarFiltros.emit();
   }
 
   getIcono(tipo: string): string {
-    const iconos: Record<string, string> = {
-      'DNI': 'pi-id-card',
-      'RUC': 'pi-building',
-      'CE': 'pi-globe',
-    };
-    return iconos[tipo] ?? 'pi-file';
+    switch (tipo.toUpperCase()) {
+      case 'DNI':
+        return 'pi pi-id-card';
+      case 'RUC':
+        return 'pi pi-building';
+      case 'PASAPORTE':
+      case 'CE':
+        return 'pi pi-globe';
+      default:
+        return 'pi pi-user';
+    }
   }
 }

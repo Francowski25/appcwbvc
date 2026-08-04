@@ -1,13 +1,14 @@
 import { ApplicationConfig, provideBrowserGlobalErrorListeners } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { provideApiConfiguration } from './api/api-configuration';
 import { environment } from './environments/environments'
 import { providePrimeNG } from 'primeng/config';
 import Aura from '@primeuix/themes/aura';
 import { definePreset } from '@primeuix/themes';
 import { ConfirmationService, MessageService } from 'primeng/api';
+import { authInterceptor } from './core/interceptor/auth.interceptor';
 
 const MyCustomPreset = definePreset(Aura, {
     semantic: {
@@ -31,7 +32,9 @@ export const appConfig: ApplicationConfig = {
     providers: [
         provideBrowserGlobalErrorListeners(),
         provideRouter(routes),
-        provideHttpClient(),
+        provideHttpClient(
+            withInterceptors([authInterceptor])
+        ),
         provideApiConfiguration(environment.urlBase),
         providePrimeNG({
             theme: {

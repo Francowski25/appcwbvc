@@ -1,62 +1,118 @@
-<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+<div
+    class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2.5 sm:gap-3 lg:gap-4 w-full items-stretch">
 
-    <div class="card bg-white rounded-2xl border border-red-100 shadow-sm p-6">
-        <div class="flex items-start justify-between">
-            <div class="flex flex-col">
-                <span class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Agotados</span>
-                <span class="text-3xl font-black text-gray-800 m-0">{{ agotados() }}</span>
-                <span class="text-xs font-bold text-red-400 mt-1 flex items-center gap-1">
-                    <i class="pi pi-exclamation-triangle"></i> Stock Cero
-                </span>
+    <div
+        class="card bg-white rounded-2xl border border-pink-100 shadow-sm p-3 sm:p-4 col-span-1 flex flex-col justify-between h-full hover:shadow-md transition-shadow min-w-0">
+        <div class="flex items-start justify-between gap-1.5 min-w-0">
+            <span
+                class="text-[10px] sm:text-[11px] font-bold text-slate-400 uppercase tracking-wider leading-tight min-h-[22px] flex items-center truncate">Total</span>
+            <div class="w-7 h-7 sm:w-9 sm:h-9 rounded-xl bg-pink-50 flex items-center justify-center shrink-0">
+                <i class="pi pi-th-large text-pink-500 text-xs sm:text-base"></i>
             </div>
-            <div class="w-12 h-12 rounded-2xl bg-red-50 flex items-center justify-center">
-                <i class="pi pi-ban text-red-500 text-xl"></i>
-            </div>
+        </div>
+        <div class="mt-2 min-w-0">
+            <span class="text-lg sm:text-2xl font-black text-gray-800 leading-none block truncate">{{ totalProductos()
+                }}</span>
+            <span class="text-[10px] sm:text-[11px] font-bold text-pink-400 mt-1.5 flex items-center gap-1 truncate">
+                <i class="pi pi-list text-[10px] sm:text-xs shrink-0"></i>
+                <span class="truncate">Registrados</span>
+            </span>
         </div>
     </div>
 
-    <div class="card bg-white rounded-2xl border border-orange-100 shadow-sm p-6">
-        <div class="flex items-start justify-between">
-            <div class="flex flex-col">
-                <span class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Críticos</span>
-                <span class="text-3xl font-black text-gray-800 m-0">{{ criticos() }}</span>
-                <span class="text-xs font-bold text-orange-400 mt-1 flex items-center gap-1">
-                    <i class="pi pi-arrow-down"></i> Bajo el mínimo
-                </span>
+    <div
+        class="card bg-white rounded-2xl border border-pink-100 shadow-sm p-3 sm:p-4 col-span-1 flex flex-col justify-between h-full hover:shadow-md transition-shadow min-w-0">
+        <div class="flex items-start justify-between gap-1.5 min-w-0">
+            <span
+                class="text-[10px] sm:text-[11px] font-bold text-slate-400 uppercase tracking-wider leading-tight min-h-[22px] flex items-center truncate">Agotados</span>
+            <div class="w-7 h-7 sm:w-9 sm:h-9 rounded-xl bg-pink-50 flex items-center justify-center shrink-0">
+                <i class="pi pi-ban text-pink-500 text-xs sm:text-base"></i>
             </div>
-            <div class="w-12 h-12 rounded-2xl bg-orange-50 flex items-center justify-center">
-                <i class="pi pi-exclamation-triangle text-orange-500 text-xl"></i>
-            </div>
+        </div>
+        <div class="mt-2 min-w-0">
+            <span class="text-lg sm:text-2xl font-black text-gray-800 leading-none block truncate">{{ agotados()
+                }}</span>
+            <span class="text-[10px] sm:text-[11px] font-bold text-pink-400 mt-1.5 flex items-center gap-1 truncate">
+                <i class="pi pi-exclamation-circle text-[10px] sm:text-xs shrink-0"></i>
+                <span class="truncate">Stock Cero</span>
+            </span>
         </div>
     </div>
 
-    <div class="card bg-white rounded-2xl border border-pink-100 shadow-sm p-6">
-        <div class="flex items-start justify-between">
-            <div class="flex flex-col">
-                <span class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">En Alerta</span>
-                <span class="text-3xl font-black text-gray-800 m-0">{{ enAlerta() }}</span>
-                <span class="text-xs font-bold text-pink-400 mt-1 flex items-center gap-1">
-                    <i class="pi pi-box"></i> Requieren atención
-                </span>
+    <div
+        class="card bg-white rounded-2xl border border-pink-100 shadow-sm p-3 sm:p-4 col-span-1 flex flex-col justify-between h-full hover:shadow-md transition-shadow min-w-0">
+        <div class="flex items-start justify-between gap-1.5 min-w-0">
+            <span
+                class="text-[10px] sm:text-[11px] font-bold text-slate-400 uppercase tracking-wider leading-tight min-h-[22px] flex items-center truncate">Críticos</span>
+            <div class="w-7 h-7 sm:w-9 sm:h-9 rounded-xl bg-pink-50 flex items-center justify-center shrink-0">
+                <i class="pi pi-exclamation-triangle text-pink-500 text-xs sm:text-base"></i>
             </div>
-            <div class="w-12 h-12 rounded-2xl bg-pink-50 flex items-center justify-center">
-                <i class="pi pi-box text-pink-500 text-xl"></i>
-            </div>
+        </div>
+        <div class="mt-2 min-w-0">
+            <span class="text-lg sm:text-2xl font-black text-gray-800 leading-none block truncate">{{ criticos()
+                }}</span>
+            <span class="text-[10px] sm:text-[11px] font-bold text-pink-400 mt-1.5 flex items-center gap-1 truncate">
+                <i class="pi pi-arrow-down text-[10px] sm:text-xs shrink-0"></i>
+                <span class="truncate">Bajo el mínimo</span>
+            </span>
         </div>
     </div>
 
-    <div class="card bg-white rounded-2xl border border-green-100 shadow-sm p-6">
-        <div class="flex items-start justify-between">
-            <div class="flex flex-col">
-                <span class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Salud Inventario</span>
-                <span class="text-3xl font-black text-gray-800 m-0">{{ saludInventario() }}%</span>
-                <span class="text-xs font-bold text-green-400 mt-1 flex items-center gap-1">
-                    <i class="pi pi-heart"></i> Productos en óptimo estado
-                </span>
+    <div
+        class="card bg-white rounded-2xl border border-pink-100 shadow-sm p-3 sm:p-4 col-span-1 flex flex-col justify-between h-full hover:shadow-md transition-shadow min-w-0">
+        <div class="flex items-start justify-between gap-1.5 min-w-0">
+            <span
+                class="text-[10px] sm:text-[11px] font-bold text-slate-400 uppercase tracking-wider leading-tight min-h-[22px] flex items-center truncate">En
+                Alerta</span>
+            <div class="w-7 h-7 sm:w-9 sm:h-9 rounded-xl bg-pink-50 flex items-center justify-center shrink-0">
+                <i class="pi pi-box text-pink-500 text-xs sm:text-base"></i>
             </div>
-            <div class="w-12 h-12 rounded-2xl bg-green-50 flex items-center justify-center">
-                <i class="pi pi-heart text-green-500 text-xl"></i>
+        </div>
+        <div class="mt-2 min-w-0">
+            <span class="text-lg sm:text-2xl font-black text-gray-800 leading-none block truncate">{{ enAlerta()
+                }}</span>
+            <span class="text-[10px] sm:text-[11px] font-bold text-pink-400 mt-1.5 flex items-center gap-1 truncate">
+                <i class="pi pi-bell text-[10px] sm:text-xs shrink-0"></i>
+                <span class="truncate">Recomprar</span>
+            </span>
+        </div>
+    </div>
+
+    <div
+        class="card bg-white rounded-2xl border border-pink-100 shadow-sm p-3 sm:p-4 col-span-1 flex flex-col justify-between h-full hover:shadow-md transition-shadow min-w-0">
+        <div class="flex items-start justify-between gap-1.5 min-w-0">
+            <span
+                class="text-[10px] sm:text-[11px] font-bold text-slate-400 uppercase tracking-wider leading-tight min-h-[22px] flex items-center truncate">Óptimos</span>
+            <div class="w-7 h-7 sm:w-9 sm:h-9 rounded-xl bg-pink-50 flex items-center justify-center shrink-0">
+                <i class="pi pi-check-circle text-pink-500 text-xs sm:text-base"></i>
             </div>
+        </div>
+        <div class="mt-2 min-w-0">
+            <span class="text-lg sm:text-2xl font-black text-gray-800 leading-none block truncate">{{ optimos()
+                }}</span>
+            <span class="text-[10px] sm:text-[11px] font-bold text-pink-400 mt-1.5 flex items-center gap-1 truncate">
+                <span class="w-1.5 h-1.5 rounded-full bg-pink-400 animate-pulse shrink-0"></span>
+                <span class="truncate">Saludables</span>
+            </span>
+        </div>
+    </div>
+
+    <div
+        class="card bg-white rounded-2xl border border-pink-100 shadow-sm p-3 sm:p-4 col-span-1 flex flex-col justify-between h-full hover:shadow-md transition-shadow min-w-0">
+        <div class="flex items-start justify-between gap-1.5 min-w-0">
+            <span
+                class="text-[10px] sm:text-[11px] font-bold text-slate-400 uppercase tracking-wider leading-tight min-h-[22px] flex items-center truncate">Salud</span>
+            <div class="w-7 h-7 sm:w-9 sm:h-9 rounded-xl bg-pink-50 flex items-center justify-center shrink-0">
+                <i class="pi pi-heart text-pink-500 text-xs sm:text-base"></i>
+            </div>
+        </div>
+        <div class="mt-2 min-w-0">
+            <span class="text-lg sm:text-2xl font-black text-gray-800 leading-none block truncate">{{ saludInventario()
+                }}%</span>
+            <span class="text-[10px] sm:text-[11px] font-bold text-pink-400 mt-1.5 flex items-center gap-1 truncate">
+                <i class="pi pi-heart text-[10px] sm:text-xs shrink-0"></i>
+                <span class="truncate">Nivel Global</span>
+            </span>
         </div>
     </div>
 

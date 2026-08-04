@@ -6,7 +6,6 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { DialogModule } from 'primeng/dialog';
 import { LaboratorySidebar } from '../laboratory-sidebar/laboratory-sidebar';
 import { LaboratoryTable } from '../laboratory-table/laboratory-table';
-import { LaboratoryGraphic } from '../ui/laboratory-graphic/laboratory-graphic';
 import { LaboratoryInsert } from '../laboratory-insert/laboratory-insert';
 import { LaboratoryDetail } from '../laboratory-detail/laboratory-detail';
 
@@ -16,7 +15,6 @@ import { LaboratoryDetail } from '../laboratory-detail/laboratory-detail';
   imports: [
     LaboratorySidebar,
     LaboratoryTable,
-    LaboratoryGraphic,
     LaboratoryInsert,
     LaboratoryDetail,
     ConfirmDialogModule,

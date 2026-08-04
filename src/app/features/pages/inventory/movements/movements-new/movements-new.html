@@ -1,0 +1,440 @@
+<p-dialog [visible]="visible()" (visibleChange)="visible.set($event)" [modal]="true" [draggable]="false"
+    [resizable]="false" [dismissableMask]="true"
+    styleClass="!border-0 !rounded-3xl !shadow-2xl overflow-hidden w-full max-w-2xl mx-4">
+
+    <ng-template pTemplate="header">
+        <div class="flex items-center gap-3.5 pt-1">
+            <div
+                class="w-10 h-10 bg-pink-500/10 text-pink-600 border border-pink-500/20 rounded-2xl flex items-center justify-center shrink-0 shadow-xs">
+                <i class="pi pi-receipt text-lg"></i>
+            </div>
+            <div>
+                <h2 class="text-base font-black text-slate-900 tracking-tight">Nuevo Movimiento de Inventario</h2>
+                <p class="text-xs text-pink-600 font-bold mt-0.5">Registro de inventario e insumos</p>
+            </div>
+        </div>
+    </ng-template>
+
+    <div class="font-sans text-slate-700 -mx-5 -mb-5 bg-white">
+
+        <div
+            class="px-6 py-2.5 bg-slate-50/80 border-y border-slate-100 flex items-center justify-center gap-3 text-xs">
+            <button type="button" (click)="pasoActual.set(1)" [class]="pasoActual() === 1 
+                        ? 'bg-slate-900 text-white font-extrabold shadow-sm' 
+                        : 'bg-white text-slate-500 border border-slate-200/80 font-bold hover:bg-slate-100'"
+                class="flex items-center gap-2 px-3.5 py-1.5 rounded-xl transition-all cursor-pointer">
+                <span
+                    class="w-4 h-4 rounded-full bg-pink-500 text-white text-[9px] font-black flex items-center justify-center">1</span>
+                <span>Cabecera</span>
+            </button>
+
+            <i class="pi pi-chevron-right text-slate-300 text-[10px]"></i>
+
+            <button type="button" (click)="pasoActual.set(2)" [class]="pasoActual() === 2 
+                        ? 'bg-slate-900 text-white font-extrabold shadow-sm' 
+                        : 'bg-white text-slate-500 border border-slate-200/80 font-bold hover:bg-slate-100'"
+                class="flex items-center gap-2 px-3.5 py-1.5 rounded-xl transition-all cursor-pointer">
+                <span
+                    class="w-4 h-4 rounded-full bg-slate-400 text-white text-[9px] font-black flex items-center justify-center">2</span>
+                <span>Insumos y Productos</span>
+            </button>
+        </div>
+
+        @if (pasoActual() === 1) {
+        <div class="p-6 space-y-5 max-h-[480px] overflow-y-auto">
+
+            <div class="flex flex-wrap items-center justify-between gap-3 pb-1 border-b border-slate-100">
+                <div class="flex items-center gap-2">
+                    <span class="text-[11px] font-extrabold tracking-wider text-slate-400 uppercase">
+                        Tipo de movimiento <span class="text-rose-500">*</span>
+                    </span>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+                <button type="button" (click)="seleccionarTipo('Entrada')"
+                    [class]="tipoMovimiento() === 'Entrada' ? 'border-emerald-500 bg-emerald-50/50 text-emerald-900 font-extrabold shadow-2xs' : 'border-slate-200 bg-white text-slate-600 hover:border-slate-300 font-medium'"
+                    class="p-2.5 rounded-2xl border text-xs transition-all flex flex-col items-center gap-1 text-center cursor-pointer">
+                    <i class="pi pi-arrow-down-left text-sm text-emerald-600"></i>
+                    <span>Entrada</span>
+                </button>
+
+                <button type="button" (click)="seleccionarTipo('Salida')"
+                    [class]="tipoMovimiento() === 'Salida' ? 'border-blue-500 bg-blue-50/50 text-blue-900 font-extrabold shadow-2xs' : 'border-slate-200 bg-white text-slate-600 hover:border-slate-300 font-medium'"
+                    class="p-2.5 rounded-2xl border text-xs transition-all flex flex-col items-center gap-1 text-center cursor-pointer">
+                    <i class="pi pi-arrow-up-right text-sm text-blue-600"></i>
+                    <span>Salida</span>
+                </button>
+
+                <button type="button" (click)="seleccionarTipo('Ajuste_Positivo')"
+                    [class]="tipoMovimiento() === 'Ajuste_Positivo' ? 'border-amber-500 bg-amber-50/50 text-amber-900 font-extrabold shadow-2xs' : 'border-slate-200 bg-white text-slate-600 hover:border-slate-300 font-medium'"
+                    class="p-2.5 rounded-2xl border text-xs transition-all flex flex-col items-center gap-1 text-center cursor-pointer">
+                    <i class="pi pi-plus-circle text-sm text-amber-600"></i>
+                    <span>Ajuste (+)</span>
+                </button>
+
+                <button type="button" (click)="seleccionarTipo('Ajuste_Negativo')"
+                    [class]="tipoMovimiento() === 'Ajuste_Negativo' ? 'border-rose-500 bg-rose-50/50 text-rose-900 font-extrabold shadow-2xs' : 'border-slate-200 bg-white text-slate-600 hover:border-slate-300 font-medium'"
+                    class="p-2.5 rounded-2xl border text-xs transition-all flex flex-col items-center gap-1 text-center cursor-pointer">
+                    <i class="pi pi-minus-circle text-sm text-rose-600"></i>
+                    <span>Ajuste (-)</span>
+                </button>
+            </div>
+
+            <div class="flex items-center gap-3.5 p-3 rounded-2xl border border-slate-200/80 bg-slate-50/40">
+                <div
+                    class="w-10 h-10 rounded-xl bg-slate-900 text-white flex items-center justify-center shrink-0 shadow-xs">
+                    <i class="pi pi-user text-base"></i>
+                </div>
+                <div class="space-y-0.5 min-w-0">
+                    <h4 class="text-xs font-black text-slate-900 tracking-tight leading-tight">
+                        {{
+                        (user()?.firstName && user()?.surName)
+                        ? (user()?.firstName + ' ' + user()?.surName)
+                        : (user()?.['userName'] || user()?.['name'] || 'Usuario no identificado')
+                        }}
+                    </h4>
+                    <p class="text-[11px] text-slate-500 font-medium flex items-center gap-2">
+                        <span class="bg-slate-200/60 px-2 py-0.5 rounded-md text-slate-700 font-bold text-[10px]">
+                            {{ user()?.role || 'Sin Rol' }}
+                        </span>
+                        <span class="text-slate-300">|</span>
+                        <span>Documento DNI: <strong class="text-slate-700">{{ user()?.['dni'] ||
+                                user()?.['documentNumber'] || 'S/N' }}</strong></span>
+                    </p>
+                </div>
+            </div>
+
+            <div
+                class="border border-slate-200/80 rounded-2xl p-4 bg-white shadow-2xs space-y-2 focus-within:border-slate-400 transition-colors">
+                <div class="flex items-center gap-2 text-[11px] font-black text-slate-400 uppercase tracking-wider">
+                    <i class="pi pi-align-left text-xs"></i>
+                    <span>Observaciones / Sustento</span>
+                </div>
+                <textarea [ngModel]="observacion()" (ngModelChange)="observacion.set($event)" rows="3" maxlength="255"
+                    placeholder="Ejemplo: Ingreso por compra según Factura F001-203..."
+                    class="w-full text-xs font-medium text-slate-800 placeholder-slate-400 bg-transparent border-none focus:outline-none resize-none p-0">
+                </textarea>
+            </div>
+
+        </div>
+        }
+
+        @if (pasoActual() === 2) {
+        <div class="p-6 space-y-5 max-h-[480px] overflow-y-auto">
+
+            <div class="p-4 bg-slate-50/70 border border-slate-200/80 rounded-2xl space-y-3">
+
+                <div class="grid grid-cols-1 sm:grid-cols-12 gap-2.5">
+
+                    <div class="sm:col-span-7 relative">
+                        <label class="block text-[11px] font-extrabold text-slate-500 uppercase tracking-wider mb-1">
+                            Producto / Insumo <span class="text-rose-500">*</span>
+                        </label>
+                        <input type="text" [value]="productoBusqueda()" (input)="onInputProducto($event)"
+                            placeholder="Buscar Salbutamol, Paracetamol..."
+                            class="w-full px-3 py-2 rounded-xl border border-slate-200 bg-white text-xs font-bold text-slate-800 focus:outline-none focus:border-slate-900 transition-all">
+
+                        @if (mostrarDropdownProducto()) {
+                        <div
+                            class="absolute z-50 left-0 right-0 mt-1 bg-white border border-slate-200 rounded-xl shadow-lg max-h-48 overflow-y-auto divide-y divide-slate-100">
+                            @if (searchingProduct()) {
+                            <div class="p-3 text-center text-xs text-slate-400">
+                                <i class="pi pi-spin pi-spinner text-pink-500 mr-1"></i> Buscando producto...
+                            </div>
+                            } @else if (searchResults().length > 0) {
+                            @for (prod of searchResults(); track prod.idProduct || prod.id) {
+                            <div (click)="seleccionarProductoCatalogo(prod)"
+                                class="p-2.5 text-xs hover:bg-pink-50/50 cursor-pointer flex justify-between items-center">
+                                <div>
+                                    <div class="font-extrabold text-slate-800">{{ prod.name }}</div>
+                                    <div class="text-[10px] text-slate-400">Stock general: {{ prod.stock }} un.
+                                    </div>
+                                </div>
+                                <span class="text-[10px] font-bold text-pink-600 bg-pink-50 px-2 py-0.5 rounded-md">
+                                    PEN {{ prod.priceSale | number:'1.2-2' }}
+                                </span>
+                            </div>
+                            }
+                            } @else {
+                            <div class="p-3 text-center text-xs text-slate-400">Sin coincidencias</div>
+                            }
+                        </div>
+                        }
+                    </div>
+
+                    <div class="sm:col-span-5 flex flex-col gap-2">
+                        <div class="flex items-center justify-between">
+                            <label
+                                class="text-[11px] font-bold text-slate-600 uppercase tracking-wider flex items-center gap-1">
+                                <i class="pi pi-box text-slate-400 text-xs"></i>
+                                Lote asignado <span class="text-rose-500">*</span>
+                            </label>
+
+                            @if (loadingLotes()) {
+                            <span
+                                class="inline-flex items-center gap-1.5 text-[11px] font-semibold text-indigo-600 animate-pulse">
+                                <svg class="w-3.5 h-3.5 animate-spin" fill="none" viewBox="0 0 24 24">
+                                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
+                                        stroke-width="4"></circle>
+                                    <path class="opacity-75" fill="currentColor"
+                                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+                                </svg>
+                                Buscando lotes...
+                            </span>
+                            } @else if (lotesProducto().length > 0) {
+                            <span
+                                class="text-[10px] font-semibold text-slate-400 bg-slate-100 px-2 py-0.5 rounded-full">
+                                {{ lotesProducto().length }} {{ lotesProducto().length === 1 ? 'disponible' :
+                                'disponibles' }}
+                            </span>
+                            }
+                        </div>
+
+                        @if (!productoSeleccionado()) {
+                        <div
+                            class="p-4 rounded-xl border border-dashed border-slate-200 bg-slate-50/50 text-slate-400 text-xs font-medium flex items-center justify-center gap-2.5 transition-all">
+                            <div
+                                class="w-7 h-7 rounded-lg bg-white border border-slate-200 flex items-center justify-center text-slate-400 shadow-2xs">
+                                <i class="pi pi-search text-xs"></i>
+                            </div>
+                            <span>Selecciona un producto arriba para desplegar sus lotes activos</span>
+                        </div>
+                        }
+
+                        @else if (lotesProducto().length === 0 && !loadingLotes()) {
+                        <div
+                            class="p-3.5 rounded-xl border border-amber-200/70 bg-amber-50/40 text-amber-800 text-xs font-medium flex items-center gap-3">
+                            <div
+                                class="w-7 h-7 rounded-lg bg-amber-100/80 text-amber-600 flex items-center justify-center shrink-0">
+                                <i class="pi pi-exclamation-triangle text-xs"></i>
+                            </div>
+                            <div class="flex flex-col">
+                                <span class="font-bold text-amber-900">Sin lotes disponibles</span>
+                                <span class="text-[11px] text-amber-700/90">Este producto no registra lotes o todos sus
+                                    lotes están agotados.</span>
+                            </div>
+                        </div>
+                        }
+
+                        @else {
+                        <div class="space-y-1.5 max-h-[190px] overflow-y-auto pr-1 custom-scrollbar">
+                            @for (lot of lotesProducto(); track lot.idLot || lot.id || $index) {
+                            @let isSelected = (loteSeleccionado()?.idLot || loteSeleccionado()?.id) === (lot.idLot ||
+                            lot.id);
+                            @let stock = lot.currentStock ?? lot.stock ?? 0;
+
+                            <button type="button" (click)="seleccionarLote(lot)" [class]="isSelected 
+            ? 'border-indigo-600/80 bg-white shadow-xs ring-1 ring-indigo-600/30' 
+            : 'border-slate-200 bg-white hover:border-slate-300 hover:bg-slate-50/60'"
+                                class="relative w-full p-2.5 rounded-xl border text-left transition-all duration-150 flex items-center justify-between gap-3 cursor-pointer overflow-hidden group">
+
+                                @if (isSelected) {
+                                <div class="absolute left-0 top-0 bottom-0 w-1 bg-indigo-600 rounded-r-md"></div>
+                                }
+
+                                <div class="flex items-center gap-3 min-w-0 pl-1">
+                                    <div [class]="isSelected ? 'bg-indigo-50 text-indigo-600 border-indigo-100' : 'bg-slate-50 text-slate-400 border-slate-100 group-hover:text-slate-600'"
+                                        class="w-8 h-8 rounded-lg border flex items-center justify-center text-xs font-bold transition-colors shrink-0">
+                                        <i class="pi pi-barcode"></i>
+                                    </div>
+
+                                    <div class="truncate">
+                                        <div class="flex items-center gap-2">
+                                            <span class="text-xs font-bold text-slate-800 tracking-tight">
+                                                {{ lot.code || lot.lotCode || 'S/C' }}
+                                            </span>
+
+                                            @if (lot.expirationStatus === 'Vencido') {
+                                            <span
+                                                class="px-1.5 py-0.2 rounded text-[9px] font-bold bg-rose-100 text-rose-700">Vencido</span>
+                                            } @else if (lot.expirationStatus === 'Por vencer') {
+                                            <span
+                                                class="px-1.5 py-0.2 rounded text-[9px] font-bold bg-amber-100 text-amber-700">Por
+                                                vencer</span>
+                                            }
+                                        </div>
+
+                                        <p class="text-[11px] text-slate-500 flex items-center gap-1 mt-0.5">
+                                            <i class="pi pi-calendar text-[10px] text-slate-400"></i>
+                                            <span>Vence:</span>
+                                            <span class="font-medium text-slate-700">{{ lot.expirationDate ||
+                                                lot.dueDate || 'Sin fecha' }}</span>
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-center gap-3 shrink-0">
+                                    <div class="text-right">
+                                        <span
+                                            [class]="stock > 0 ? 'bg-emerald-50/80 text-emerald-700 border-emerald-200/60' : 'bg-slate-100 text-slate-500 border-slate-200'"
+                                            class="inline-block px-2 py-0.5 rounded-md border text-[11px] font-bold font-mono">
+                                            {{ stock }} <span
+                                                class="text-[10px] font-sans font-medium text-slate-500">unid.</span>
+                                        </span>
+                                    </div>
+
+                                    <div [class]="isSelected ? 'border-indigo-600 bg-indigo-600 text-white' : 'border-slate-300 bg-white group-hover:border-slate-400'"
+                                        class="w-4 h-4 rounded-full border flex items-center justify-center text-[8px] transition-all">
+                                        @if (isSelected) {
+                                        <i class="pi pi-check font-extrabold"></i>
+                                        }
+                                    </div>
+                                </div>
+                            </button>
+                            }
+                        </div>
+                        }
+                    </div>
+
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-12 gap-2.5 items-end">
+                    <div class="sm:col-span-4">
+                        <label class="block text-[10px] font-bold text-slate-500 mb-1">Cantidad</label>
+                        <input type="number" min="1" [ngModel]="cantidad()" (ngModelChange)="cantidad.set($event)"
+                            class="w-full px-3 py-1.5 rounded-xl border border-slate-200 bg-white text-xs font-black text-slate-800 focus:outline-none focus:border-slate-900">
+                    </div>
+
+                    <div class="sm:col-span-4 flex flex-col gap-1">
+                        <div class="flex items-center justify-between">
+                            <label class="text-[10px] font-bold text-slate-500 uppercase tracking-wider">
+                                Costo Unit. (PEN)
+                            </label>
+
+                            @if (loteSeleccionado()) {
+                            <span
+                                class="text-[9px] font-bold text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded-md border border-emerald-200/60">
+                                Precio de Lote
+                            </span>
+                            }
+                        </div>
+
+                        <div class="relative flex items-center">
+                            <span
+                                class="absolute left-3 text-xs font-black text-slate-400 pointer-events-none">S/</span>
+                            <input type="number" step="0.01" [ngModel]="costoUnitario()"
+                                (ngModelChange)="costoUnitario.set($event)"
+                                class="w-full pl-8 pr-3 py-2 rounded-xl border border-slate-200 bg-white text-xs font-black text-slate-800 focus:outline-none focus:border-indigo-600 focus:ring-2 focus:ring-indigo-600/10 transition-all shadow-2xs">
+                        </div>
+                    </div>
+
+                    <div class="sm:col-span-4">
+                        <button type="button" (click)="agregarProducto()" [disabled]="!puedeAgregarProducto()"
+                            class="w-full py-2 px-3 bg-slate-900 hover:bg-slate-800 disabled:opacity-40 disabled:cursor-not-allowed text-white rounded-xl text-xs font-extrabold transition-all flex items-center justify-center gap-1.5 shadow-xs cursor-pointer active:scale-95">
+                            <i class="pi pi-plus text-xs"></i>
+                            <span>+ Añadir</span>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="flex items-center justify-between border-b border-slate-100 pb-2">
+                <div class="flex items-center gap-2 text-xs font-extrabold text-slate-500 uppercase tracking-wider">
+                    <i class="pi pi-box text-pink-500"></i>
+                    <span>Insumos y Productos Afectados</span>
+                </div>
+                <span class="bg-slate-100 text-slate-700 font-extrabold text-[11px] px-2.5 py-0.5 rounded-full">
+                    {{ listaDetalle().length }} ÍTEMS
+                </span>
+            </div>
+
+            <div class="space-y-2.5">
+                @for (item of listaDetalle(); track $index) {
+                <div
+                    class="p-3.5 rounded-2xl border border-slate-200/90 bg-white flex items-center justify-between gap-3 shadow-2xs hover:border-slate-300 transition-all">
+
+                    <div class="flex items-center gap-3.5 min-w-0">
+                        <div
+                            class="w-10 h-10 rounded-2xl bg-pink-50 text-pink-500 flex items-center justify-center shrink-0 border border-pink-100">
+                            <i class="pi pi-box text-base"></i>
+                        </div>
+                        <div class="space-y-1 min-w-0">
+                            <h5 class="text-xs font-black text-slate-900 truncate">{{ item.productName }}</h5>
+                            <div class="flex flex-wrap items-center gap-2 text-[10px] font-bold">
+                                <span
+                                    class="bg-slate-100 text-slate-700 px-2 py-0.5 rounded-md border border-slate-200/60">
+                                    LOTE: {{ item.lotCode }}
+                                </span>
+                                <span *ngIf="item.expirationDate" class="text-slate-400">
+                                    Vence: {{ item.expirationDate }}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center gap-4 shrink-0">
+                        <div class="text-right">
+                            <div class="text-xs font-black text-slate-900">
+                                <span class="text-pink-600 font-black">{{ item.quantity }} u.</span>
+                                <span class="text-slate-400 font-semibold text-[11px]"> × PEN {{ item.unitCost |
+                                    number:'1.2-2' }}</span>
+                            </div>
+                            <div class="text-[10px] text-slate-400 font-extrabold tracking-wider mt-0.5">
+                                SUBTOTAL: <strong class="text-slate-900 font-black">PEN {{ item.subtotal |
+                                    number:'1.2-2' }}</strong>
+                            </div>
+                        </div>
+
+                        <button type="button" (click)="eliminarItem($index)"
+                            class="w-7 h-7 rounded-lg text-slate-300 hover:text-rose-600 hover:bg-rose-50 flex items-center justify-center transition-all cursor-pointer">
+                            <i class="pi pi-trash text-xs"></i>
+                        </button>
+                    </div>
+
+                </div>
+                } @empty {
+                <div
+                    class="p-8 text-center text-slate-400 border border-dashed border-slate-200 rounded-2xl bg-slate-50/50">
+                    <p class="text-xs font-semibold">No hay insumos o productos agregados aún.</p>
+                </div>
+                }
+            </div>
+
+        </div>
+        }
+
+        <div class="bg-slate-950 text-white p-4 sm:p-5 flex items-center justify-between border-t border-slate-800">
+
+            <div class="flex items-center gap-3">
+                <div
+                    class="w-10 h-10 rounded-xl bg-slate-800/80 border border-slate-700 flex items-center justify-center text-pink-400 shrink-0">
+                    <i class="pi pi-calculator text-base"></i>
+                </div>
+                <div>
+                    <span class="block text-[10px] font-black uppercase tracking-wider text-slate-400">
+                        VALOR TOTAL DEL MOVIMIENTO
+                    </span>
+                    <span class="text-[11px] font-medium text-slate-400/80 block -mt-0.5">
+                        Resumen de costos de los insumos
+                    </span>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-3">
+                <span class="text-lg sm:text-xl font-black text-pink-400 tracking-tight">
+                    PEN {{ costoTotalCalculado() | number:'1.2-2' }}
+                </span>
+
+                @if (pasoActual() === 1) {
+                <button type="button" (click)="siguientePaso()"
+                    class="px-4 py-2 bg-pink-500 hover:bg-pink-600 text-white rounded-xl text-xs font-extrabold transition-all shadow-md flex items-center gap-1.5 cursor-pointer">
+                    <span>Siguiente</span>
+                    <i class="pi pi-arrow-right text-[10px]"></i>
+                </button>
+                }
+
+                @if (pasoActual() === 2) {
+                <button type="button" (click)="guardarMovimiento()" [disabled]="listaDetalle().length === 0"
+                    class="px-4 py-2 bg-pink-500 hover:bg-pink-600 disabled:opacity-40 disabled:cursor-not-allowed text-white rounded-xl text-xs font-extrabold transition-all shadow-md flex items-center gap-1.5 cursor-pointer">
+                    <i class="pi pi-check text-xs"></i>
+                    <span>Guardar Movimiento</span>
+                </button>
+                }
+            </div>
+
+        </div>
+
+    </div>
+</p-dialog>

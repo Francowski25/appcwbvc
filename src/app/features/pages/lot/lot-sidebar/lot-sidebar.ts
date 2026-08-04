@@ -1,79 +1,158 @@
-import { Component, input, output, computed } from '@angular/core';
-import { InputTextModule } from 'primeng/inputtext';
+import { Component, input, output, signal, computed, effect } from '@angular/core';
+import { NgClass } from '@angular/common';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
-import { ButtonModule } from 'primeng/button';
-import { NgClass } from '@angular/common';
+import { InputTextModule } from 'primeng/inputtext';
 
-interface FiltroContador {
+export interface Proveedor {
+  name: string;
+  count: number;
+}
+
+export interface EstadoLote {
   name: string;
   count: number;
 }
 
 @Component({
   selector: 'app-lot-sidebar',
+  standalone: true,
   imports: [
-    InputTextModule,
+    NgClass,
     IconFieldModule,
     InputIconModule,
-    ButtonModule,
-    NgClass
+    InputTextModule
   ],
   templateUrl: './lot-sidebar.html',
   styleUrl: './lot-sidebar.css',
 })
-
 export class LotSidebar {
-  lotes = input.required<any[]>();
-  busqueda = input<string>('');
-  estadoSeleccionado = input<string>('');
+  proveedores = input<Proveedor[]>([]);
+  estados = input<EstadoLote[]>([]);
   proveedorSeleccionado = input<string>('');
+  estadoSeleccionado = input<string>('');
 
-  busquedaChange = output<string>();
-  estadoChange = output<string>();
   proveedorChange = output<string>();
-  limpiarFiltros = output<void>();
+  estadoChange = output<string>();
+  searchChange = output<string>();
 
-  estados = computed<FiltroContador[]>(() => {
-    return this.lotes().reduce((acc: FiltroContador[], l: any) => {
-      const estado = l.expirationStatus || 'Sin fecha';
-      const existing = acc.find(e => e.name === estado);
-      existing ? existing.count++ : acc.push({ name: estado, count: 1 });
-      return acc;
-    }, []);
+  busquedaGeneral = signal<string>('');
+  busquedaProveedor = signal<string>('');
+  busquedaEstado = signal<string>('');
+
+  constructor() {
+    effect(() => {
+      this.busquedaProveedor.set(this.proveedorSeleccionado());
+    }, { allowSignalWrites: true });
+
+    effect(() => {
+      this.busquedaEstado.set(this.estadoSeleccionado());
+    }, { allowSignalWrites: true });
+  }
+
+  proveedoresFiltrados = computed(() => {
+    const q = this.busquedaProveedor().toLowerCase().trim();
+    if (!q) return [];
+    return this.proveedores().filter(p => p.name.toLowerCase().includes(q));
   });
 
-  proveedores = computed<FiltroContador[]>(() => {
-    return this.lotes().reduce((acc: FiltroContador[], l: any) => {
-      const nombre = l.supplierName || 'Sin proveedor';
-      const existing = acc.find(p => p.name === nombre);
-      existing ? existing.count++ : acc.push({ name: nombre, count: 1 });
-      return acc;
-    }, []);
+  estadosFiltrados = computed(() => {
+    const q = this.busquedaEstado().toLowerCase().trim();
+    if (!q) return [];
+    return this.estados().filter(e => e.name.toLowerCase().includes(q));
   });
 
-  hayFiltrosActivos = computed(() =>
-    !!(this.busqueda() || this.proveedorSeleccionado() || this.estadoSeleccionado())
-  );
-
-  onBusquedaInput(event: Event): void {
-    this.busquedaChange.emit((event.target as HTMLInputElement).value);
+  esSeleccionExactaProveedor(): boolean {
+    const q = this.busquedaProveedor().toLowerCase().trim();
+    return this.proveedores().some(p => p.name.toLowerCase() === q);
   }
 
-  onEstadoClick(name: string): void {
-    this.estadoChange.emit(this.estadoSeleccionado() === name ? '' : name);
+  esSeleccionExactaEstado(): boolean {
+    const q = this.busquedaEstado().toLowerCase().trim();
+    return this.estados().some(e => e.name.toLowerCase() === q);
   }
 
-  onProveedorClick(name: string): void {
-    this.proveedorChange.emit(this.proveedorSeleccionado() === name ? '' : name);
+  onSearch(event: Event): void {
+    const value = (event.target as HTMLInputElement).value;
+    this.busquedaGeneral.set(value);
+    this.searchChange.emit(value);
   }
 
-  getBadgeDot(estado: string): string {
-    switch (estado) {
-      case 'Vigente': return 'bg-green-500';
-      case 'Por vencer': return 'bg-orange-400';
-      case 'Vencido': return 'bg-red-500';
-      default: return 'bg-gray-400';
+  onBuscarProveedor(event: Event): void {
+    const value = (event.target as HTMLInputElement).value;
+    this.busquedaProveedor.set(value);
+    this.proveedorChange.emit(value);
+  }
+
+  onBuscarEstado(event: Event): void {
+    const value = (event.target as HTMLInputElement).value;
+    this.busquedaEstado.set(value);
+    this.estadoChange.emit(value);
+  }
+
+  seleccionarProveedor(name: string): void {
+    this.busquedaProveedor.set(name);
+    this.proveedorChange.emit(name);
+  }
+
+  seleccionarEstado(name: string): void {
+    this.busquedaEstado.set(name);
+    this.estadoChange.emit(name);
+  }
+
+  limpiarBusquedaGeneral(): void {
+    this.busquedaGeneral.set('');
+    this.searchChange.emit('');
+  }
+
+  limpiarProveedor(): void {
+    this.busquedaProveedor.set('');
+    this.proveedorChange.emit('');
+  }
+
+  limpiarEstado(): void {
+    this.busquedaEstado.set('');
+    this.estadoChange.emit('');
+  }
+
+  limpiarTodosLosFiltros(): void {
+    this.limpiarBusquedaGeneral();
+    this.limpiarProveedor();
+    this.limpiarEstado();
+  }
+
+  getBadgeIcon(estado: string): string {
+    const est = estado.toLowerCase().trim();
+    if (est.includes('vigente') || est.includes('óptimo') || est.includes('optimo')) {
+      return 'pi pi-check-circle';
     }
+    if (est.includes('vencer')) {
+      return 'pi pi-exclamation-triangle';
+    }
+    if (est.includes('vencido')) {
+      return 'pi pi-times-circle';
+    }
+    if (est.includes('agotado')) {
+      return 'pi pi-ban';
+    }
+    return 'pi pi-info-circle';
   }
+
+  getBadgeStyle(estado: string): string {
+    const est = estado.toLowerCase().trim();
+    if (est.includes('vigente') || est.includes('óptimo') || est.includes('optimo')) {
+      return 'bg-emerald-50 text-emerald-600';
+    }
+    if (est.includes('vencer')) {
+      return 'bg-amber-50 text-amber-600';
+    }
+    if (est.includes('vencido')) {
+      return 'bg-rose-50 text-rose-600';
+    }
+    if (est.includes('agotado')) {
+      return 'bg-slate-100 text-slate-500';
+    }
+    return 'bg-gray-100 text-gray-500';
+  }
+
 }

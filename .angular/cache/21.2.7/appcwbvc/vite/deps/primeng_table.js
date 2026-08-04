@@ -1,40 +1,25 @@
 import {
+  Paginator,
+  PaginatorModule
+} from "./chunk-GNCQ3XFJ.js";
+import {
   Select,
   SelectModule
-} from "./chunk-36DKSLK3.js";
+} from "./chunk-HUHP5YEM.js";
 import {
   Scroller,
   ScrollerModule
-} from "./chunk-342NUKSF.js";
-import "./chunk-NXK3OE4J.js";
-import {
-  InputNumber,
-  InputNumberModule
-} from "./chunk-Y4CWVSY3.js";
-import "./chunk-X3Q7MRIN.js";
+} from "./chunk-NIPG2JR4.js";
+import "./chunk-ZH6N34IT.js";
+import "./chunk-JCV5JOUX.js";
 import {
   RadioButton,
   RadioButtonModule
-} from "./chunk-WLPT6FFN.js";
-import {
-  Checkbox,
-  CheckboxModule
-} from "./chunk-MCVC22LG.js";
-import "./chunk-63JDWPE3.js";
+} from "./chunk-QU23CIRE.js";
 import {
   DatePicker,
   DatePickerModule
-} from "./chunk-VCWWNVRL.js";
-import "./chunk-LL4VFKSD.js";
-import {
-  InputText,
-  InputTextModule
-} from "./chunk-7D6E7V53.js";
-import {
-  BaseEditableHolder
-} from "./chunk-TCRFARJG.js";
-import "./chunk-JCVXXMJ2.js";
-import "./chunk-ZH6N34IT.js";
+} from "./chunk-OWUKUAMI.js";
 import {
   ObjectUtils,
   UniqueComponentId,
@@ -44,23 +29,38 @@ import {
   MotionDirective,
   MotionModule
 } from "./chunk-V3D5KJ3K.js";
+import "./chunk-63JDWPE3.js";
+import "./chunk-6OILE5ZH.js";
 import {
-  FormsModule,
-  NG_VALUE_ACCESSOR,
-  NgControlStatus,
-  NgModel,
-  RequiredValidator
-} from "./chunk-L4FARHV5.js";
+  InputNumber,
+  InputNumberModule
+} from "./chunk-LV7FA5KQ.js";
+import "./chunk-LL4VFKSD.js";
+import {
+  InputText,
+  InputTextModule
+} from "./chunk-WAJDK6Y5.js";
+import {
+  Checkbox,
+  CheckboxModule
+} from "./chunk-3KLBSTQX.js";
+import {
+  BaseEditableHolder
+} from "./chunk-TCRFARJG.js";
+import "./chunk-JCVXXMJ2.js";
 import {
   Button,
   ButtonModule
-} from "./chunk-SJ4PLS3C.js";
+} from "./chunk-6FP7RFCK.js";
+import {
+  Badge,
+  BadgeModule
+} from "./chunk-FCJHXZYF.js";
+import {
+  Ripple
+} from "./chunk-RFIWG3VE.js";
 import "./chunk-AVZNGQ5K.js";
 import {
-  AngleDoubleLeftIcon,
-  AngleDoubleRightIcon,
-  AngleLeftIcon,
-  AngleRightIcon,
   ArrowDownIcon,
   ArrowUpIcon,
   FilterIcon,
@@ -71,22 +71,15 @@ import {
   SortAmountUpAltIcon,
   SpinnerIcon,
   TrashIcon
-} from "./chunk-4DAK7JYC.js";
+} from "./chunk-UY6J5QJQ.js";
 import "./chunk-76AQA36Y.js";
-import {
-  BaseIcon
-} from "./chunk-LGYCTYD7.js";
-import {
-  Badge,
-  BadgeModule
-} from "./chunk-3LGP2GNB.js";
-import {
-  Ripple
-} from "./chunk-RFIWG3VE.js";
 import {
   ConnectedOverlayScrollHandler,
   DomHandler
 } from "./chunk-B4OS73ZC.js";
+import {
+  BaseIcon
+} from "./chunk-LGYCTYD7.js";
 import {
   BaseComponent,
   PARENT_INSTANCE
@@ -94,10 +87,6 @@ import {
 import {
   BaseStyle
 } from "./chunk-XBFSX4ZR.js";
-import {
-  Bind,
-  BindModule
-} from "./chunk-KCMSSV6U.js";
 import {
   FilterMatchMode,
   FilterOperator,
@@ -107,6 +96,10 @@ import {
   SharedModule,
   TranslationKeys
 } from "./chunk-2NG34RPY.js";
+import {
+  Bind,
+  BindModule
+} from "./chunk-KCMSSV6U.js";
 import {
   It,
   Q,
@@ -120,6 +113,13 @@ import {
   ut
 } from "./chunk-6VCYEF6R.js";
 import "./chunk-Z4TEE3MD.js";
+import {
+  FormsModule,
+  NG_VALUE_ACCESSOR,
+  NgControlStatus,
+  NgModel,
+  RequiredValidator
+} from "./chunk-L4FARHV5.js";
 import {
   CommonModule,
   NgClass,
@@ -141,7 +141,6 @@ import {
   Directive,
   ElementRef,
   EventEmitter,
-  HostBinding,
   HostListener,
   Injectable,
   InjectionToken,
@@ -218,8 +217,8 @@ import {
   ɵɵtwoWayProperty,
   ɵɵviewQuery
 } from "./chunk-HP7SRXOB.js";
-import "./chunk-HWYXSU2G.js";
 import "./chunk-JRFR6BLO.js";
+import "./chunk-HWYXSU2G.js";
 import {
   Subject
 } from "./chunk-MARUHEWW.js";
@@ -273,1312 +272,13 @@ var FilterFillIcon = class _FilterFillIcon extends BaseIcon {
   }], null, null);
 })();
 
-// node_modules/@primeuix/styles/dist/paginator/index.mjs
-var style2 = "\n    .p-paginator {\n        display: flex;\n        align-items: center;\n        justify-content: center;\n        flex-wrap: wrap;\n        background: dt('paginator.background');\n        color: dt('paginator.color');\n        padding: dt('paginator.padding');\n        border-radius: dt('paginator.border.radius');\n        gap: dt('paginator.gap');\n    }\n\n    .p-paginator-content {\n        display: flex;\n        align-items: center;\n        justify-content: center;\n        flex-wrap: wrap;\n        gap: dt('paginator.gap');\n    }\n\n    .p-paginator-content-start {\n        margin-inline-end: auto;\n    }\n\n    .p-paginator-content-end {\n        margin-inline-start: auto;\n    }\n\n    .p-paginator-page,\n    .p-paginator-next,\n    .p-paginator-last,\n    .p-paginator-first,\n    .p-paginator-prev {\n        cursor: pointer;\n        display: inline-flex;\n        align-items: center;\n        justify-content: center;\n        line-height: 1;\n        user-select: none;\n        overflow: hidden;\n        position: relative;\n        background: dt('paginator.nav.button.background');\n        border: 0 none;\n        color: dt('paginator.nav.button.color');\n        min-width: dt('paginator.nav.button.width');\n        height: dt('paginator.nav.button.height');\n        transition:\n            background dt('paginator.transition.duration'),\n            color dt('paginator.transition.duration'),\n            outline-color dt('paginator.transition.duration'),\n            box-shadow dt('paginator.transition.duration');\n        border-radius: dt('paginator.nav.button.border.radius');\n        padding: 0;\n        margin: 0;\n    }\n\n    .p-paginator-page:focus-visible,\n    .p-paginator-next:focus-visible,\n    .p-paginator-last:focus-visible,\n    .p-paginator-first:focus-visible,\n    .p-paginator-prev:focus-visible {\n        box-shadow: dt('paginator.nav.button.focus.ring.shadow');\n        outline: dt('paginator.nav.button.focus.ring.width') dt('paginator.nav.button.focus.ring.style') dt('paginator.nav.button.focus.ring.color');\n        outline-offset: dt('paginator.nav.button.focus.ring.offset');\n    }\n\n    .p-paginator-page:not(.p-disabled):not(.p-paginator-page-selected):hover,\n    .p-paginator-first:not(.p-disabled):hover,\n    .p-paginator-prev:not(.p-disabled):hover,\n    .p-paginator-next:not(.p-disabled):hover,\n    .p-paginator-last:not(.p-disabled):hover {\n        background: dt('paginator.nav.button.hover.background');\n        color: dt('paginator.nav.button.hover.color');\n    }\n\n    .p-paginator-page.p-paginator-page-selected {\n        background: dt('paginator.nav.button.selected.background');\n        color: dt('paginator.nav.button.selected.color');\n    }\n\n    .p-paginator-current {\n        color: dt('paginator.current.page.report.color');\n    }\n\n    .p-paginator-pages {\n        display: flex;\n        align-items: center;\n        gap: dt('paginator.gap');\n    }\n\n    .p-paginator-jtp-input .p-inputtext {\n        max-width: dt('paginator.jump.to.page.input.max.width');\n    }\n\n    .p-paginator-first:dir(rtl),\n    .p-paginator-prev:dir(rtl),\n    .p-paginator-next:dir(rtl),\n    .p-paginator-last:dir(rtl) {\n        transform: rotate(180deg);\n    }\n";
-
-// node_modules/primeng/fesm2022/primeng-paginator.mjs
-var _c02 = ["dropdownicon"];
-var _c1 = ["firstpagelinkicon"];
-var _c2 = ["previouspagelinkicon"];
-var _c3 = ["lastpagelinkicon"];
-var _c4 = ["nextpagelinkicon"];
-var _c5 = (a0) => ({
-  $implicit: a0
-});
-var _c6 = (a0) => ({
-  pageLink: a0
-});
-function Paginator_div_0_ng_container_1_Template(rf, ctx) {
-  if (rf & 1) {
-    ɵɵelementContainer(0);
-  }
-}
-function Paginator_div_0_Template(rf, ctx) {
-  if (rf & 1) {
-    ɵɵelementStart(0, "div", 10);
-    ɵɵtemplate(1, Paginator_div_0_ng_container_1_Template, 1, 0, "ng-container", 11);
-    ɵɵelementEnd();
-  }
-  if (rf & 2) {
-    const ctx_r0 = ɵɵnextContext();
-    ɵɵclassMap(ctx_r0.cx("contentStart"));
-    ɵɵproperty("pBind", ctx_r0.ptm("contentStart"));
-    ɵɵadvance();
-    ɵɵproperty("ngTemplateOutlet", ctx_r0.templateLeft)("ngTemplateOutletContext", ɵɵpureFunction1(5, _c5, ctx_r0.paginatorState));
-  }
-}
-function Paginator_span_1_Template(rf, ctx) {
-  if (rf & 1) {
-    ɵɵelementStart(0, "span", 10);
-    ɵɵtext(1);
-    ɵɵelementEnd();
-  }
-  if (rf & 2) {
-    const ctx_r0 = ɵɵnextContext();
-    ɵɵclassMap(ctx_r0.cx("current"));
-    ɵɵproperty("pBind", ctx_r0.ptm("current"));
-    ɵɵadvance();
-    ɵɵtextInterpolate(ctx_r0.currentPageReport);
-  }
-}
-function Paginator_button_2__svg_svg_1_Template(rf, ctx) {
-  if (rf & 1) {
-    ɵɵnamespaceSVG();
-    ɵɵelement(0, "svg", 14);
-  }
-  if (rf & 2) {
-    const ctx_r0 = ɵɵnextContext(2);
-    ɵɵclassMap(ctx_r0.cx("firstIcon"));
-    ɵɵproperty("pBind", ctx_r0.ptm("firstIcon"));
-  }
-}
-function Paginator_button_2_span_2_1_ng_template_0_Template(rf, ctx) {
-}
-function Paginator_button_2_span_2_1_Template(rf, ctx) {
-  if (rf & 1) {
-    ɵɵtemplate(0, Paginator_button_2_span_2_1_ng_template_0_Template, 0, 0, "ng-template");
-  }
-}
-function Paginator_button_2_span_2_Template(rf, ctx) {
-  if (rf & 1) {
-    ɵɵelementStart(0, "span");
-    ɵɵtemplate(1, Paginator_button_2_span_2_1_Template, 1, 0, null, 15);
-    ɵɵelementEnd();
-  }
-  if (rf & 2) {
-    const ctx_r0 = ɵɵnextContext(2);
-    ɵɵclassMap(ctx_r0.cx("firstIcon"));
-    ɵɵadvance();
-    ɵɵproperty("ngTemplateOutlet", ctx_r0.firstPageLinkIconTemplate || ctx_r0._firstPageLinkIconTemplate);
-  }
-}
-function Paginator_button_2_Template(rf, ctx) {
-  if (rf & 1) {
-    const _r2 = ɵɵgetCurrentView();
-    ɵɵelementStart(0, "button", 12);
-    ɵɵlistener("click", function Paginator_button_2_Template_button_click_0_listener($event) {
-      ɵɵrestoreView(_r2);
-      const ctx_r0 = ɵɵnextContext();
-      return ɵɵresetView(ctx_r0.changePageToFirst($event));
-    });
-    ɵɵtemplate(1, Paginator_button_2__svg_svg_1_Template, 1, 3, "svg", 13)(2, Paginator_button_2_span_2_Template, 2, 3, "span", 4);
-    ɵɵelementEnd();
-  }
-  if (rf & 2) {
-    const ctx_r0 = ɵɵnextContext();
-    ɵɵclassMap(ctx_r0.cx("first"));
-    ɵɵproperty("pBind", ctx_r0.ptm("first"));
-    ɵɵattribute("aria-label", ctx_r0.getAriaLabel("firstPageLabel"));
-    ɵɵadvance();
-    ɵɵproperty("ngIf", !ctx_r0.firstPageLinkIconTemplate && !ctx_r0._firstPageLinkIconTemplate);
-    ɵɵadvance();
-    ɵɵproperty("ngIf", ctx_r0.firstPageLinkIconTemplate || ctx_r0._firstPageLinkIconTemplate);
-  }
-}
-function Paginator__svg_svg_4_Template(rf, ctx) {
-  if (rf & 1) {
-    ɵɵnamespaceSVG();
-    ɵɵelement(0, "svg", 16);
-  }
-  if (rf & 2) {
-    const ctx_r0 = ɵɵnextContext();
-    ɵɵclassMap(ctx_r0.cx("prevIcon"));
-    ɵɵproperty("pBind", ctx_r0.ptm("prevIcon"));
-  }
-}
-function Paginator_span_5_1_ng_template_0_Template(rf, ctx) {
-}
-function Paginator_span_5_1_Template(rf, ctx) {
-  if (rf & 1) {
-    ɵɵtemplate(0, Paginator_span_5_1_ng_template_0_Template, 0, 0, "ng-template");
-  }
-}
-function Paginator_span_5_Template(rf, ctx) {
-  if (rf & 1) {
-    ɵɵelementStart(0, "span");
-    ɵɵtemplate(1, Paginator_span_5_1_Template, 1, 0, null, 15);
-    ɵɵelementEnd();
-  }
-  if (rf & 2) {
-    const ctx_r0 = ɵɵnextContext();
-    ɵɵclassMap(ctx_r0.cx("prevIcon"));
-    ɵɵadvance();
-    ɵɵproperty("ngTemplateOutlet", ctx_r0.previousPageLinkIconTemplate || ctx_r0._previousPageLinkIconTemplate);
-  }
-}
-function Paginator_span_6_button_1_Template(rf, ctx) {
-  if (rf & 1) {
-    const _r3 = ɵɵgetCurrentView();
-    ɵɵelementStart(0, "button", 12);
-    ɵɵlistener("click", function Paginator_span_6_button_1_Template_button_click_0_listener($event) {
-      const pageLink_r4 = ɵɵrestoreView(_r3).$implicit;
-      const ctx_r0 = ɵɵnextContext(2);
-      return ɵɵresetView(ctx_r0.onPageLinkClick($event, pageLink_r4 - 1));
-    });
-    ɵɵtext(1);
-    ɵɵelementEnd();
-  }
-  if (rf & 2) {
-    const pageLink_r4 = ctx.$implicit;
-    const ctx_r0 = ɵɵnextContext(2);
-    ɵɵclassMap(ctx_r0.cx("page", ɵɵpureFunction1(6, _c6, pageLink_r4)));
-    ɵɵproperty("pBind", ctx_r0.ptm("page"));
-    ɵɵattribute("aria-label", ctx_r0.getPageAriaLabel(pageLink_r4))("aria-current", pageLink_r4 - 1 == ctx_r0.getPage() ? "page" : void 0);
-    ɵɵadvance();
-    ɵɵtextInterpolate1(" ", ctx_r0.getLocalization(pageLink_r4), " ");
-  }
-}
-function Paginator_span_6_Template(rf, ctx) {
-  if (rf & 1) {
-    ɵɵelementStart(0, "span", 10);
-    ɵɵtemplate(1, Paginator_span_6_button_1_Template, 2, 8, "button", 17);
-    ɵɵelementEnd();
-  }
-  if (rf & 2) {
-    const ctx_r0 = ɵɵnextContext();
-    ɵɵclassMap(ctx_r0.cx("pages"));
-    ɵɵproperty("pBind", ctx_r0.ptm("pages"));
-    ɵɵadvance();
-    ɵɵproperty("ngForOf", ctx_r0.pageLinks);
-  }
-}
-function Paginator_p_select_7_ng_template_1_Template(rf, ctx) {
-  if (rf & 1) {
-    ɵɵtext(0);
-  }
-  if (rf & 2) {
-    const ctx_r0 = ɵɵnextContext(2);
-    ɵɵtextInterpolate(ctx_r0.currentPageReport);
-  }
-}
-function Paginator_p_select_7_ng_container_2_ng_template_1_ng_container_0_Template(rf, ctx) {
-  if (rf & 1) {
-    ɵɵelementContainer(0);
-  }
-}
-function Paginator_p_select_7_ng_container_2_ng_template_1_Template(rf, ctx) {
-  if (rf & 1) {
-    ɵɵtemplate(0, Paginator_p_select_7_ng_container_2_ng_template_1_ng_container_0_Template, 1, 0, "ng-container", 11);
-  }
-  if (rf & 2) {
-    const item_r6 = ctx.$implicit;
-    const ctx_r0 = ɵɵnextContext(3);
-    ɵɵproperty("ngTemplateOutlet", ctx_r0.jumpToPageItemTemplate)("ngTemplateOutletContext", ɵɵpureFunction1(2, _c5, item_r6));
-  }
-}
-function Paginator_p_select_7_ng_container_2_Template(rf, ctx) {
-  if (rf & 1) {
-    ɵɵelementContainerStart(0);
-    ɵɵtemplate(1, Paginator_p_select_7_ng_container_2_ng_template_1_Template, 1, 4, "ng-template", 21);
-    ɵɵelementContainerEnd();
-  }
-}
-function Paginator_p_select_7_3_ng_template_0_ng_container_0_Template(rf, ctx) {
-  if (rf & 1) {
-    ɵɵelementContainer(0);
-  }
-}
-function Paginator_p_select_7_3_ng_template_0_Template(rf, ctx) {
-  if (rf & 1) {
-    ɵɵtemplate(0, Paginator_p_select_7_3_ng_template_0_ng_container_0_Template, 1, 0, "ng-container", 15);
-  }
-  if (rf & 2) {
-    const ctx_r0 = ɵɵnextContext(3);
-    ɵɵproperty("ngTemplateOutlet", ctx_r0.dropdownIconTemplate || ctx_r0._dropdownIconTemplate);
-  }
-}
-function Paginator_p_select_7_3_Template(rf, ctx) {
-  if (rf & 1) {
-    ɵɵtemplate(0, Paginator_p_select_7_3_ng_template_0_Template, 1, 1, "ng-template", 22);
-  }
-}
-function Paginator_p_select_7_Template(rf, ctx) {
-  if (rf & 1) {
-    const _r5 = ɵɵgetCurrentView();
-    ɵɵelementStart(0, "p-select", 18);
-    ɵɵlistener("onChange", function Paginator_p_select_7_Template_p_select_onChange_0_listener($event) {
-      ɵɵrestoreView(_r5);
-      const ctx_r0 = ɵɵnextContext();
-      return ɵɵresetView(ctx_r0.onPageDropdownChange($event));
-    });
-    ɵɵtemplate(1, Paginator_p_select_7_ng_template_1_Template, 1, 1, "ng-template", 19)(2, Paginator_p_select_7_ng_container_2_Template, 2, 0, "ng-container", 20)(3, Paginator_p_select_7_3_Template, 1, 0, null, 20);
-    ɵɵelementEnd();
-  }
-  if (rf & 2) {
-    const ctx_r0 = ɵɵnextContext();
-    ɵɵproperty("options", ctx_r0.pageItems)("ngModel", ctx_r0.getPage())("disabled", ctx_r0.empty())("styleClass", ctx_r0.cx("pcJumpToPageDropdown"))("appendTo", ctx_r0.dropdownAppendTo || ctx_r0.$appendTo())("scrollHeight", ctx_r0.dropdownScrollHeight)("pt", ctx_r0.ptm("pcJumpToPageDropdown"))("unstyled", ctx_r0.unstyled());
-    ɵɵattribute("aria-label", ctx_r0.getAriaLabel("jumpToPageDropdownLabel"));
-    ɵɵadvance(2);
-    ɵɵproperty("ngIf", ctx_r0.jumpToPageItemTemplate);
-    ɵɵadvance();
-    ɵɵproperty("ngIf", ctx_r0.dropdownIconTemplate || ctx_r0._dropdownIconTemplate);
-  }
-}
-function Paginator__svg_svg_9_Template(rf, ctx) {
-  if (rf & 1) {
-    ɵɵnamespaceSVG();
-    ɵɵelement(0, "svg", 23);
-  }
-  if (rf & 2) {
-    const ctx_r0 = ɵɵnextContext();
-    ɵɵclassMap(ctx_r0.cx("nextIcon"));
-    ɵɵproperty("pBind", ctx_r0.ptm("nextIcon"));
-  }
-}
-function Paginator_span_10_1_ng_template_0_Template(rf, ctx) {
-}
-function Paginator_span_10_1_Template(rf, ctx) {
-  if (rf & 1) {
-    ɵɵtemplate(0, Paginator_span_10_1_ng_template_0_Template, 0, 0, "ng-template");
-  }
-}
-function Paginator_span_10_Template(rf, ctx) {
-  if (rf & 1) {
-    ɵɵelementStart(0, "span");
-    ɵɵtemplate(1, Paginator_span_10_1_Template, 1, 0, null, 15);
-    ɵɵelementEnd();
-  }
-  if (rf & 2) {
-    const ctx_r0 = ɵɵnextContext();
-    ɵɵclassMap(ctx_r0.cx("nextIcon"));
-    ɵɵadvance();
-    ɵɵproperty("ngTemplateOutlet", ctx_r0.nextPageLinkIconTemplate || ctx_r0._nextPageLinkIconTemplate);
-  }
-}
-function Paginator_button_11__svg_svg_1_Template(rf, ctx) {
-  if (rf & 1) {
-    ɵɵnamespaceSVG();
-    ɵɵelement(0, "svg", 25);
-  }
-  if (rf & 2) {
-    const ctx_r0 = ɵɵnextContext(2);
-    ɵɵclassMap(ctx_r0.cx("lastIcon"));
-    ɵɵproperty("pBind", ctx_r0.ptm("lastIcon"));
-  }
-}
-function Paginator_button_11_span_2_1_ng_template_0_Template(rf, ctx) {
-}
-function Paginator_button_11_span_2_1_Template(rf, ctx) {
-  if (rf & 1) {
-    ɵɵtemplate(0, Paginator_button_11_span_2_1_ng_template_0_Template, 0, 0, "ng-template");
-  }
-}
-function Paginator_button_11_span_2_Template(rf, ctx) {
-  if (rf & 1) {
-    ɵɵelementStart(0, "span");
-    ɵɵtemplate(1, Paginator_button_11_span_2_1_Template, 1, 0, null, 15);
-    ɵɵelementEnd();
-  }
-  if (rf & 2) {
-    const ctx_r0 = ɵɵnextContext(2);
-    ɵɵclassMap(ctx_r0.cx("lastIcon"));
-    ɵɵadvance();
-    ɵɵproperty("ngTemplateOutlet", ctx_r0.lastPageLinkIconTemplate || ctx_r0._lastPageLinkIconTemplate);
-  }
-}
-function Paginator_button_11_Template(rf, ctx) {
-  if (rf & 1) {
-    const _r7 = ɵɵgetCurrentView();
-    ɵɵelementStart(0, "button", 2);
-    ɵɵlistener("click", function Paginator_button_11_Template_button_click_0_listener($event) {
-      ɵɵrestoreView(_r7);
-      const ctx_r0 = ɵɵnextContext();
-      return ɵɵresetView(ctx_r0.changePageToLast($event));
-    });
-    ɵɵtemplate(1, Paginator_button_11__svg_svg_1_Template, 1, 3, "svg", 24)(2, Paginator_button_11_span_2_Template, 2, 3, "span", 4);
-    ɵɵelementEnd();
-  }
-  if (rf & 2) {
-    const ctx_r0 = ɵɵnextContext();
-    ɵɵclassMap(ctx_r0.cx("last"));
-    ɵɵproperty("pBind", ctx_r0.ptm("last"))("disabled", ctx_r0.isLastPage() || ctx_r0.empty());
-    ɵɵattribute("aria-label", ctx_r0.getAriaLabel("lastPageLabel"));
-    ɵɵadvance();
-    ɵɵproperty("ngIf", !ctx_r0.lastPageLinkIconTemplate && !ctx_r0._lastPageLinkIconTemplate);
-    ɵɵadvance();
-    ɵɵproperty("ngIf", ctx_r0.lastPageLinkIconTemplate || ctx_r0._lastPageLinkIconTemplate);
-  }
-}
-function Paginator_p_inputnumber_12_Template(rf, ctx) {
-  if (rf & 1) {
-    const _r8 = ɵɵgetCurrentView();
-    ɵɵelementStart(0, "p-inputnumber", 26);
-    ɵɵlistener("ngModelChange", function Paginator_p_inputnumber_12_Template_p_inputnumber_ngModelChange_0_listener($event) {
-      ɵɵrestoreView(_r8);
-      const ctx_r0 = ɵɵnextContext();
-      return ɵɵresetView(ctx_r0.changePage($event - 1));
-    });
-    ɵɵelementEnd();
-  }
-  if (rf & 2) {
-    const ctx_r0 = ɵɵnextContext();
-    ɵɵclassMap(ctx_r0.cx("pcJumpToPageInput"));
-    ɵɵproperty("pt", ctx_r0.ptm("pcJumpToPageInput"))("ngModel", ctx_r0.currentPage())("disabled", ctx_r0.empty())("unstyled", ctx_r0.unstyled());
-  }
-}
-function Paginator_p_select_13_ng_container_1_ng_template_1_ng_container_0_Template(rf, ctx) {
-  if (rf & 1) {
-    ɵɵelementContainer(0);
-  }
-}
-function Paginator_p_select_13_ng_container_1_ng_template_1_Template(rf, ctx) {
-  if (rf & 1) {
-    ɵɵtemplate(0, Paginator_p_select_13_ng_container_1_ng_template_1_ng_container_0_Template, 1, 0, "ng-container", 11);
-  }
-  if (rf & 2) {
-    const item_r10 = ctx.$implicit;
-    const ctx_r0 = ɵɵnextContext(3);
-    ɵɵproperty("ngTemplateOutlet", ctx_r0.dropdownItemTemplate)("ngTemplateOutletContext", ɵɵpureFunction1(2, _c5, item_r10));
-  }
-}
-function Paginator_p_select_13_ng_container_1_Template(rf, ctx) {
-  if (rf & 1) {
-    ɵɵelementContainerStart(0);
-    ɵɵtemplate(1, Paginator_p_select_13_ng_container_1_ng_template_1_Template, 1, 4, "ng-template", 21);
-    ɵɵelementContainerEnd();
-  }
-}
-function Paginator_p_select_13_2_ng_template_0_ng_container_0_Template(rf, ctx) {
-  if (rf & 1) {
-    ɵɵelementContainer(0);
-  }
-}
-function Paginator_p_select_13_2_ng_template_0_Template(rf, ctx) {
-  if (rf & 1) {
-    ɵɵtemplate(0, Paginator_p_select_13_2_ng_template_0_ng_container_0_Template, 1, 0, "ng-container", 15);
-  }
-  if (rf & 2) {
-    const ctx_r0 = ɵɵnextContext(3);
-    ɵɵproperty("ngTemplateOutlet", ctx_r0.dropdownIconTemplate || ctx_r0._dropdownIconTemplate);
-  }
-}
-function Paginator_p_select_13_2_Template(rf, ctx) {
-  if (rf & 1) {
-    ɵɵtemplate(0, Paginator_p_select_13_2_ng_template_0_Template, 1, 1, "ng-template", 22);
-  }
-}
-function Paginator_p_select_13_Template(rf, ctx) {
-  if (rf & 1) {
-    const _r9 = ɵɵgetCurrentView();
-    ɵɵelementStart(0, "p-select", 27);
-    ɵɵtwoWayListener("ngModelChange", function Paginator_p_select_13_Template_p_select_ngModelChange_0_listener($event) {
-      ɵɵrestoreView(_r9);
-      const ctx_r0 = ɵɵnextContext();
-      ɵɵtwoWayBindingSet(ctx_r0.rows, $event) || (ctx_r0.rows = $event);
-      return ɵɵresetView($event);
-    });
-    ɵɵlistener("onChange", function Paginator_p_select_13_Template_p_select_onChange_0_listener($event) {
-      ɵɵrestoreView(_r9);
-      const ctx_r0 = ɵɵnextContext();
-      return ɵɵresetView(ctx_r0.onRppChange($event));
-    });
-    ɵɵtemplate(1, Paginator_p_select_13_ng_container_1_Template, 2, 0, "ng-container", 20)(2, Paginator_p_select_13_2_Template, 1, 0, null, 20);
-    ɵɵelementEnd();
-  }
-  if (rf & 2) {
-    const ctx_r0 = ɵɵnextContext();
-    ɵɵproperty("options", ctx_r0.rowsPerPageItems);
-    ɵɵtwoWayProperty("ngModel", ctx_r0.rows);
-    ɵɵproperty("styleClass", ctx_r0.cx("pcRowPerPageDropdown"))("disabled", ctx_r0.empty())("appendTo", ctx_r0.dropdownAppendTo || ctx_r0.$appendTo())("scrollHeight", ctx_r0.dropdownScrollHeight)("ariaLabel", ctx_r0.getAriaLabel("rowsPerPageLabel"))("pt", ctx_r0.ptm("pcRowPerPageDropdown"))("unstyled", ctx_r0.unstyled());
-    ɵɵadvance();
-    ɵɵproperty("ngIf", ctx_r0.dropdownItemTemplate);
-    ɵɵadvance();
-    ɵɵproperty("ngIf", ctx_r0.dropdownIconTemplate || ctx_r0._dropdownIconTemplate);
-  }
-}
-function Paginator_div_14_ng_container_1_Template(rf, ctx) {
-  if (rf & 1) {
-    ɵɵelementContainer(0);
-  }
-}
-function Paginator_div_14_Template(rf, ctx) {
-  if (rf & 1) {
-    ɵɵelementStart(0, "div", 10);
-    ɵɵtemplate(1, Paginator_div_14_ng_container_1_Template, 1, 0, "ng-container", 11);
-    ɵɵelementEnd();
-  }
-  if (rf & 2) {
-    const ctx_r0 = ɵɵnextContext();
-    ɵɵclassMap(ctx_r0.cx("contentEnd"));
-    ɵɵproperty("pBind", ctx_r0.ptm("contentEnd"));
-    ɵɵadvance();
-    ɵɵproperty("ngTemplateOutlet", ctx_r0.templateRight)("ngTemplateOutletContext", ɵɵpureFunction1(5, _c5, ctx_r0.paginatorState));
-  }
-}
-var classes = {
-  paginator: ({
-    instance
-  }) => ["p-paginator p-component"],
-  content: "p-paginator-content",
-  contentStart: "p-paginator-content-start",
-  contentEnd: "p-paginator-content-end",
-  first: ({
-    instance
-  }) => ["p-paginator-first", {
-    "p-disabled": instance.isFirstPage() || instance.empty()
-  }],
-  firstIcon: "p-paginator-first-icon",
-  prev: ({
-    instance
-  }) => ["p-paginator-prev", {
-    "p-disabled": instance.isFirstPage() || instance.empty()
-  }],
-  prevIcon: "p-paginator-prev-icon",
-  next: ({
-    instance
-  }) => ["p-paginator-next", {
-    "p-disabled": instance.isLastPage() || instance.empty()
-  }],
-  nextIcon: "p-paginator-next-icon",
-  last: ({
-    instance
-  }) => ["p-paginator-last", {
-    "p-disabled": instance.isLastPage() || instance.empty()
-  }],
-  lastIcon: "p-paginator-last-icon",
-  pages: "p-paginator-pages",
-  page: ({
-    instance,
-    pageLink
-  }) => ["p-paginator-page", {
-    "p-paginator-page-selected": pageLink - 1 == instance.getPage()
-  }],
-  current: "p-paginator-current",
-  pcRowPerPageDropdown: "p-paginator-rpp-dropdown",
-  pcJumpToPageDropdown: "p-paginator-jtp-dropdown",
-  pcJumpToPageInput: "p-paginator-jtp-input"
-};
-var PaginatorStyle = class _PaginatorStyle extends BaseStyle {
-  name = "paginator";
-  style = style2;
-  classes = classes;
-  static ɵfac = /* @__PURE__ */ (() => {
-    let ɵPaginatorStyle_BaseFactory;
-    return function PaginatorStyle_Factory(__ngFactoryType__) {
-      return (ɵPaginatorStyle_BaseFactory || (ɵPaginatorStyle_BaseFactory = ɵɵgetInheritedFactory(_PaginatorStyle)))(__ngFactoryType__ || _PaginatorStyle);
-    };
-  })();
-  static ɵprov = ɵɵdefineInjectable({
-    token: _PaginatorStyle,
-    factory: _PaginatorStyle.ɵfac
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(PaginatorStyle, [{
-    type: Injectable
-  }], null, null);
-})();
-var PaginatorClasses;
-(function(PaginatorClasses2) {
-  PaginatorClasses2["paginator"] = "p-paginator";
-  PaginatorClasses2["contentStart"] = "p-paginator-content-start";
-  PaginatorClasses2["contentEnd"] = "p-paginator-content-end";
-  PaginatorClasses2["first"] = "p-paginator-first";
-  PaginatorClasses2["firstIcon"] = "p-paginator-first-icon";
-  PaginatorClasses2["prev"] = "p-paginator-prev";
-  PaginatorClasses2["prevIcon"] = "p-paginator-prev-icon";
-  PaginatorClasses2["next"] = "p-paginator-next";
-  PaginatorClasses2["nextIcon"] = "p-paginator-next-icon";
-  PaginatorClasses2["last"] = "p-paginator-last";
-  PaginatorClasses2["lastIcon"] = "p-paginator-last-icon";
-  PaginatorClasses2["pages"] = "p-paginator-pages";
-  PaginatorClasses2["page"] = "p-paginator-page";
-  PaginatorClasses2["current"] = "p-paginator-current";
-  PaginatorClasses2["pcRowPerPageDropdown"] = "p-paginator-rpp-dropdown";
-  PaginatorClasses2["pcJumpToPageDropdown"] = "p-paginator-jtp-dropdown";
-  PaginatorClasses2["pcJumpToPageInput"] = "p-paginator-jtp-input";
-})(PaginatorClasses || (PaginatorClasses = {}));
-var PAGINATOR_INSTANCE = new InjectionToken("PAGINATOR_INSTANCE");
-var Paginator = class _Paginator extends BaseComponent {
-  componentName = "Paginator";
-  bindDirectiveInstance = inject(Bind, {
-    self: true
-  });
-  $pcPaginator = inject(PAGINATOR_INSTANCE, {
-    optional: true,
-    skipSelf: true
-  }) ?? void 0;
-  onAfterViewChecked() {
-    this.bindDirectiveInstance.setAttrs(this.ptms(["host", "root"]));
-  }
-  /**
-   * Number of page links to display.
-   * @group Props
-   */
-  pageLinkSize = 5;
-  /**
-   * Style class of the component.
-   * @deprecated since v20.0.0, use `class` instead.
-   * @group Props
-   */
-  styleClass;
-  /**
-   * Whether to show it even there is only one page.
-   * @group Props
-   */
-  alwaysShow = true;
-  /**
-   * Target element to attach the dropdown overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
-   * @deprecated since v20.0.0. Use `appendTo` instead.
-   * @group Props
-   */
-  dropdownAppendTo;
-  /**
-   * Template instance to inject into the left side of the paginator.
-   * @param {PaginatorTemplateContext} context - Paginator template context.
-   * @see {@link PaginatorTemplateContext}
-   * @group Props
-   */
-  templateLeft;
-  /**
-   * Template instance to inject into the right side of the paginator.
-   * @param {PaginatorTemplateContext} context - Paginator template context.
-   * @see {@link PaginatorTemplateContext}
-   * @group Props
-   */
-  templateRight;
-  /**
-   * Dropdown height of the viewport in pixels, a scrollbar is defined if height of list exceeds this value.
-   * @group Props
-   */
-  dropdownScrollHeight = "200px";
-  /**
-   * Template of the current page report element. Available placeholders are {currentPage},{totalPages},{rows},{first},{last} and {totalRecords}
-   * @group Props
-   */
-  currentPageReportTemplate = "{currentPage} of {totalPages}";
-  /**
-   * Whether to display current page report.
-   * @group Props
-   */
-  showCurrentPageReport;
-  /**
-   * When enabled, icons are displayed on paginator to go first and last page.
-   * @group Props
-   */
-  showFirstLastIcon = true;
-  /**
-   * Number of total records.
-   * @group Props
-   */
-  totalRecords = 0;
-  /**
-   * Data count to display per page.
-   * @group Props
-   */
-  rows = 0;
-  /**
-   * Array of integer/object values to display inside rows per page dropdown. A object that have 'showAll' key can be added to it to show all data. Exp; [10,20,30,{showAll:'All'}]
-   * @group Props
-   */
-  rowsPerPageOptions;
-  /**
-   * Whether to display a dropdown to navigate to any page.
-   * @group Props
-   */
-  showJumpToPageDropdown;
-  /**
-   * Whether to display a input to navigate to any page.
-   * @group Props
-   */
-  showJumpToPageInput;
-  /**
-   * Template instance to inject into the jump to page dropdown item inside in the paginator.
-   * @param {PaginatorDropdownItemTemplateContext} context - dropdown item context.
-   * @see {@link PaginatorDropdownItemTemplateContext}
-   * @group Props
-   */
-  jumpToPageItemTemplate;
-  /**
-   * Whether to show page links.
-   * @group Props
-   */
-  showPageLinks = true;
-  /**
-   * Locale to be used in formatting.
-   * @group Props
-   */
-  locale;
-  /**
-   * Template instance to inject into the rows per page dropdown item inside in the paginator.
-   * @param {PaginatorDropdownItemTemplateContext} context - dropdown item context.
-   * @see {@link PaginatorDropdownItemTemplateContext}
-   * @group Props
-   */
-  dropdownItemTemplate;
-  /**
-   * Zero-relative number of the first row to be displayed.
-   * @group Props
-   */
-  get first() {
-    return this._first;
-  }
-  set first(val) {
-    this._first = val;
-  }
-  /**
-   * Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
-   * @defaultValue 'self'
-   * @group Props
-   */
-  appendTo = input(void 0, ...ngDevMode ? [{
-    debugName: "appendTo"
-  }] : (
-    /* istanbul ignore next */
-    []
-  ));
-  /**
-   * Callback to invoke when page changes, the event object contains information about the new state.
-   * @param {PaginatorState} event - Paginator state.
-   * @group Emits
-   */
-  onPageChange = new EventEmitter();
-  /**
-   * Template for the dropdown icon.
-   * @group Templates
-   */
-  dropdownIconTemplate;
-  /**
-   * Template for the first page link icon.
-   * @group Templates
-   */
-  firstPageLinkIconTemplate;
-  /**
-   * Template for the previous page link icon.
-   * @group Templates
-   */
-  previousPageLinkIconTemplate;
-  /**
-   * Template for the last page link icon.
-   * @group Templates
-   */
-  lastPageLinkIconTemplate;
-  /**
-   * Template for the next page link icon.
-   * @group Templates
-   */
-  nextPageLinkIconTemplate;
-  templates;
-  _dropdownIconTemplate;
-  _firstPageLinkIconTemplate;
-  _previousPageLinkIconTemplate;
-  _lastPageLinkIconTemplate;
-  _nextPageLinkIconTemplate;
-  pageLinks;
-  pageItems;
-  rowsPerPageItems;
-  paginatorState;
-  _first = 0;
-  _page = 0;
-  _componentStyle = inject(PaginatorStyle);
-  $appendTo = computed(() => this.appendTo() || this.config.overlayAppendTo(), ...ngDevMode ? [{
-    debugName: "$appendTo"
-  }] : (
-    /* istanbul ignore next */
-    []
-  ));
-  get display() {
-    return this.alwaysShow || this.pageLinks && this.pageLinks.length > 1 ? null : "none";
-  }
-  constructor() {
-    super();
-  }
-  onInit() {
-    this.updatePaginatorState();
-  }
-  onAfterContentInit() {
-    this.templates.forEach((item) => {
-      switch (item.getType()) {
-        case "dropdownicon":
-          this._dropdownIconTemplate = item.template;
-          break;
-        case "firstpagelinkicon":
-          this._firstPageLinkIconTemplate = item.template;
-          break;
-        case "previouspagelinkicon":
-          this._previousPageLinkIconTemplate = item.template;
-          break;
-        case "lastpagelinkicon":
-          this._lastPageLinkIconTemplate = item.template;
-          break;
-        case "nextpagelinkicon":
-          this._nextPageLinkIconTemplate = item.template;
-          break;
-      }
-    });
-  }
-  getAriaLabel(labelType) {
-    return this.config.translation.aria ? this.config.translation.aria[labelType] : void 0;
-  }
-  getPageAriaLabel(value) {
-    return this.config.translation.aria ? this.config.translation.aria.pageLabel?.replace(/{page}/g, `${value}`) : void 0;
-  }
-  getLocalization(digit) {
-    const numerals = [...new Intl.NumberFormat(this.locale, {
-      useGrouping: false
-    }).format(9876543210)].reverse();
-    const index = new Map(numerals.map((d, i) => [i, d]));
-    if (digit > 9) {
-      const numbers = String(digit).split("");
-      return numbers.map((number) => index.get(Number(number))).join("");
-    } else {
-      return index.get(digit);
-    }
-  }
-  onChanges(simpleChange) {
-    if (simpleChange.totalRecords) {
-      this.updatePageLinks();
-      this.updatePaginatorState();
-      this.updateFirst();
-      this.updateRowsPerPageOptions();
-    }
-    if (simpleChange.first) {
-      this._first = simpleChange.first.currentValue;
-      this.updatePageLinks();
-      this.updatePaginatorState();
-    }
-    if (simpleChange.rows) {
-      this.updatePageLinks();
-      this.updatePaginatorState();
-    }
-    if (simpleChange.rowsPerPageOptions) {
-      this.updateRowsPerPageOptions();
-    }
-    if (simpleChange.pageLinkSize) {
-      this.updatePageLinks();
-    }
-  }
-  updateRowsPerPageOptions() {
-    if (this.rowsPerPageOptions) {
-      this.rowsPerPageItems = [];
-      let showAllItem = null;
-      for (let opt of this.rowsPerPageOptions) {
-        if (typeof opt == "object" && opt["showAll"]) {
-          showAllItem = {
-            label: opt["showAll"],
-            value: this.totalRecords
-          };
-        } else {
-          this.rowsPerPageItems.push({
-            label: String(this.getLocalization(opt)),
-            value: opt
-          });
-        }
-      }
-      if (showAllItem) {
-        this.rowsPerPageItems.push(showAllItem);
-      }
-    }
-  }
-  isFirstPage() {
-    return this.getPage() === 0;
-  }
-  isLastPage() {
-    return this.getPage() === this.getPageCount() - 1;
-  }
-  getPageCount() {
-    return Math.ceil(this.totalRecords / this.rows);
-  }
-  calculatePageLinkBoundaries() {
-    let numberOfPages = this.getPageCount(), visiblePages = Math.min(this.pageLinkSize, numberOfPages);
-    let start = Math.max(0, Math.ceil(this.getPage() - visiblePages / 2)), end = Math.min(numberOfPages - 1, start + visiblePages - 1);
-    var delta = this.pageLinkSize - (end - start + 1);
-    start = Math.max(0, start - delta);
-    return [start, end];
-  }
-  updatePageLinks() {
-    this.pageLinks = [];
-    let boundaries = this.calculatePageLinkBoundaries(), start = boundaries[0], end = boundaries[1];
-    for (let i = start; i <= end; i++) {
-      this.pageLinks.push(i + 1);
-    }
-    if (this.showJumpToPageDropdown) {
-      this.pageItems = [];
-      for (let i = 0; i < this.getPageCount(); i++) {
-        this.pageItems.push({
-          label: String(i + 1),
-          value: i
-        });
-      }
-    }
-  }
-  changePage(p2) {
-    var pc = this.getPageCount();
-    if (p2 >= 0 && p2 < pc) {
-      this._first = this.rows * p2;
-      var state = {
-        page: p2,
-        first: this.first,
-        rows: this.rows,
-        pageCount: pc
-      };
-      this.updatePageLinks();
-      this.onPageChange.emit(state);
-      this.updatePaginatorState();
-    }
-  }
-  updateFirst() {
-    const page = this.getPage();
-    if (page > 0 && this.totalRecords && this.first >= this.totalRecords) {
-      Promise.resolve(null).then(() => this.changePage(page - 1));
-    }
-  }
-  getPage() {
-    return Math.floor(this.first / this.rows);
-  }
-  changePageToFirst(event) {
-    if (!this.isFirstPage()) {
-      this.changePage(0);
-    }
-    event.preventDefault();
-  }
-  changePageToPrev(event) {
-    this.changePage(this.getPage() - 1);
-    event.preventDefault();
-  }
-  changePageToNext(event) {
-    this.changePage(this.getPage() + 1);
-    event.preventDefault();
-  }
-  changePageToLast(event) {
-    if (!this.isLastPage()) {
-      this.changePage(this.getPageCount() - 1);
-    }
-    event.preventDefault();
-  }
-  onPageLinkClick(event, page) {
-    this.changePage(page);
-    event.preventDefault();
-  }
-  onRppChange(event) {
-    this.changePage(this.getPage());
-  }
-  onPageDropdownChange(event) {
-    this.changePage(event.value);
-  }
-  updatePaginatorState() {
-    this.paginatorState = {
-      page: this.getPage(),
-      pageCount: this.getPageCount(),
-      rows: this.rows,
-      first: this.first,
-      totalRecords: this.totalRecords
-    };
-  }
-  empty() {
-    return this.getPageCount() === 0;
-  }
-  currentPage() {
-    return this.getPageCount() > 0 ? this.getPage() + 1 : 0;
-  }
-  get currentPageReport() {
-    return this.currentPageReportTemplate.replace("{currentPage}", String(this.currentPage())).replace("{totalPages}", String(this.getPageCount())).replace("{first}", String(this.totalRecords > 0 ? this._first + 1 : 0)).replace("{last}", String(Math.min(this._first + this.rows, this.totalRecords))).replace("{rows}", String(this.rows)).replace("{totalRecords}", String(this.totalRecords));
-  }
-  static ɵfac = function Paginator_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || _Paginator)();
-  };
-  static ɵcmp = ɵɵdefineComponent({
-    type: _Paginator,
-    selectors: [["p-paginator"]],
-    contentQueries: function Paginator_ContentQueries(rf, ctx, dirIndex) {
-      if (rf & 1) {
-        ɵɵcontentQuery(dirIndex, _c02, 4)(dirIndex, _c1, 4)(dirIndex, _c2, 4)(dirIndex, _c3, 4)(dirIndex, _c4, 4)(dirIndex, PrimeTemplate, 4);
-      }
-      if (rf & 2) {
-        let _t;
-        ɵɵqueryRefresh(_t = ɵɵloadQuery()) && (ctx.dropdownIconTemplate = _t.first);
-        ɵɵqueryRefresh(_t = ɵɵloadQuery()) && (ctx.firstPageLinkIconTemplate = _t.first);
-        ɵɵqueryRefresh(_t = ɵɵloadQuery()) && (ctx.previousPageLinkIconTemplate = _t.first);
-        ɵɵqueryRefresh(_t = ɵɵloadQuery()) && (ctx.lastPageLinkIconTemplate = _t.first);
-        ɵɵqueryRefresh(_t = ɵɵloadQuery()) && (ctx.nextPageLinkIconTemplate = _t.first);
-        ɵɵqueryRefresh(_t = ɵɵloadQuery()) && (ctx.templates = _t);
-      }
-    },
-    hostVars: 4,
-    hostBindings: function Paginator_HostBindings(rf, ctx) {
-      if (rf & 2) {
-        ɵɵclassMap(ctx.cn(ctx.cx("paginator"), ctx.styleClass));
-        ɵɵstyleProp("display", ctx.display);
-      }
-    },
-    inputs: {
-      pageLinkSize: [2, "pageLinkSize", "pageLinkSize", numberAttribute],
-      styleClass: "styleClass",
-      alwaysShow: [2, "alwaysShow", "alwaysShow", booleanAttribute],
-      dropdownAppendTo: "dropdownAppendTo",
-      templateLeft: "templateLeft",
-      templateRight: "templateRight",
-      dropdownScrollHeight: "dropdownScrollHeight",
-      currentPageReportTemplate: "currentPageReportTemplate",
-      showCurrentPageReport: [2, "showCurrentPageReport", "showCurrentPageReport", booleanAttribute],
-      showFirstLastIcon: [2, "showFirstLastIcon", "showFirstLastIcon", booleanAttribute],
-      totalRecords: [2, "totalRecords", "totalRecords", numberAttribute],
-      rows: [2, "rows", "rows", numberAttribute],
-      rowsPerPageOptions: "rowsPerPageOptions",
-      showJumpToPageDropdown: [2, "showJumpToPageDropdown", "showJumpToPageDropdown", booleanAttribute],
-      showJumpToPageInput: [2, "showJumpToPageInput", "showJumpToPageInput", booleanAttribute],
-      jumpToPageItemTemplate: "jumpToPageItemTemplate",
-      showPageLinks: [2, "showPageLinks", "showPageLinks", booleanAttribute],
-      locale: "locale",
-      dropdownItemTemplate: "dropdownItemTemplate",
-      first: "first",
-      appendTo: [1, "appendTo"]
-    },
-    outputs: {
-      onPageChange: "onPageChange"
-    },
-    features: [ɵɵProvidersFeature([PaginatorStyle, {
-      provide: PAGINATOR_INSTANCE,
-      useExisting: _Paginator
-    }, {
-      provide: PARENT_INSTANCE,
-      useExisting: _Paginator
-    }]), ɵɵHostDirectivesFeature([Bind]), ɵɵInheritDefinitionFeature],
-    decls: 15,
-    vars: 23,
-    consts: [[3, "pBind", "class", 4, "ngIf"], ["type", "button", "pRipple", "", 3, "pBind", "class", "click", 4, "ngIf"], ["type", "button", "pRipple", "", 3, "click", "pBind", "disabled"], ["data-p-icon", "angle-left", 3, "pBind", "class", 4, "ngIf"], [3, "class", 4, "ngIf"], [3, "options", "ngModel", "disabled", "styleClass", "appendTo", "scrollHeight", "pt", "unstyled", "onChange", 4, "ngIf"], ["data-p-icon", "angle-right", 3, "pBind", "class", 4, "ngIf"], ["type", "button", "pRipple", "", 3, "pBind", "disabled", "class", "click", 4, "ngIf"], [3, "pt", "ngModel", "class", "disabled", "unstyled", "ngModelChange", 4, "ngIf"], [3, "options", "ngModel", "styleClass", "disabled", "appendTo", "scrollHeight", "ariaLabel", "pt", "unstyled", "ngModelChange", "onChange", 4, "ngIf"], [3, "pBind"], [4, "ngTemplateOutlet", "ngTemplateOutletContext"], ["type", "button", "pRipple", "", 3, "click", "pBind"], ["data-p-icon", "angle-double-left", 3, "pBind", "class", 4, "ngIf"], ["data-p-icon", "angle-double-left", 3, "pBind"], [4, "ngTemplateOutlet"], ["data-p-icon", "angle-left", 3, "pBind"], ["type", "button", "pRipple", "", 3, "pBind", "class", "click", 4, "ngFor", "ngForOf"], [3, "onChange", "options", "ngModel", "disabled", "styleClass", "appendTo", "scrollHeight", "pt", "unstyled"], ["pTemplate", "selectedItem"], [4, "ngIf"], ["pTemplate", "item"], ["pTemplate", "dropdownicon"], ["data-p-icon", "angle-right", 3, "pBind"], ["data-p-icon", "angle-double-right", 3, "pBind", "class", 4, "ngIf"], ["data-p-icon", "angle-double-right", 3, "pBind"], [3, "ngModelChange", "pt", "ngModel", "disabled", "unstyled"], [3, "ngModelChange", "onChange", "options", "ngModel", "styleClass", "disabled", "appendTo", "scrollHeight", "ariaLabel", "pt", "unstyled"]],
-    template: function Paginator_Template(rf, ctx) {
-      if (rf & 1) {
-        ɵɵtemplate(0, Paginator_div_0_Template, 2, 7, "div", 0)(1, Paginator_span_1_Template, 2, 4, "span", 0)(2, Paginator_button_2_Template, 3, 6, "button", 1);
-        ɵɵelementStart(3, "button", 2);
-        ɵɵlistener("click", function Paginator_Template_button_click_3_listener($event) {
-          return ctx.changePageToPrev($event);
-        });
-        ɵɵtemplate(4, Paginator__svg_svg_4_Template, 1, 3, "svg", 3)(5, Paginator_span_5_Template, 2, 3, "span", 4);
-        ɵɵelementEnd();
-        ɵɵtemplate(6, Paginator_span_6_Template, 2, 4, "span", 0)(7, Paginator_p_select_7_Template, 4, 11, "p-select", 5);
-        ɵɵelementStart(8, "button", 2);
-        ɵɵlistener("click", function Paginator_Template_button_click_8_listener($event) {
-          return ctx.changePageToNext($event);
-        });
-        ɵɵtemplate(9, Paginator__svg_svg_9_Template, 1, 3, "svg", 6)(10, Paginator_span_10_Template, 2, 3, "span", 4);
-        ɵɵelementEnd();
-        ɵɵtemplate(11, Paginator_button_11_Template, 3, 7, "button", 7)(12, Paginator_p_inputnumber_12_Template, 1, 6, "p-inputnumber", 8)(13, Paginator_p_select_13_Template, 3, 11, "p-select", 9)(14, Paginator_div_14_Template, 2, 7, "div", 0);
-      }
-      if (rf & 2) {
-        ɵɵproperty("ngIf", ctx.templateLeft);
-        ɵɵadvance();
-        ɵɵproperty("ngIf", ctx.showCurrentPageReport);
-        ɵɵadvance();
-        ɵɵproperty("ngIf", ctx.showFirstLastIcon);
-        ɵɵadvance();
-        ɵɵclassMap(ctx.cx("prev"));
-        ɵɵproperty("pBind", ctx.ptm("prev"))("disabled", ctx.isFirstPage() || ctx.empty());
-        ɵɵattribute("aria-label", ctx.getAriaLabel("prevPageLabel"));
-        ɵɵadvance();
-        ɵɵproperty("ngIf", !ctx.previousPageLinkIconTemplate && !ctx._previousPageLinkIconTemplate);
-        ɵɵadvance();
-        ɵɵproperty("ngIf", ctx.previousPageLinkIconTemplate || ctx._previousPageLinkIconTemplate);
-        ɵɵadvance();
-        ɵɵproperty("ngIf", ctx.showPageLinks);
-        ɵɵadvance();
-        ɵɵproperty("ngIf", ctx.showJumpToPageDropdown);
-        ɵɵadvance();
-        ɵɵclassMap(ctx.cx("next"));
-        ɵɵproperty("pBind", ctx.ptm("next"))("disabled", ctx.isLastPage() || ctx.empty());
-        ɵɵattribute("aria-label", ctx.getAriaLabel("nextPageLabel"));
-        ɵɵadvance();
-        ɵɵproperty("ngIf", !ctx.nextPageLinkIconTemplate && !ctx._nextPageLinkIconTemplate);
-        ɵɵadvance();
-        ɵɵproperty("ngIf", ctx.nextPageLinkIconTemplate || ctx._nextPageLinkIconTemplate);
-        ɵɵadvance();
-        ɵɵproperty("ngIf", ctx.showFirstLastIcon);
-        ɵɵadvance();
-        ɵɵproperty("ngIf", ctx.showJumpToPageInput);
-        ɵɵadvance();
-        ɵɵproperty("ngIf", ctx.rowsPerPageOptions);
-        ɵɵadvance();
-        ɵɵproperty("ngIf", ctx.templateRight);
-      }
-    },
-    dependencies: [CommonModule, NgForOf, NgIf, NgTemplateOutlet, Select, InputNumber, FormsModule, NgControlStatus, NgModel, Ripple, AngleDoubleLeftIcon, AngleDoubleRightIcon, AngleLeftIcon, AngleRightIcon, SharedModule, PrimeTemplate, Bind],
-    encapsulation: 2,
-    changeDetection: 0
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(Paginator, [{
-    type: Component,
-    args: [{
-      selector: "p-paginator",
-      standalone: true,
-      imports: [CommonModule, Select, InputNumber, FormsModule, Ripple, AngleDoubleLeftIcon, AngleDoubleRightIcon, AngleLeftIcon, AngleRightIcon, SharedModule, Bind],
-      template: `
-        <div [pBind]="ptm('contentStart')" [class]="cx('contentStart')" *ngIf="templateLeft">
-            <ng-container *ngTemplateOutlet="templateLeft; context: { $implicit: paginatorState }"></ng-container>
-        </div>
-        <span [pBind]="ptm('current')" [class]="cx('current')" *ngIf="showCurrentPageReport">{{ currentPageReport }}</span>
-        <button [pBind]="ptm('first')" *ngIf="showFirstLastIcon" type="button" (click)="changePageToFirst($event)" pRipple [class]="cx('first')" [attr.aria-label]="getAriaLabel('firstPageLabel')">
-            <svg [pBind]="ptm('firstIcon')" data-p-icon="angle-double-left" *ngIf="!firstPageLinkIconTemplate && !_firstPageLinkIconTemplate" [class]="cx('firstIcon')" />
-            <span [class]="cx('firstIcon')" *ngIf="firstPageLinkIconTemplate || _firstPageLinkIconTemplate">
-                <ng-template *ngTemplateOutlet="firstPageLinkIconTemplate || _firstPageLinkIconTemplate"></ng-template>
-            </span>
-        </button>
-        <button [pBind]="ptm('prev')" type="button" [disabled]="isFirstPage() || empty()" (click)="changePageToPrev($event)" pRipple [class]="cx('prev')" [attr.aria-label]="getAriaLabel('prevPageLabel')">
-            <svg [pBind]="ptm('prevIcon')" data-p-icon="angle-left" *ngIf="!previousPageLinkIconTemplate && !_previousPageLinkIconTemplate" [class]="cx('prevIcon')" />
-            <span [class]="cx('prevIcon')" *ngIf="previousPageLinkIconTemplate || _previousPageLinkIconTemplate">
-                <ng-template *ngTemplateOutlet="previousPageLinkIconTemplate || _previousPageLinkIconTemplate"></ng-template>
-            </span>
-        </button>
-        <span [pBind]="ptm('pages')" [class]="cx('pages')" *ngIf="showPageLinks">
-            <button
-                [pBind]="ptm('page')"
-                type="button"
-                *ngFor="let pageLink of pageLinks"
-                [class]="cx('page', { pageLink })"
-                [attr.aria-label]="getPageAriaLabel(pageLink)"
-                [attr.aria-current]="pageLink - 1 == getPage() ? 'page' : undefined"
-                (click)="onPageLinkClick($event, pageLink - 1)"
-                pRipple
-            >
-                {{ getLocalization(pageLink) }}
-            </button>
-        </span>
-        <p-select
-            [options]="pageItems"
-            [ngModel]="getPage()"
-            *ngIf="showJumpToPageDropdown"
-            [disabled]="empty()"
-            [attr.aria-label]="getAriaLabel('jumpToPageDropdownLabel')"
-            [styleClass]="cx('pcJumpToPageDropdown')"
-            (onChange)="onPageDropdownChange($event)"
-            [appendTo]="dropdownAppendTo || $appendTo()"
-            [scrollHeight]="dropdownScrollHeight"
-            [pt]="ptm('pcJumpToPageDropdown')"
-            [unstyled]="unstyled()"
-        >
-            <ng-template pTemplate="selectedItem">{{ currentPageReport }}</ng-template>
-            <ng-container *ngIf="jumpToPageItemTemplate">
-                <ng-template let-item pTemplate="item">
-                    <ng-container *ngTemplateOutlet="jumpToPageItemTemplate; context: { $implicit: item }"></ng-container>
-                </ng-template>
-            </ng-container>
-            <ng-template pTemplate="dropdownicon" *ngIf="dropdownIconTemplate || _dropdownIconTemplate">
-                <ng-container *ngTemplateOutlet="dropdownIconTemplate || _dropdownIconTemplate"></ng-container>
-            </ng-template>
-        </p-select>
-        <button [pBind]="ptm('next')" type="button" [disabled]="isLastPage() || empty()" (click)="changePageToNext($event)" pRipple [class]="cx('next')" [attr.aria-label]="getAriaLabel('nextPageLabel')">
-            <svg [pBind]="ptm('nextIcon')" data-p-icon="angle-right" *ngIf="!nextPageLinkIconTemplate && !_nextPageLinkIconTemplate" [class]="cx('nextIcon')" />
-            <span [class]="cx('nextIcon')" *ngIf="nextPageLinkIconTemplate || _nextPageLinkIconTemplate">
-                <ng-template *ngTemplateOutlet="nextPageLinkIconTemplate || _nextPageLinkIconTemplate"></ng-template>
-            </span>
-        </button>
-        <button [pBind]="ptm('last')" *ngIf="showFirstLastIcon" type="button" [disabled]="isLastPage() || empty()" (click)="changePageToLast($event)" pRipple [class]="cx('last')" [attr.aria-label]="getAriaLabel('lastPageLabel')">
-            <svg [pBind]="ptm('lastIcon')" data-p-icon="angle-double-right" *ngIf="!lastPageLinkIconTemplate && !_lastPageLinkIconTemplate" [class]="cx('lastIcon')" />
-            <span [class]="cx('lastIcon')" *ngIf="lastPageLinkIconTemplate || _lastPageLinkIconTemplate">
-                <ng-template *ngTemplateOutlet="lastPageLinkIconTemplate || _lastPageLinkIconTemplate"></ng-template>
-            </span>
-        </button>
-        <p-inputnumber [pt]="ptm('pcJumpToPageInput')" *ngIf="showJumpToPageInput" [ngModel]="currentPage()" [class]="cx('pcJumpToPageInput')" [disabled]="empty()" (ngModelChange)="changePage($event - 1)" [unstyled]="unstyled()"></p-inputnumber>
-        <p-select
-            [options]="rowsPerPageItems"
-            [(ngModel)]="rows"
-            *ngIf="rowsPerPageOptions"
-            [styleClass]="cx('pcRowPerPageDropdown')"
-            [disabled]="empty()"
-            (onChange)="onRppChange($event)"
-            [appendTo]="dropdownAppendTo || $appendTo()"
-            [scrollHeight]="dropdownScrollHeight"
-            [ariaLabel]="getAriaLabel('rowsPerPageLabel')"
-            [pt]="ptm('pcRowPerPageDropdown')"
-            [unstyled]="unstyled()"
-        >
-            <ng-container *ngIf="dropdownItemTemplate">
-                <ng-template let-item pTemplate="item">
-                    <ng-container *ngTemplateOutlet="dropdownItemTemplate; context: { $implicit: item }"></ng-container>
-                </ng-template>
-            </ng-container>
-            <ng-template pTemplate="dropdownicon" *ngIf="dropdownIconTemplate || _dropdownIconTemplate">
-                <ng-container *ngTemplateOutlet="dropdownIconTemplate || _dropdownIconTemplate"></ng-container>
-            </ng-template>
-        </p-select>
-        <div [pBind]="ptm('contentEnd')" [class]="cx('contentEnd')" *ngIf="templateRight">
-            <ng-container *ngTemplateOutlet="templateRight; context: { $implicit: paginatorState }"></ng-container>
-        </div>
-    `,
-      changeDetection: ChangeDetectionStrategy.OnPush,
-      encapsulation: ViewEncapsulation.None,
-      providers: [PaginatorStyle, {
-        provide: PAGINATOR_INSTANCE,
-        useExisting: Paginator
-      }, {
-        provide: PARENT_INSTANCE,
-        useExisting: Paginator
-      }],
-      host: {
-        "[class]": "cn(cx('paginator'), styleClass)"
-      },
-      hostDirectives: [Bind]
-    }]
-  }], () => [], {
-    pageLinkSize: [{
-      type: Input,
-      args: [{
-        transform: numberAttribute
-      }]
-    }],
-    styleClass: [{
-      type: Input
-    }],
-    alwaysShow: [{
-      type: Input,
-      args: [{
-        transform: booleanAttribute
-      }]
-    }],
-    dropdownAppendTo: [{
-      type: Input
-    }],
-    templateLeft: [{
-      type: Input
-    }],
-    templateRight: [{
-      type: Input
-    }],
-    dropdownScrollHeight: [{
-      type: Input
-    }],
-    currentPageReportTemplate: [{
-      type: Input
-    }],
-    showCurrentPageReport: [{
-      type: Input,
-      args: [{
-        transform: booleanAttribute
-      }]
-    }],
-    showFirstLastIcon: [{
-      type: Input,
-      args: [{
-        transform: booleanAttribute
-      }]
-    }],
-    totalRecords: [{
-      type: Input,
-      args: [{
-        transform: numberAttribute
-      }]
-    }],
-    rows: [{
-      type: Input,
-      args: [{
-        transform: numberAttribute
-      }]
-    }],
-    rowsPerPageOptions: [{
-      type: Input
-    }],
-    showJumpToPageDropdown: [{
-      type: Input,
-      args: [{
-        transform: booleanAttribute
-      }]
-    }],
-    showJumpToPageInput: [{
-      type: Input,
-      args: [{
-        transform: booleanAttribute
-      }]
-    }],
-    jumpToPageItemTemplate: [{
-      type: Input
-    }],
-    showPageLinks: [{
-      type: Input,
-      args: [{
-        transform: booleanAttribute
-      }]
-    }],
-    locale: [{
-      type: Input
-    }],
-    dropdownItemTemplate: [{
-      type: Input
-    }],
-    first: [{
-      type: Input
-    }],
-    appendTo: [{
-      type: Input,
-      args: [{
-        isSignal: true,
-        alias: "appendTo",
-        required: false
-      }]
-    }],
-    onPageChange: [{
-      type: Output
-    }],
-    dropdownIconTemplate: [{
-      type: ContentChild,
-      args: ["dropdownicon", {
-        descendants: false
-      }]
-    }],
-    firstPageLinkIconTemplate: [{
-      type: ContentChild,
-      args: ["firstpagelinkicon", {
-        descendants: false
-      }]
-    }],
-    previousPageLinkIconTemplate: [{
-      type: ContentChild,
-      args: ["previouspagelinkicon", {
-        descendants: false
-      }]
-    }],
-    lastPageLinkIconTemplate: [{
-      type: ContentChild,
-      args: ["lastpagelinkicon", {
-        descendants: false
-      }]
-    }],
-    nextPageLinkIconTemplate: [{
-      type: ContentChild,
-      args: ["nextpagelinkicon", {
-        descendants: false
-      }]
-    }],
-    templates: [{
-      type: ContentChildren,
-      args: [PrimeTemplate]
-    }],
-    display: [{
-      type: HostBinding,
-      args: ["style.display"]
-    }]
-  });
-})();
-var PaginatorModule = class _PaginatorModule {
-  static ɵfac = function PaginatorModule_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || _PaginatorModule)();
-  };
-  static ɵmod = ɵɵdefineNgModule({
-    type: _PaginatorModule,
-    imports: [Paginator, SharedModule],
-    exports: [Paginator, SharedModule]
-  });
-  static ɵinj = ɵɵdefineInjector({
-    imports: [Paginator, SharedModule, SharedModule]
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(PaginatorModule, [{
-    type: NgModule,
-    args: [{
-      imports: [Paginator, SharedModule],
-      exports: [Paginator, SharedModule]
-    }]
-  }], null, null);
-})();
-
 // node_modules/@primeuix/styles/dist/togglebutton/index.mjs
-var style3 = "\n    .p-togglebutton {\n        display: inline-flex;\n        cursor: pointer;\n        user-select: none;\n        overflow: hidden;\n        position: relative;\n        color: dt('togglebutton.color');\n        background: dt('togglebutton.background');\n        border: 1px solid dt('togglebutton.border.color');\n        padding: dt('togglebutton.padding');\n        font-size: 1rem;\n        font-family: inherit;\n        font-feature-settings: inherit;\n        transition:\n            background dt('togglebutton.transition.duration'),\n            color dt('togglebutton.transition.duration'),\n            border-color dt('togglebutton.transition.duration'),\n            outline-color dt('togglebutton.transition.duration'),\n            box-shadow dt('togglebutton.transition.duration');\n        border-radius: dt('togglebutton.border.radius');\n        outline-color: transparent;\n        font-weight: dt('togglebutton.font.weight');\n    }\n\n    .p-togglebutton-content {\n        display: inline-flex;\n        flex: 1 1 auto;\n        align-items: center;\n        justify-content: center;\n        gap: dt('togglebutton.gap');\n        padding: dt('togglebutton.content.padding');\n        background: transparent;\n        border-radius: dt('togglebutton.content.border.radius');\n        transition:\n            background dt('togglebutton.transition.duration'),\n            color dt('togglebutton.transition.duration'),\n            border-color dt('togglebutton.transition.duration'),\n            outline-color dt('togglebutton.transition.duration'),\n            box-shadow dt('togglebutton.transition.duration');\n    }\n\n    .p-togglebutton:not(:disabled):not(.p-togglebutton-checked):hover {\n        background: dt('togglebutton.hover.background');\n        color: dt('togglebutton.hover.color');\n    }\n\n    .p-togglebutton.p-togglebutton-checked {\n        background: dt('togglebutton.checked.background');\n        border-color: dt('togglebutton.checked.border.color');\n        color: dt('togglebutton.checked.color');\n    }\n\n    .p-togglebutton-checked .p-togglebutton-content {\n        background: dt('togglebutton.content.checked.background');\n        box-shadow: dt('togglebutton.content.checked.shadow');\n    }\n\n    .p-togglebutton:focus-visible {\n        box-shadow: dt('togglebutton.focus.ring.shadow');\n        outline: dt('togglebutton.focus.ring.width') dt('togglebutton.focus.ring.style') dt('togglebutton.focus.ring.color');\n        outline-offset: dt('togglebutton.focus.ring.offset');\n    }\n\n    .p-togglebutton.p-invalid {\n        border-color: dt('togglebutton.invalid.border.color');\n    }\n\n    .p-togglebutton:disabled {\n        opacity: 1;\n        cursor: default;\n        background: dt('togglebutton.disabled.background');\n        border-color: dt('togglebutton.disabled.border.color');\n        color: dt('togglebutton.disabled.color');\n    }\n\n    .p-togglebutton-label,\n    .p-togglebutton-icon {\n        position: relative;\n        transition: none;\n    }\n\n    .p-togglebutton-icon {\n        color: dt('togglebutton.icon.color');\n    }\n\n    .p-togglebutton:not(:disabled):not(.p-togglebutton-checked):hover .p-togglebutton-icon {\n        color: dt('togglebutton.icon.hover.color');\n    }\n\n    .p-togglebutton.p-togglebutton-checked .p-togglebutton-icon {\n        color: dt('togglebutton.icon.checked.color');\n    }\n\n    .p-togglebutton:disabled .p-togglebutton-icon {\n        color: dt('togglebutton.icon.disabled.color');\n    }\n\n    .p-togglebutton-sm {\n        padding: dt('togglebutton.sm.padding');\n        font-size: dt('togglebutton.sm.font.size');\n    }\n\n    .p-togglebutton-sm .p-togglebutton-content {\n        padding: dt('togglebutton.content.sm.padding');\n    }\n\n    .p-togglebutton-lg {\n        padding: dt('togglebutton.lg.padding');\n        font-size: dt('togglebutton.lg.font.size');\n    }\n\n    .p-togglebutton-lg .p-togglebutton-content {\n        padding: dt('togglebutton.content.lg.padding');\n    }\n\n    .p-togglebutton-fluid {\n        width: 100%;\n    }\n";
+var style2 = "\n    .p-togglebutton {\n        display: inline-flex;\n        cursor: pointer;\n        user-select: none;\n        overflow: hidden;\n        position: relative;\n        color: dt('togglebutton.color');\n        background: dt('togglebutton.background');\n        border: 1px solid dt('togglebutton.border.color');\n        padding: dt('togglebutton.padding');\n        font-size: 1rem;\n        font-family: inherit;\n        font-feature-settings: inherit;\n        transition:\n            background dt('togglebutton.transition.duration'),\n            color dt('togglebutton.transition.duration'),\n            border-color dt('togglebutton.transition.duration'),\n            outline-color dt('togglebutton.transition.duration'),\n            box-shadow dt('togglebutton.transition.duration');\n        border-radius: dt('togglebutton.border.radius');\n        outline-color: transparent;\n        font-weight: dt('togglebutton.font.weight');\n    }\n\n    .p-togglebutton-content {\n        display: inline-flex;\n        flex: 1 1 auto;\n        align-items: center;\n        justify-content: center;\n        gap: dt('togglebutton.gap');\n        padding: dt('togglebutton.content.padding');\n        background: transparent;\n        border-radius: dt('togglebutton.content.border.radius');\n        transition:\n            background dt('togglebutton.transition.duration'),\n            color dt('togglebutton.transition.duration'),\n            border-color dt('togglebutton.transition.duration'),\n            outline-color dt('togglebutton.transition.duration'),\n            box-shadow dt('togglebutton.transition.duration');\n    }\n\n    .p-togglebutton:not(:disabled):not(.p-togglebutton-checked):hover {\n        background: dt('togglebutton.hover.background');\n        color: dt('togglebutton.hover.color');\n    }\n\n    .p-togglebutton.p-togglebutton-checked {\n        background: dt('togglebutton.checked.background');\n        border-color: dt('togglebutton.checked.border.color');\n        color: dt('togglebutton.checked.color');\n    }\n\n    .p-togglebutton-checked .p-togglebutton-content {\n        background: dt('togglebutton.content.checked.background');\n        box-shadow: dt('togglebutton.content.checked.shadow');\n    }\n\n    .p-togglebutton:focus-visible {\n        box-shadow: dt('togglebutton.focus.ring.shadow');\n        outline: dt('togglebutton.focus.ring.width') dt('togglebutton.focus.ring.style') dt('togglebutton.focus.ring.color');\n        outline-offset: dt('togglebutton.focus.ring.offset');\n    }\n\n    .p-togglebutton.p-invalid {\n        border-color: dt('togglebutton.invalid.border.color');\n    }\n\n    .p-togglebutton:disabled {\n        opacity: 1;\n        cursor: default;\n        background: dt('togglebutton.disabled.background');\n        border-color: dt('togglebutton.disabled.border.color');\n        color: dt('togglebutton.disabled.color');\n    }\n\n    .p-togglebutton-label,\n    .p-togglebutton-icon {\n        position: relative;\n        transition: none;\n    }\n\n    .p-togglebutton-icon {\n        color: dt('togglebutton.icon.color');\n    }\n\n    .p-togglebutton:not(:disabled):not(.p-togglebutton-checked):hover .p-togglebutton-icon {\n        color: dt('togglebutton.icon.hover.color');\n    }\n\n    .p-togglebutton.p-togglebutton-checked .p-togglebutton-icon {\n        color: dt('togglebutton.icon.checked.color');\n    }\n\n    .p-togglebutton:disabled .p-togglebutton-icon {\n        color: dt('togglebutton.icon.disabled.color');\n    }\n\n    .p-togglebutton-sm {\n        padding: dt('togglebutton.sm.padding');\n        font-size: dt('togglebutton.sm.font.size');\n    }\n\n    .p-togglebutton-sm .p-togglebutton-content {\n        padding: dt('togglebutton.content.sm.padding');\n    }\n\n    .p-togglebutton-lg {\n        padding: dt('togglebutton.lg.padding');\n        font-size: dt('togglebutton.lg.font.size');\n    }\n\n    .p-togglebutton-lg .p-togglebutton-content {\n        padding: dt('togglebutton.content.lg.padding');\n    }\n\n    .p-togglebutton-fluid {\n        width: 100%;\n    }\n";
 
 // node_modules/primeng/fesm2022/primeng-togglebutton.mjs
-var _c03 = ["icon"];
-var _c12 = ["content"];
-var _c22 = (a0) => ({
+var _c02 = ["icon"];
+var _c1 = ["content"];
+var _c2 = (a0) => ({
   $implicit: a0
 });
 function ToggleButton_ng_container_1_Template(rf, ctx) {
@@ -1616,7 +316,7 @@ function ToggleButton_Conditional_2_Conditional_1_Template(rf, ctx) {
   }
   if (rf & 2) {
     const ctx_r0 = ɵɵnextContext(2);
-    ɵɵproperty("ngTemplateOutlet", ctx_r0.iconTemplate || ctx_r0._iconTemplate)("ngTemplateOutletContext", ɵɵpureFunction1(2, _c22, ctx_r0.checked));
+    ɵɵproperty("ngTemplateOutlet", ctx_r0.iconTemplate || ctx_r0._iconTemplate)("ngTemplateOutletContext", ɵɵpureFunction1(2, _c2, ctx_r0.checked));
   }
 }
 function ToggleButton_Conditional_2_Template(rf, ctx) {
@@ -1636,10 +336,10 @@ function ToggleButton_Conditional_2_Template(rf, ctx) {
     ɵɵtextInterpolate(ctx_r0.checked ? ctx_r0.hasOnLabel ? ctx_r0.onLabel : " " : ctx_r0.hasOffLabel ? ctx_r0.offLabel : " ");
   }
 }
-var style4 = (
+var style3 = (
   /*css*/
   `
-    ${style3}
+    ${style2}
 
     /* For PrimeNG (iconPos) */
     .p-togglebutton-icon-right {
@@ -1651,7 +351,7 @@ var style4 = (
     }
 `
 );
-var classes2 = {
+var classes = {
   root: ({
     instance
   }) => ["p-togglebutton p-component", {
@@ -1670,8 +370,8 @@ var classes2 = {
 };
 var ToggleButtonStyle = class _ToggleButtonStyle extends BaseStyle {
   name = "togglebutton";
-  style = style4;
-  classes = classes2;
+  style = style3;
+  classes = classes;
   static ɵfac = /* @__PURE__ */ (() => {
     let ɵToggleButtonStyle_BaseFactory;
     return function ToggleButtonStyle_Factory(__ngFactoryType__) {
@@ -1904,7 +604,7 @@ var ToggleButton = class _ToggleButton extends BaseEditableHolder {
     selectors: [["p-toggleButton"], ["p-togglebutton"], ["p-toggle-button"]],
     contentQueries: function ToggleButton_ContentQueries(rf, ctx, dirIndex) {
       if (rf & 1) {
-        ɵɵcontentQuery(dirIndex, _c03, 4)(dirIndex, _c12, 4)(dirIndex, PrimeTemplate, 4);
+        ɵɵcontentQuery(dirIndex, _c02, 4)(dirIndex, _c1, 4)(dirIndex, PrimeTemplate, 4);
       }
       if (rf & 2) {
         let _t;
@@ -1968,7 +668,7 @@ var ToggleButton = class _ToggleButton extends BaseEditableHolder {
         ɵɵproperty("pBind", ctx.ptm("content"));
         ɵɵattribute("data-p", ctx.dataP);
         ɵɵadvance();
-        ɵɵproperty("ngTemplateOutlet", ctx.contentTemplate || ctx._contentTemplate)("ngTemplateOutletContext", ɵɵpureFunction1(7, _c22, ctx.checked));
+        ɵɵproperty("ngTemplateOutlet", ctx.contentTemplate || ctx._contentTemplate)("ngTemplateOutletContext", ɵɵpureFunction1(7, _c2, ctx.checked));
         ɵɵadvance();
         ɵɵconditional(!ctx.contentTemplate ? 2 : -1);
       }
@@ -2129,11 +829,11 @@ var ToggleButtonModule = class _ToggleButtonModule {
 })();
 
 // node_modules/@primeuix/styles/dist/selectbutton/index.mjs
-var style5 = "\n    .p-selectbutton {\n        display: inline-flex;\n        user-select: none;\n        vertical-align: bottom;\n        outline-color: transparent;\n        border-radius: dt('selectbutton.border.radius');\n    }\n\n    .p-selectbutton .p-togglebutton {\n        border-radius: 0;\n        border-width: 1px 1px 1px 0;\n    }\n\n    .p-selectbutton .p-togglebutton:focus-visible {\n        position: relative;\n        z-index: 1;\n    }\n\n    .p-selectbutton .p-togglebutton:first-child {\n        border-inline-start-width: 1px;\n        border-start-start-radius: dt('selectbutton.border.radius');\n        border-end-start-radius: dt('selectbutton.border.radius');\n    }\n\n    .p-selectbutton .p-togglebutton:last-child {\n        border-start-end-radius: dt('selectbutton.border.radius');\n        border-end-end-radius: dt('selectbutton.border.radius');\n    }\n\n    .p-selectbutton.p-invalid {\n        outline: 1px solid dt('selectbutton.invalid.border.color');\n        outline-offset: 0;\n    }\n\n    .p-selectbutton-fluid {\n        width: 100%;\n    }\n    \n    .p-selectbutton-fluid .p-togglebutton {\n        flex: 1 1 0;\n    }\n";
+var style4 = "\n    .p-selectbutton {\n        display: inline-flex;\n        user-select: none;\n        vertical-align: bottom;\n        outline-color: transparent;\n        border-radius: dt('selectbutton.border.radius');\n    }\n\n    .p-selectbutton .p-togglebutton {\n        border-radius: 0;\n        border-width: 1px 1px 1px 0;\n    }\n\n    .p-selectbutton .p-togglebutton:focus-visible {\n        position: relative;\n        z-index: 1;\n    }\n\n    .p-selectbutton .p-togglebutton:first-child {\n        border-inline-start-width: 1px;\n        border-start-start-radius: dt('selectbutton.border.radius');\n        border-end-start-radius: dt('selectbutton.border.radius');\n    }\n\n    .p-selectbutton .p-togglebutton:last-child {\n        border-start-end-radius: dt('selectbutton.border.radius');\n        border-end-end-radius: dt('selectbutton.border.radius');\n    }\n\n    .p-selectbutton.p-invalid {\n        outline: 1px solid dt('selectbutton.invalid.border.color');\n        outline-offset: 0;\n    }\n\n    .p-selectbutton-fluid {\n        width: 100%;\n    }\n    \n    .p-selectbutton-fluid .p-togglebutton {\n        flex: 1 1 0;\n    }\n";
 
 // node_modules/primeng/fesm2022/primeng-selectbutton.mjs
-var _c04 = ["item"];
-var _c13 = (a0, a1) => ({
+var _c03 = ["item"];
+var _c12 = (a0, a1) => ({
   $implicit: a0,
   index: a1
 });
@@ -2154,7 +854,7 @@ function SelectButton_For_1_Conditional_1_ng_template_0_Template(rf, ctx) {
     const option_r3 = ctx_r5.$implicit;
     const ɵ$index_1_r4 = ctx_r5.$index;
     const ctx_r4 = ɵɵnextContext();
-    ɵɵproperty("ngTemplateOutlet", ctx_r4.itemTemplate || ctx_r4._itemTemplate)("ngTemplateOutletContext", ɵɵpureFunction2(2, _c13, option_r3, ɵ$index_1_r4));
+    ɵɵproperty("ngTemplateOutlet", ctx_r4.itemTemplate || ctx_r4._itemTemplate)("ngTemplateOutletContext", ɵɵpureFunction2(2, _c12, option_r3, ɵ$index_1_r4));
   }
 }
 function SelectButton_For_1_Conditional_1_Template(rf, ctx) {
@@ -2184,10 +884,10 @@ function SelectButton_For_1_Template(rf, ctx) {
     ɵɵconditional(ctx_r4.itemTemplate || ctx_r4._itemTemplate ? 1 : -1);
   }
 }
-var style6 = (
+var style5 = (
   /*css*/
   `
-    ${style5}
+    ${style4}
 
     /* For PrimeNG */
     .p-selectbutton.ng-invalid.ng-dirty {
@@ -2196,7 +896,7 @@ var style6 = (
     }
 `
 );
-var classes3 = {
+var classes2 = {
   root: ({
     instance
   }) => ["p-selectbutton p-component", {
@@ -2206,8 +906,8 @@ var classes3 = {
 };
 var SelectButtonStyle = class _SelectButtonStyle extends BaseStyle {
   name = "selectbutton";
-  style = style6;
-  classes = classes3;
+  style = style5;
+  classes = classes2;
   static ɵfac = /* @__PURE__ */ (() => {
     let ɵSelectButtonStyle_BaseFactory;
     return function SelectButtonStyle_Factory(__ngFactoryType__) {
@@ -2492,7 +1192,7 @@ var SelectButton = class _SelectButton extends BaseEditableHolder {
     selectors: [["p-selectButton"], ["p-selectbutton"], ["p-select-button"]],
     contentQueries: function SelectButton_ContentQueries(rf, ctx, dirIndex) {
       if (rf & 1) {
-        ɵɵcontentQuery(dirIndex, _c04, 4)(dirIndex, PrimeTemplate, 4);
+        ɵɵcontentQuery(dirIndex, _c03, 4)(dirIndex, PrimeTemplate, 4);
       }
       if (rf & 2) {
         let _t;
@@ -2708,13 +1408,13 @@ var SelectButtonModule = class _SelectButtonModule {
 })();
 
 // node_modules/primeng/fesm2022/primeng-table.mjs
-var _c05 = ["header"];
-var _c14 = ["headergrouped"];
-var _c23 = ["body"];
-var _c32 = ["loadingbody"];
-var _c42 = ["caption"];
-var _c52 = ["footer"];
-var _c62 = ["footergrouped"];
+var _c04 = ["header"];
+var _c13 = ["headergrouped"];
+var _c22 = ["body"];
+var _c3 = ["loadingbody"];
+var _c4 = ["caption"];
+var _c5 = ["footer"];
+var _c6 = ["footergrouped"];
 var _c7 = ["summary"];
 var _c8 = ["colgroup"];
 var _c9 = ["expandedrow"];
@@ -2722,7 +1422,7 @@ var _c10 = ["groupheader"];
 var _c11 = ["groupfooter"];
 var _c122 = ["frozenexpandedrow"];
 var _c132 = ["frozenheader"];
-var _c142 = ["frozenbody"];
+var _c14 = ["frozenbody"];
 var _c15 = ["frozenfooter"];
 var _c16 = ["frozencolgroup"];
 var _c17 = ["emptymessage"];
@@ -2731,7 +1431,7 @@ var _c19 = ["paginatorright"];
 var _c20 = ["paginatordropdownitem"];
 var _c21 = ["loadingicon"];
 var _c222 = ["reorderindicatorupicon"];
-var _c232 = ["reorderindicatordownicon"];
+var _c23 = ["reorderindicatordownicon"];
 var _c24 = ["sorticon"];
 var _c25 = ["checkboxicon"];
 var _c26 = ["headercheckboxicon"];
@@ -2740,7 +1440,7 @@ var _c28 = ["paginatorfirstpagelinkicon"];
 var _c29 = ["paginatorlastpagelinkicon"];
 var _c30 = ["paginatorpreviouspagelinkicon"];
 var _c31 = ["paginatornextpagelinkicon"];
-var _c322 = ["resizeHelper"];
+var _c32 = ["resizeHelper"];
 var _c33 = ["reorderIndicatorUp"];
 var _c34 = ["reorderIndicatorDown"];
 var _c35 = ["wrapper"];
@@ -2755,7 +1455,7 @@ var _c41 = (a0, a1) => ({
   $implicit: a0,
   options: a1
 });
-var _c422 = (a0) => ({
+var _c42 = (a0) => ({
   columns: a0
 });
 var _c43 = (a0) => ({
@@ -3026,7 +1726,7 @@ function Table_ng_container_6_Template(rf, ctx) {
     const ctx_r0 = ɵɵnextContext();
     const buildInTable_r6 = ɵɵreference(8);
     ɵɵadvance();
-    ɵɵproperty("ngTemplateOutlet", buildInTable_r6)("ngTemplateOutletContext", ɵɵpureFunction2(4, _c41, ctx_r0.processedData, ɵɵpureFunction1(2, _c422, ctx_r0.columns)));
+    ɵɵproperty("ngTemplateOutlet", buildInTable_r6)("ngTemplateOutletContext", ɵɵpureFunction2(4, _c41, ctx_r0.processedData, ɵɵpureFunction1(2, _c42, ctx_r0.columns)));
   }
 }
 function Table_ng_template_7_ng_container_2_Template(rf, ctx) {
@@ -3786,7 +2486,7 @@ function CellEditor_ng_container_1_Template(rf, ctx) {
     ɵɵproperty("ngTemplateOutlet", ctx_r0.outputTemplate || ctx_r0._outputTemplate);
   }
 }
-var _c522 = ["rb"];
+var _c52 = ["rb"];
 function TableCheckbox_Conditional_1_ng_template_0_0_ng_template_0_Template(rf, ctx) {
 }
 function TableCheckbox_Conditional_1_ng_template_0_0_Template(rf, ctx) {
@@ -4267,7 +2967,7 @@ function ColumnFilter_Conditional_3_Template(rf, ctx) {
     ɵɵproperty("ngTemplateOutlet", ctx_r0.footerTemplate || ctx_r0._footerTemplate)("ngTemplateOutletContext", ɵɵpureFunction1(16, _c43, ctx_r0.field));
   }
 }
-var _c622 = (a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15) => ({
+var _c62 = (a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15) => ({
   $implicit: a0,
   filterCallback: a1,
   type: a2,
@@ -4299,7 +2999,7 @@ function ColumnFilterFormElement_ng_container_0_Template(rf, ctx) {
   if (rf & 2) {
     const ctx_r0 = ɵɵnextContext();
     ɵɵadvance();
-    ɵɵproperty("ngTemplateOutlet", ctx_r0.filterTemplate)("ngTemplateOutletContext", ɵɵpureFunctionV(2, _c622, [ctx_r0.filterConstraint.value, ctx_r0.filterCallback, ctx_r0.type, ctx_r0.field, ctx_r0.filterConstraint, ctx_r0.placeholder, ctx_r0.minFractionDigits, ctx_r0.maxFractionDigits, ctx_r0.prefix, ctx_r0.suffix, ctx_r0.locale, ctx_r0.localeMatcher, ctx_r0.currency, ctx_r0.currencyDisplay, ctx_r0.useGrouping, ctx_r0.showButtons]));
+    ɵɵproperty("ngTemplateOutlet", ctx_r0.filterTemplate)("ngTemplateOutletContext", ɵɵpureFunctionV(2, _c62, [ctx_r0.filterConstraint.value, ctx_r0.filterCallback, ctx_r0.type, ctx_r0.field, ctx_r0.filterConstraint, ctx_r0.placeholder, ctx_r0.minFractionDigits, ctx_r0.maxFractionDigits, ctx_r0.prefix, ctx_r0.suffix, ctx_r0.locale, ctx_r0.localeMatcher, ctx_r0.currency, ctx_r0.currencyDisplay, ctx_r0.useGrouping, ctx_r0.showButtons]));
   }
 }
 function ColumnFilterFormElement_ng_template_1_input_1_Template(rf, ctx) {
@@ -4394,7 +3094,7 @@ function ColumnFilterFormElement_ng_template_1_Template(rf, ctx) {
     ɵɵproperty("ngSwitchCase", "date");
   }
 }
-var style7 = (
+var style6 = (
   /*css*/
   `
 ${style}
@@ -4510,7 +3210,7 @@ p-sortIcon, p-sort-icon, p-sorticon {
 }
 `
 );
-var classes4 = {
+var classes3 = {
   root: ({
     instance
   }) => ["p-datatable p-component", {
@@ -4662,8 +3362,8 @@ var inlineStyles = {
 };
 var TableStyle = class _TableStyle extends BaseStyle {
   name = "datatable";
-  style = style7;
-  classes = classes4;
+  style = style6;
+  classes = classes3;
   inlineStyles = inlineStyles;
   static ɵfac = /* @__PURE__ */ (() => {
     let ɵTableStyle_BaseFactory;
@@ -6871,12 +5571,12 @@ var Table = class _Table extends BaseComponent {
     let innerHTML = "";
     width.forEach((width2, index) => {
       let colWidth = index === colIndex ? newColumnWidth : nextColumnWidth && index === colIndex + 1 ? nextColumnWidth : width2;
-      let style8 = `width: ${colWidth}px !important; max-width: ${colWidth}px !important;`;
+      let style7 = `width: ${colWidth}px !important; max-width: ${colWidth}px !important;`;
       innerHTML += `
                 #${this.id}-table > .p-datatable-thead > tr > th:nth-child(${index + 1}),
                 #${this.id}-table > .p-datatable-tbody > tr > td:nth-child(${index + 1}),
                 #${this.id}-table > .p-datatable-tfoot > tr > td:nth-child(${index + 1}) {
-                    ${style8}
+                    ${style7}
                 }
             `;
     });
@@ -7072,12 +5772,12 @@ var Table = class _Table extends BaseComponent {
         this.createStyleElement();
         let innerHTML = "";
         widths.forEach((width, index) => {
-          let style8 = `width: ${width}px !important; max-width: ${width}px !important`;
+          let style7 = `width: ${width}px !important; max-width: ${width}px !important`;
           innerHTML += `
                         #${this.id}-table > .p-datatable-thead > tr > th:nth-child(${index + 1}),
                         #${this.id}-table > .p-datatable-tbody > tr > td:nth-child(${index + 1}),
                         #${this.id}-table > .p-datatable-tfoot > tr > td:nth-child(${index + 1}) {
-                            ${style8}
+                            ${style7}
                         }
                     `;
         });
@@ -7219,7 +5919,7 @@ var Table = class _Table extends BaseComponent {
     selectors: [["p-table"]],
     contentQueries: function Table_ContentQueries(rf, ctx, dirIndex) {
       if (rf & 1) {
-        ɵɵcontentQuery(dirIndex, _c05, 4)(dirIndex, _c14, 4)(dirIndex, _c23, 4)(dirIndex, _c32, 4)(dirIndex, _c42, 4)(dirIndex, _c52, 4)(dirIndex, _c62, 4)(dirIndex, _c7, 4)(dirIndex, _c8, 4)(dirIndex, _c9, 4)(dirIndex, _c10, 4)(dirIndex, _c11, 4)(dirIndex, _c122, 4)(dirIndex, _c132, 4)(dirIndex, _c142, 4)(dirIndex, _c15, 4)(dirIndex, _c16, 4)(dirIndex, _c17, 4)(dirIndex, _c18, 4)(dirIndex, _c19, 4)(dirIndex, _c20, 4)(dirIndex, _c21, 4)(dirIndex, _c222, 4)(dirIndex, _c232, 4)(dirIndex, _c24, 4)(dirIndex, _c25, 4)(dirIndex, _c26, 4)(dirIndex, _c27, 4)(dirIndex, _c28, 4)(dirIndex, _c29, 4)(dirIndex, _c30, 4)(dirIndex, _c31, 4)(dirIndex, PrimeTemplate, 4);
+        ɵɵcontentQuery(dirIndex, _c04, 4)(dirIndex, _c13, 4)(dirIndex, _c22, 4)(dirIndex, _c3, 4)(dirIndex, _c4, 4)(dirIndex, _c5, 4)(dirIndex, _c6, 4)(dirIndex, _c7, 4)(dirIndex, _c8, 4)(dirIndex, _c9, 4)(dirIndex, _c10, 4)(dirIndex, _c11, 4)(dirIndex, _c122, 4)(dirIndex, _c132, 4)(dirIndex, _c14, 4)(dirIndex, _c15, 4)(dirIndex, _c16, 4)(dirIndex, _c17, 4)(dirIndex, _c18, 4)(dirIndex, _c19, 4)(dirIndex, _c20, 4)(dirIndex, _c21, 4)(dirIndex, _c222, 4)(dirIndex, _c23, 4)(dirIndex, _c24, 4)(dirIndex, _c25, 4)(dirIndex, _c26, 4)(dirIndex, _c27, 4)(dirIndex, _c28, 4)(dirIndex, _c29, 4)(dirIndex, _c30, 4)(dirIndex, _c31, 4)(dirIndex, PrimeTemplate, 4);
       }
       if (rf & 2) {
         let _t;
@@ -7260,7 +5960,7 @@ var Table = class _Table extends BaseComponent {
     },
     viewQuery: function Table_Query(rf, ctx) {
       if (rf & 1) {
-        ɵɵviewQuery(_c322, 5)(_c33, 5)(_c34, 5)(_c35, 5)(_c36, 5)(_c37, 5)(_c38, 5)(_c39, 5);
+        ɵɵviewQuery(_c32, 5)(_c33, 5)(_c34, 5)(_c35, 5)(_c36, 5)(_c37, 5)(_c38, 5)(_c39, 5);
       }
       if (rf & 2) {
         let _t;
@@ -10716,7 +9416,7 @@ var TableRadioButton = class _TableRadioButton extends BaseComponent {
     selectors: [["p-tableRadioButton"]],
     viewQuery: function TableRadioButton_Query(rf, ctx) {
       if (rf & 1) {
-        ɵɵviewQuery(_c522, 5);
+        ɵɵviewQuery(_c52, 5);
       }
       if (rf & 2) {
         let _t;
@@ -12076,7 +10776,7 @@ var ColumnFilter = class _ColumnFilter extends BaseComponent {
     selectors: [["p-columnFilter"], ["p-column-filter"], ["p-columnfilter"]],
     contentQueries: function ColumnFilter_ContentQueries(rf, ctx, dirIndex) {
       if (rf & 1) {
-        ɵɵcontentQuery(dirIndex, _c05, 4)(dirIndex, _c53, 4)(dirIndex, _c52, 4)(dirIndex, _c54, 4)(dirIndex, _c55, 4)(dirIndex, _c56, 4)(dirIndex, _c57, 4)(dirIndex, PrimeTemplate, 4);
+        ɵɵcontentQuery(dirIndex, _c04, 4)(dirIndex, _c53, 4)(dirIndex, _c5, 4)(dirIndex, _c54, 4)(dirIndex, _c55, 4)(dirIndex, _c56, 4)(dirIndex, _c57, 4)(dirIndex, PrimeTemplate, 4);
       }
       if (rf & 2) {
         let _t;

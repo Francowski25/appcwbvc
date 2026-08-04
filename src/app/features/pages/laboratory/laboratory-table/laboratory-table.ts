@@ -1,22 +1,21 @@
 import { TitleCasePipe } from '@angular/common';
-import { Component, inject, input, output } from '@angular/core';
-import { TableModule } from 'primeng/table';
+import { Component, computed, inject, input, output, signal } from '@angular/core';
+import { PaginatorModule } from 'primeng/paginator';
 import { TooltipModule } from 'primeng/tooltip';
-import { ConfirmationService } from 'primeng/api'; // 1. Importar ConfirmationService
+import { ConfirmationService } from 'primeng/api';
 
 @Component({
   selector: 'app-laboratory-table',
   standalone: true,
   imports: [
-    TitleCasePipe,
-    TableModule,
+    PaginatorModule,
     TooltipModule
   ],
   templateUrl: './laboratory-table.html',
   styleUrl: './laboratory-table.css',
 })
 export class LaboratoryTable {
-  private readonly confirmationService = inject(ConfirmationService); // 2. Inyectar el servicio
+  private readonly confirmationService = inject(ConfirmationService);
 
   laboratorios = input<any[]>([]);
   total = input<number>(0);
@@ -29,7 +28,34 @@ export class LaboratoryTable {
   onExportExcel = output<void>();
   onExportPdf = output<void>();
 
-  // 3. Método para desplegar el diálogo de confirmación
+  filasPorPagina = signal<number>(10);
+  paginaActual = signal<number>(0);
+
+  paginados = computed(() => {
+    const inicio = this.paginaActual() * this.filasPorPagina();
+    const fin = inicio + this.filasPorPagina();
+    return this.laboratorios().slice(inicio, fin);
+  });
+
+  totalPaginas = computed(() =>
+    Math.ceil(this.laboratorios().length / this.filasPorPagina()) || 1
+  );
+
+  primerRegistro = computed(() => {
+    if (this.laboratorios().length === 0) return 0;
+    return this.paginaActual() * this.filasPorPagina() + 1;
+  });
+
+  ultimoRegistro = computed(() => {
+    const ultimoCalculado = (this.paginaActual() + 1) * this.filasPorPagina();
+    return Math.min(ultimoCalculado, this.laboratorios().length);
+  });
+
+  onPageChange(event: any): void {
+    this.paginaActual.set(event.page);
+    this.filasPorPagina.set(event.rows);
+  }
+
   confirmarCambioEstado(event: Event, lab: any): void {
     const esActivo = lab.status?.toLowerCase() === 'activo';
     const accion = esActivo ? 'desactivar' : 'activar';

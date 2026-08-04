@@ -6,12 +6,12 @@ import {
   BaseStyle
 } from "./chunk-XBFSX4ZR.js";
 import {
-  Bind
-} from "./chunk-KCMSSV6U.js";
-import {
   PrimeTemplate,
   SharedModule
 } from "./chunk-2NG34RPY.js";
+import {
+  Bind
+} from "./chunk-KCMSSV6U.js";
 import "./chunk-6VCYEF6R.js";
 import "./chunk-Z4TEE3MD.js";
 import {
@@ -61,8 +61,8 @@ import {
   ɵɵtext,
   ɵɵtextInterpolate
 } from "./chunk-HP7SRXOB.js";
-import "./chunk-HWYXSU2G.js";
 import "./chunk-JRFR6BLO.js";
+import "./chunk-HWYXSU2G.js";
 import "./chunk-MARUHEWW.js";
 import "./chunk-46DXP6YY.js";
 

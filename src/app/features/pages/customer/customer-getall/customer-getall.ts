@@ -34,16 +34,8 @@ export class CustomerGetall implements OnInit {
     return lista;
   });
 
+  // --- METRICAS KPI (6 en total) ---
   totalClientes = computed(() => this.clientes().length);
-
-  tiposDoc = computed(() =>
-    this.clientes().reduce((acc: any[], c: any) => {
-      const tipo = c.documentType || 'Otro';
-      const existing = acc.find(t => t.name === tipo);
-      existing ? existing.count++ : acc.push({ name: tipo, count: 1 });
-      return acc;
-    }, [])
-  );
 
   clientesHoy = computed(() => {
     const hoy = new Date().toDateString();
@@ -59,6 +51,25 @@ export class CustomerGetall implements OnInit {
 
   conRuc = computed(() =>
     this.clientes().filter(c => c.documentType === 'RUC').length
+  );
+
+  // NUEVO 1: Clientes Activos (asume campo status, isActive o similar; o si no existe, cuenta todos)
+  activos = computed(() =>
+    this.clientes().filter(c => c.status === true || c.status === 'ACTIVO' || c.isActive !== false).length
+  );
+
+  // NUEVO 2: Clientes con Otro tipo de Documento (Pasaporte, Carnet de Extranjería, Varios, etc.)
+  otrosDocs = computed(() =>
+    this.clientes().filter(c => c.documentType !== 'DNI' && c.documentType !== 'RUC').length
+  );
+
+  tiposDoc = computed(() =>
+    this.clientes().reduce((acc: any[], c: any) => {
+      const tipo = c.documentType || 'Otro';
+      const existing = acc.find(t => t.name === tipo);
+      existing ? existing.count++ : acc.push({ name: tipo, count: 1 });
+      return acc;
+    }, [])
   );
 
   ngOnInit(): void {

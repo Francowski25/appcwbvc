@@ -6,11 +6,12 @@ import { SalesKpi } from '../sales-kpi/sales-kpi';
 import { SalesSidebar } from '../sales-sidebar/sales-sidebar';
 import { SalesTable } from '../sales-table/sales-table';
 import { SalesDetail } from '../sales-detail/sales-detail';
+import { DecimalPipe } from '@angular/common';
 
 @Component({
   selector: 'app-sales-getall',
   standalone: true,
-  imports: [SalesKpi, SalesSidebar, SalesTable, SalesDetail],
+  imports: [SalesKpi, SalesSidebar, SalesTable, SalesDetail, DecimalPipe],
   templateUrl: './sales-getall.html',
 })
 export class SalesGetall implements OnInit {

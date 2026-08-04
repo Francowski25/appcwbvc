@@ -6,8 +6,6 @@ import { ProductSidebar } from '../product-sidebar/product-sidebar';
 import { Dialog } from "primeng/dialog";
 import { ProductInsert } from "../product-insert/product-insert";
 import { ProductKpi } from '../product-kpi/product-kpi';
-import { ProductGrowth } from '../ui/product-growth/product-growth';
-import { ProductCategory } from '../ui/product-category/product-category';
 import { ProductDetail } from '../product-detail/product-detail';
 
 interface FiltroContador {
@@ -17,16 +15,13 @@ interface FiltroContador {
 
 @Component({
   selector: 'app-product-getall',
-  standalone: true,
   imports: [
     ProductsTable,
     ProductSidebar,
     ProductDetail,
     ProductKpi,
     Dialog,
-    ProductInsert,
-    ProductGrowth,
-    ProductCategory
+    ProductInsert
   ],
   templateUrl: './product-getall.html',
   styleUrl: './product-getall.css',

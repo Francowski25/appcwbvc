@@ -1,45 +1,193 @@
-<div class="p-3 sm:p-4 lg:p-6 flex flex-col gap-4 sm:gap-6">
+<div class="space-y-5 p-3 sm:p-4 lg:p-6 max-w-[1700px] mx-auto min-h-screen">
 
-    <app-inventory-kpi [agotados]="agotados().length" [criticos]="criticos().length" [enAlerta]="enAlerta().length"
-        [saludInventario]="saludInventario()" />
+    <header
+        class="relative overflow-hidden rounded-3xl bg-slate-900 text-white p-6 sm:p-8 shadow-xl shadow-rose-950/10 border border-slate-800/80">
 
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-
-        <!-- Gráfica barras -->
-        <div class="md:col-span-2 bg-white rounded-xl border border-gray-100 shadow-sm p-4">
-            <h3 class="text-sm font-semibold text-gray-600 mb-4">
-                <i class="pi pi-chart-bar text-pink-400 mr-2"></i>
-                Stock actual vs Mínimo requerido
-            </h3>
-            <p-chart type="bar" [data]="barChartData()" [options]="barChartOptions" height="250px" />
+        <div
+            class="absolute -top-20 -right-20 w-80 h-80 bg-gradient-to-br from-pink-500/20 via-rose-500/15 to-transparent rounded-full blur-3xl pointer-events-none">
+        </div>
+        <div
+            class="absolute -bottom-20 -left-20 w-80 h-80 bg-gradient-to-tr from-purple-600/15 via-pink-600/10 to-transparent rounded-full blur-3xl pointer-events-none">
+        </div>
+        <div
+            class="absolute inset-0 bg-[radial-gradient(rgba(255,255,255,0.06)_1px,transparent_1px)] [background-size:16px_16px] pointer-events-none">
         </div>
 
-        <!-- Top 5 críticos -->
-        <div class="bg-white rounded-xl border border-gray-100 shadow-sm p-4">
-            <h3 class="text-sm font-semibold text-gray-600 mb-4">
-                <i class="pi pi-list text-pink-400 mr-2"></i>
-                Top 5 más críticos
-            </h3>
-            <div class="flex flex-col gap-4">
-                @for (p of top5Criticos(); track p.idProduct) {
-                <div>
-                    <div class="flex justify-between items-center mb-1">
-                        <span class="text-xs font-medium text-gray-700 truncate max-w-[140px]">{{ p.name }}</span>
-                        <span class="text-xs font-bold"
-                            [class]="Number(p.totalStock) === 0 ? 'text-red-500' : 'text-orange-500'">
-                            {{ p.totalStock }} / {{ p.stockMinimum }}
+        <div class="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+
+            <div class="space-y-2 max-w-xl">
+                <div
+                    class="inline-flex items-center gap-2 bg-pink-500/10 border border-pink-500/20 px-3 py-1 rounded-full text-xs font-semibold text-pink-300">
+                    <span class="relative flex h-2 w-2">
+                        <span
+                            class="animate-ping absolute inline-flex h-full w-full rounded-full bg-pink-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2 w-2 bg-pink-500"></span>
+                    </span>
+                    <i class="pi pi-shield text-[11px]"></i>
+                    <span class="tracking-wide">Botica Virgen de Cocharcas</span>
+                </div>
+
+                <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-white">
+                    Control de Inventario y Alertas
+                </h1>
+
+                <p class="text-xs sm:text-sm text-slate-300/80 font-normal leading-relaxed">
+                    Monitorea niveles de reabastecimiento, prevención de quiebres de stock y analiza la salud general
+                    del inventario.
+                </p>
+            </div>
+
+            <div class="flex flex-wrap sm:flex-nowrap items-center gap-3 shrink-0">
+
+                <div
+                    class="flex-1 sm:flex-none flex items-center gap-3 bg-slate-800/60 backdrop-blur-md border border-slate-700/60 p-3.5 rounded-2xl min-w-[160px]">
+                    <div
+                        class="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 shrink-0">
+                        <i class="pi pi-heart-fill text-lg"></i>
+                    </div>
+                    <div>
+                        <span class="block text-[11px] text-slate-400 font-medium">Salud del Stock</span>
+                        <span class="text-sm font-bold text-emerald-400 tracking-tight">
+                            {{ saludInventario() }}%
                         </span>
                     </div>
-                    <p-progressbar [value]="p.porcentaje" [showValue]="false" styleClass="h-2"
-                        [style]="{ height: '6px' }" [color]="Number(p.totalStock) === 0 ? '#ef4444' : '#f97316'" />
                 </div>
-                }
+
+                <div
+                    class="flex-1 sm:flex-none flex items-center gap-3 bg-slate-800/60 backdrop-blur-md border border-slate-700/60 p-3.5 rounded-2xl min-w-[160px]">
+                    <div
+                        class="w-10 h-10 rounded-xl bg-rose-500/10 border border-rose-500/20 flex items-center justify-center text-rose-400 shrink-0">
+                        <i class="pi pi-exclamation-triangle text-lg"></i>
+                    </div>
+                    <div>
+                        <span class="block text-[11px] text-slate-400 font-medium">En Alerta Crítica</span>
+                        <span class="text-sm font-bold text-rose-300">
+                            {{ criticos().length + agotados().length }}
+                            <span class="text-xs font-normal text-slate-400">
+                                {{ (criticos().length + agotados().length) === 1 ? 'producto' : 'productos' }}
+                            </span>
+                        </span>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </header>
+
+    <section class="w-full">
+        <app-inventory-kpi [totalProductos]="totalProductos()" [agotados]="agotados().length"
+            [criticos]="criticos().length" [enAlerta]="enAlerta().length" [optimos]="optimos().length"
+            [saludInventario]="saludInventario()" />
+    </section>
+
+    <section class="grid grid-cols-1 lg:grid-cols-12 gap-5">
+
+        <div
+            class="lg:col-span-4 bg-white rounded-3xl border border-slate-200/80 p-5 shadow-xs flex flex-col justify-between">
+            <div>
+                <div class="flex items-center justify-between mb-4">
+                    <div>
+                        <span
+                            class="text-[10px] font-black uppercase tracking-wider text-rose-500 bg-rose-50 px-2.5 py-1 rounded-md">
+                            Atención Inmediata
+                        </span>
+                        <h3 class="text-lg font-bold text-slate-900 mt-1 m-0">Top 5 Críticos</h3>
+                    </div>
+                    <div
+                        class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-slate-600 font-bold text-xs">
+                        {{ top5Criticos().length }}
+                    </div>
+                </div>
+
+                <p class="text-xs text-slate-400 mb-4 m-0">Productos con mayor riesgo de ruptura de stock.</p>
+
+                <div class="flex flex-col gap-2.5">
+                    @for (p of top5Criticos(); track p.idProduct; let idx = $index) {
+                    <div
+                        class="relative overflow-hidden bg-slate-50/80 hover:bg-white rounded-2xl p-3 border border-slate-200/70 hover:border-pink-300 transition-all flex flex-col gap-2 shadow-2xs">
+
+                        <div class="absolute left-0 top-0 bottom-0 w-1.5"
+                            [class]="Number(p.totalStock) === 0 ? 'bg-rose-500' : 'bg-amber-500'">
+                        </div>
+
+                        <div class="pl-1.5 flex items-start justify-between gap-2">
+                            <div class="min-w-0">
+                                <h4 class="text-xs font-bold text-slate-800 truncate m-0" [title]="p.name">
+                                    {{ p.name }}
+                                </h4>
+                                <span class="text-[10px] font-medium text-slate-400">
+                                    Mínimo: {{ p.stockMinimum }} u.
+                                </span>
+                            </div>
+
+                            <div class="text-right shrink-0">
+                                <span class="text-xs font-black px-2 py-0.5 rounded-lg inline-block"
+                                    [class]="Number(p.totalStock) === 0 ? 'bg-rose-100 text-rose-700' : 'bg-amber-100 text-amber-800'">
+                                    {{ p.totalStock }} u.
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="pl-1.5 space-y-1">
+                            <div class="flex justify-between items-center text-[10px] font-semibold text-slate-400">
+                                <span>Nivel</span>
+                                <span
+                                    [class]="Number(p.totalStock) === 0 ? 'text-rose-600 font-bold' : 'text-slate-600'">
+                                    {{ p.porcentaje }}%
+                                </span>
+                            </div>
+                            <div class="w-full bg-slate-200/80 h-1.5 rounded-full overflow-hidden">
+                                <div class="h-full rounded-full transition-all duration-300"
+                                    [style.width.%]="p.porcentaje > 100 ? 100 : p.porcentaje"
+                                    [class]="Number(p.totalStock) === 0 ? 'bg-rose-500' : 'bg-amber-500'">
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    } @empty {
+                    <div class="py-8 text-center text-slate-400 text-xs">
+                        <i class="pi pi-check-circle text-2xl text-emerald-500 mb-1"></i>
+                        <p class="m-0 font-medium">Sin alertas críticas por el momento</p>
+                    </div>
+                    }
+                </div>
             </div>
         </div>
-    </div>
 
+        <div
+            class="lg:col-span-8 bg-white rounded-3xl border border-slate-200/80 p-5 shadow-xs flex flex-col justify-between">
+            <div>
+                <div class="flex items-center justify-between pb-3 border-b border-slate-100 mb-4">
+                    <div>
+                        <span class="text-[10px] font-black uppercase tracking-wider text-slate-400">Analítica de
+                            Alertas</span>
+                        <h3 class="text-lg font-bold text-slate-900 mt-0.5 m-0">Comparativa Stock Actual vs Mínimo</h3>
+                    </div>
 
-    <app-inventory-table [productos]="filtradosAlerta()" [loading]="loading()" (busqueda)="busquedaTabla.set($event)"
-        (verLotes)="onVerLotes($event)" (registrarIngreso)="onRegistrarIngreso($event)" />
+                    <div
+                        class="hidden sm:flex items-center gap-2 bg-slate-50 px-3 py-1.5 rounded-xl border border-slate-200/60">
+                        <i class="pi pi-filter text-slate-400 text-xs"></i>
+                        <span class="text-xs font-semibold text-slate-600">
+                            Primeros {{ chartData().length }} {{ chartData().length === 1 ? 'producto' : 'productos' }}
+                            en alerta
+                        </span>
+                    </div>
+                </div>
+
+                <div class="relative w-full h-[320px] pt-2">
+                    <p-chart type="bar" [data]="barChartData()" [options]="barChartOptions" height="100%" />
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <main class="bg-white rounded-3xl border border-slate-200/80 shadow-xs overflow-hidden">
+        <app-inventory-table [productos]="filtradosAlerta()" [loading]="loading()"
+            (busqueda)="busquedaTabla.set($event)" (verLotes)="onVerLotes($event)"
+            (registrarIngreso)="onRegistrarIngreso($event)" />
+    </main>
 
 </div>

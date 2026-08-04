@@ -200,11 +200,13 @@
             class="py-2 px-2 text-sm text-slate-400 hover:text-slate-100 transition-colors rounded">
             Gestión de usuarios
           </a>
+          <!--
           <a routerLink="/admin/usuarios/roles-permisos" (click)="layout.close()"
             routerLinkActive="bg-pink-500/15 text-pink-300 font-semibold border-r-2 border-pink-500"
             class="py-2 px-2 text-sm text-slate-400 hover:text-slate-100 transition-colors rounded">
             Roles y permisos
           </a>
+          -->
         </div>
         }
 
@@ -266,6 +268,7 @@
             class="py-2 px-2 text-sm text-slate-400 hover:text-slate-100 transition-colors rounded">
             Clientes
           </a>
+          <!--
           <a routerLink="/admin/reportes/ingresos" (click)="layout.close()"
             routerLinkActive="bg-pink-500/15 text-pink-300 font-semibold border-r-2 border-pink-500"
             class="py-2 px-2 text-sm text-slate-400 hover:text-slate-100 transition-colors rounded">
@@ -276,6 +279,7 @@
             class="py-2 px-2 text-sm text-slate-400 hover:text-slate-100 transition-colors rounded">
             Movimientos de inventario
           </a>
+          -->
         </div>
         }
 
@@ -285,6 +289,7 @@
         [class.lg:hidden]="collapsed()">Operaciones</p>
 
       <nav class="px-2 flex flex-col gap-0.5">
+        <!--
         <a routerLink="/admin/operaciones/productos-vencer" (click)="layout.close()"
           routerLinkActive="bg-pink-500/15 text-pink-300 font-semibold border-r-2 border-pink-500"
           class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:text-slate-100 hover:bg-white/5 transition-colors text-sm"
@@ -292,6 +297,7 @@
           <i class="pi pi-calendar text-base flex-shrink-0"></i>
           <span [class.lg:hidden]="collapsed()">Productos por vencer</span>
         </a>
+        -->
         <a routerLink="/admin/alertas" (click)="layout.close()"
           routerLinkActive="bg-pink-500/15 text-pink-300 font-semibold border-r-2 border-pink-500"
           class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:text-slate-100 hover:bg-white/5 transition-colors text-sm"
@@ -312,6 +318,7 @@
         <span [class.lg:hidden]="collapsed()">Ayuda</span>
       </a>
 
+      <!--
       <a routerLink="/admin/almacen" (click)="layout.close()"
         routerLinkActive="bg-pink-500/15 text-pink-300 font-semibold border-r-2 border-pink-500"
         class="flex items-center gap-3 px-2 py-2 rounded-lg text-slate-400 hover:text-slate-100 hover:bg-white/5 transition-colors text-sm font-medium"
@@ -319,6 +326,7 @@
         <i class="pi pi-box text-base flex-shrink-0"></i>
         <span [class.lg:hidden]="collapsed()">Almacén</span>
       </a>
+      -->
 
       <button (click)="logout()"
         class="flex items-center gap-3 px-2 py-2 w-full rounded-lg text-slate-400 hover:text-red-400 hover:bg-red-500/10 transition-colors text-sm font-medium"

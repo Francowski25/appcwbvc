@@ -1,10 +1,87 @@
-<div class="flex flex-col gap-6 w-full">
+<div class="space-y-5 p-3 sm:p-4 lg:p-6 max-w-[1700px] mx-auto min-h-screen">
 
-  <app-user-kpi [total]="totalUsuarios()" [activos]="totalActivos()" [inactivos]="totalInactivos()"
-    [admins]="totalesPorRol().administrador" [quimicos]="totalesPorRol().quimico"
-    [vendedores]="totalesPorRol().vendedor" class="w-full block" />
+  <header
+    class="relative overflow-hidden rounded-3xl bg-slate-900 text-white p-6 sm:p-8 shadow-xl shadow-rose-950/10 border border-slate-800/80">
 
-  <div class="flex flex-col lg:flex-row gap-6 items-start w-full">
+    <div
+      class="absolute -top-20 -right-20 w-80 h-80 bg-gradient-to-br from-pink-500/20 via-rose-500/15 to-transparent rounded-full blur-3xl pointer-events-none">
+    </div>
+    <div
+      class="absolute -bottom-20 -left-20 w-80 h-80 bg-gradient-to-tr from-purple-600/15 via-pink-600/10 to-transparent rounded-full blur-3xl pointer-events-none">
+    </div>
+    <div
+      class="absolute inset-0 bg-[radial-gradient(rgba(255,255,255,0.06)_1px,transparent_1px)] [background-size:16px_16px] pointer-events-none">
+    </div>
+
+    <div class="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+
+      <div class="space-y-2 max-w-xl">
+        <div
+          class="inline-flex items-center gap-2 bg-pink-500/10 border border-pink-500/20 px-3 py-1 rounded-full text-xs font-semibold text-pink-300">
+          <span class="relative flex h-2 w-2">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-pink-400 opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2 w-2 bg-pink-500"></span>
+          </span>
+          <i class="pi pi-shield text-[11px]"></i>
+          <span class="tracking-wide">Botica Virgen de Cocharcas</span>
+        </div>
+
+        <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-white">
+          Gestión de Usuarios
+        </h1>
+
+        <p class="text-xs sm:text-sm text-slate-300/80 font-normal leading-relaxed">
+          Administra las cuentas del personal, roles de acceso y permisos.
+        </p>
+      </div>
+
+      <div class="flex flex-wrap sm:flex-nowrap items-center gap-3 shrink-0">
+
+        <div
+          class="flex-1 sm:flex-none flex items-center gap-3 bg-slate-800/60 backdrop-blur-md border border-slate-700/60 p-3.5 rounded-2xl min-w-[160px]">
+          <div
+            class="w-10 h-10 rounded-xl bg-pink-500/10 border border-pink-500/20 flex items-center justify-center text-pink-400 shrink-0">
+            <i class="pi pi-users text-lg"></i>
+          </div>
+          <div>
+            <span class="block text-[11px] text-slate-400 font-medium">Total Cuentas</span>
+            <span class="text-sm font-bold text-pink-400 tracking-tight">
+              {{ totalUsuarios() }}
+              <span class="text-xs font-normal text-pink-400">
+                {{ totalUsuarios() === 1 ? 'usuario' : 'usuarios' }}
+              </span>
+            </span>
+          </div>
+        </div>
+
+        <div
+          class="flex-1 sm:flex-none flex items-center gap-3 bg-slate-800/60 backdrop-blur-md border border-slate-700/60 p-3.5 rounded-2xl min-w-[160px]">
+          <div
+            class="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 shrink-0">
+            <i class="pi pi-user-plus text-lg"></i>
+          </div>
+          <div>
+            <span class="block text-[11px] text-slate-400 font-medium">Estado General</span>
+            <span class="text-xs font-semibold text-emerald-400 flex items-center gap-1.5 mt-0.5">
+              <span>{{ totalActivos() }} Activos</span>
+              <span class="text-slate-600">•</span>
+              <span class="text-slate-400 font-normal">{{ totalInactivos() }} Inactivos</span>
+            </span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </header>
+
+  <section class="w-full">
+    <app-user-kpi [total]="totalUsuarios()" [activos]="totalActivos()" [inactivos]="totalInactivos()"
+      [admins]="totalesPorRol().administrador" [quimicos]="totalesPorRol().quimico"
+      [vendedores]="totalesPorRol().vendedor" class="w-full block" />
+  </section>
+
+  <main class="flex flex-col lg:flex-row gap-6 items-start w-full">
 
     <app-users-table class="block w-full flex-1 min-w-0" [usuariosData]="filtrados()" [loadingState]="loading()"
       (editarUser)="onEditar($event)" (cambiarPassword)="onChangePassword($event)"
@@ -15,67 +92,73 @@
       [countsByRole]="totalesPorRol()" (busquedaChange)="onBusquedaChange($event)" (roleChange)="rol.set($event)"
       (estadoChange)="estado.set($event)" />
 
-  </div>
+  </main>
+
+  <p-confirmDialog />
+
+  <p-dialog [visible]="showInsertDialog()" (visibleChange)="showInsertDialog.set($event)" [modal]="true"
+    [draggable]="false" [resizable]="false" [style]="{ width: '52rem' }" [breakpoints]="{ '768px': '95vw' }"
+    [dismissableMask]="false" styleClass="!rounded-2xl !p-0 overflow-hidden shadow-2xl border-0"
+    (onHide)="insertUserComp.resetForm()">
+
+    <ng-template #header>
+      <div class="flex items-center gap-3.5 py-1">
+        <div
+          class="w-11 h-11 rounded-2xl bg-pink-100/80 flex items-center justify-center text-pink-600 border border-pink-200/60 shrink-0 shadow-xs">
+          <i class="pi pi-user-plus text-xl"></i>
+        </div>
+        <div class="text-left">
+          <h2 class="font-bold text-base md:text-lg text-slate-800 leading-tight">Registrar Nuevo Usuario</h2>
+          <p class="text-[11px] md:text-xs text-slate-500 mt-0.5 leading-normal font-normal">
+            Complete el formulario para crear una nueva cuenta en el sistema de la botica.
+          </p>
+        </div>
+      </div>
+    </ng-template>
+
+    <ng-template #icons>
+      <button type="button"
+        class="p-dialog-header-icon p-link !w-8 !h-8 !rounded-xl hover:!bg-slate-100 transition-colors"
+        (click)="showInsertDialog.set(false)" aria-label="Cerrar">
+        <i class="pi pi-times text-slate-400"></i>
+      </button>
+    </ng-template>
+
+    <app-users-insert #insertUserComp (usuarioRegistrado)="onUsuarioRegistrado()"
+      (cerrarDialog)="showInsertDialog.set(false)" />
+
+  </p-dialog>
+
+  <p-dialog [visible]="showDetailsDialog()" (visibleChange)="showDetailsDialog.set($event)" [modal]="true"
+    [draggable]="false" [resizable]="false" [style]="{ width: '52rem' }" [breakpoints]="{ '768px': '95vw' }"
+    [dismissableMask]="false" styleClass="!rounded-2xl !p-0 overflow-hidden shadow-2xl border-0">
+
+    <ng-template #header>
+      <div class="flex items-center gap-3.5 py-1">
+        <div
+          class="w-11 h-11 rounded-2xl bg-pink-100/80 flex items-center justify-center text-pink-600 border border-pink-200/60 shrink-0 shadow-xs">
+          <i class="pi pi-user text-xl"></i>
+        </div>
+        <div class="text-left">
+          <h2 class="font-bold text-base md:text-lg text-slate-800 leading-tight">Detalles y Edición de Usuario</h2>
+          <p class="text-[11px] md:text-xs text-slate-500 mt-0.5 leading-normal font-normal">
+            Consulte o modifique la información de la cuenta de usuario seleccionada.
+          </p>
+        </div>
+      </div>
+    </ng-template>
+
+    <ng-template #icons>
+      <button type="button"
+        class="p-dialog-header-icon p-link !w-8 !h-8 !rounded-xl hover:!bg-slate-100 transition-colors"
+        (click)="showDetailsDialog.set(false)" aria-label="Cerrar">
+        <i class="pi pi-times text-slate-400"></i>
+      </button>
+    </ng-template>
+
+    <app-user-details [usuario]="usuarioSeleccionado()" (onClose)="showDetailsDialog.set(false)"
+      (onSave)="onGuardarUsuario($event)" />
+
+  </p-dialog>
+
 </div>
-
-<p-confirmDialog />
-
-<p-dialog [visible]="showInsertDialog()" (visibleChange)="showInsertDialog.set($event)" [modal]="true"
-  [draggable]="false" [resizable]="false" [style]="{ width: '52rem' }" [breakpoints]="{ '768px': '95vw' }"
-  [dismissableMask]="false" styleClass="!rounded-2xl !p-0 overflow-hidden" (onHide)="insertUserComp.resetForm()">
-
-  <ng-template #header>
-    <div class="flex items-center gap-4 py-1">
-      <div
-        class="w-12 h-12 rounded-full bg-pink-100 flex items-center justify-center text-pink-600 border border-pink-200 shrink-0">
-        <i class="pi pi-user-plus text-xl"></i>
-      </div>
-      <div class="text-left">
-        <h2 class="font-bold text-base md:text-lg text-slate-700 leading-tight">Registrar Nuevo Usuario</h2>
-        <p class="text-xs text-slate-400 mt-0.5 leading-normal font-normal">
-          Complete el formulario para crear una nueva cuenta en el sistema de la botica.
-        </p>
-      </div>
-    </div>
-  </ng-template>
-
-  <ng-template #icons>
-    <button class="p-dialog-header-icon p-link" (click)="showInsertDialog.set(false)">
-      <i class="pi pi-times"></i>
-    </button>
-  </ng-template>
-
-  <app-users-insert #insertUserComp (usuarioRegistrado)="onUsuarioRegistrado()"
-    (cerrarDialog)="showInsertDialog.set(false)" />
-
-</p-dialog>
-
-<p-dialog [visible]="showDetailsDialog()" (visibleChange)="showDetailsDialog.set($event)" [modal]="true"
-  [draggable]="false" [resizable]="false" [style]="{ width: '52rem' }" [breakpoints]="{ '768px': '95vw' }"
-  [dismissableMask]="false" styleClass="!rounded-2xl !p-0 overflow-hidden">
-
-  <ng-template #header>
-    <div class="flex items-center gap-4 py-1">
-      <div
-        class="w-12 h-12 rounded-full bg-pink-100 flex items-center justify-center text-pink-600 border border-pink-200 shrink-0">
-        <i class="pi pi-user text-xl"></i>
-      </div>
-      <div class="text-left">
-        <h2 class="font-bold text-base md:text-lg text-slate-700 leading-tight">Detalles y Edición de Usuario</h2>
-        <p class="text-xs text-slate-400 mt-0.5 leading-normal font-normal">
-          Consulte o modifique la información de la cuenta de usuario seleccionada.
-        </p>
-      </div>
-    </div>
-  </ng-template>
-
-  <ng-template #icons>
-    <button class="p-dialog-header-icon p-link" (click)="showDetailsDialog.set(false)">
-      <i class="pi pi-times"></i>
-    </button>
-  </ng-template>
-
-  <app-user-details [usuario]="usuarioSeleccionado()" (onClose)="showDetailsDialog.set(false)"
-    (onSave)="onGuardarUsuario($event)" />
-
-</p-dialog>

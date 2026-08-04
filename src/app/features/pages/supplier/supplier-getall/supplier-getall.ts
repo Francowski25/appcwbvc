@@ -1,7 +1,6 @@
 import { Component, OnInit, signal, computed, inject } from '@angular/core';
 import { Api } from '../../../../api/api';
 import { supplierGetall, supplierStatus, SupplierStatus$Params } from '../../../../api/functions';
-import { SupplierKpi } from '../supplier-kpi/supplier-kpi';
 import { SupplierSidebar } from '../supplier-sidebar/supplier-sidebar';
 import { SupplierTable } from '../supplier-table/supplier-table';
 import { SupplierNew } from '../supplier-new/supplier-new';
@@ -9,9 +8,7 @@ import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-supplier-getall',
-  standalone: true,
   imports: [
-    SupplierKpi,
     SupplierSidebar,
     SupplierTable,
     SupplierNew

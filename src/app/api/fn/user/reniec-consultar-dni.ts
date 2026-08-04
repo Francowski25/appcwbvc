@@ -7,32 +7,23 @@ import { filter, map } from 'rxjs/operators';
 import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
+
 export interface ReniecConsultarDni$Params {
-    numero: string;
 }
 
-export interface ReniecDniResponse {
-    first_name: string;
-    first_last_name: string;
-    second_last_name: string;
-    full_name: string;
-    document_number: string;
+export function reniecConsultarDni(http: HttpClient, rootUrl: string, params?: ReniecConsultarDni$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+  const rb = new RequestBuilder(rootUrl, reniecConsultarDni.PATH, 'get');
+  if (params) {
+  }
+
+  return http.request(
+    rb.build({ responseType: 'text', accept: '*/*', context })
+  ).pipe(
+    filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
+    map((r: HttpResponse<any>) => {
+      return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+    })
+  );
 }
 
-export function reniecConsultarDni(http: HttpClient, rootUrl: string, params: ReniecConsultarDni$Params, context?: HttpContext): Observable<StrictHttpResponse<ReniecDniResponse>> {
-    const rb = new RequestBuilder(rootUrl, reniecConsultarDni.PATH, 'get');
-    if (params) {
-        rb.query('numero', params.numero, {});
-    }
-
-    return http.request(
-        rb.build({ responseType: 'json', accept: 'application/json', context })
-    ).pipe(
-        filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
-        map((r: HttpResponse<any>) => {
-            return r as StrictHttpResponse<ReniecDniResponse>;
-        })
-    );
-}
-
-reniecConsultarDni.PATH = '/v1/reniec/dni';
+reniecConsultarDni.PATH = '/api/reniec/75576009';

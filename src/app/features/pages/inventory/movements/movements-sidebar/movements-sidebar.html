@@ -1,0 +1,86 @@
+<div class="w-full bg-white p-4 rounded-2xl border border-gray-100 shadow-sm flex flex-col gap-4">
+
+    <div class="flex items-center justify-between">
+        <div>
+            <h3 class="text-xs font-bold text-gray-700 flex items-center gap-1.5 uppercase tracking-wider">
+                <i class="pi pi-filter text-pink-500 text-xs"></i>
+                Filtros de Búsqueda
+            </h3>
+            <p class="text-[11px] text-gray-400 mt-0.5">Refina el historial de movimientos en tiempo real.</p>
+        </div>
+
+        @if (hayFiltros()) {
+        <button type="button" (click)="onLimpiarTodosLosFiltros()"
+            class="text-[11px] font-bold text-pink-500 hover:text-pink-600 bg-pink-50/50 hover:bg-pink-100/70 px-2.5 py-1 rounded-lg border border-pink-100/60 transition-all cursor-pointer whitespace-nowrap flex items-center gap-1.5 active:scale-95">
+            <i class="pi pi-refresh text-[10px]"></i>
+            Limpiar filtros
+        </button>
+        }
+    </div>
+
+    <hr class="border-gray-100 my-0">
+
+    <div class="flex flex-col md:flex-row items-stretch md:items-center gap-4">
+
+        <div class="flex flex-col gap-1.5 w-full md:max-w-xs">
+            <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Buscar Movimiento</label>
+
+            <div class="relative w-full group">
+                <i class="pi pi-search absolute left-3.5 top-1/2 -translate-y-1/2 text-xs transition-colors duration-200 z-10 pointer-events-none"
+                    [ngClass]="busquedaValue() ? 'text-pink-500 font-bold' : 'text-gray-400 group-hover:text-gray-500'"></i>
+
+                <input type="text" placeholder="Buscar por ID, observación, usuario..." [value]="busquedaValue()"
+                    (input)="onBusquedaInput($event)" class="w-full text-xs pl-9 pr-8 py-2.5 rounded-xl border border-gray-200 bg-gray-50/30 text-gray-700 placeholder-gray-400 
+                 transition-all duration-200 ease-in-out
+                 hover:bg-white hover:border-pink-200 hover:shadow-sm
+                 focus:bg-white focus:border-pink-500 focus:ring-4 focus:ring-pink-500/10 focus:outline-none" />
+
+                @if (busquedaValue()) {
+                <button type="button" (click)="onLimpiarBusqueda()"
+                    class="absolute right-2.5 top-1/2 -translate-y-1/2 w-5 h-5 flex items-center justify-center rounded-full text-gray-400 hover:text-pink-500 hover:bg-pink-50 transition-all cursor-pointer border-none bg-transparent">
+                    <i class="pi pi-times text-[10px]"></i>
+                </button>
+                }
+            </div>
+        </div>
+
+        <div class="flex flex-col gap-1.5 w-full md:w-auto overflow-hidden">
+            <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Filtrar por Tipo</label>
+
+            <div
+                class="bg-gray-50/60 border border-pink-100/70 rounded-xl p-1 flex flex-row gap-1 items-center h-[38px] overflow-x-auto">
+
+                <button type="button" (click)="tipoChange.emit('')"
+                    class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs transition-all duration-150 cursor-pointer h-full whitespace-nowrap active:scale-95"
+                    [ngClass]="tipoValue() === ''
+            ? 'bg-pink-500 text-white shadow-xs font-bold'
+            : 'text-gray-500 hover:bg-pink-50 hover:text-pink-500'">
+                    <i class="pi pi-th-large text-[10px]"></i>
+                    <span>Todos</span>
+                    <span class="text-[10px] px-1.5 py-0.5 rounded-full transition-colors"
+                        [ngClass]="tipoValue() === '' ? 'bg-white/20 text-white' : 'bg-gray-200/70 text-gray-400'">
+                        {{ totalMovimientos() }}
+                    </span>
+                </button>
+
+                @for (t of tipos; track t.name) {
+                <button type="button" (click)="tipoChange.emit(t.name)"
+                    class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs transition-all duration-150 cursor-pointer h-full whitespace-nowrap active:scale-95"
+                    [ngClass]="tipoValue() === t.name
+              ? 'bg-pink-500 text-white shadow-xs font-bold'
+              : 'text-gray-500 hover:bg-pink-50 hover:text-pink-500'">
+                    <i [class]="t.icon + ' text-[10px]'"></i>
+                    <span>{{ t.label }}</span>
+                    <span class="text-[10px] px-1.5 py-0.5 rounded-full transition-colors"
+                        [ngClass]="tipoValue() === t.name ? 'bg-white/20 text-white' : 'bg-pink-50 text-pink-400'">
+                        {{ t.count() }}
+                    </span>
+                </button>
+                }
+
+            </div>
+        </div>
+
+    </div>
+
+</div>

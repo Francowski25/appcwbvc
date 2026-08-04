@@ -6,7 +6,6 @@ import { CategoryTable } from '../category-table/category-table';
 import { MessageService, ConfirmationService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { DialogModule } from 'primeng/dialog';
-import { CategoryGraphic } from '../ui/category-graphic/category-graphic';
 import { CategoryInsert } from '../category-insert/category-insert';
 import { CategoryDetail } from '../category-detail/category-detail';
 
@@ -16,7 +15,6 @@ import { CategoryDetail } from '../category-detail/category-detail';
   imports: [
     CategorySidebar,
     CategoryTable,
-    CategoryGraphic,
     CategoryInsert,
     ConfirmDialogModule,
     DialogModule,

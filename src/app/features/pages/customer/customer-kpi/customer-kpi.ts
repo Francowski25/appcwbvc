@@ -8,8 +8,10 @@ import { Component, input } from '@angular/core';
   styleUrl: './customer-kpi.css',
 })
 export class CustomerKpi {
-  totalClientes = input.required<number>();
-  clientesHoy = input.required<number>();
-  conDni = input.required<number>();
-  conRuc = input.required<number>();
+  totalClientes = input<number>(0);
+  clientesHoy = input<number>(0);
+  conDni = input<number>(0);
+  conRuc = input<number>(0);
+  activos = input<number>(0);
+  otrosDocs = input<number>(0);
 }
